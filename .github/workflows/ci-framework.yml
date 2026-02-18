@@ -34,6 +34,11 @@ jobs:
         run: |
           pwsh -NoProfile -File tools/profile-validate/validate.ps1 -ProfilePath project.profile.yaml
 
+      - name: Validate task states
+        shell: pwsh
+        run: |
+          pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks
+
       - name: Resolve task ID
         id: resolve_task
         shell: pwsh

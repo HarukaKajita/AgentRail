@@ -10,10 +10,11 @@ Phase 2 後半として、`docs-indexer` と `consistency-check` を GitHub Acti
 2. `workflow_dispatch` で任意 `task_id` 指定起動に対応
 3. `tools/docs-indexer/index.ps1 -Mode check` を実行
 4. `tools/profile-validate/validate.ps1 -ProfilePath project.profile.yaml` を実行
-5. `check` または profile validator が失敗した場合はジョブを停止する
-6. `tools/ci/resolve-task-id.ps1` で task-id を解決
-7. `tools/improvement-harvest/scan.ps1 -TaskId <resolved-task-id>` を実行
-8. `tools/consistency-check/check.ps1 -TaskId <resolved-task-id>` を実行
+5. `tools/state-validate/validate.ps1 -AllTasks` を実行
+6. `check` または validator 群が失敗した場合はジョブを停止する
+7. `tools/ci/resolve-task-id.ps1` で task-id を解決
+8. `tools/improvement-harvest/scan.ps1 -TaskId <resolved-task-id>` を実行
+9. `tools/consistency-check/check.ps1 -TaskId <resolved-task-id>` を実行
 
 ### task-id 解決ルール
 

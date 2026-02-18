@@ -32,3 +32,10 @@
 ## 6. 完了判定
 
 - AC-001〜AC-005 をすべて PASS
+
+## 7. 実装実行計画（2026-02-18T21:35:30+09:00）
+
+1. `tools/state-validate/validate.ps1` を新規作成し、必須キーと許可 state を検証する。
+2. `state=done` の task に対して成果物整合（review/Process Findings 等）を追加検証する。
+3. workflow に state validator step を追加し、checker 前に fail-fast させる。
+4. 正常/異常ケースをテストし、review/state/docs を更新する。

@@ -5,30 +5,30 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-18__project-profile-schema-validation
-- タイトル: project.profile.yaml スキーマ検証
+- Task ID: 2026-02-18__state-transition-validation
+- タイトル: state.json 状態遷移検証
 - 状態: done
-- 最終更新日時: 2026-02-18T21:34:07+09:00
+- 最終更新日時: 2026-02-18T21:38:20+09:00
 - 担当: Codex
 
 ## 2. 今回の目的
 
-- profile 専用 validator を追加し、必須キー欠落と禁止値 (`TODO_SET_ME`) を早期検出する。
-- CI に validator step を組み込み、task 解決・checker 実行前に fail-fast する。
-- profile 検証ロジックを独立化して、失敗原因の可観測性を高める。
+- state 専用 validator を追加し、許可 state・必須キー・done 整合条件を検証する。
+- CI で全 task の state 検証を事前実行し、状態不整合を fail-fast する。
+- 既存 done/planned/in_progress task で誤検知しない最小ルールを整備する。
 
 ## 3. 完了済み
 
-- `tools/profile-validate/validate.ps1` を新規追加し、必須キー検証と `TODO_SET_ME` 検知を実装した。
-- `.github/workflows/ci-framework.yml` に `Validate project profile` step を追加した。
-- `docs/specs/phase2-ci-integration-spec.md` / `docs/specs/phase2-automation-spec.md` を validator 導入後の手順へ更新した。
-- 一時ディレクトリで正常/欠落/TODO の3ケースを実行し、期待どおり PASS/FAIL を確認した。
+- `tools/state-validate/validate.ps1` を新規追加し、`-TaskId` / `-AllTasks` モードを実装した。
+- `state` 許可値、必須キー、`done` 時の review 完了整合（PENDING 残存なし）を検証するようにした。
+- `.github/workflows/ci-framework.yml` に `Validate task states` step を追加した。
+- 一時ディレクトリで正常/不正 state/欠落キー/done不整合のケースを実行し期待どおり PASS/FAIL を確認した。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-18
-- 決定内容: profile 検証は checker 依存を減らし、専用 validator を CI の前段で実行する。
-- 根拠資料: `work/2026-02-18__project-profile-schema-validation/spec.md`
+- 決定内容: state validator は初期段階として最小整合条件（必須キー + done時review整合）を採用する。
+- 根拠資料: `work/2026-02-18__state-transition-validation/spec.md`
 
 ## 5. 未解決・ブロッカー
 
@@ -36,9 +36,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-18__state-transition-validation` の実装計画を更新し、state validator を追加する。
-2. `2026-02-18__consistency-check-json-output` を実装する。
-3. `2026-02-18__consistency-check-multi-task-mode` を実装する。
+1. `2026-02-18__consistency-check-json-output` を実装する。
+2. `2026-02-18__consistency-check-multi-task-mode` を実装する。
+3. validator 群（profile/state）の将来強化項目を backlog へ反映する。
 
 ## 7. 参照先
 
