@@ -14,7 +14,7 @@ Phase 2 後半として、`docs-indexer` と `consistency-check` を GitHub Acti
 6. `check` または validator 群が失敗した場合はジョブを停止する
 7. `tools/ci/resolve-task-id.ps1` で task-id を解決
 8. `tools/improvement-harvest/scan.ps1 -TaskId <resolved-task-id>` を実行
-9. `tools/consistency-check/check.ps1 -TaskId <resolved-task-id>` を実行
+9. `tools/consistency-check/check.ps1 -TaskId <resolved-task-id>` を実行（必要に応じて `-OutputFormat json` を利用可能）
 
 ### task-id 解決ルール
 

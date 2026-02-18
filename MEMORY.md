@@ -5,30 +5,30 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-18__state-transition-validation
-- タイトル: state.json 状態遷移検証
+- Task ID: 2026-02-18__consistency-check-json-output
+- タイトル: consistency-check JSON 出力対応
 - 状態: done
-- 最終更新日時: 2026-02-18T21:38:20+09:00
+- 最終更新日時: 2026-02-18T22:27:44+09:00
 - 担当: Codex
 
 ## 2. 今回の目的
 
-- state 専用 validator を追加し、許可 state・必須キー・done 整合条件を検証する。
-- CI で全 task の state 検証を事前実行し、状態不整合を fail-fast する。
-- 既存 done/planned/in_progress task で誤検知しない最小ルールを整備する。
+- consistency-check に `-OutputFormat json` と `-OutputFile` を追加し、機械可読連携を可能にする。
+- text/json の出力を同一結果モデルから生成して情報不整合を防ぐ。
+- 失敗時でも JSON を返し、従来どおり終了コード1を維持する。
 
 ## 3. 完了済み
 
-- `tools/state-validate/validate.ps1` を新規追加し、`-TaskId` / `-AllTasks` モードを実装した。
-- `state` 許可値、必須キー、`done` 時の review 完了整合（PENDING 残存なし）を検証するようにした。
-- `.github/workflows/ci-framework.yml` に `Validate task states` step を追加した。
-- 一時ディレクトリで正常/不正 state/欠落キー/done不整合のケースを実行し期待どおり PASS/FAIL を確認した。
+- `tools/consistency-check/check.ps1` に `-OutputFormat text|json` と `-OutputFile` を追加した。
+- JSON payload に `task_id`, `status`, `failure_count`, `failures[]` を実装した。
+- 既定 text 出力（`CHECK_RESULT` 形式）を維持したまま JSON 出力を追加した。
+- docs へ JSON スキーマと利用コマンド例を反映した。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-18
-- 決定内容: state validator は初期段階として最小整合条件（必須キー + done時review整合）を採用する。
-- 根拠資料: `work/2026-02-18__state-transition-validation/spec.md`
+- 決定内容: checker の JSON 出力は text 出力と同一結果モデルを共有し、終了コード契約は変更しない。
+- 根拠資料: `work/2026-02-18__consistency-check-json-output/spec.md`
 
 ## 5. 未解決・ブロッカー
 
@@ -36,8 +36,8 @@
 
 ## 6. 次アクション
 
-1. `2026-02-18__consistency-check-json-output` を実装する。
-2. `2026-02-18__consistency-check-multi-task-mode` を実装する。
+1. `2026-02-18__consistency-check-multi-task-mode` を実装する。
+2. consistency-check の JSON schema version 運用方針を必要に応じて追加する。
 3. validator 群（profile/state）の将来強化項目を backlog へ反映する。
 
 ## 7. 参照先

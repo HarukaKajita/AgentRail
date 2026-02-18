@@ -2,7 +2,7 @@
 
 ## 1. 調査対象 [空欄禁止]
 
-- `check.ps1` の結果を機械可読化する出力仕様。
+- `tools/consistency-check/check.ps1` の結果を機械可読化する出力仕様。
 
 ## 2. 仮説 (Hypothesis / 仮説) [空欄禁止]
 

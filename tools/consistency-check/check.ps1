@@ -3,7 +3,10 @@ param(
   [string]$TaskId,
   [string]$WorkRoot = "work",
   [string]$DocsIndexPath = "docs/INDEX.md",
-  [string]$ProfilePath = "project.profile.yaml"
+  [string]$ProfilePath = "project.profile.yaml",
+  [ValidateSet("text", "json")]
+  [string]$OutputFormat = "text",
+  [string]$OutputFile = ""
 )
 
 Set-StrictMode -Version Latest
@@ -404,15 +407,51 @@ foreach ($pair in $existingTaskFiles.GetEnumerator()) {
   }
 }
 
-if ($failures.Count -eq 0) {
-  Write-Output "CHECK_RESULT: PASS"
-  Write-Output "All checks passed for task: $TaskId"
-  exit 0
+$status = if ($failures.Count -eq 0) { "PASS" } else { "FAIL" }
+$exitCode = if ($failures.Count -eq 0) { 0 } else { 1 }
+
+$resultObject = [PSCustomObject]@{
+  task_id       = $TaskId
+  status        = $status
+  failure_count = $failures.Count
+  failures      = $failures.ToArray()
 }
 
-Write-Output "CHECK_RESULT: FAIL"
-Write-Output "Failure Count: $($failures.Count)"
-foreach ($failure in $failures) {
-  Write-Output "- rule_id=$($failure.rule_id); file=$($failure.file); reason=$($failure.reason)"
+if ($OutputFormat -eq "json") {
+  $jsonPayload = $resultObject | ConvertTo-Json -Depth 10
+  Write-Output $jsonPayload
+  if (-not [string]::IsNullOrWhiteSpace($OutputFile)) {
+    $parent = Split-Path -Parent $OutputFile
+    if (-not [string]::IsNullOrWhiteSpace($parent)) {
+      New-Item -ItemType Directory -Path $parent -Force | Out-Null
+    }
+    Set-Content -LiteralPath $OutputFile -Value $jsonPayload -NoNewline
+  }
+  exit $exitCode
 }
-exit 1
+
+$textLines = New-Object System.Collections.Generic.List[string]
+if ($status -eq "PASS") {
+  $textLines.Add("CHECK_RESULT: PASS")
+  $textLines.Add("All checks passed for task: $TaskId")
+} else {
+  $textLines.Add("CHECK_RESULT: FAIL")
+  $textLines.Add("Failure Count: $($failures.Count)")
+  foreach ($failure in $failures) {
+    $textLines.Add("- rule_id=$($failure.rule_id); file=$($failure.file); reason=$($failure.reason)")
+  }
+}
+
+foreach ($line in $textLines) {
+  Write-Output $line
+}
+
+if (-not [string]::IsNullOrWhiteSpace($OutputFile)) {
+  $parent = Split-Path -Parent $OutputFile
+  if (-not [string]::IsNullOrWhiteSpace($parent)) {
+    New-Item -ItemType Directory -Path $parent -Force | Out-Null
+  }
+  Set-Content -LiteralPath $OutputFile -Value ($textLines -join [Environment]::NewLine) -NoNewline
+}
+
+exit $exitCode

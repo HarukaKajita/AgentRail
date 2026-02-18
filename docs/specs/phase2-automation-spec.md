@@ -51,6 +51,7 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 - チェック結果レポート（PASS/FAIL）
 - 失敗一覧（ルールID、対象ファイル、理由）
 - 終了コード（成功 0 / 失敗 1）
+- `-OutputFormat json` 時は機械可読 JSON（`task_id`, `status`, `failure_count`, `failures[]`）
 
 ### 3.3 検査項目
 
@@ -74,6 +75,20 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 - 検査項目 1〜7 がすべて PASS のとき終了コード 0
 - いずれか FAIL のとき終了コード 1 と詳細レポートを返す
 
+### 3.6 JSON 出力スキーマ
+
+```json
+{
+  "task_id": "2026-02-18__example-task",
+  "status": "PASS",
+  "failure_count": 0,
+  "failures": []
+}
+```
+
+- `-OutputFormat json` で標準出力へ JSON を返す。
+- `-OutputFile <path>` 指定時は同一 JSON をファイル保存する。
+
 ## 4. 実装方式（確定）
 
 - 採用言語: PowerShell
@@ -86,6 +101,7 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 
 - `pwsh -NoProfile -File tools/docs-indexer/index.ps1`
 - `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId <task-id>`
+- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId <task-id> -OutputFormat json -OutputFile artifacts/check-result.json`
 - `pwsh -NoProfile -File tools/improvement-harvest/scan.ps1 -TaskId <task-id>`
 - `pwsh -NoProfile -File tools/improvement-harvest/create-task.ps1 -SourceTaskId <task-id> -FindingId <finding-id> -Title <title> -Severity <severity> -Category <category>`
 

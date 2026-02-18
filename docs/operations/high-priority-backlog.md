@@ -6,12 +6,7 @@
 
 ## 優先タスク一覧
 
-1. `2026-02-18__consistency-check-json-output`
-- 状態: planned
-- 目的: `check_consistency` に JSON 出力を追加し機械可読性を向上する
-- 参照: `work/2026-02-18__consistency-check-json-output/spec.md`
-
-2. `2026-02-18__consistency-check-multi-task-mode`
+1. `2026-02-18__consistency-check-multi-task-mode`
 - 状態: planned
 - 目的: `check_consistency` に複数 task 一括検査モードを追加する
 - 参照: `work/2026-02-18__consistency-check-multi-task-mode/spec.md`
@@ -38,7 +33,12 @@
 - 目的: `state.json` の整合検証を CI に導入
 - 参照: `work/2026-02-18__state-transition-validation/spec.md`
 
-5. `2026-02-18__self-improvement-loop-enforcement`
+5. `2026-02-18__consistency-check-json-output`
+- 状態: done
+- 目的: `check_consistency` に JSON 出力を追加し機械可読性を向上する
+- 参照: `work/2026-02-18__consistency-check-json-output/spec.md`
+
+6. `2026-02-18__self-improvement-loop-enforcement`
 - 状態: done
 - 目的: Process Findings + 改善起票強制 + CI 改善ゲート導入
 - 参照: `work/2026-02-18__self-improvement-loop-enforcement/spec.md`

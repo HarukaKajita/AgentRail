@@ -34,3 +34,10 @@
 ## 6. 完了判定
 
 - AC-001〜AC-005 がすべて PASS
+
+## 7. 実装実行計画（2026-02-18T21:40:39+09:00）
+
+1. `tools/consistency-check/check.ps1` に `-OutputFormat text|json` と `-OutputFile` を追加する。
+2. 失敗情報の共通結果モデルを作り、text/json の両出力で同一データを利用する。
+3. JSON は成功/失敗いずれでも出力し、終了コードは従来どおり維持する。
+4. docs に JSON スキーマと実行例を追記し、review/state を更新する。
