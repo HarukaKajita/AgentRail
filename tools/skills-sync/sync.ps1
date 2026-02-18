@@ -1,6 +1,6 @@
 param(
     [string]$SourceRoot = 'agents/skills',
-    [string]$TargetRoot = "$HOME/.agents/skills",
+    [string]$TargetRoot = '.agents/skills',
     [string[]]$SkillNames,
     [switch]$DeleteExtraneous,
     [switch]$WhatIf

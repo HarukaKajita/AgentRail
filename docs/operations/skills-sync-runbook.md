@@ -2,7 +2,7 @@
 
 ## 目的
 
-`agents/skills` の変更を `~/.agents/skills` に安全に同期し、実運用スキルを最新化する。
+`agents/skills` の変更を `./.agents/skills` に安全に同期し、リポジトリ内の運用スキルを最新化する。
 
 ## 対象スクリプト
 
@@ -37,7 +37,7 @@ pwsh -NoProfile -File tools/skills-sync/sync.ps1 -DeleteExtraneous
 ## 引数仕様
 
 - `-SourceRoot` (default: `agents/skills`)
-- `-TargetRoot` (default: `$HOME/.agents/skills`)
+- `-TargetRoot` (default: `.agents/skills`)
 - `-SkillNames` (optional)
 - `-DeleteExtraneous` (optional)
 - `-WhatIf` (optional)
@@ -52,7 +52,7 @@ pwsh -NoProfile -File tools/skills-sync/sync.ps1 -DeleteExtraneous
 
 1. 出力に `Errors` が無い。
 2. `Total synced` が期待値と一致する。
-3. `~/.agents/skills/<skill>/` に更新内容が反映される。
+3. `.agents/skills/<skill>/` に更新内容が反映される。
 
 ## 障害対応
 

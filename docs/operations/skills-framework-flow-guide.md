@@ -2,12 +2,12 @@
 
 ## 目的
 
-`agents/skills` で開発するスキルが、実運用時 (`~/.agents/skills`) にも同一品質で動作するための設計・運用ルールを定義する。
+`agents/skills` で開発するスキルが、実運用時 (`./.agents/skills`) にも同一品質で動作するための設計・運用ルールを定義する。
 
 ## ディレクトリ責務
 
 - `agents/skills`: リポジトリ管理下の開発用スキル
-- `~/.agents/skills`: 実行環境で実際に読み込まれる運用用スキル
+- `.agents/skills/<skill-name>`: 同期後に実行環境で読み込ませる運用用スキル
 
 開発は `agents/skills` で行い、反映は `tools/skills-sync/sync.ps1` で同期する。
 
