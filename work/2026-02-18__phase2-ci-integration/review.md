@@ -53,3 +53,15 @@
 ## 5. 結論
 
 - 本タスクは `done` 判定とする。
+
+## 6. Process Findings
+
+### 6.1 Finding F-001
+
+- finding_id: F-001
+- category: ci
+- severity: low
+- summary: Process Findings 必須化前の完了タスクに対し、現行運用整合のため記録を補完した。
+- evidence: CI 連携受入条件と検証結果は PASS で、改善タスク起票が必要な重大/高優先の未処理指摘はない。
+- action_required: no
+- linked_task_id: none

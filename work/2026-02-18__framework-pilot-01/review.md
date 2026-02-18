@@ -50,3 +50,15 @@
 ## 5. 結論
 
 - 本タスクは `done` 判定とする。
+
+## 6. Process Findings
+
+### 6.1 Finding F-001
+
+- finding_id: F-001
+- category: flow
+- severity: low
+- summary: Process Findings 導入以前の完了タスクだったため、現行運用ルールに合わせて記録を追補した。
+- evidence: AC-001〜AC-005 が PASS で、レビュー時点で action_required を要する指摘は残っていない。
+- action_required: no
+- linked_task_id: none

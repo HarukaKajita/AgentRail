@@ -48,3 +48,15 @@
 ## 5. 結論
 
 - 本タスクは `done` 判定とする。
+
+## 6. Process Findings
+
+### 6.1 Finding F-001
+
+- finding_id: F-001
+- category: quality
+- severity: low
+- summary: 本タスクは Process Findings 必須化以前に完了していたため、現行 checker 互換の記録を追加した。
+- evidence: 受入条件・テスト結果は PASS で、追加改善を必須化する未解決項目は当時レビューに残っていない。
+- action_required: no
+- linked_task_id: none

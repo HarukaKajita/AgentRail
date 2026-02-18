@@ -55,3 +55,15 @@
 ## 5. 結論
 
 - 本タスクは `done` 判定とする。
+
+## 6. Process Findings
+
+### 6.1 Finding F-001
+
+- finding_id: F-001
+- category: ci
+- severity: low
+- summary: 本タスクは Process Findings 導入前に完了していたため、後方互換のため記録を補完した。
+- evidence: 受入条件とテスト結果はすべて PASS であり、未処理の重大指摘は確認されない。
+- action_required: no
+- linked_task_id: none
