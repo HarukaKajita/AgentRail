@@ -1,52 +1,51 @@
 ---
 name: list-planned-tasks-by-backlog-priority
-description: Display planned backlog tasks in priority order by reading `docs/operations/high-priority-backlog.md` and `work/*/state.json`. Use when asked to check backlog, list queued tasks, or show planned tasks by priority with mismatch warnings between docs and work.
+description: docs/operations/high-priority-backlog.md と work/*/state.json を照合し、planned タスクを優先度順で表示する。表示後は提案3案と確認質問2-4件で次の着手判断を支援する。
 ---
 
 # List Planned Tasks By Backlog Priority
 
-## Goal
+## 役割
 
-Show planned tasks in priority order using docs as the primary source of ordering.
+バックログと実状態を照合し、次に着手すべきタスク判断を支援する。
 
-## Run Workflow
+## 事前参照
 
-1. Run the bundled PowerShell script from the repository root.
-2. Use `docs/operations/high-priority-backlog.md` as the priority source.
-3. Cross-check `work/*/state.json` and include only tasks where `state` is `planned`.
-4. Append planned tasks missing from docs to the end.
-5. Show mismatch warnings without stopping output.
+- `references/framework-flow.md`
+- `references/brainstorming-and-question-patterns.md`
+- `docs/operations/high-priority-backlog.md`
+- `work/*/state.json`
 
-## Command
+## 実行手順
+
+1. 付属スクリプトで planned タスクの優先度順一覧を取得する。
+2. 一覧結果と warnings を要約する。
+3. 次の進め方を提案オプション3案で示す。
+4. 推奨案を1つ選び理由を示す。
+5. 必要なら確認質問を 2〜4 件提示する。
+
+## コマンド
 
 ```powershell
 pwsh -NoProfile -File "$HOME/.agents/skills/list-planned-tasks-by-backlog-priority/scripts/list_planned_tasks.ps1" -RepoRoot .
 ```
 
-Optional overrides:
+開発中にリポジトリ内から直接実行する場合:
 
 ```powershell
-pwsh -NoProfile -File "$HOME/.agents/skills/list-planned-tasks-by-backlog-priority/scripts/list_planned_tasks.ps1" -RepoRoot . -BacklogPath "docs/operations/high-priority-backlog.md" -WorkDir "work"
+pwsh -NoProfile -File "agents/skills/list-planned-tasks-by-backlog-priority/scripts/list_planned_tasks.ps1" -RepoRoot .
 ```
 
-## Output Contract
+## 出力フォーマット
 
-Return these sections in order:
+1. Planned Tasks (Priority Order)
+2. Warnings
+3. 提案オプション（3案）
+4. 推奨案
+5. 確認質問（2〜4件）
 
-1. `Planned Tasks (Priority Order)`
-2. `Warnings`
-3. `Sources`
+## 禁止事項
 
-Use the list line format:
-
-`<index>. <task-id> (source: docs|work-only)`
-
-## Error Handling
-
-Fail when required paths are missing or unreadable:
-
-- backlog file is missing
-- work directory is missing
-- priority section cannot be parsed
-
-For state mismatches, continue and report warnings.
+- backlog と work の不整合を無視しない。
+- 一覧表示だけで意思決定支援を省略しない。
+- 根拠なしで優先度を変更しない。

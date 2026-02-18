@@ -38,6 +38,8 @@
 ## 6. 運用
 - `docs/operations/ci-failure-runbook.md` - CI 失敗時ランブック
 - `docs/operations/high-priority-backlog.md` - 高優先バックログ
+- `docs/operations/skills-framework-flow-guide.md` - スキルのフロー準拠設計ガイド
+- `docs/operations/skills-sync-runbook.md` - 開発用スキルを実運用へ同期する手順
 
 ## 7. 更新手順
 

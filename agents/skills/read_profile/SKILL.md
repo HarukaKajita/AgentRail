@@ -1,27 +1,43 @@
 ---
 name: read_profile
-description: project.profile.yaml を読み込み、実行に必要なコマンドとチェック条件を抽出する。
+description: project.profile.yaml を読み取り、フレームワーク実行コマンドと必須キー整合を確認し、提案3案と確認質問2-4件を含む実行方針を作成する。
 ---
 
-このスキルは、実行環境差分を吸収するために `project.profile.yaml` を解釈するときに使う。
+# Read Profile
 
-## いつ使うか
+## 役割
 
-- タスク着手時の事前確認
-- テスト計画と実行コマンドの確定時
+`project.profile.yaml` を唯一の実行契約として扱い、推測実行を防止する。
 
-## 入力
+## 事前参照
 
+- `references/framework-flow.md`
+- `references/brainstorming-and-question-patterns.md`
 - `project.profile.yaml`
-- 対象タスクID
+- `work/<task-id>/plan.md`
+- `work/<task-id>/spec.md`
 
-## 出力
+## 実行手順
 
-- `work/<task-id>/plan.md` に `Execution Commands` セクションを追加・更新
-- 必須キーの検証結果
-- 不足がある場合は質問リスト
+1. profile の必須キーと値を確認する。
+2. `commands` から build/test/format/lint と framework 専用コマンドを抽出する。
+3. 実行順序の提案オプションを3案作る。
+4. 推奨案を1つ選ぶ。
+5. 不足キーや曖昧値がある場合、確認質問を 2〜4 件作る。
+6. 不足により進行不能なら `blocked` を提案する。
+7. `plan.md` と `spec.md` に反映すべき実行条件を明示する。
+
+## 出力フォーマット
+
+1. 抽出コマンド一覧
+2. 実行戦略オプション（3案）
+3. 推奨案
+4. 確認質問（2〜4件）
+5. blocked 判定
+6. 反映先（`plan.md`, `spec.md`）
 
 ## 禁止事項
 
-- profile にないコマンドを推測して実行しない
-- 必須キー不足を無視して進行しない
+- profile にないコマンドを実行前提にしない。
+- 必須キー不足を無視しない。
+- 進行不能条件を曖昧にしない。

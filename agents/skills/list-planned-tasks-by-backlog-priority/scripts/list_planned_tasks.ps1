@@ -150,3 +150,50 @@ Write-Output ''
 Write-Output 'Sources'
 Write-Output ("- backlog: {0}" -f $backlogFullPath)
 Write-Output ("- work: {0}" -f $workFullPath)
+
+Write-Output ''
+Write-Output 'Proposal Options'
+if ($resultRows.Count -eq 0) {
+    Write-Output '- Option A: まず `work/*/state.json` を確認して planned 候補の再登録を行う。'
+    Write-Output '- Option B: `docs/operations/high-priority-backlog.md` を再構築し、優先タスク一覧を再定義する。'
+    Write-Output '- Option C: backlog 運用ルールを `docs/operations` に追記して再発を防止する。'
+}
+else {
+    $topTask = $resultRows[0].task_id
+    Write-Output ("- Option A: 最優先 `'{0}'` を単独で着手し、完了後に次タスクへ進む。" -f $topTask)
+
+    if ($resultRows.Count -ge 2) {
+        $secondTask = $resultRows[1].task_id
+        Write-Output ("- Option B: `'{0}'` と `'{1}'` を連続実施して CI/運用改善をまとめて進める。" -f $topTask, $secondTask)
+    }
+    else {
+        Write-Output ("- Option B: `'{0}'` 着手前にテスト要件と docs 更新範囲を先に確定する。" -f $topTask)
+    }
+
+    if ($uniqueWarnings.Count -gt 0) {
+        Write-Output '- Option C: warnings の解消を先行し、backlog と state の整合を取ってから実装に入る。'
+    }
+    else {
+        Write-Output '- Option C: 現在の優先順を維持し、1タスクごとに review 完了まで進める。'
+    }
+}
+
+Write-Output ''
+Write-Output 'Clarifying Questions'
+if ($resultRows.Count -eq 0) {
+    Write-Output '- Q1. planned として扱うべき task-id を新規に起票しますか？'
+    Write-Output '- Q2. backlog の優先順をどの資料で管理するかを固定しますか？'
+}
+else {
+    $topTask = $resultRows[0].task_id
+    Write-Output ("- Q1. 最優先 `'{0}'` を次の実装対象として確定しますか？" -f $topTask)
+    Write-Output '- Q2. 同時並行で進めるタスク数は 1 件に固定しますか？'
+
+    if ($uniqueWarnings.Count -gt 0) {
+        Write-Output '- Q3. warnings に出ている不整合を先に是正してから実装へ進みますか？'
+        Write-Output '- Q4. docs 側優先順と state 側実態のどちらを正として更新しますか？'
+    }
+    else {
+        Write-Output '- Q3. 次順位タスクまで着手順をこのまま固定してよいですか？'
+    }
+}
