@@ -1,0 +1,107 @@
+# ユーザー要望から実装・コミットまでのフロー可視化ガイド
+
+## 1. 目的
+
+この資料は、ユーザーが CLI で要望を出してから、エージェントが実装してコミットするまでの流れを一枚で理解するためのガイドです。
+
+対象読者:
+- AgentRail を初めて使う依頼者
+- タスク進行をレビューする実装者
+
+## 2. 全体フロー図
+
+```mermaid
+flowchart TD
+  A[ユーザーが要望を提示] --> B[request.md 作成・要望整理]
+  B --> C[investigation.md 調査]
+  C --> D[spec.md 要件確定]
+  D --> E[plan.md 実装計画]
+  E --> F[実装]
+  F --> G[テスト]
+  G --> H[review.md レビュー]
+  H --> I[docs 更新 + docs/INDEX.md 更新]
+  I --> J[MEMORY.md + state.json 更新]
+  J --> K[コミット]
+
+  D --> L{厳格ブロック条件を満たすか}
+  L -- No --> M[state=blocked]
+  L -- Yes --> E
+
+  H --> N{done 条件を満たすか}
+  N -- No --> O[修正して再テスト]
+  O --> G
+  N -- Yes --> I
+```
+
+## 3. 工程ごとの出来事
+
+1. 要望提示: ユーザーが CLI で依頼内容を入力する。
+2. 要望整理: `work/<task-id>/request.md` に要望と成功条件を記録する。
+3. 調査: `investigation.md` で現状確認と仮説を整理する。
+4. 要件確定: `spec.md` に受入条件とテスト要件を定義する。
+5. 実装計画: `plan.md` に手順・リスク・完了判定を明記する。
+6. 実装: コード/ドキュメントを変更する。
+7. テスト: 実行コマンドで期待結果を検証する。
+8. レビュー: `review.md` に AC 判定・テスト結果・Process Findings を記録する。
+9. 資料更新: 変更した docs を更新し、`docs/INDEX.md` へ導線を追加する。
+10. 記憶更新: `MEMORY.md` と `state.json` を最新化する。
+11. コミット: 変更を意味のある単位でコミットする。
+
+## 4. blocked / done の判断ポイント
+
+blocked になる例:
+- `spec.md` の空欄禁止項目が未記入
+- `plan.md` が `spec.md` を参照していない
+- `docs/INDEX.md` の更新漏れ
+- `project.profile.yaml` の必須キー不足
+
+done にする条件:
+- spec の受入条件をすべて満たす
+- テスト要件の実施結果を `review.md` に記録する
+- 関連 docs と `docs/INDEX.md` を更新する
+- `MEMORY.md` と `state.json` が最新状態である
+
+## 5. CLI 要望サンプル（docs改善題材）
+
+```text
+ユーザー:
+既存の運用手順が初見に分かりにくいです。
+要望提示から実装・コミットまでの流れを図で理解できる資料を追加してください。
+CLI での依頼例と、AI の返答例も載せてください。
+```
+
+## 6. AI 応答サンプル
+
+初動応答の例:
+
+```text
+AI:
+要望を確認しました。まず既存の運用資料と INDEX 構造を調査し、
+新規資料の配置先・図の構成・サンプル文面を確定します。
+その後に docs を追加して INDEX へ導線を登録し、整合チェックまで実施します。
+```
+
+完了報告の例:
+
+```text
+AI:
+実装が完了しました。
+- 追加: docs/operations/framework-request-to-commit-visual-guide.md
+- 更新: docs/INDEX.md, work/<task-id>/review.md, work/<task-id>/state.json
+- テスト: docs-indexer PASS / consistency-check PASS
+- コミット: <commit-hash>
+次アクション: 資料レビュー後に最優先タスクへ着手します。
+```
+
+## 7. 最短チェックリスト
+
+依頼者向け:
+- 何を達成したいか（成功条件）を1〜3行で書く
+- 対象範囲（In Scope / Out of Scope）を示す
+- いつまでに必要かを示す
+
+実装者向け:
+- `spec.md` と `plan.md` を埋めてから実装する
+- テスト結果を `review.md` に残す
+- `docs/INDEX.md`, `MEMORY.md`, `state.json` を更新する
+- コミット前に consistency-check を通す

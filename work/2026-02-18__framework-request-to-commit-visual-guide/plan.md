@@ -32,3 +32,10 @@
 
 - AC-001〜AC-004 がすべて PASS。
 - `docs/INDEX.md` から新規資料へ遷移できる。
+
+## 7. 実装実行計画（2026-02-19T00:36:44+09:00）
+
+1. 新規資料を作成し、Mermaid 図と工程解説を記述する。
+2. docs 改善題材の CLI/AI サンプルを追加する。
+3. `docs-indexer` と `consistency-check` を実行して整合を確認する。
+4. `review.md` と `state.json` を更新して完了判定を記録する。

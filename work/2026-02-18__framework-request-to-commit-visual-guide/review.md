@@ -6,30 +6,35 @@
 
 ## 2. 受入条件評価
 
-- AC-001: PENDING
-- AC-002: PENDING
+- AC-001: PASS
+- AC-002: PASS
+- AC-003: PASS
+- AC-004: PASS
 
 ## 3. テスト結果
 
 ### Unit Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: 新規資料の見出し構成、Mermaid 図、CLI/AI サンプル節の存在確認
+- 結果: PASS
 
 ### Integration Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode apply` 実行後の `docs/INDEX.md` 導線確認
+- 結果: PASS
 
 ### Regression Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `pwsh -NoProfile -File tools/profile-validate/validate.ps1 -ProfilePath project.profile.yaml` / `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks` を実行
+- 結果: PASS
 
 ### Manual Verification
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容:
+  1. 新規資料 `docs/operations/framework-request-to-commit-visual-guide.md` を目視確認
+  2. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__framework-request-to-commit-visual-guide` を実行
+  3. `docs/INDEX.md` の運用セクションで導線を確認
+- 結果: PASS
 
 ## 4. 指摘事項
 
@@ -39,7 +44,7 @@
 
 ## 5. 結論
 
-- 実装後に最終判定する。
+- 本タスクは `done` 判定とする。
 
 ## 6. Process Findings
 
@@ -47,8 +52,8 @@
 
 - finding_id: F-001
 - category: docs
-- severity: medium
-- summary: Improvement task bootstrap generated from source finding.
-- evidence: Source task 2026-02-18__consistency-check-multi-task-mode / finding F-201 requested follow-up.
+- severity: low
+- summary: フロー図とサンプルを同一資料に集約したことで、初見ユーザー向け導線が明確になった。
+- evidence: `docs/operations/framework-request-to-commit-visual-guide.md` に図解と CLI/AI サンプルを実装した。
 - action_required: no
 - linked_task_id: none
