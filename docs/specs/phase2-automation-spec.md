@@ -42,7 +42,9 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 
 ### 3.1 入力
 
-- `work/<task-id>/` 一式
+- `-TaskId <task-id>`（単一 task）
+- `-TaskIds <task-id>,<task-id>`（複数 task）
+- `-AllTasks`（`work/` 配下全 task）
 - `docs/INDEX.md`
 - `project.profile.yaml`
 
@@ -52,6 +54,7 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 - 失敗一覧（ルールID、対象ファイル、理由）
 - 終了コード（成功 0 / 失敗 1）
 - `-OutputFormat json` 時は機械可読 JSON（`task_id`, `status`, `failure_count`, `failures[]`）
+- 複数 task モード時は task ごとの PASS/FAIL サマリ
 
 ### 3.3 検査項目
 
@@ -101,6 +104,8 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 
 - `pwsh -NoProfile -File tools/docs-indexer/index.ps1`
 - `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId <task-id>`
+- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds <task-id-1>,<task-id-2>`
+- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks`
 - `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId <task-id> -OutputFormat json -OutputFile artifacts/check-result.json`
 - `pwsh -NoProfile -File tools/improvement-harvest/scan.ps1 -TaskId <task-id>`
 - `pwsh -NoProfile -File tools/improvement-harvest/create-task.ps1 -SourceTaskId <task-id> -FindingId <finding-id> -Title <title> -Severity <severity> -Category <category>`
@@ -120,6 +125,6 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 
 次タスクでは本仕様を基に、以下を決定してから実装へ進む。
 
-1. checker を単一最新taskから複数task走査へ拡張するかどうか
-2. checker の JSON 出力オプションを追加するかどうか
+1. checker JSON に schema version を追加するかどうか
+2. `-AllTasks` の除外条件（archive/legacy）を定義するかどうか
 3. 自己改善起票の運用結果を踏まえて閾値（must/high固定）を見直すかどうか

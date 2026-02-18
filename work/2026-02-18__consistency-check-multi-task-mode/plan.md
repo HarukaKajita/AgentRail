@@ -12,7 +12,7 @@
 
 ## 3. 実施ステップ
 
-1. `check.ps1` に parameter set を追加する。
+1. `tools/consistency-check/check.ps1` に parameter set を追加する。
 2. task 単位の結果集計データ構造を実装する。
 3. 終了コード決定ロジックを集計ベースに変更する。
 4. CI 側の呼び出し方を更新する（必要なら）。
@@ -34,3 +34,10 @@
 ## 6. 完了判定
 
 - AC-001〜AC-005 がすべて PASS
+
+## 7. 実装実行計画（2026-02-18T22:29:55+09:00）
+
+1. `tools/consistency-check/check.ps1` に `-TaskIds` / `-AllTasks` の parameter set を追加する。
+2. 単一 task 検証ロジックを関数化し、複数 task の集計処理から再利用する。
+3. 複数モードでは task ごとの PASS/FAIL サマリを出力し、FAIL 含有時に終了コード 1 を返す。
+4. docs と review/state を更新し、単一/複数/全件モードを手動検証する。

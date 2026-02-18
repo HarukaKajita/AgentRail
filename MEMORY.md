@@ -5,30 +5,30 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-18__consistency-check-json-output
-- タイトル: consistency-check JSON 出力対応
+- Task ID: 2026-02-18__consistency-check-multi-task-mode
+- タイトル: consistency-check 複数 task 走査モード
 - 状態: done
-- 最終更新日時: 2026-02-18T22:27:44+09:00
+- 最終更新日時: 2026-02-18T22:35:58+09:00
 - 担当: Codex
 
 ## 2. 今回の目的
 
-- consistency-check に `-OutputFormat json` と `-OutputFile` を追加し、機械可読連携を可能にする。
-- text/json の出力を同一結果モデルから生成して情報不整合を防ぐ。
-- 失敗時でも JSON を返し、従来どおり終了コード1を維持する。
+- consistency-check を複数 task 対応（`-TaskIds`, `-AllTasks`）へ拡張する。
+- 単一 task モードの後方互換を保ちながら task単位サマリを出力する。
+- 複数走査で FAIL が含まれる場合に終了コード1を返す集計ロジックを導入する。
 
 ## 3. 完了済み
 
-- `tools/consistency-check/check.ps1` に `-OutputFormat text|json` と `-OutputFile` を追加した。
-- JSON payload に `task_id`, `status`, `failure_count`, `failures[]` を実装した。
-- 既定 text 出力（`CHECK_RESULT` 形式）を維持したまま JSON 出力を追加した。
-- docs へ JSON スキーマと利用コマンド例を反映した。
+- `tools/consistency-check/check.ps1` を関数化し、`-TaskId`, `-TaskIds`, `-AllTasks` の parameter set を実装した。
+- 複数モードで task ごとの PASS/FAIL サマリと failure 集計を出力するようにした。
+- 既存単一モードの `CHECK_RESULT` 出力互換を維持した。
+- docs に複数taskモードの入力/出力/コマンド例を反映した。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-18
-- 決定内容: checker の JSON 出力は text 出力と同一結果モデルを共有し、終了コード契約は変更しない。
-- 根拠資料: `work/2026-02-18__consistency-check-json-output/spec.md`
+- 決定内容: 複数taskモードでも単一モード互換を最優先し、CI既定呼び出しは `-TaskId` を維持する。
+- 根拠資料: `work/2026-02-18__consistency-check-multi-task-mode/spec.md`
 
 ## 5. 未解決・ブロッカー
 
@@ -36,8 +36,8 @@
 
 ## 6. 次アクション
 
-1. `2026-02-18__consistency-check-multi-task-mode` を実装する。
-2. consistency-check の JSON schema version 運用方針を必要に応じて追加する。
+1. consistency-check の JSON schema version 運用方針を必要に応じて追加する。
+2. `-AllTasks` の除外条件（archive/legacy）を必要に応じて定義する。
 3. validator 群（profile/state）の将来強化項目を backlog へ反映する。
 
 ## 7. 参照先

@@ -16,6 +16,11 @@ Phase 2 後半として、`docs-indexer` と `consistency-check` を GitHub Acti
 8. `tools/improvement-harvest/scan.ps1 -TaskId <resolved-task-id>` を実行
 9. `tools/consistency-check/check.ps1 -TaskId <resolved-task-id>` を実行（必要に応じて `-OutputFormat json` を利用可能）
 
+### checker 実行モード
+
+- CI 既定は `-TaskId`（resolve結果）を利用する。
+- 運用/手動実行では `-TaskIds` / `-AllTasks` による一括検査を利用できる。
+
 ### task-id 解決ルール
 
 1. `workflow_dispatch` の `task_id` 入力がある場合は最優先で採用する
