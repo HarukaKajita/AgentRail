@@ -76,3 +76,33 @@ pwsh -NoProfile -File tools/skills-sync/sync.ps1 -DeleteExtraneous
 - 初回は必ず `-WhatIf` を実行する。
 - `-DeleteExtraneous` は理由がある場合のみ使う。
 - 同期後は対象スキルで最低1回の実行確認を行う。
+
+## セッション中再読み込み可否
+
+`codex --help` と `claude --help` の確認時点では、セッション中にスキルだけを再読み込みする専用コマンドは確認できない。
+
+そのため、同期後は CLI セッションを再起動して反映する。
+
+### Codex CLI の反映手順
+
+1. 現在のセッションを終了する（例: `Ctrl+C`）。
+2. リポジトリルートで同期を実行する。
+   - `pwsh -NoProfile -File tools/skills-sync/sync.ps1`
+3. 新しいセッションを開始する。
+   - `codex`
+4. 反映確認を行う。
+   - 変更したスキル名を明示して要求を実行し、更新後の挙動を確認する。
+
+### Claude Code の反映手順
+
+1. 現在のセッションを終了する。
+2. リポジトリルートで同期を実行する。
+   - `pwsh -NoProfile -File tools/skills-sync/sync.ps1`
+3. 新しいセッションを開始する。
+   - `claude`
+4. 反映確認を行う。
+   - 変更したスキル名を明示して要求を実行し、更新後の挙動を確認する。
+
+### 注意
+
+- 反映確認を確実にするため、再開オプション（例: `claude --continue` / `claude --resume` / `codex resume`）ではなく新規セッションを推奨する。
