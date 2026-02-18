@@ -32,13 +32,13 @@
 
 ## 5. 未解決・ブロッカー
 
-- latest 1件方式を複数 task 走査へ拡張するかは未決定。
+- 次の優先改善（3件）は起票済みだが未着手。
 
 ## 6. 次アクション
 
-1. checker の JSON 出力オプション追加タスクを起票する。
-2. checker の複数 task 走査モード追加可否を検討する。
-3. CI 実行結果を数タスク分観測し、誤検知パターンを収集する。
+1. `work/2026-02-18__ci-task-resolution-determinism/` を着手し、CIのtask-id解決を差分ベースへ変更する。
+2. `work/2026-02-18__consistency-check-multi-task-mode/` を着手し、checkerの複数task走査を実装する。
+3. `work/2026-02-18__consistency-check-json-output/` を着手し、checkerのJSON出力を実装する。
 
 ## 7. 参照先
 

@@ -1,0 +1,36 @@
+# Plan: 2026-02-18__consistency-check-multi-task-mode
+
+## 1. 対象仕様
+
+- `work/2026-02-18__consistency-check-multi-task-mode/spec.md`
+
+## 2. Execution Commands
+
+- single: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__framework-pilot-01`
+- multi: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-18__framework-pilot-01,2026-02-18__phase2-automation-implementation`
+- all: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks`
+
+## 3. 実施ステップ
+
+1. `check.ps1` に parameter set を追加する。
+2. task 単位の結果集計データ構造を実装する。
+3. 終了コード決定ロジックを集計ベースに変更する。
+4. CI 側の呼び出し方を更新する（必要なら）。
+5. docs と review/state を更新する。
+
+## 4. 変更対象ファイル
+
+- `tools/consistency-check/check.ps1`
+- `.github/workflows/ci-framework.yml`
+- `docs/specs/phase2-ci-integration-spec.md`
+- `docs/INDEX.md`
+- `work/2026-02-18__consistency-check-multi-task-mode/*`
+
+## 5. リスクとロールバック
+
+- リスク: 複数走査時にノイズfailが増える
+- ロールバック: `-TaskId` モードのみ使用する運用へ一時戻す
+
+## 6. 完了判定
+
+- AC-001〜AC-005 がすべて PASS
