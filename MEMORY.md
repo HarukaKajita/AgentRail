@@ -5,34 +5,33 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-19__profile-validator-schema-version-field
-- タイトル: Profile Validator Schema Version Field
+- Task ID: 2026-02-19__state-validator-history-strategy
+- タイトル: State Validator History Strategy
 - 状態: done
-- 最終更新日時: 2026-02-19T04:29:12+09:00
+- 最終更新日時: 2026-02-19T04:35:37+09:00
 - 担当: Codex
 
 ## 2. 今回の目的
 
-- `project.profile.yaml` に `schema_version` を導入する。
-- profile validator で `schema_version` 互換性を機械判定する。
+- state history の管理方式を決定する。
+- state validator で履歴混入を検知できるようにする。
 - docs/バックログ/タスク記録を `done` 状態まで更新する。
 
 ## 3. 完了済み
 
-- `project.profile.yaml` に `schema_version: "1.0.0"` を追加した。
-- `tools/profile-validate/profile-schema.json` に `supported_profile_schema_versions` と required key `schema_version` を追加した。
-- `tools/profile-validate/validate.ps1` に `schema_version` 抽出・互換照合ロジックを追加した。
-- 正常系（`schema_version=1.0.0`）と異常系（`schema_version=9.9.9`）で validator の PASS/FAIL を実測した。
-- `docs/operations/profile-validator-schema-version-policy.md` を追加した。
-- `docs/operations/validator-enhancement-backlog.md` の VE-002 を `done` に更新した。
+- state history 方式を「`state.json` 非保持、Git 履歴へ外部化」に決定した。
+- `tools/state-validate/validate.ps1` に `history` / `state_history` 禁止チェックを追加した。
+- 正常系（`-AllTasks`）と異常系（history キー混入）で state validator の PASS/FAIL を実測した。
+- `docs/operations/state-history-strategy.md` を追加した。
+- `docs/operations/validator-enhancement-backlog.md` の VE-004 を `done` に更新した。
 - `docs/operations/high-priority-backlog.md` で本タスクを Completed へ移動した。
 - `tools/docs-indexer/index.ps1` 実行で `docs/INDEX.md` を同期した。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-19
-- 決定内容: profile schema 互換判定は `schema_version` を正とし、許容バージョンは `supported_profile_schema_versions` で管理する。
-- 根拠資料: `work/2026-02-19__profile-validator-schema-version-field/review.md`
+- 決定内容: state history は `state.json` に保持せず、Git 履歴を正として運用する。
+- 根拠資料: `work/2026-02-19__state-validator-history-strategy/review.md`
 
 ## 5. 未解決・ブロッカー
 
@@ -40,9 +39,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-19__state-validator-history-strategy` に着手する。
-2. 上記タスク完了後にコミットし、validator backlog（VE-004）をクローズする。
-3. `version` と `schema_version` の統合方針を次フェーズで検討する。
+1. planned backlog が空であることを定期確認する。
+2. `version` と `schema_version` の統合方針を次フェーズで検討する。
+3. state history 専用 artifact が必要になった場合は新規 task を起票する。
 
 ## 7. 参照先
 

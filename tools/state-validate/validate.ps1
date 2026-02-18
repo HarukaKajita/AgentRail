@@ -15,6 +15,7 @@ $successTasks = New-Object System.Collections.Generic.List[string]
 $allowedStates = @("planned", "in_progress", "blocked", "done")
 $requiredStateKeys = @("state", "owner", "updated_at", "blocking_issues")
 $requiredTaskFiles = @("request.md", "investigation.md", "spec.md", "plan.md", "review.md", "state.json")
+$forbiddenStateKeys = @("history", "state_history")
 $script:docsIndexContent = $null
 $script:normalizedDocsIndexPath = ""
 
@@ -98,6 +99,13 @@ function Validate-Task {
   foreach ($requiredKey in $requiredStateKeys) {
     if (-not ($stateObject.PSObject.Properties.Name -contains $requiredKey)) {
       Add-Failure -Task $TargetTaskId -File $statePath -Reason "Missing required key: $requiredKey"
+    }
+  }
+
+  $statePropertyNames = @($stateObject.PSObject.Properties.Name | ForEach-Object { [string]$_ })
+  foreach ($propertyName in $statePropertyNames) {
+    if ($propertyName.ToLowerInvariant() -in $forbiddenStateKeys) {
+      Add-Failure -Task $TargetTaskId -File $statePath -Reason "state history must be externalized; forbidden key in state.json: $propertyName"
     }
   }
 
