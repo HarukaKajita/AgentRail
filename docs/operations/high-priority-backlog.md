@@ -6,8 +6,29 @@
 
 ## 優先タスク一覧
 
-- 現在、planned タスクはありません。
-- 継続改善候補は `docs/operations/validator-enhancement-backlog.md` を参照する。
+1. `2026-02-19__profile-validator-required-checks-source-of-truth`
+- 状態: planned
+- 目的: profile validator の `requiredChecks` 管理を見直し、スキーマ定義との二重管理リスクを低減する
+- 参照: `work/2026-02-19__profile-validator-required-checks-source-of-truth/spec.md`
+- 元候補: `docs/operations/validator-enhancement-backlog.md` の VE-001
+
+2. `2026-02-19__state-validator-done-docs-index-consistency`
+- 状態: planned
+- 目的: state validator の `done` 判定と docs 反映整合の検証方針を具体化する
+- 参照: `work/2026-02-19__state-validator-done-docs-index-consistency/spec.md`
+- 元候補: `docs/operations/validator-enhancement-backlog.md` の VE-003
+
+3. `2026-02-19__profile-validator-schema-version-field`
+- 状態: planned
+- 目的: `project.profile.yaml` に schema version フィールドを導入する方針を確定する
+- 参照: `work/2026-02-19__profile-validator-schema-version-field/spec.md`
+- 元候補: `docs/operations/validator-enhancement-backlog.md` の VE-002
+
+4. `2026-02-19__state-validator-history-strategy`
+- 状態: planned
+- 目的: state history の管理方式（履歴保持/外部化）を決定する
+- 参照: `work/2026-02-19__state-validator-history-strategy/spec.md`
+- 元候補: `docs/operations/validator-enhancement-backlog.md` の VE-004
 
 ## Completed
 
