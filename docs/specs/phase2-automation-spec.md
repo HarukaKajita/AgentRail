@@ -59,6 +59,8 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 3. `plan.md` が `spec.md` を参照しているか
 4. `docs/INDEX.md` に新規 docs 導線があるか
 5. `project.profile.yaml` 必須キー充足
+6. `review.md` の `Process Findings` 構造検証
+7. `must/high` finding の改善タスク接続検証
 
 ### 3.4 失敗条件
 
@@ -69,7 +71,7 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 
 ### 3.5 受入基準
 
-- 検査項目 1〜5 がすべて PASS のとき終了コード 0
+- 検査項目 1〜7 がすべて PASS のとき終了コード 0
 - いずれか FAIL のとき終了コード 1 と詳細レポートを返す
 
 ## 4. 実装方式（確定）
@@ -84,6 +86,8 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 
 - `pwsh -NoProfile -File tools/docs-indexer/index.ps1`
 - `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId <task-id>`
+- `pwsh -NoProfile -File tools/improvement-harvest/scan.ps1 -TaskId <task-id>`
+- `pwsh -NoProfile -File tools/improvement-harvest/create-task.ps1 -SourceTaskId <task-id> -FindingId <finding-id> -Title <title> -Severity <severity> -Category <category>`
 
 ## 6. CI 連携ポイント（確定）
 
@@ -92,7 +96,8 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
   1. `tools/docs-indexer/index.ps1`
   2. `git diff --exit-code -- docs/INDEX.md`（差分があれば失敗）
   3. `tools/ci/resolve-task-id.ps1` で task-id を解決（manual優先、差分ベース、0件時のみフォールバック）
-  4. `tools/consistency-check/check.ps1 -TaskId <resolved-task-id>`
+  4. `tools/improvement-harvest/scan.ps1 -TaskId <resolved-task-id>`
+  5. `tools/consistency-check/check.ps1 -TaskId <resolved-task-id>`
 
 ## 7. 次タスクへの引き継ぎ
 
@@ -100,3 +105,4 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 
 1. checker を単一最新taskから複数task走査へ拡張するかどうか
 2. checker の JSON 出力オプションを追加するかどうか
+3. 自己改善起票の運用結果を踏まえて閾値（must/high固定）を見直すかどうか

@@ -21,7 +21,16 @@
 - 目的: `state.json` の整合検証を CI に導入
 - 参照: `work/2026-02-18__state-transition-validation/spec.md`
 
+## Completed
+
+1. `2026-02-18__self-improvement-loop-enforcement`
+- 状態: done
+- 目的: Process Findings + 改善起票強制 + CI 改善ゲート導入
+- 参照: `work/2026-02-18__self-improvement-loop-enforcement/spec.md`
+
 ## 更新ルール
 
 - task の状態を更新したら本資料も同時更新する。
 - 完了タスクは `Completed` セクションへ移動する。
+- `review.md` の `Process Findings` で `must/high` が検出された場合は、同一PR内で follow-up task を起票して本資料へ登録する。
+- 自動起票時は `tools/improvement-harvest/create-task.ps1` を使用し、`request/spec` に source task と finding ID を記録する。

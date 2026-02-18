@@ -62,4 +62,5 @@ jobs:
         shell: pwsh
         run: |
           $taskId = "${{ steps.resolve_task.outputs.resolved_task_id }}"
+          pwsh -NoProfile -File tools/improvement-harvest/scan.ps1 -TaskId $taskId
           pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId $taskId

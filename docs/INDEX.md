@@ -15,6 +15,7 @@
 - `docs/templates/adr.md` - ADR テンプレート
 - `docs/templates/investigation.md` - 調査テンプレート
 - `docs/templates/project-profile.md` - project.profile.yaml 記入ガイド
+- `docs/templates/review.md` - Review テンプレート
 - `docs/templates/spec.md` - 仕様書テンプレート
 
 ## 3. 仕様
@@ -22,14 +23,17 @@
 - `docs/specs/phase2-automation-spec.md` - Phase 2 自動化仕様（設計）
 - `docs/specs/phase2-ci-integration-spec.md` - Phase 2 CI 連携仕様
 - `docs/specs/phase2-implementation-spec.md` - Phase 2 実装仕様
+- `docs/specs/self-improvement-loop-spec.md` - 自己改善ループ仕様
 
 ## 4. 意思決定
 - `docs/decisions/20260218-ci-governance-and-task-resolution.md` - CI ガバナンスと task-id 解決戦略
+- `docs/decisions/20260218-self-improvement-loop-enforcement.md` - 自己改善ループ強制方針
 
 ## 5. 調査
 - `docs/investigations/framework-pilot-01-investigation.md` - Framework Pilot 01 調査記録
 - `docs/investigations/phase2-ci-integration-investigation.md` - Phase 2 CI 連携調査記録
 - `docs/investigations/phase2-implementation-investigation.md` - Phase 2 実装調査記録
+- `docs/investigations/self-improvement-loop-investigation.md` - 自己改善ループ導入調査
 
 ## 6. 運用
 - `docs/operations/ci-failure-runbook.md` - CI 失敗時ランブック

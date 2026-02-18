@@ -19,6 +19,7 @@
 3. `work/<task-id>/` で確定した内容のみ docs に昇格する。
 4. `templates/` を直接運用資料として使わない。
 5. 重要な設計・運用判断は `decisions/` に ADR として残す。
+6. `review.md` は `done` 判定前に `## 6. Process Findings` を含め、重大度 `must/high` は必ず改善タスクへ接続する。
 
 ## 完了判定との関係
 

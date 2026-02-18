@@ -32,6 +32,12 @@ commands:
   check_consistency:
     description: "Run consistency checks for a task"
     command: "pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId <task-id>"
+  scan_improvements:
+    description: "Validate and extract process findings from review.md"
+    command: "pwsh -NoProfile -File tools/improvement-harvest/scan.ps1 -TaskId <task-id>"
+  create_improvement_task:
+    description: "Create a follow-up task from process finding"
+    command: "pwsh -NoProfile -File tools/improvement-harvest/create-task.ps1 -SourceTaskId <task-id> -FindingId <finding-id> -Title <title> -Severity <severity> -Category <category>"
 
 paths:
   source_roots:
@@ -52,6 +58,12 @@ review:
       description: "plan.md が spec.md を参照している"
     - id: "docs_index_updated"
       description: "docs/INDEX.md が更新されている"
+    - id: "improvement_findings_present"
+      description: "review.md に Process Findings が定義されている"
+    - id: "improvement_task_linked"
+      description: "action_required=yes の finding が linked_task_id を持つ"
+    - id: "improvement_threshold_enforced"
+      description: "must/high finding が必ず改善タスクへ接続されている"
 
 defaults:
   documentation_language: "ja"

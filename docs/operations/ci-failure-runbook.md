@@ -48,12 +48,27 @@
   1. 対象 task の必須6ファイル
   2. `spec.md` の空欄禁止項目
   3. `docs/INDEX.md` 導線
+  4. `review.md` の `## 6. Process Findings`
 - 対処:
   1. ローカルで同コマンドを再実行
   2. failure の `rule_id/file/reason` を順に修正
 
+### 5. `improvement-harvest scan` 失敗
+
+- 症状: `tools/improvement-harvest/scan.ps1` が FAIL
+- 確認:
+  1. `review.md` に `## 6. Process Findings` があるか
+  2. 各 finding が必須キーを持つか
+  3. `must/high` finding で `action_required: yes` になっているか
+  4. `linked_task_id` が `work/` 配下に存在するか
+- 対処:
+  1. `review.md` の finding をテンプレート形式へ修正
+  2. 必要なら `tools/improvement-harvest/create-task.ps1` で follow-up task を起票
+  3. 再度 scan と consistency-check を実行
+
 ## 復旧後チェック
 
 1. `pwsh -NoProfile -File tools/docs-indexer/index.ps1`
-2. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId <task-id>`
-3. `git diff --exit-code -- docs/INDEX.md`
+2. `pwsh -NoProfile -File tools/improvement-harvest/scan.ps1 -TaskId <task-id>`
+3. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId <task-id>`
+4. `git diff --exit-code -- docs/INDEX.md`

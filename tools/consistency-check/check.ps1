@@ -70,6 +70,112 @@ function Get-HeadingBlock {
   return $Content.Substring($startIndex)
 }
 
+function Normalize-MarkdownValue {
+  param(
+    [string]$Value
+  )
+
+  if ($null -eq $Value) {
+    return ""
+  }
+
+  $trimmed = $Value.Trim()
+  $backtick = [string][char]96
+  if ($trimmed.Length -ge 2 -and $trimmed.StartsWith($backtick) -and $trimmed.EndsWith($backtick)) {
+    return $trimmed.Substring(1, $trimmed.Length - 2).Trim()
+  }
+
+  return $trimmed
+}
+
+function Validate-ProcessFindings {
+  param(
+    [string]$ReviewContent,
+    [string]$ReviewPath,
+    [string]$WorkRootPath
+  )
+
+  $allowedCategories = @("flow", "docs", "ci", "quality", "other")
+  $allowedSeverities = @("must", "high", "medium", "low")
+  $requiredActionSeverities = @("must", "high")
+  $requiredKeys = @("finding_id", "category", "severity", "summary", "evidence", "action_required")
+
+  $processBlock = Get-HeadingBlock -Content $ReviewContent -HeadingRegex "(?m)^##\s+6\.\s+Process Findings" -EndRegex "(?m)^##\s+\d+\."
+  if (-not $processBlock) {
+    Add-Failure -RuleId "improvement_findings_present" -File $ReviewPath -Reason "Review must include '## 6. Process Findings'."
+    return
+  }
+
+  $findingBlocks = [Regex]::Matches($processBlock, "(?ms)^###\s+6\.\d+.*?(?=^###\s+6\.\d+|\z)")
+  if ($findingBlocks.Count -eq 0) {
+    Add-Failure -RuleId "improvement_findings_present" -File $ReviewPath -Reason "No finding blocks found under Process Findings."
+    return
+  }
+
+  foreach ($findingBlock in $findingBlocks) {
+    $fields = @{}
+    $keyValueMatches = [Regex]::Matches($findingBlock.Value, "(?m)^\s*-\s*([a-z_]+):\s*(.*?)\s*$")
+    foreach ($match in $keyValueMatches) {
+      $key = $match.Groups[1].Value.ToLowerInvariant()
+      $value = Normalize-MarkdownValue -Value $match.Groups[2].Value
+      $fields[$key] = $value
+    }
+
+    $hasMissingRequiredKey = $false
+    foreach ($requiredKey in $requiredKeys) {
+      if (-not $fields.ContainsKey($requiredKey) -or [string]::IsNullOrWhiteSpace($fields[$requiredKey])) {
+        Add-Failure -RuleId "improvement_findings_present" -File $ReviewPath -Reason "Finding is missing required key: $requiredKey"
+        $hasMissingRequiredKey = $true
+      }
+    }
+
+    if ($hasMissingRequiredKey) {
+      continue
+    }
+
+    $category = $fields["category"].ToLowerInvariant()
+    if ($category -notin $allowedCategories) {
+      Add-Failure -RuleId "improvement_findings_present" -File $ReviewPath -Reason "Invalid category '$category'. Allowed: $($allowedCategories -join ', ')"
+    }
+
+    $severity = $fields["severity"].ToLowerInvariant()
+    if ($severity -notin $allowedSeverities) {
+      Add-Failure -RuleId "improvement_findings_present" -File $ReviewPath -Reason "Invalid severity '$severity'. Allowed: $($allowedSeverities -join ', ')"
+      continue
+    }
+
+    $actionRequired = $fields["action_required"].ToLowerInvariant()
+    if ($actionRequired -notin @("yes", "no")) {
+      Add-Failure -RuleId "improvement_findings_present" -File $ReviewPath -Reason "Invalid action_required '$actionRequired'. Allowed: yes, no"
+      continue
+    }
+
+    if ($severity -in $requiredActionSeverities -and $actionRequired -ne "yes") {
+      Add-Failure -RuleId "improvement_threshold_enforced" -File $ReviewPath -Reason "Severity '$severity' requires action_required: yes."
+    }
+
+    $linkedTaskId = ""
+    if ($fields.ContainsKey("linked_task_id")) {
+      $linkedTaskId = $fields["linked_task_id"]
+    }
+    if ($linkedTaskId.ToLowerInvariant() -eq "none") {
+      $linkedTaskId = ""
+    }
+
+    if ($actionRequired -eq "yes") {
+      if ([string]::IsNullOrWhiteSpace($linkedTaskId)) {
+        Add-Failure -RuleId "improvement_task_linked" -File $ReviewPath -Reason "action_required is yes but linked_task_id is empty."
+        continue
+      }
+
+      $linkedTaskPath = Join-Path -Path $WorkRootPath -ChildPath $linkedTaskId
+      if (-not (Test-Path -LiteralPath $linkedTaskPath -PathType Container)) {
+        Add-Failure -RuleId "improvement_task_linked" -File $ReviewPath -Reason "linked_task_id does not exist under work/: $linkedTaskId"
+      }
+    }
+  }
+}
+
 $taskDir = Join-Path -Path $WorkRoot -ChildPath $TaskId
 $requiredTaskFiles = @("request.md", "investigation.md", "spec.md", "plan.md", "review.md", "state.json")
 
@@ -97,10 +203,26 @@ if (-not (Test-Path -LiteralPath $ProfilePath)) {
 
 $specPath = $existingTaskFiles["spec.md"]
 $planPath = $existingTaskFiles["plan.md"]
+$reviewPath = $existingTaskFiles["review.md"]
+$statePath = $existingTaskFiles["state.json"]
 $specContent = if ($specPath) { Get-FileOrNull -Path $specPath } else { $null }
 $planContent = if ($planPath) { Get-FileOrNull -Path $planPath } else { $null }
+$reviewContent = if ($reviewPath) { Get-FileOrNull -Path $reviewPath } else { $null }
+$stateContent = if ($statePath) { Get-FileOrNull -Path $statePath } else { $null }
 $indexContent = Get-FileOrNull -Path $DocsIndexPath
 $profileContent = Get-FileOrNull -Path $ProfilePath
+$taskState = ""
+
+if ($stateContent) {
+  try {
+    $stateObject = $stateContent | ConvertFrom-Json
+    if ($stateObject -and $stateObject.PSObject.Properties.Name -contains "state") {
+      $taskState = [string]$stateObject.state
+    }
+  } catch {
+    Add-Failure -RuleId "state_json_valid" -File $statePath -Reason "state.json is not valid JSON."
+  }
+}
 
 if ($specContent) {
   $blankKeyLineNumbers = New-Object System.Collections.Generic.List[int]
@@ -220,6 +342,14 @@ if ($profileContent) {
 
   if ($profileContent.Contains("TODO_SET_ME")) {
     Add-Failure -RuleId "profile_required_keys" -File $ProfilePath -Reason "TODO_SET_ME remains in project.profile.yaml."
+  }
+}
+
+if ($reviewContent) {
+  $hasProcessFindingsSection = [Regex]::IsMatch($reviewContent, "(?m)^##\s+6\.\s+Process Findings")
+  $shouldValidateProcessFindings = $hasProcessFindingsSection -or $taskState.ToLowerInvariant() -eq "done"
+  if ($shouldValidateProcessFindings) {
+    Validate-ProcessFindings -ReviewContent $reviewContent -ReviewPath $reviewPath -WorkRootPath $WorkRoot
   }
 }
 

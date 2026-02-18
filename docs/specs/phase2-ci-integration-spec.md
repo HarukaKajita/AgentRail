@@ -11,7 +11,8 @@ Phase 2 後半として、`docs-indexer` と `consistency-check` を GitHub Acti
 3. `tools/docs-indexer/index.ps1` を実行
 4. `docs/INDEX.md` 差分検出で失敗
 5. `tools/ci/resolve-task-id.ps1` で task-id を解決
-6. `tools/consistency-check/check.ps1 -TaskId <resolved-task-id>` を実行
+6. `tools/improvement-harvest/scan.ps1 -TaskId <resolved-task-id>` を実行
+7. `tools/consistency-check/check.ps1 -TaskId <resolved-task-id>` を実行
 
 ### task-id 解決ルール
 
@@ -25,6 +26,7 @@ Phase 2 後半として、`docs-indexer` と `consistency-check` を GitHub Acti
 - task-id 解決不能は失敗
 - 差分から複数 task-id が検出された場合は失敗
 - INDEX 差分が残る場合は失敗
+- Process Findings の構造不備または未起票重大 finding は失敗
 - consistency-check FAIL は失敗
 
 ## 参照
@@ -32,3 +34,4 @@ Phase 2 後半として、`docs-indexer` と `consistency-check` を GitHub Acti
 - `docs/specs/phase2-automation-spec.md`
 - `work/2026-02-18__phase2-ci-integration/spec.md`
 - `.github/workflows/ci-framework.yml`
+- `docs/specs/self-improvement-loop-spec.md`
