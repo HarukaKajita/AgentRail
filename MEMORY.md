@@ -5,30 +5,30 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-18__consistency-check-all-tasks-exclusion-rules
-- タイトル: Consistency Check All Tasks Exclusion Rules
+- Task ID: 2026-02-18__validator-enhancement-backlog-reflection
+- タイトル: Validator Enhancement Backlog Reflection
 - 状態: done
-- 最終更新日時: 2026-02-19T01:59:58+09:00
+- 最終更新日時: 2026-02-19T02:05:55+09:00
 - 担当: Codex
 
 ## 2. 今回の目的
 
-- `-AllTasks` 実行時の archive/legacy 除外条件を実装する。
-- 除外ルールを docs へ明文化する。
+- profile/state validator の強化候補を構造化した backlog 資料へ反映する。
+- 高優先バックログと docs index から validator backlog への導線を整備する。
 - task 成果物・バックログ状態・レビュー結果を整合させる。
 
 ## 3. 完了済み
 
-- `tools/consistency-check/check.ps1` の `-AllTasks` に `archive`/`legacy` prefix 除外を追加した。
-- `docs/specs/phase2-automation-spec.md` に `-AllTasks` 除外条件（`^(archive|legacy)(-|$)`）を追記した。
-- `work/2026-02-18__consistency-check-all-tasks-exclusion-rules/{investigation,spec,plan,review,state.json}` を更新した。
-- `docs/operations/high-priority-backlog.md` で本タスクを Completed へ移動した。
+- `docs/operations/validator-enhancement-backlog.md` を追加し、validator 強化候補を ID・優先度・状態付きで整理した。
+- `docs/INDEX.md` の運用セクションへ validator backlog を追加した。
+- `docs/operations/high-priority-backlog.md` を更新し、planned 0件と validator backlog 参照導線を反映した。
+- `work/2026-02-18__validator-enhancement-backlog-reflection/{investigation,spec,plan,review,state.json}` を更新した。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-19
-- 決定内容: `-AllTasks` は `work/` 直下のうち、ディレクトリ名が `archive`/`legacy` で始まるものを除外する。
-- 根拠資料: `docs/specs/phase2-automation-spec.md`
+- 決定内容: validator 実装変更とは分離し、改善候補は `docs/operations/validator-enhancement-backlog.md` で継続管理する。
+- 根拠資料: `docs/operations/validator-enhancement-backlog.md`
 
 ## 5. 未解決・ブロッカー
 
@@ -36,9 +36,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-18__validator-enhancement-backlog-reflection` の計画具体化を行い、validator 強化項目を運用バックログへ反映する。
-2. Task 3 完了時に `review.md` / `state.json` / `docs/operations/high-priority-backlog.md` / `MEMORY.md` を更新する。
-3. 次タスク開始前にコミット済みであることを確認し、作業ツリー clean を維持する。
+1. `docs/operations/validator-enhancement-backlog.md` の `status=proposed` 項目を定期的に見直す。
+2. 高優先度へ昇格した項目は `work/<task-id>/` を起票し、`docs/operations/high-priority-backlog.md` に追加する。
+3. 今後も task 完了時に `review.md` と backlog docs の同期を継続する。
 
 ## 7. 参照先
 

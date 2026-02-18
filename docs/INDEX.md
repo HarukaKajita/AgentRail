@@ -41,6 +41,7 @@
 - `docs/operations/high-priority-backlog.md` - 高優先バックログ
 - `docs/operations/skills-framework-flow-guide.md` - Skills Framework Flow Guide
 - `docs/operations/skills-sync-runbook.md` - Skills Sync Runbook
+- `docs/operations/validator-enhancement-backlog.md` - Validator Enhancement Backlog
 
 ## 7. 更新手順
 
