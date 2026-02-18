@@ -313,11 +313,11 @@ function Invoke-SingleTaskCheck {
 
   if ($specContent -and $indexContent) {
     $relatedLinksBlock = Get-HeadingBlock -Content $specContent -HeadingRegex "(?m)^##\s+9\.\s+関連資料リンク" -EndRegex "(?m)^##\s+"
-    $docPathMatches = if ($relatedLinksBlock) {
-      [Regex]::Matches($relatedLinksBlock, '(?m)^\s*-\s+`(docs/[^`]+)`')
-    } else {
-      [Regex]::Matches("", ".")
-    }
+    $docPathMatches = @(
+      if ($relatedLinksBlock) {
+        [Regex]::Matches($relatedLinksBlock, '(?m)^\s*-\s+`(docs/[^`]+)`')
+      }
+    )
 
     if ($docPathMatches.Count -eq 0) {
       Add-Failure -RuleId "docs_index_updated" -File $specPath -Reason "No docs path reference found in spec.md."

@@ -36,9 +36,9 @@
 
 ## 6. 次アクション
 
-1. consistency-check の JSON schema version 運用方針を必要に応じて追加する。
-2. `-AllTasks` の除外条件（archive/legacy）を必要に応じて定義する。
-3. validator 群（profile/state）の将来強化項目を backlog へ反映する。
+1. `2026-02-18__consistency-check-json-schema-version-policy` を着手して schema version 方針を確定する。
+2. `2026-02-18__consistency-check-all-tasks-exclusion-rules` を着手して `-AllTasks` 除外条件を設計する。
+3. `2026-02-18__validator-enhancement-backlog-reflection` を着手して validator 強化項目を運用資料へ反映する。
 
 ## 7. 参照先
 
