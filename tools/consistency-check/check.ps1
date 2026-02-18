@@ -16,6 +16,7 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $jsonSchemaVersion = "1.0.0"
+$allTasksExclusionPattern = "^(archive|legacy)(-|$)"
 
 $failures = New-Object System.Collections.Generic.List[object]
 
@@ -94,6 +95,18 @@ function Normalize-MarkdownValue {
   }
 
   return $trimmed
+}
+
+function Should-ExcludeAllTasksTarget {
+  param(
+    [string]$TaskDirectoryName
+  )
+
+  if ([string]::IsNullOrWhiteSpace($TaskDirectoryName)) {
+    return $false
+  }
+
+  return $TaskDirectoryName.ToLowerInvariant() -match $allTasksExclusionPattern
 }
 
 function Validate-ProcessFindings {
@@ -445,6 +458,9 @@ if ($PSCmdlet.ParameterSetName -eq "single") {
   }
   $taskDirectories = Get-ChildItem -LiteralPath $WorkRoot -Directory | Sort-Object Name
   foreach ($taskDirectory in $taskDirectories) {
+    if (Should-ExcludeAllTasksTarget -TaskDirectoryName $taskDirectory.Name) {
+      continue
+    }
     $targetTaskIds.Add($taskDirectory.Name) | Out-Null
   }
 }

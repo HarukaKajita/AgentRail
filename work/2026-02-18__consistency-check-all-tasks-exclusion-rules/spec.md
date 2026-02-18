@@ -2,80 +2,95 @@
 
 ## 1. メタ情報 [空欄禁止]
 
-- Task ID: 2026-02-18__consistency-check-all-tasks-exclusion-rules
+- Task ID: `2026-02-18__consistency-check-all-tasks-exclusion-rules`
 - タイトル: Consistency Check All Tasks Exclusion Rules
 - 作成日: 2026-02-18
-- 更新日: 2026-02-18
+- 更新日: 2026-02-19
 - 作成者: codex
-- 関連要望: work/2026-02-18__consistency-check-all-tasks-exclusion-rules/request.md
+- 関連要望: `work/2026-02-18__consistency-check-all-tasks-exclusion-rules/request.md`
 
 ## 2. 背景と目的 [空欄禁止]
 
-- 背景: 2026-02-18__consistency-check-multi-task-mode の finding F-102 が改善アクションを要求している。
-- 目的: finding に対する恒久対応を実装し、同種問題の再発を防止する。
+- 背景: `-AllTasks` が保守対象外の legacy task も検査対象に含めるため、運用時にノイズ失敗が発生しやすい。
+- 目的: archive/legacy を対象外にする明示ルールを導入し、運用対象 task の検査精度を高める。
 
 ## 3. スコープ [空欄禁止]
 
 ### 3.1 In Scope [空欄禁止]
 
-- finding に直接対応する修正を実装する。
-- 必要な docs と運用ルールを更新する。
+- `tools/consistency-check/check.ps1` の `-AllTasks` 対象抽出に除外ルールを追加する。
+- 除外条件を docs へ反映し、運用基準として明文化する。
+- task ドキュメント（investigation/plan/review/state）を更新する。
 
 ### 3.2 Out of Scope [空欄禁止]
 
-- finding と無関係な大規模リファクタ。
+- `-TaskId` / `-TaskIds` の対象判定変更。
+- 除外ルールの外部設定化（config ファイル化）。
+- checker rule 本体（`rule_id` 群）の追加/削除。
 
 ## 4. 受入条件 (Acceptance Criteria / 受入条件) [空欄禁止]
 
-- AC-001: finding の原因に対する実装が完了する。
-- AC-002: 必要な docs が更新される。
+- AC-001: `-AllTasks` 実行時、ディレクトリ名が `archive` または `legacy` で始まる task ディレクトリが検査対象から除外される。
+- AC-002: 除外対象以外の task ディレクトリは従来どおり検査され、失敗時は終了コード 1 になる。
+- AC-003: `-TaskId` / `-TaskIds` 実行では除外ルールが適用されず、明示指定 task をそのまま検査できる。
+- AC-004: `docs/specs/phase2-automation-spec.md` に `-AllTasks` の除外条件が追記される。
 
 ## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
 
 ### 5.1 Unit Test (Unit Test / 単体テスト) [空欄禁止]
 
-- 対象: 修正対象モジュール
-- 観点: finding の再発条件が検知/防止される
-- 合格条件: 期待どおり PASS
+- 対象: `tools/consistency-check/check.ps1` の all モード対象抽出処理
+- 観点: `archive`/`legacy` で始まるディレクトリが除外される
+- 合格条件: `-AllTasks -OutputFormat json` の `results[].task_id` に除外ディレクトリが含まれない
 
 ### 5.2 Integration Test (Integration Test / 結合テスト) [空欄禁止]
 
-- 対象: CI および関連スクリプト
-- 観点: 修正結果がパイプラインへ反映される
-- 合格条件: 期待どおり PASS
+- 対象: temp work root による mixed ディレクトリ検証
+- 観点: 除外対象は無視しつつ、通常 task の失敗は正しく FAIL になる
+- 合格条件: 除外のみなら PASS、通常 task に欠陥があれば FAIL になる
 
 ### 5.3 Regression Test (Regression Test / 回帰テスト) [空欄禁止]
 
-- 対象: 既存フロー
-- 観点: 既存の正常ケースを壊さない
-- 合格条件: 期待どおり PASS
+- 対象: `-TaskId` / `-TaskIds` 実行
+- 観点: 明示指定モードの既存挙動を維持する
+- 合格条件: 既存 task で PASS、不存在 task で FAIL の挙動が維持される
 
 ### 5.4 Manual Verification (Manual Verification / 手動検証) [空欄禁止]
 
-- 手順: 対応実装後に対象コマンドを順次実行する
-- 期待結果: AC-001 と AC-002 を満たす
+- 手順:
+  1. temp work root に通常 task・`archive-*`・`legacy-*` ディレクトリを作成する
+  2. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -WorkRoot <temp-work-root> -OutputFormat json`
+  3. 通常の壊れた task を追加して同コマンドを再実行する
+  4. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId does-not-exist`
+- 期待結果: AC-001〜AC-004 を満たし、明示指定モードの回帰がない
 
 ## 6. 影響範囲 [空欄禁止]
 
-- 影響ファイル/モジュール: finding に関連するファイル一式
-- 影響する仕様: 必要に応じて該当 spec を更新
-- 非機能影響: 品質と再現性の向上
+- 影響ファイル/モジュール:
+  - `tools/consistency-check/check.ps1`
+  - `docs/specs/phase2-automation-spec.md`
+  - `work/2026-02-18__consistency-check-all-tasks-exclusion-rules/*`
+- 影響する仕様:
+  - `docs/specs/phase2-ci-integration-spec.md`（必要に応じて参照追記）
+- 非機能影響:
+  - `-AllTasks` 実行時の運用ノイズ低減
 
 ## 7. 制約とリスク [空欄禁止]
 
-- 制約: 既存ワークフロー互換を維持する
-- 想定リスク: 修正漏れが残る可能性
-- 回避策: reviewer で finding クローズ条件を確認する
+- 制約: 既存 CLI 互換を維持し、追加パラメータなしで運用できる形にする。
+- 想定リスク: 名前ベース除外が過剰に効くと、本来検査すべき task をスキップする可能性がある。
+- 回避策: 除外対象を `archive`/`legacy` prefix のみに限定し、docs に明示する。
 
 ## 8. 未確定事項 [空欄禁止]
 
-- 実装時に発見された追加要件の扱い。
+- `disabled` など追加カテゴリの除外は別タスクで検討する。
 
 ## 9. 関連資料リンク [空欄禁止]
 
-- request: work/2026-02-18__consistency-check-all-tasks-exclusion-rules/request.md
-- investigation: work/2026-02-18__consistency-check-all-tasks-exclusion-rules/investigation.md
-- plan: work/2026-02-18__consistency-check-all-tasks-exclusion-rules/plan.md
-- review: work/2026-02-18__consistency-check-all-tasks-exclusion-rules/review.md
+- request: `work/2026-02-18__consistency-check-all-tasks-exclusion-rules/request.md`
+- investigation: `work/2026-02-18__consistency-check-all-tasks-exclusion-rules/investigation.md`
+- plan: `work/2026-02-18__consistency-check-all-tasks-exclusion-rules/plan.md`
+- review: `work/2026-02-18__consistency-check-all-tasks-exclusion-rules/review.md`
 - docs:
   - `docs/operations/high-priority-backlog.md`
+  - `docs/specs/phase2-automation-spec.md`

@@ -44,7 +44,7 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 
 - `-TaskId <task-id>`（単一 task）
 - `-TaskIds <task-id>,<task-id>`（複数 task）
-- `-AllTasks`（`work/` 配下全 task）
+- `-AllTasks`（`work/` 配下全 task。ただしディレクトリ名が `archive`/`legacy` で始まるものは除外）
 - `docs/INDEX.md`
 - `project.profile.yaml`
 
@@ -92,6 +92,7 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 
 - `-OutputFormat json` で標準出力へ JSON を返す。
 - `-OutputFile <path>` 指定時は同一 JSON をファイル保存する。
+- `-AllTasks` は `work/` 直下ディレクトリ名に `^(archive|legacy)(-|$)`（大文字小文字非区別）が一致するものを除外する。
 - 互換ポリシー:
   - 既存キーを壊さない追加変更は `minor` を上げる。
   - 既存キーの削除/型変更/意味変更は `major` を上げる。
@@ -130,5 +131,4 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 
 次タスクでは本仕様を基に、以下を決定してから実装へ進む。
 
-1. `-AllTasks` の除外条件（archive/legacy）を定義するかどうか
-2. 自己改善起票の運用結果を踏まえて閾値（must/high固定）を見直すかどうか
+1. 自己改善起票の運用結果を踏まえて閾値（must/high固定）を見直すかどうか
