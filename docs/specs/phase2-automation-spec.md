@@ -87,14 +87,16 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 
 ## 6. CI 連携ポイント（確定）
 
-- Phase 2 後半（`docs-indexer` と `consistency-check` のローカル安定化完了後）で連携する。
+- Phase 2 後半として GitHub Actions へ連携済み（`.github/workflows/ci-framework.yml`）。
 - CI では以下を順に実行する。
   1. `tools/docs-indexer/index.ps1`
-  2. `tools/consistency-check/check.ps1 -TaskId <task-id>`
+  2. `git diff --exit-code -- docs/INDEX.md`（差分があれば失敗）
+  3. `work/` から最新 task-id を自動解決
+  4. `tools/consistency-check/check.ps1 -TaskId <resolved-task-id>`
 
 ## 7. 次タスクへの引き継ぎ
 
 次タスクでは本仕様を基に、以下を決定してから実装へ進む。
 
-1. checker の適用対象タスクIDの解決方式（引数必須 / 自動推定）
-2. CI での `<task-id>` 受け渡し方法
+1. checker を単一最新taskから複数task走査へ拡張するかどうか
+2. checker の JSON 出力オプションを追加するかどうか

@@ -1,0 +1,62 @@
+name: Framework CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  framework-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify PowerShell
+        shell: pwsh
+        run: |
+          $PSVersionTable.PSVersion
+
+      - name: Run docs-indexer
+        shell: pwsh
+        run: |
+          pwsh -NoProfile -File tools/docs-indexer/index.ps1
+
+      - name: Fail when docs/INDEX.md is not up to date
+        shell: bash
+        run: |
+          git diff --exit-code -- docs/INDEX.md
+
+      - name: Resolve latest task ID
+        id: resolve_task
+        shell: pwsh
+        run: |
+          Set-StrictMode -Version Latest
+          $ErrorActionPreference = "Stop"
+
+          if (-not (Test-Path -LiteralPath "work")) {
+            throw "work directory is not found."
+          }
+
+          $taskDirs = Get-ChildItem -LiteralPath "work" -Directory
+          if ($taskDirs.Count -eq 0) {
+            throw "No task directories found in work/."
+          }
+
+          $sorted = $taskDirs | Sort-Object LastWriteTimeUtc -Descending
+          $latestTime = $sorted[0].LastWriteTimeUtc
+          $latestCandidates = $sorted | Where-Object { $_.LastWriteTimeUtc -eq $latestTime }
+
+          if ($latestCandidates.Count -gt 1) {
+            $names = ($latestCandidates | Select-Object -ExpandProperty Name) -join ", "
+            throw "Cannot resolve unique latest task-id. Candidates: $names"
+          }
+
+          $resolvedTaskId = $latestCandidates[0].Name
+          "resolved_task_id=$resolvedTaskId" >> $env:GITHUB_OUTPUT
+          Write-Output "Resolved task-id: $resolvedTaskId"
+
+      - name: Run consistency-check
+        shell: pwsh
+        run: |
+          $taskId = "${{ steps.resolve_task.outputs.resolved_task_id }}"
+          pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId $taskId

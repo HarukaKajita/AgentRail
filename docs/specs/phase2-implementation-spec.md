@@ -9,6 +9,7 @@ Phase 2 設計に基づき、`docs-indexer` と `consistency-check` を PowerShe
 - `tools/docs-indexer/index.ps1`
 - `tools/consistency-check/check.ps1`
 - `project.profile.yaml` の自動化コマンド追加
+- CI 連携仕様は `docs/specs/phase2-ci-integration-spec.md` で管理する
 
 ## 受入条件
 
@@ -21,3 +22,4 @@ Phase 2 設計に基づき、`docs-indexer` と `consistency-check` を PowerShe
 
 - `docs/specs/phase2-automation-spec.md`
 - `work/2026-02-18__phase2-automation-implementation/spec.md`
+- `docs/specs/phase2-ci-integration-spec.md`

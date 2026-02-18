@@ -5,40 +5,40 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-18__phase2-automation-implementation
-- タイトル: Phase 2 自動化実装（docs-indexer / consistency-check）
+- Task ID: 2026-02-18__phase2-ci-integration
+- タイトル: Phase 2 後半 CI 連携（GitHub Actions）
 - 状態: done
-- 最終更新日時: 2026-02-18T18:35:00+09:00
+- 最終更新日時: 2026-02-18T19:05:00+09:00
 - 担当: Codex
 
 ## 2. 今回の目的
 
-- `docs-indexer` と `consistency-check` を実装して手動運用を補助する。
-- Phase 2 設計の確定内容（実装言語・コマンド・CI連携時期）を docs へ反映する。
+- `docs-indexer` と `check_consistency` を GitHub Actions に統合する。
+- INDEX 差分検出と latest task-id 自動解決を CI ゲートとして導入する。
 
 ## 3. 完了済み
 
-- `tools/docs-indexer/index.ps1` を実装し、`docs/INDEX.md` 管理セクションの自動更新を実現。
-- `tools/consistency-check/check.ps1` を実装し、PASS/FAIL + failure detail + exit code を実装。
-- `project.profile.yaml` に `index_docs` と `check_consistency` コマンドを追加。
-- `work/2026-02-18__phase2-automation-implementation/` の必須 6 ファイルを作成し完了。
-- `docs/specs/phase2-implementation-spec.md` と `docs/investigations/phase2-implementation-investigation.md` を追加。
+- `.github/workflows/ci-framework.yml` を追加し、push/pull_request で framework チェックを自動化。
+- CI で `docs-indexer` 実行後の `docs/INDEX.md` 差分検出を導入。
+- CI で `work/` 配下から latest task-id を自動解決して `check_consistency` を実行。
+- `work/2026-02-18__phase2-ci-integration/` の必須 6 ファイルを作成し完了。
+- `docs/specs/phase2-ci-integration-spec.md` と `docs/investigations/phase2-ci-integration-investigation.md` を追加。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-18
-- 決定内容: Phase 2 は PowerShell 実装、2タスク分割、CI連携は後半で統合。
+- 決定内容: CI 基盤は GitHub Actions。task-id は latest task 自動解決。INDEX 差分は失敗扱い。
 - 根拠資料: `docs/specs/phase2-automation-spec.md`
 
 ## 5. 未解決・ブロッカー
 
-- CI 実行時に `<task-id>` をどのように解決するかは未確定。
+- latest 1件方式を複数 task 走査へ拡張するかは未決定。
 
 ## 6. 次アクション
 
-1. CI 連携タスクを起票し、`index_docs` と `check_consistency` をパイプラインへ組み込む。
-2. checker 出力の JSON 形式オプションを追加するか検討する。
-3. 新規実タスクで checker をゲートとして運用し、誤検知有無を評価する。
+1. checker の JSON 出力オプション追加タスクを起票する。
+2. checker の複数 task 走査モード追加可否を検討する。
+3. CI 実行結果を数タスク分観測し、誤検知パターンを収集する。
 
 ## 7. 参照先
 

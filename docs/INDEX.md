@@ -20,6 +20,7 @@
 ## 3. 仕様
 - `docs/specs/framework-pilot-01-spec.md` - Framework Pilot 01 仕様
 - `docs/specs/phase2-automation-spec.md` - Phase 2 自動化仕様（設計）
+- `docs/specs/phase2-ci-integration-spec.md` - Phase 2 CI 連携仕様
 - `docs/specs/phase2-implementation-spec.md` - Phase 2 実装仕様
 
 ## 4. 意思決定
@@ -27,6 +28,7 @@
 
 ## 5. 調査
 - `docs/investigations/framework-pilot-01-investigation.md` - Framework Pilot 01 調査記録
+- `docs/investigations/phase2-ci-integration-investigation.md` - Phase 2 CI 連携調査記録
 - `docs/investigations/phase2-implementation-investigation.md` - Phase 2 実装調査記録
 
 ## 6. 更新手順
