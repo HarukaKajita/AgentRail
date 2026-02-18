@@ -94,6 +94,7 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 - Phase 2 後半として GitHub Actions へ連携済み（`.github/workflows/ci-framework.yml`）。
 - CI では以下を順に実行する。
   1. `tools/docs-indexer/index.ps1 -Mode check`（差分があれば失敗）
+  2. `tools/profile-validate/validate.ps1 -ProfilePath project.profile.yaml`
   3. `tools/ci/resolve-task-id.ps1` で task-id を解決（manual優先、差分ベース、0件時は `skip`）
   4. `resolved_task_source != skip` の場合のみ `tools/improvement-harvest/scan.ps1 -TaskId <resolved-task-id>` を実行
   5. `resolved_task_source != skip` の場合のみ `tools/consistency-check/check.ps1 -TaskId <resolved-task-id>` を実行

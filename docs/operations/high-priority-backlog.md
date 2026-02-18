@@ -6,22 +6,17 @@
 
 ## 優先タスク一覧
 
-1. `2026-02-18__project-profile-schema-validation`
-- 状態: planned
-- 目的: `project.profile.yaml` の専用 validator 導入
-- 参照: `work/2026-02-18__project-profile-schema-validation/spec.md`
-
-2. `2026-02-18__state-transition-validation`
+1. `2026-02-18__state-transition-validation`
 - 状態: planned
 - 目的: `state.json` の整合検証を CI に導入
 - 参照: `work/2026-02-18__state-transition-validation/spec.md`
 
-3. `2026-02-18__consistency-check-json-output`
+2. `2026-02-18__consistency-check-json-output`
 - 状態: planned
 - 目的: `check_consistency` に JSON 出力を追加し機械可読性を向上する
 - 参照: `work/2026-02-18__consistency-check-json-output/spec.md`
 
-4. `2026-02-18__consistency-check-multi-task-mode`
+3. `2026-02-18__consistency-check-multi-task-mode`
 - 状態: planned
 - 目的: `check_consistency` に複数 task 一括検査モードを追加する
 - 参照: `work/2026-02-18__consistency-check-multi-task-mode/spec.md`
@@ -38,7 +33,12 @@
 - 目的: `docs-indexer` の `check` モードを導入し、CI 判定を非破壊化
 - 参照: `work/2026-02-18__docs-indexer-check-mode/spec.md`
 
-3. `2026-02-18__self-improvement-loop-enforcement`
+3. `2026-02-18__project-profile-schema-validation`
+- 状態: done
+- 目的: `project.profile.yaml` の専用 validator 導入
+- 参照: `work/2026-02-18__project-profile-schema-validation/spec.md`
+
+4. `2026-02-18__self-improvement-loop-enforcement`
 - 状態: done
 - 目的: Process Findings + 改善起票強制 + CI 改善ゲート導入
 - 参照: `work/2026-02-18__self-improvement-loop-enforcement/spec.md`

@@ -31,3 +31,10 @@
 ## 6. 完了判定
 
 - AC-001〜AC-004 をすべて PASS
+
+## 7. 実装実行計画（2026-02-18T21:29:20+09:00）
+
+1. `tools/profile-validate/validate.ps1` を新規作成し、必須キーと禁止値の検証を実装する。
+2. workflow に profile validator step を追加して、checker 前に fail-fast させる。
+3. CI 仕様 docs を validator 導入後の手順へ更新する。
+4. 正常/欠落/TODO_SET_ME ケースを検証し、review/state を更新する。
