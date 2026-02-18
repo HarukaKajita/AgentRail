@@ -1,8 +1,8 @@
-# Phase 2 実装仕様
+# 自動化基盤 実装仕様
 
 ## 概要
 
-Phase 2 設計に基づき、`docs-indexer` と `consistency-check` を PowerShell で実装する。
+自動化基盤の設計に基づき、`docs-indexer` と `consistency-check` を PowerShell で実装する。
 
 ## 実装対象
 
@@ -11,7 +11,7 @@ Phase 2 設計に基づき、`docs-indexer` と `consistency-check` を PowerShe
 - `tools/improvement-harvest/scan.ps1`
 - `tools/improvement-harvest/create-task.ps1`
 - `project.profile.yaml` の自動化コマンド追加
-- CI 連携仕様は `docs/specs/phase2-ci-integration-spec.md` で管理する
+- CI 連携仕様は `docs/specs/automation-tools-ci-integration-spec.md` で管理する
 
 ## 受入条件
 
@@ -23,7 +23,7 @@ Phase 2 設計に基づき、`docs-indexer` と `consistency-check` を PowerShe
 
 ## 参照
 
-- `docs/specs/phase2-automation-spec.md`
-- `work/2026-02-18__phase2-automation-implementation/spec.md`
-- `docs/specs/phase2-ci-integration-spec.md`
+- `docs/specs/automation-tools-design-spec.md`
+- `work/2026-02-18__automation-tools-implementation/spec.md`
+- `docs/specs/automation-tools-ci-integration-spec.md`
 - `docs/specs/self-improvement-loop-spec.md`

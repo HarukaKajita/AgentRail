@@ -33,7 +33,7 @@
 - AC-001: `-OutputFormat json` 実行時、single/multi いずれの JSON 出力にもトップレベル `schema_version` が含まれる。
 - AC-002: `schema_version` は `tools/consistency-check/check.ps1` 内の単一定数で管理され、single/multi で同一値が出力される。
 - AC-003: `-OutputFormat text` の既存出力（`CHECK_RESULT` 行と failure 表現）および終了コード挙動が維持される。
-- AC-004: `docs/specs/phase2-automation-spec.md` に JSON スキーマ互換ポリシー（互換追加=minor、破壊変更=major）が追記される。
+- AC-004: `docs/specs/automation-tools-design-spec.md` に JSON スキーマ互換ポリシー（互換追加=minor、破壊変更=major）が追記される。
 
 ## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
 
@@ -68,10 +68,10 @@
 
 - 影響ファイル/モジュール:
   - `tools/consistency-check/check.ps1`
-  - `docs/specs/phase2-automation-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
   - `work/2026-02-18__consistency-check-json-schema-version-policy/*`
 - 影響する仕様:
-  - `docs/specs/phase2-ci-integration-spec.md`（必要なら参照追記）
+  - `docs/specs/automation-tools-ci-integration-spec.md`（必要なら参照追記）
 - 非機能影響:
   - JSON 利用側の将来拡張互換判定が容易になる
 
@@ -93,4 +93,4 @@
 - review: `work/2026-02-18__consistency-check-json-schema-version-policy/review.md`
 - docs:
   - `docs/operations/high-priority-backlog.md`
-  - `docs/specs/phase2-automation-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`

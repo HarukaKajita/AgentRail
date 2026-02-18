@@ -1,8 +1,8 @@
-# Investigation: 2026-02-18__phase2-automation-implementation
+# Investigation: 2026-02-18__automation-tools-implementation
 
 ## 1. 調査対象 [空欄禁止]
 
-- Phase 2 設計を実装へ落とす際の最小構成と失敗条件の具体化。
+- 自動化基盤段階の設計を実装へ落とす際の最小構成と失敗条件の具体化。
 
 ## 2. 仮説 (Hypothesis / 仮説) [空欄禁止]
 
@@ -12,7 +12,7 @@
 ## 3. 観測方法 [空欄禁止]
 
 - 参照資料:
-  - `docs/specs/phase2-automation-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
   - `docs/INDEX.md`
   - `project.profile.yaml`
 - 実施した確認:
@@ -45,5 +45,5 @@
 
 ## 8. 関連リンク [空欄禁止]
 
-- request: `work/2026-02-18__phase2-automation-implementation/request.md`
-- spec: `work/2026-02-18__phase2-automation-implementation/spec.md`
+- request: `work/2026-02-18__automation-tools-implementation/request.md`
+- spec: `work/2026-02-18__automation-tools-implementation/spec.md`

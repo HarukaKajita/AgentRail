@@ -1,8 +1,8 @@
-# Request: 2026-02-18__phase2-ci-integration
+# Request: 2026-02-18__automation-tools-ci-integration
 
 ## 要望の原文
 
-- CI連携タスク（Phase 2 後半）を起票して `index_docs` / `check_consistency` をパイプラインに組み込む。
+- CI 連携タスク（自動化基盤段階）を起票して `index_docs` / `check_consistency` をパイプラインに組み込む。
 
 ## 要望の整理
 

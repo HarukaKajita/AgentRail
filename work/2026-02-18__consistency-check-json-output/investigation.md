@@ -14,7 +14,7 @@
 - 参照資料:
   - `tools/consistency-check/check.ps1`
   - `.github/workflows/ci-framework.yml`
-  - `docs/specs/phase2-automation-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
 - 実施した確認:
   - 現在はテキストのみ
   - CI の失敗詳細はログ依存

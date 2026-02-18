@@ -1,8 +1,8 @@
-# Phase 2 CI 連携調査記録
+# 自動化基盤 CI 連携調査記録
 
 ## 調査目的
 
-Phase 2 で実装済みの自動化スクリプトを CI に組み込むための具体方式を確定する。
+自動化基盤として実装済みの自動化スクリプトを CI に組み込むための具体方式を確定する。
 
 ## 主な観測
 
@@ -18,6 +18,6 @@ Phase 2 で実装済みの自動化スクリプトを CI に組み込むため�
 
 ## 参照
 
-- `docs/specs/phase2-automation-spec.md`
-- `docs/specs/phase2-ci-integration-spec.md`
-- `work/2026-02-18__phase2-ci-integration/investigation.md`
+- `docs/specs/automation-tools-design-spec.md`
+- `docs/specs/automation-tools-ci-integration-spec.md`
+- `work/2026-02-18__automation-tools-ci-integration/investigation.md`

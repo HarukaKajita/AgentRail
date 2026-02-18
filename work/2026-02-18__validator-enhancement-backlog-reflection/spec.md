@@ -71,7 +71,7 @@
   - `docs/INDEX.md`
   - `work/2026-02-18__validator-enhancement-backlog-reflection/*`
 - 影響する仕様:
-  - `docs/specs/phase2-automation-spec.md`（必要なら参照追加）
+  - `docs/specs/automation-tools-design-spec.md`（必要なら参照追加）
 - 非機能影響:
   - validator 強化候補の優先順位管理が明確になる
 

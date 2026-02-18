@@ -14,7 +14,7 @@
 - AC-003: PASS
   - docs へ spec/investigation を昇格済み
 - AC-004: PASS
-  - `docs/specs/phase2-automation-spec.md` に I/O・失敗条件・受入基準を記載
+  - `docs/specs/automation-tools-design-spec.md` に I/O・失敗条件・受入基準を記載
 - AC-005: PASS
   - `docs/INDEX.md` に新規導線を追加
 
@@ -32,7 +32,7 @@
 
 ### Regression Test
 
-- 実施内容: 既存 Phase 1 ルールファイルの方針維持確認
+- 実施内容: 既存手動運用ルールファイルの方針維持確認
 - 結果: PASS
 
 ### Manual Verification
@@ -44,7 +44,7 @@
 
 - 重大: なし
 - 改善提案:
-  - Phase 2 で profile コマンドを CI と接続する
+  - 自動化基盤で profile コマンドを CI と接続する
   - docs/index 自動生成の優先順位を次タスクで確定する
 
 ## 5. 結論

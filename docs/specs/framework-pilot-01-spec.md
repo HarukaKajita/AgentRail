@@ -2,7 +2,7 @@
 
 ## 概要
 
-Phase 1 で導入したフレームワークを実際に 1 件運用し、厳格ブロック運用が成立することを検証する。
+手動運用導入段階で整備したフレームワークを実際に 1 件運用し、厳格ブロック運用が成立することを検証する。
 
 ## スコープ
 
@@ -10,14 +10,14 @@ Phase 1 で導入したフレームワークを実際に 1 件運用し、厳格
 - `work/2026-02-18__framework-pilot-01/` の成果物作成
 - docs 昇格資料の作成
 - `docs/INDEX.md` 更新
-- Phase 2 自動化仕様の文書化
+- 自動化基盤仕様の文書化
 
 ## 受入条件
 
 1. profile の `TODO_SET_ME` がすべて除去されている
 2. task 成果物 6 ファイルが揃い、空欄禁止項目が埋まっている
 3. docs 側に spec/investigation が昇格されている
-4. `phase2-automation-spec.md` が作成されている
+4. `docs/specs/automation-tools-design-spec.md` が作成されている
 5. `docs/INDEX.md` が更新されている
 
 ## テスト観点

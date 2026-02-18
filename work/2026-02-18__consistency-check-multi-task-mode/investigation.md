@@ -14,7 +14,7 @@
 - 参照資料:
   - `tools/consistency-check/check.ps1`
   - `.github/workflows/ci-framework.yml`
-  - `docs/specs/phase2-automation-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
 - 実施した確認:
   - 現在は `-TaskId` 必須で単一対象のみ
   - CI では latest 1件方式のため過去 task の崩れを見逃す可能性あり

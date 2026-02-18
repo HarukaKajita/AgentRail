@@ -71,7 +71,7 @@
   - `.github/workflows/ci-framework.yml`
   - `work/*/state.json`
 - 影響する仕様:
-  - `docs/specs/phase2-ci-integration-spec.md`
+  - `docs/specs/automation-tools-ci-integration-spec.md`
 - 非機能影響:
   - 状態管理の信頼性向上
 
@@ -92,5 +92,5 @@
 - plan: `work/2026-02-18__state-transition-validation/plan.md`
 - review: `work/2026-02-18__state-transition-validation/review.md`
 - docs:
-  - `docs/specs/phase2-automation-spec.md`
-  - `docs/specs/phase2-ci-integration-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
+  - `docs/specs/automation-tools-ci-integration-spec.md`

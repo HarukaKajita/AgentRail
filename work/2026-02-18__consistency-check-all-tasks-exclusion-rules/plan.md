@@ -16,14 +16,14 @@
 
 1. investigation/spec を反映し、`-AllTasks` 除外対象を archive/legacy prefix に固定する。
 2. `tools/consistency-check/check.ps1` all モードへ除外判定を実装する。
-3. `docs/specs/phase2-automation-spec.md` に除外条件を追記する。
+3. `docs/specs/automation-tools-design-spec.md` に除外条件を追記する。
 4. temp work root で PASS ケースと FAIL ケースを実行し、除外ルールの有効性を確認する。
 5. `review.md` / `state.json` / `MEMORY.md` を更新し、task consistency を通す。
 
 ## 4. 変更対象ファイル
 
 - `tools/consistency-check/check.ps1`
-- `docs/specs/phase2-automation-spec.md`
+- `docs/specs/automation-tools-design-spec.md`
 - `work/2026-02-18__consistency-check-all-tasks-exclusion-rules/investigation.md`
 - `work/2026-02-18__consistency-check-all-tasks-exclusion-rules/spec.md`
 - `work/2026-02-18__consistency-check-all-tasks-exclusion-rules/plan.md`

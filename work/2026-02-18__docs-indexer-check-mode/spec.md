@@ -68,7 +68,7 @@
   - `tools/docs-indexer/index.ps1`
   - `.github/workflows/ci-framework.yml`
 - 影響する仕様:
-  - `docs/specs/phase2-ci-integration-spec.md`
+  - `docs/specs/automation-tools-ci-integration-spec.md`
 - 非機能影響:
   - CI 判定の明確性向上
 
@@ -89,5 +89,5 @@
 - plan: `work/2026-02-18__docs-indexer-check-mode/plan.md`
 - review: `work/2026-02-18__docs-indexer-check-mode/review.md`
 - docs:
-  - `docs/specs/phase2-automation-spec.md`
-  - `docs/specs/phase2-ci-integration-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
+  - `docs/specs/automation-tools-ci-integration-spec.md`

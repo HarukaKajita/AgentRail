@@ -22,6 +22,6 @@ validator（profile/state）の改善候補を、task review から継続的に�
 ## 関連資料
 
 - `docs/operations/high-priority-backlog.md`
-- `docs/specs/phase2-automation-spec.md`
+- `docs/specs/automation-tools-design-spec.md`
 - `tools/profile-validate/validate.ps1`
 - `tools/state-validate/validate.ps1`

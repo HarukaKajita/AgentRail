@@ -22,8 +22,8 @@
 
 - `tools/ci/resolve-task-id.ps1`
 - `.github/workflows/ci-framework.yml`
-- `docs/specs/phase2-ci-integration-spec.md`
-- `docs/specs/phase2-automation-spec.md`
+- `docs/specs/automation-tools-ci-integration-spec.md`
+- `docs/specs/automation-tools-design-spec.md`
 - `docs/decisions/20260218-ci-governance-and-task-resolution.md`
 - `work/2026-02-18__ci-task-resolution-no-fallback/*`
 

@@ -1,13 +1,18 @@
-# Phase 2 自動化仕様（設計）
+# 自動化基盤仕様（設計）
 
 ## 1. 目的
 
-Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様を定義する。
+手動運用中心で開始したフレームワーク運用を補助するため、以下 2 機能の自動化仕様を定義する。
 
 1. `docs-indexer`
 2. `consistency-check`
 
-本ドキュメントは Phase 2 の設計正本であり、実装結果は `docs/specs/phase2-implementation-spec.md` に記録する。
+本ドキュメントは自動化基盤整備の設計正本であり、実装結果は `docs/specs/automation-tools-implementation-spec.md` に記録する。
+
+## 1.1 用語定義
+
+- 手動運用導入段階: テンプレートと運用手順を中心に整備する初期段階（旧称: Phase 1）。
+- 自動化基盤段階: `docs-indexer` / `consistency-check` / CI 連携を導入する段階（旧称: Phase 2）。
 
 ## 2. docs-indexer 仕様
 
@@ -118,7 +123,7 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 
 ## 6. CI 連携ポイント（確定）
 
-- Phase 2 後半として GitHub Actions へ連携済み（`.github/workflows/ci-framework.yml`）。
+- 本仕様に基づく CI 連携として GitHub Actions へ統合済み（`.github/workflows/ci-framework.yml`）。
 - CI では以下を順に実行する。
   1. `tools/docs-indexer/index.ps1 -Mode check`（差分があれば失敗）
   2. `tools/profile-validate/validate.ps1 -ProfilePath project.profile.yaml`

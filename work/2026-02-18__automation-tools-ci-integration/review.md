@@ -1,11 +1,11 @@
-# Review: 2026-02-18__phase2-ci-integration
+# Review: 2026-02-18__automation-tools-ci-integration
 
 ## 1. レビュー対象
 
 - `.github/workflows/ci-framework.yml`
-- `docs/specs/phase2-automation-spec.md`
-- `docs/specs/phase2-ci-integration-spec.md`
-- `docs/investigations/phase2-ci-integration-investigation.md`
+- `docs/specs/automation-tools-design-spec.md`
+- `docs/specs/automation-tools-ci-integration-spec.md`
+- `docs/investigations/automation-tools-ci-integration-investigation.md`
 
 ## 2. 受入条件評価
 
@@ -30,7 +30,7 @@
 ### Regression Test
 
 - 実施内容:
-  - `tools/consistency-check/check.ps1 -TaskId 2026-02-18__phase2-automation-implementation`
+  - `tools/consistency-check/check.ps1 -TaskId 2026-02-18__automation-tools-implementation`
   - `tools/consistency-check/check.ps1 -TaskId 2026-02-18__framework-pilot-01`
 - 結果: PASS
 
@@ -39,8 +39,8 @@
 - 実施内容:
   1. `pwsh -NoProfile -File tools/docs-indexer/index.ps1` を実行
   2. `git diff --exit-code -- docs/INDEX.md` を実行
-  3. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__phase2-ci-integration` を実行
-  4. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__phase2-automation-implementation` を実行
+  3. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__automation-tools-ci-integration` を実行
+  4. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__automation-tools-implementation` を実行
   5. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__framework-pilot-01` を実行
 - 結果: PASS
 

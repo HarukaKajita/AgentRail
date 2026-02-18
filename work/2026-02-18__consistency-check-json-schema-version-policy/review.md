@@ -3,7 +3,7 @@
 ## 1. レビュー対象
 
 - `tools/consistency-check/check.ps1`
-- `docs/specs/phase2-automation-spec.md`
+- `docs/specs/automation-tools-design-spec.md`
 
 ## 2. 受入条件評価
 
@@ -44,7 +44,7 @@
 
 - 重大: なし
 - 改善提案:
-  - `schema_version` 変更時は `docs/specs/phase2-automation-spec.md` の互換ポリシーと同時に更新する運用を明文化しておくと安全。
+  - `schema_version` 変更時は `docs/specs/automation-tools-design-spec.md` の互換ポリシーと同時に更新する運用を明文化しておくと安全。
 
 ## 5. 結論
 
@@ -58,6 +58,6 @@
 - category: quality
 - severity: low
 - summary: JSON スキーマ版の運用は docs 依存のため、version bump 手順を review で継続確認する必要がある。
-- evidence: `tools/consistency-check/check.ps1` に `schema_version` 定数を追加し、`docs/specs/phase2-automation-spec.md` に versioning policy を追記した。
+- evidence: `tools/consistency-check/check.ps1` に `schema_version` 定数を追加し、`docs/specs/automation-tools-design-spec.md` に versioning policy を追記した。
 - action_required: no
 - linked_task_id: none

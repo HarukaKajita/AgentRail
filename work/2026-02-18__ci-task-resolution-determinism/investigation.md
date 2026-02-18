@@ -13,7 +13,7 @@
 
 - 参照資料:
   - `.github/workflows/ci-framework.yml`
-  - `docs/specs/phase2-ci-integration-spec.md`
+  - `docs/specs/automation-tools-ci-integration-spec.md`
   - `tools/consistency-check/check.ps1`
 - 実施した確認:
   - 現在は latest 1件方式で解決している

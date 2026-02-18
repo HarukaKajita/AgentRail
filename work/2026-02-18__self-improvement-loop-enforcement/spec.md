@@ -74,8 +74,8 @@
   - `.github/workflows/ci-framework.yml`
   - `docs/templates/review.md`
 - 影響する仕様:
-  - `docs/specs/phase2-automation-spec.md`
-  - `docs/specs/phase2-ci-integration-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
+  - `docs/specs/automation-tools-ci-integration-spec.md`
 - 非機能影響:
   - 改善漏れ再発防止
   - レビュー知見のトレーサビリティ向上

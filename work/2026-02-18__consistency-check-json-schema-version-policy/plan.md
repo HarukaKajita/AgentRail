@@ -17,14 +17,14 @@
 
 1. investigation と spec を反映し、`schema_version` と互換ポリシーの要件を固定する。
 2. `tools/consistency-check/check.ps1` の JSON payload 組み立てへ `schema_version` 定数を導入する。
-3. `docs/specs/phase2-automation-spec.md` に JSON スキーマ versioning policy を追記する。
+3. `docs/specs/automation-tools-design-spec.md` に JSON スキーマ versioning policy を追記する。
 4. JSON 出力（single/multi/file）と text 回帰を実行し、受入条件を検証する。
 5. `review.md` / `state.json` / `MEMORY.md` を更新し、`consistency-check` で task 完了可否を確認する。
 
 ## 4. 変更対象ファイル
 
 - `tools/consistency-check/check.ps1`
-- `docs/specs/phase2-automation-spec.md`
+- `docs/specs/automation-tools-design-spec.md`
 - `work/2026-02-18__consistency-check-json-schema-version-policy/investigation.md`
 - `work/2026-02-18__consistency-check-json-schema-version-policy/spec.md`
 - `work/2026-02-18__consistency-check-json-schema-version-policy/plan.md`
@@ -47,6 +47,6 @@
 ## 7. 実装実行計画（2026-02-19T00:56:03+09:00）
 
 1. `tools/consistency-check/check.ps1` に `$jsonSchemaVersion = "1.0.0"` を追加し、single/multi JSON payload 双方へ注入する。
-2. `phase2-automation-spec` の JSON スキーマ例と受入基準へ `schema_version` と versioning policy を追記する。
+2. `automation-tools-design-spec` の JSON スキーマ例と受入基準へ `schema_version` と versioning policy を追記する。
 3. 4系統の実行コマンド（json single/json multi/json file/text regression）で挙動を確認する。
 4. review/state/memory を更新後、task consistency check を通してコミットする。

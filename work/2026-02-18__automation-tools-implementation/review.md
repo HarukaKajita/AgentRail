@@ -1,4 +1,4 @@
-# Review: 2026-02-18__phase2-automation-implementation
+# Review: 2026-02-18__automation-tools-implementation
 
 ## 1. レビュー対象
 
@@ -35,7 +35,7 @@
 
 - 実施内容:
   1. `pwsh -NoProfile -File tools/docs-indexer/index.ps1` を2回実行
-  2. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__phase2-automation-implementation` を実行
+  2. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__automation-tools-implementation` を実行
   3. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__framework-pilot-01` を実行
 - 結果: PASS
 

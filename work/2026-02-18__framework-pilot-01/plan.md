@@ -6,7 +6,7 @@
 - docs 昇格先:
   - `docs/specs/framework-pilot-01-spec.md`
   - `docs/investigations/framework-pilot-01-investigation.md`
-  - `docs/specs/phase2-automation-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
 
 ## 2. Execution Commands
 
@@ -37,7 +37,7 @@
 - `work/2026-02-18__framework-pilot-01/state.json`
 - `docs/specs/framework-pilot-01-spec.md`
 - `docs/investigations/framework-pilot-01-investigation.md`
-- `docs/specs/phase2-automation-spec.md`
+- `docs/specs/automation-tools-design-spec.md`
 
 ## 5. リスクとロールバック
 

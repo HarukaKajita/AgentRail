@@ -14,7 +14,7 @@
 - 参照資料:
   - `tools/docs-indexer/index.ps1`
   - `.github/workflows/ci-framework.yml`
-  - `docs/specs/phase2-ci-integration-spec.md`
+  - `docs/specs/automation-tools-ci-integration-spec.md`
 - 実施した確認:
   - 現状は常に `docs/INDEX.md` を上書き
   - CI は `git diff --exit-code` に依存

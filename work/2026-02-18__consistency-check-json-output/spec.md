@@ -69,9 +69,9 @@
 - 影響ファイル/モジュール:
   - `tools/consistency-check/check.ps1`
   - `.github/workflows/ci-framework.yml`
-  - `docs/specs/phase2-automation-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
 - 影響する仕様:
-  - `docs/specs/phase2-ci-integration-spec.md`
+  - `docs/specs/automation-tools-ci-integration-spec.md`
 - 非機能影響:
   - CI ログ解析や通知連携が容易になる
 
@@ -92,5 +92,5 @@
 - plan: `work/2026-02-18__consistency-check-json-output/plan.md`
 - review: `work/2026-02-18__consistency-check-json-output/review.md`
 - docs:
-  - `docs/specs/phase2-automation-spec.md`
-  - `docs/specs/phase2-ci-integration-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
+  - `docs/specs/automation-tools-ci-integration-spec.md`

@@ -1,17 +1,17 @@
-# 仕様書: 2026-02-18__phase2-automation-implementation
+# 仕様書: 2026-02-18__automation-tools-implementation
 
 ## 1. メタ情報 [空欄禁止]
 
-- Task ID: `2026-02-18__phase2-automation-implementation`
-- タイトル: Phase 2 自動化実装（docs-indexer / consistency-check）
+- Task ID: `2026-02-18__automation-tools-implementation`
+- タイトル: 自動化基盤段階 自動化実装（docs-indexer / consistency-check）
 - 作成日: 2026-02-18
 - 更新日: 2026-02-18
 - 作成者: Codex
-- 関連要望: `work/2026-02-18__phase2-automation-implementation/request.md`
+- 関連要望: `work/2026-02-18__automation-tools-implementation/request.md`
 
 ## 2. 背景と目的 [空欄禁止]
 
-- 背景: Phase 2 設計は完了しているが、実装が未着手。
+- 背景: 自動化基盤段階の設計は完了しているが、実装が未着手。
 - 目的: 手動運用を補助する自動化スクリプトを導入し、整合性検査を機械化する。
 
 ## 3. スコープ [空欄禁止]
@@ -21,7 +21,7 @@
 - `tools/docs-indexer/index.ps1` の実装
 - `tools/consistency-check/check.ps1` の実装
 - `project.profile.yaml` へのコマンド追加
-- `docs/specs/phase2-automation-spec.md` の確定内容反映
+- `docs/specs/automation-tools-design-spec.md` の確定内容反映
 - docs と work 資料更新
 
 ### 3.2 Out of Scope [空欄禁止]
@@ -35,7 +35,7 @@
 - AC-001: `docs-indexer` が `docs/INDEX.md` の管理セクションを更新できる。
 - AC-002: `docs-indexer` を連続実行して差分が発生しない。
 - AC-003: `consistency-check` が PASS/FAIL と詳細、終了コードを返せる。
-- AC-004: `check.ps1 -TaskId 2026-02-18__phase2-automation-implementation` が PASS する。
+- AC-004: `check.ps1 -TaskId 2026-02-18__automation-tools-implementation` が PASS する。
 - AC-005: `project.profile.yaml` に `index_docs` と `check_consistency` が追加されている。
 
 ## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
@@ -63,7 +63,7 @@
 - 手順:
   1. `pwsh -NoProfile -File tools/docs-indexer/index.ps1` を実行
   2. 再実行して差分がないことを確認
-  3. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__phase2-automation-implementation` を実行
+  3. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__automation-tools-implementation` を実行
   4. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__framework-pilot-01` を実行
 - 期待結果: すべて PASS、終了コード 0
 
@@ -74,10 +74,10 @@
   - `tools/consistency-check/check.ps1`
   - `project.profile.yaml`
   - `docs/INDEX.md`
-  - `docs/specs/phase2-automation-spec.md`
-  - `work/2026-02-18__phase2-automation-implementation/*`
+  - `docs/specs/automation-tools-design-spec.md`
+  - `work/2026-02-18__automation-tools-implementation/*`
 - 影響する仕様:
-  - `docs/specs/phase2-automation-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
 - 非機能影響:
   - 手動更新工数が削減される
 
@@ -93,11 +93,11 @@
 
 ## 9. 関連資料リンク [空欄禁止]
 
-- request: `work/2026-02-18__phase2-automation-implementation/request.md`
-- investigation: `work/2026-02-18__phase2-automation-implementation/investigation.md`
-- plan: `work/2026-02-18__phase2-automation-implementation/plan.md`
-- review: `work/2026-02-18__phase2-automation-implementation/review.md`
+- request: `work/2026-02-18__automation-tools-implementation/request.md`
+- investigation: `work/2026-02-18__automation-tools-implementation/investigation.md`
+- plan: `work/2026-02-18__automation-tools-implementation/plan.md`
+- review: `work/2026-02-18__automation-tools-implementation/review.md`
 - docs:
-  - `docs/specs/phase2-automation-spec.md`
-  - `docs/specs/phase2-implementation-spec.md`
-  - `docs/investigations/phase2-implementation-investigation.md`
+  - `docs/specs/automation-tools-design-spec.md`
+  - `docs/specs/automation-tools-implementation-spec.md`
+  - `docs/investigations/automation-tools-implementation-investigation.md`

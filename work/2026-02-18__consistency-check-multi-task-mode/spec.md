@@ -70,8 +70,8 @@
   - `tools/consistency-check/check.ps1`
   - `.github/workflows/ci-framework.yml`
 - 影響する仕様:
-  - `docs/specs/phase2-automation-spec.md`
-  - `docs/specs/phase2-ci-integration-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
+  - `docs/specs/automation-tools-ci-integration-spec.md`
 - 非機能影響:
   - 実行時間が増加する可能性がある
 
@@ -92,5 +92,5 @@
 - plan: `work/2026-02-18__consistency-check-multi-task-mode/plan.md`
 - review: `work/2026-02-18__consistency-check-multi-task-mode/review.md`
 - docs:
-  - `docs/specs/phase2-automation-spec.md`
-  - `docs/specs/phase2-ci-integration-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
+  - `docs/specs/automation-tools-ci-integration-spec.md`

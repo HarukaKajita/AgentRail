@@ -7,7 +7,7 @@
 ## 2. Execution Commands
 
 - single: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__framework-pilot-01`
-- multi: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-18__framework-pilot-01,2026-02-18__phase2-automation-implementation`
+- multi: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-18__framework-pilot-01,2026-02-18__automation-tools-implementation`
 - all: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks`
 
 ## 3. 実施ステップ
@@ -22,7 +22,7 @@
 
 - `tools/consistency-check/check.ps1`
 - `.github/workflows/ci-framework.yml`
-- `docs/specs/phase2-ci-integration-spec.md`
+- `docs/specs/automation-tools-ci-integration-spec.md`
 - `docs/INDEX.md`
 - `work/2026-02-18__consistency-check-multi-task-mode/*`
 

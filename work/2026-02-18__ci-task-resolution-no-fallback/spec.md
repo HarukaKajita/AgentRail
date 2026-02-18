@@ -71,8 +71,8 @@
   - `tools/ci/resolve-task-id.ps1`
   - `.github/workflows/ci-framework.yml`
 - 影響する仕様:
-  - `docs/specs/phase2-ci-integration-spec.md`
-  - `docs/specs/phase2-automation-spec.md`
+  - `docs/specs/automation-tools-ci-integration-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
   - `docs/decisions/20260218-ci-governance-and-task-resolution.md`
 - 非機能影響:
   - CI 判定ノイズ削減
@@ -95,6 +95,6 @@
 - plan: `work/2026-02-18__ci-task-resolution-no-fallback/plan.md`
 - review: `work/2026-02-18__ci-task-resolution-no-fallback/review.md`
 - docs:
-  - `docs/specs/phase2-ci-integration-spec.md`
-  - `docs/specs/phase2-automation-spec.md`
+  - `docs/specs/automation-tools-ci-integration-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
   - `docs/decisions/20260218-ci-governance-and-task-resolution.md`

@@ -13,7 +13,7 @@
 - 参照資料:
   - `work/2026-02-18__consistency-check-multi-task-mode/review.md`
   - `work/2026-02-18__consistency-check-multi-task-mode/spec.md`
-  - `docs/specs/phase2-automation-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
   - `tools/consistency-check/check.ps1`
 - 実施した確認:
   - source task review の Process Findings を確認
@@ -24,7 +24,7 @@
 
 - source task の finding では、`-AllTasks` が legacy task の不整合を拾い、運用上のノイズになる点が指摘されている。
 - 現行 `tools/consistency-check/check.ps1` の all モードは `work/` 直下ディレクトリをすべて対象化し、名前による除外判定を持たない。
-- `docs/specs/phase2-automation-spec.md` にも `-AllTasks` 除外条件が未確定事項として残っている。
+- `docs/specs/automation-tools-design-spec.md` にも `-AllTasks` 除外条件が未確定事項として残っている。
 
 ## 5. 結論 (Conclusion / 結論) [空欄禁止]
 

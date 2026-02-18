@@ -58,6 +58,6 @@
 
 ## 8. 参照
 
-- `docs/specs/phase2-automation-spec.md`
-- `docs/specs/phase2-ci-integration-spec.md`
+- `docs/specs/automation-tools-design-spec.md`
+- `docs/specs/automation-tools-ci-integration-spec.md`
 - `docs/operations/ci-failure-runbook.md`

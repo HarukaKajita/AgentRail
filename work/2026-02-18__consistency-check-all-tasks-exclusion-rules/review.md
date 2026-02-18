@@ -3,7 +3,7 @@
 ## 1. レビュー対象
 
 - `tools/consistency-check/check.ps1`
-- `docs/specs/phase2-automation-spec.md`
+- `docs/specs/automation-tools-design-spec.md`
 
 ## 2. 受入条件評価
 

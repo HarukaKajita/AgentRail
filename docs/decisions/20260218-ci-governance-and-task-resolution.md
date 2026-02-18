@@ -44,6 +44,6 @@
 
 ## 8. 関連資料 [空欄禁止]
 
-- spec: `docs/specs/phase2-ci-integration-spec.md`
-- investigation: `docs/investigations/phase2-ci-integration-investigation.md`
+- spec: `docs/specs/automation-tools-ci-integration-spec.md`
+- investigation: `docs/investigations/automation-tools-ci-integration-investigation.md`
 - review: `work/2026-02-18__ci-task-resolution-determinism/review.md`

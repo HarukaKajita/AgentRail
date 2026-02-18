@@ -19,7 +19,7 @@
 
 - `tools/profile-validate/validate.ps1`
 - `.github/workflows/ci-framework.yml`
-- `docs/specs/phase2-automation-spec.md`
+- `docs/specs/automation-tools-design-spec.md`
 - `docs/INDEX.md`
 - `work/2026-02-18__project-profile-schema-validation/*`
 

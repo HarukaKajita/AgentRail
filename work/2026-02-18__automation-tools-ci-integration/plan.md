@@ -1,18 +1,18 @@
-# Plan: 2026-02-18__phase2-ci-integration
+# Plan: 2026-02-18__automation-tools-ci-integration
 
 ## 1. 対象仕様
 
-- 主仕様: `work/2026-02-18__phase2-ci-integration/spec.md`
+- 主仕様: `work/2026-02-18__automation-tools-ci-integration/spec.md`
 - 参照仕様:
-  - `docs/specs/phase2-automation-spec.md`
-  - `docs/specs/phase2-implementation-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
+  - `docs/specs/automation-tools-implementation-spec.md`
 
 ## 2. Execution Commands
 
 - index docs: `pwsh -NoProfile -File tools/docs-indexer/index.ps1`
 - index diff check: `git diff --exit-code -- docs/INDEX.md`
-- consistency check (ci task): `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__phase2-ci-integration`
-- consistency check (phase2 task): `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__phase2-automation-implementation`
+- consistency check (ci task): `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__automation-tools-ci-integration`
+- consistency check (automation task): `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__automation-tools-implementation`
 - consistency check (pilot task): `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__framework-pilot-01`
 
 ## 3. 実施ステップ
@@ -26,12 +26,12 @@
 ## 4. 変更対象ファイル
 
 - `.github/workflows/ci-framework.yml`
-- `docs/specs/phase2-automation-spec.md`
-- `docs/specs/phase2-ci-integration-spec.md`
-- `docs/investigations/phase2-ci-integration-investigation.md`
+- `docs/specs/automation-tools-design-spec.md`
+- `docs/specs/automation-tools-ci-integration-spec.md`
+- `docs/investigations/automation-tools-ci-integration-investigation.md`
 - `docs/INDEX.md`
 - `MEMORY.md`
-- `work/2026-02-18__phase2-ci-integration/*`
+- `work/2026-02-18__automation-tools-ci-integration/*`
 
 ## 5. リスクとロールバック
 

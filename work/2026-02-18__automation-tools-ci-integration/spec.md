@@ -1,13 +1,13 @@
-# 仕様書: 2026-02-18__phase2-ci-integration
+# 仕様書: 2026-02-18__automation-tools-ci-integration
 
 ## 1. メタ情報 [空欄禁止]
 
-- Task ID: `2026-02-18__phase2-ci-integration`
-- タイトル: Phase 2 後半 CI 連携
+- Task ID: `2026-02-18__automation-tools-ci-integration`
+- タイトル: 自動化基盤 CI 連携
 - 作成日: 2026-02-18
 - 更新日: 2026-02-18
 - 作成者: Codex
-- 関連要望: `work/2026-02-18__phase2-ci-integration/request.md`
+- 関連要望: `work/2026-02-18__automation-tools-ci-integration/request.md`
 
 ## 2. 背景と目的 [空欄禁止]
 
@@ -36,7 +36,7 @@
 - AC-002: CI が `docs-indexer` を実行し、`docs/INDEX.md` 差分がある場合に失敗する。
 - AC-003: CI が `work/` から最新 task-id を一意に解決し、解決不能なら失敗する。
 - AC-004: CI が `check_consistency` を実行し、FAIL 時にジョブが失敗する。
-- AC-005: CI 連携内容が `docs/specs/phase2-automation-spec.md` と `docs/INDEX.md` に反映される。
+- AC-005: CI 連携内容が `docs/specs/automation-tools-design-spec.md` と `docs/INDEX.md` に反映される。
 
 ## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
 
@@ -54,7 +54,7 @@
 
 ### 5.3 Regression Test (Regression Test / 回帰テスト) [空欄禁止]
 
-- 対象: 既存 task（framework pilot / phase2 automation implementation）
+- 対象: 既存 task（framework pilot / automation implementation）
 - 観点: checker 適用で既存ドキュメント運用が崩れないか
 - 合格条件: `tools/consistency-check/check.ps1` が両 task で PASS
 
@@ -63,8 +63,8 @@
 - 手順:
   1. `pwsh -NoProfile -File tools/docs-indexer/index.ps1` を実行
   2. `git diff --exit-code -- docs/INDEX.md` を実行
-  3. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__phase2-ci-integration` を実行
-  4. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__phase2-automation-implementation` を実行
+  3. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__automation-tools-ci-integration` を実行
+  4. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__automation-tools-implementation` を実行
   5. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__framework-pilot-01` を実行
 - 期待結果: すべて PASS、終了コード 0
 
@@ -72,15 +72,15 @@
 
 - 影響ファイル/モジュール:
   - `.github/workflows/ci-framework.yml`
-  - `docs/specs/phase2-automation-spec.md`
-  - `docs/specs/phase2-ci-integration-spec.md`
-  - `docs/investigations/phase2-ci-integration-investigation.md`
+  - `docs/specs/automation-tools-design-spec.md`
+  - `docs/specs/automation-tools-ci-integration-spec.md`
+  - `docs/investigations/automation-tools-ci-integration-investigation.md`
   - `docs/INDEX.md`
   - `MEMORY.md`
-  - `work/2026-02-18__phase2-ci-integration/*`
+  - `work/2026-02-18__automation-tools-ci-integration/*`
 - 影響する仕様:
-  - `docs/specs/phase2-automation-spec.md`
-  - `docs/specs/phase2-implementation-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
+  - `docs/specs/automation-tools-implementation-spec.md`
 - 非機能影響:
   - PR時に整合チェックが自動化され、手動レビュー負荷が低下する
 
@@ -96,11 +96,11 @@
 
 ## 9. 関連資料リンク [空欄禁止]
 
-- request: `work/2026-02-18__phase2-ci-integration/request.md`
-- investigation: `work/2026-02-18__phase2-ci-integration/investigation.md`
-- plan: `work/2026-02-18__phase2-ci-integration/plan.md`
-- review: `work/2026-02-18__phase2-ci-integration/review.md`
+- request: `work/2026-02-18__automation-tools-ci-integration/request.md`
+- investigation: `work/2026-02-18__automation-tools-ci-integration/investigation.md`
+- plan: `work/2026-02-18__automation-tools-ci-integration/plan.md`
+- review: `work/2026-02-18__automation-tools-ci-integration/review.md`
 - docs:
-  - `docs/specs/phase2-automation-spec.md`
-  - `docs/specs/phase2-ci-integration-spec.md`
-  - `docs/investigations/phase2-ci-integration-investigation.md`
+  - `docs/specs/automation-tools-design-spec.md`
+  - `docs/specs/automation-tools-ci-integration-spec.md`
+  - `docs/investigations/automation-tools-ci-integration-investigation.md`

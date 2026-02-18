@@ -33,7 +33,7 @@
 - AC-001: `-AllTasks` 実行時、ディレクトリ名が `archive` または `legacy` で始まる task ディレクトリが検査対象から除外される。
 - AC-002: 除外対象以外の task ディレクトリは従来どおり検査され、失敗時は終了コード 1 になる。
 - AC-003: `-TaskId` / `-TaskIds` 実行では除外ルールが適用されず、明示指定 task をそのまま検査できる。
-- AC-004: `docs/specs/phase2-automation-spec.md` に `-AllTasks` の除外条件が追記される。
+- AC-004: `docs/specs/automation-tools-design-spec.md` に `-AllTasks` の除外条件が追記される。
 
 ## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
 
@@ -68,10 +68,10 @@
 
 - 影響ファイル/モジュール:
   - `tools/consistency-check/check.ps1`
-  - `docs/specs/phase2-automation-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
   - `work/2026-02-18__consistency-check-all-tasks-exclusion-rules/*`
 - 影響する仕様:
-  - `docs/specs/phase2-ci-integration-spec.md`（必要に応じて参照追記）
+  - `docs/specs/automation-tools-ci-integration-spec.md`（必要に応じて参照追記）
 - 非機能影響:
   - `-AllTasks` 実行時の運用ノイズ低減
 
@@ -93,4 +93,4 @@
 - review: `work/2026-02-18__consistency-check-all-tasks-exclusion-rules/review.md`
 - docs:
   - `docs/operations/high-priority-backlog.md`
-  - `docs/specs/phase2-automation-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`

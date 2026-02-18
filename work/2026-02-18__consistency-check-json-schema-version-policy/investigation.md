@@ -12,7 +12,7 @@
 
 - 参照資料:
   - `tools/consistency-check/check.ps1`
-  - `docs/specs/phase2-automation-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
   - `work/2026-02-18__consistency-check-json-output/review.md`
 - 実施した確認:
   - `-OutputFormat json` の single/multi 両モード出力形式を確認
@@ -23,7 +23,7 @@
 
 - 現行 JSON は task_id / status / failure_count / failures（single）または mode / task_count / results（multi）を返すが、スキーマ版を識別するキーがない。
 - そのため、将来 `results` 配下やトップレベル項目を変更した際に、利用側が互換判定を自動化しにくい。
-- `docs/specs/phase2-automation-spec.md` に schema version 導入可否が未確定事項として残っている。
+- `docs/specs/automation-tools-design-spec.md` に schema version 導入可否が未確定事項として残っている。
 
 ## 5. 結論 (Conclusion / 結論) [空欄禁止]
 

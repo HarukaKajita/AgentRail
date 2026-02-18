@@ -20,7 +20,7 @@
 
 - `tools/state-validate/validate.ps1`
 - `.github/workflows/ci-framework.yml`
-- `docs/specs/phase2-ci-integration-spec.md`
+- `docs/specs/automation-tools-ci-integration-spec.md`
 - `docs/INDEX.md`
 - `work/2026-02-18__state-transition-validation/*`
 

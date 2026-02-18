@@ -3,7 +3,7 @@
 ## 1. レビュー対象
 
 - `.github/workflows/ci-framework.yml`
-- `docs/specs/phase2-ci-integration-spec.md`
+- `docs/specs/automation-tools-ci-integration-spec.md`
 
 ## 2. 受入条件評価
 
@@ -33,7 +33,7 @@
 
 - 実施内容:
   - `check.ps1 -TaskId 2026-02-18__ci-task-resolution-determinism`
-  - `check.ps1 -TaskId 2026-02-18__phase2-ci-integration`
+  - `check.ps1 -TaskId 2026-02-18__automation-tools-ci-integration`
   - `docs-indexer` 実行
 - 結果: PASS
 

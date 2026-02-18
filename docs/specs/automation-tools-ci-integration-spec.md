@@ -1,8 +1,8 @@
-# Phase 2 CI 連携仕様
+# 自動化基盤 CI 連携仕様
 
 ## 概要
 
-Phase 2 後半として、`docs-indexer` と `consistency-check` を GitHub Actions に統合する。
+自動化基盤の CI 連携として、`docs-indexer` と `consistency-check` を GitHub Actions に統合する。
 
 ## 連携内容
 
@@ -39,7 +39,7 @@ Phase 2 後半として、`docs-indexer` と `consistency-check` を GitHub Acti
 
 ## 参照
 
-- `docs/specs/phase2-automation-spec.md`
-- `work/2026-02-18__phase2-ci-integration/spec.md`
+- `docs/specs/automation-tools-design-spec.md`
+- `work/2026-02-18__automation-tools-ci-integration/spec.md`
 - `.github/workflows/ci-framework.yml`
 - `docs/specs/self-improvement-loop-spec.md`

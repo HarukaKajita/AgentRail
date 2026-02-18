@@ -1,8 +1,8 @@
-# Phase 2 実装調査記録
+# 自動化基盤 実装調査記録
 
 ## 調査目的
 
-Phase 2 仕様を実装へ落とすための構造と失敗条件を確定する。
+自動化基盤仕様を実装へ落とすための構造と失敗条件を確定する。
 
 ## 主な観測
 
@@ -18,5 +18,5 @@ Phase 2 仕様を実装へ落とすための構造と失敗条件を確定する
 
 ## 参照
 
-- `docs/specs/phase2-automation-spec.md`
-- `work/2026-02-18__phase2-automation-implementation/investigation.md`
+- `docs/specs/automation-tools-design-spec.md`
+- `work/2026-02-18__automation-tools-implementation/investigation.md`

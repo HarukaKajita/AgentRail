@@ -1,8 +1,8 @@
-# Request: 2026-02-18__phase2-automation-implementation
+# Request: 2026-02-18__automation-tools-implementation
 
 ## 要望の原文
 
-- `docs/specs/phase2-automation-spec.md` を基に Phase 2 実装タスクを起票し、実装する。
+- `docs/specs/automation-tools-design-spec.md` を基に自動化基盤段階の実装タスクを起票し、実装する。
 
 ## 要望の整理
 

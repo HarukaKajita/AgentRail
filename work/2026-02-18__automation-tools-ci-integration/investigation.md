@@ -1,8 +1,8 @@
-# Investigation: 2026-02-18__phase2-ci-integration
+# Investigation: 2026-02-18__automation-tools-ci-integration
 
 ## 1. 調査対象 [空欄禁止]
 
-- Phase 2 後半として CI へ `docs-indexer` / `consistency-check` を統合する方式。
+- 自動化基盤段階の CI 統合として `docs-indexer` / `consistency-check` を CI へ組み込む方式。
 
 ## 2. 仮説 (Hypothesis / 仮説) [空欄禁止]
 
@@ -12,7 +12,7 @@
 ## 3. 観測方法 [空欄禁止]
 
 - 参照資料:
-  - `docs/specs/phase2-automation-spec.md`
+  - `docs/specs/automation-tools-design-spec.md`
   - `project.profile.yaml`
   - `tools/docs-indexer/index.ps1`
   - `tools/consistency-check/check.ps1`
@@ -45,5 +45,5 @@
 
 ## 8. 関連リンク [空欄禁止]
 
-- request: `work/2026-02-18__phase2-ci-integration/request.md`
-- spec: `work/2026-02-18__phase2-ci-integration/spec.md`
+- request: `work/2026-02-18__automation-tools-ci-integration/request.md`
+- spec: `work/2026-02-18__automation-tools-ci-integration/spec.md`
