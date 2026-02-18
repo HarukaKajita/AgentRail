@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backlog Priority Viewer"
+  short_description: "Show planned backlog tasks in priority order"
+  default_prompt: "バックログを確認して積まれたタスクを優先度順に表示して"
