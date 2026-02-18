@@ -5,40 +5,40 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-18__framework-pilot-01
-- タイトル: Phase 1 運用開始パイロット
+- Task ID: 2026-02-18__phase2-automation-implementation
+- タイトル: Phase 2 自動化実装（docs-indexer / consistency-check）
 - 状態: done
-- 最終更新日時: 2026-02-18T18:05:00+09:00
+- 最終更新日時: 2026-02-18T18:35:00+09:00
 - 担当: Codex
 
 ## 2. 今回の目的
 
-- `project.profile.yaml` の必須項目を実値化し、厳格ブロックを解除する。
-- 実タスクを 1 件通しで実施し、フレームワーク運用の再現性を確認する。
+- `docs-indexer` と `consistency-check` を実装して手動運用を補助する。
+- Phase 2 設計の確定内容（実装言語・コマンド・CI連携時期）を docs へ反映する。
 
 ## 3. 完了済み
 
-- `work/2026-02-18__framework-pilot-01/` の必須 6 ファイルを作成し、全項目を記入。
-- `docs/specs/framework-pilot-01-spec.md` を追加。
-- `docs/investigations/framework-pilot-01-investigation.md` を追加。
-- `docs/specs/phase2-automation-spec.md` を追加（設計のみ）。
-- `docs/INDEX.md` を更新して導線を追加。
+- `tools/docs-indexer/index.ps1` を実装し、`docs/INDEX.md` 管理セクションの自動更新を実現。
+- `tools/consistency-check/check.ps1` を実装し、PASS/FAIL + failure detail + exit code を実装。
+- `project.profile.yaml` に `index_docs` と `check_consistency` コマンドを追加。
+- `work/2026-02-18__phase2-automation-implementation/` の必須 6 ファイルを作成し完了。
+- `docs/specs/phase2-implementation-spec.md` と `docs/investigations/phase2-implementation-investigation.md` を追加。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-18
-- 決定内容: 次ステップは運用開始優先。Phase 2 は実装せず設計のみ確定。
-- 根拠資料: フレームワーク設計と実装についてのChatGPTとの会話.md
+- 決定内容: Phase 2 は PowerShell 実装、2タスク分割、CI連携は後半で統合。
+- 根拠資料: `docs/specs/phase2-automation-spec.md`
 
 ## 5. 未解決・ブロッカー
 
-- `docs-indexer` と `consistency-check` の実装は未着手（仕様のみ確定）。
+- CI 実行時に `<task-id>` をどのように解決するかは未確定。
 
 ## 6. 次アクション
 
-1. Phase 2 実装タスクを起票し、`docs/specs/phase2-automation-spec.md` をベースに詳細化する。
-2. `project.profile.yaml` のコマンドを CI に接続する方針を決定する。
-3. 2 件目の実タスクをこのフレームワークで実施し、改善点を抽出する。
+1. CI 連携タスクを起票し、`index_docs` と `check_consistency` をパイプラインへ組み込む。
+2. checker 出力の JSON 形式オプションを追加するか検討する。
+3. 新規実タスクで checker をゲートとして運用し、誤検知有無を評価する。
 
 ## 7. 参照先
 

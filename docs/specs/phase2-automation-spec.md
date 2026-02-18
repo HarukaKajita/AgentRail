@@ -7,7 +7,7 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 1. `docs-indexer`
 2. `consistency-check`
 
-本ドキュメントは設計のみを対象とし、実装は含まない。
+本ドキュメントは Phase 2 の設計正本であり、実装結果は `docs/specs/phase2-implementation-spec.md` に記録する。
 
 ## 2. docs-indexer 仕様
 
@@ -72,22 +72,29 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 - 検査項目 1〜5 がすべて PASS のとき終了コード 0
 - いずれか FAIL のとき終了コード 1 と詳細レポートを返す
 
-## 4. 実装方式の比較対象（未決定）
+## 4. 実装方式（確定）
 
-- PowerShell
-- Python
-- Node.js
+- 採用言語: PowerShell
+- 理由:
+  - 追加依存なしで現行環境に即時導入できる
+  - 既存 `project.profile.yaml` の実行方式と整合する
+  - 初期導入コストが最も低い
 
-比較観点:
+## 5. コマンド名（確定）
 
-- セットアップコスト
-- クロスプラットフォーム性
-- CI 統合容易性
+- `pwsh -NoProfile -File tools/docs-indexer/index.ps1`
+- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId <task-id>`
 
-## 5. 次タスクへの引き継ぎ
+## 6. CI 連携ポイント（確定）
+
+- Phase 2 後半（`docs-indexer` と `consistency-check` のローカル安定化完了後）で連携する。
+- CI では以下を順に実行する。
+  1. `tools/docs-indexer/index.ps1`
+  2. `tools/consistency-check/check.ps1 -TaskId <task-id>`
+
+## 7. 次タスクへの引き継ぎ
 
 次タスクでは本仕様を基に、以下を決定してから実装へ進む。
 
-1. 実装言語
-2. コマンド名
-3. CI 連携ポイント
+1. checker の適用対象タスクIDの解決方式（引数必須 / 自動推定）
+2. CI での `<task-id>` 受け渡し方法

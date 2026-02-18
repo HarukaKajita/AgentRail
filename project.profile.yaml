@@ -17,7 +17,7 @@ commands:
   test:
     description: "Project-specific test command"
     command: >-
-      pwsh -NoProfile -Command "$required = @('AGENTS.md','CLAUDE.md','MEMORY.md','project.profile.yaml','docs/INDEX.md'); $missing = $required | Where-Object { -not (Test-Path $_) }; if ($missing.Count -gt 0) { Write-Error ('Missing files: ' + ($missing -join ', ')); exit 1 } ; Write-Output 'Baseline framework file check passed.'"
+      pwsh -NoProfile -Command '$required = @("AGENTS.md","CLAUDE.md","MEMORY.md","project.profile.yaml","docs/INDEX.md"); $missing = $required | Where-Object { -not (Test-Path $_) }; if ($missing.Count -gt 0) { Write-Error ("Missing files: " + ($missing -join ", ")); exit 1 }; Write-Output "Baseline framework file check passed."'
   format:
     description: "Project-specific format command"
     command: >-
@@ -26,6 +26,12 @@ commands:
     description: "Project-specific lint command"
     command: >-
       pwsh -NoProfile -Command "Write-Output 'Lint step: policy checks are performed via review checklist.'"
+  index_docs:
+    description: "Rebuild managed sections in docs/INDEX.md"
+    command: "pwsh -NoProfile -File tools/docs-indexer/index.ps1"
+  check_consistency:
+    description: "Run consistency checks for a task"
+    command: "pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId <task-id>"
 
 paths:
   source_roots:
