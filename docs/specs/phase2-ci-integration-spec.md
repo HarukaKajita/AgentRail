@@ -19,12 +19,13 @@ Phase 2 後半として、`docs-indexer` と `consistency-check` を GitHub Acti
 1. `workflow_dispatch` の `task_id` 入力がある場合は最優先で採用する
 2. 入力が無い場合はイベント差分から `work/<task-id>/` を抽出する
 3. 抽出が 1 件なら採用、複数件なら失敗
-4. 抽出 0 件の場合のみフォールバックで `work/` のディレクトリ名降順先頭を採用する
+4. 抽出 0 件の場合は `resolved_task_source=skip` として checker 系 step を実行しない
 
 ## 失敗ポリシー
 
 - task-id 解決不能は失敗
 - 差分から複数 task-id が検出された場合は失敗
+- `workflow_dispatch` で `task_id` 未指定の場合は失敗
 - INDEX 差分が残る場合は失敗
 - Process Findings の構造不備または未起票重大 finding は失敗
 - consistency-check FAIL は失敗

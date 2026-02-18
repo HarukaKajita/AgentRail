@@ -23,7 +23,8 @@
 - `check_consistency` 対象 task-id は以下の順で決定する。
   1. manual 指定（`workflow_dispatch` 入力）
   2. 差分抽出（`work/<task-id>/`）
-  3. 差分 0 件時のみフォールバック
+  3. 差分 0 件時は `skip` を返して checker 系 step を実行しない
+- `workflow_dispatch` で `task_id` が未指定の場合は fail-fast で停止する。
 - 差分で複数 task-id が検出された場合は fail-fast で停止する。
 
 ## 6. 代替案 (Alternatives / 代替案) [空欄禁止]

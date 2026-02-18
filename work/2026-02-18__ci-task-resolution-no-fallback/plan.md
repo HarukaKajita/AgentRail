@@ -36,3 +36,10 @@
 
 - AC-001〜AC-005 がすべて PASS。
 - CI で差分0件ケースが成功（checker skip）する。
+
+## 7. 実装実行計画（2026-02-18T21:19:22+09:00）
+
+1. resolver の出力契約を `manual|diff|skip` + fail-fast に整理する。
+2. workflow に `resolved_task_source` 条件を追加し、`skip` 時は scan/check を実行しない。
+3. 仕様 docs / ADR を新ルール（fallback 廃止）へ更新する。
+4. spec の手順に沿って resolver の主要分岐を手動検証し、review/state を更新する。

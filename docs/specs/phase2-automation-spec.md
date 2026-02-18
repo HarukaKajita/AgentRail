@@ -95,9 +95,9 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 - CI では以下を順に実行する。
   1. `tools/docs-indexer/index.ps1`
   2. `git diff --exit-code -- docs/INDEX.md`（差分があれば失敗）
-  3. `tools/ci/resolve-task-id.ps1` で task-id を解決（manual優先、差分ベース、0件時のみフォールバック）
-  4. `tools/improvement-harvest/scan.ps1 -TaskId <resolved-task-id>`
-  5. `tools/consistency-check/check.ps1 -TaskId <resolved-task-id>`
+  3. `tools/ci/resolve-task-id.ps1` で task-id を解決（manual優先、差分ベース、0件時は `skip`）
+  4. `resolved_task_source != skip` の場合のみ `tools/improvement-harvest/scan.ps1 -TaskId <resolved-task-id>` を実行
+  5. `resolved_task_source != skip` の場合のみ `tools/consistency-check/check.ps1 -TaskId <resolved-task-id>` を実行
 
 ## 7. 次タスクへの引き継ぎ
 

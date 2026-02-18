@@ -35,7 +35,7 @@ function Ensure-TaskExists {
 
 function Emit-Result {
   param(
-    [string]$TaskId,
+    [string]$TaskId = "",
     [string]$Source
   )
 
@@ -57,7 +57,7 @@ if (-not (Test-Path -LiteralPath $workDir -PathType Container)) {
   Fail("work directory does not exist under repo root.")
 }
 
-$manual = $ManualTaskId.Trim()
+$manual = ([string]$ManualTaskId).Trim()
 if (-not [string]::IsNullOrWhiteSpace($manual)) {
   Ensure-TaskExists -Root $RepoRoot -TaskId $manual
   Emit-Result -TaskId $manual -Source "manual"
@@ -85,13 +85,15 @@ elseif ($EventName -eq "push") {
       Fail("Failed to collect changed files from push diff.")
     }
   } else {
-    Write-Output "resolve-task-id: push event without valid BaseSha, fallback mode."
-    $changedFiles = @()
+    Write-Output "resolve-task-id: push event without valid BaseSha, collecting files from HeadSha."
+    $changedFiles = & git -C $RepoRoot diff-tree --no-commit-id --name-only -r "$HeadSha"
+    if ($LASTEXITCODE -ne 0) {
+      Fail("Failed to collect changed files from push head commit.")
+    }
   }
 }
 elseif ($EventName -eq "workflow_dispatch") {
-  Write-Output "resolve-task-id: workflow_dispatch without manual task_id, fallback mode."
-  $changedFiles = @()
+  Fail("workflow_dispatch event requires ManualTaskId.")
 }
 else {
   Fail("Unsupported event name: $EventName")
@@ -120,11 +122,4 @@ if ($resolvedDiffTasks.Count -gt 1) {
   Fail("Multiple task IDs were found in changed files: $joined")
 }
 
-$fallbackTaskDirs = Get-ChildItem -LiteralPath $workDir -Directory | Sort-Object Name -Descending
-if ($fallbackTaskDirs.Count -eq 0) {
-  Fail("No task directories available for fallback in work/.")
-}
-
-$fallbackTaskId = $fallbackTaskDirs[0].Name
-Ensure-TaskExists -Root $RepoRoot -TaskId $fallbackTaskId
-Emit-Result -TaskId $fallbackTaskId -Source "fallback"
+Emit-Result -TaskId "" -Source "skip"

@@ -59,8 +59,15 @@ jobs:
             -ManualTaskId $env:MANUAL_TASK_ID
 
       - name: Run consistency-check
+        if: ${{ steps.resolve_task.outputs.resolved_task_source != 'skip' }}
         shell: pwsh
         run: |
           $taskId = "${{ steps.resolve_task.outputs.resolved_task_id }}"
           pwsh -NoProfile -File tools/improvement-harvest/scan.ps1 -TaskId $taskId
           pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId $taskId
+
+      - name: Skip consistency-check (no changed task)
+        if: ${{ steps.resolve_task.outputs.resolved_task_source == 'skip' }}
+        shell: pwsh
+        run: |
+          Write-Output "No task changes were detected under work/. consistency-check steps are skipped."
