@@ -11,8 +11,8 @@
 
 ## 1.1 用語定義
 
-- 手動運用導入段階: テンプレートと運用手順を中心に整備する初期段階（旧称: Phase 1）。
-- 自動化基盤段階: `docs-indexer` / `consistency-check` / CI 連携を導入する段階（旧称: Phase 2）。
+- 手動運用導入段階: テンプレートと運用手順を中心に整備する初期段階。
+- 自動化基盤段階: `docs-indexer` / `consistency-check` / CI 連携を導入する段階。
 
 ## 2. docs-indexer 仕様
 

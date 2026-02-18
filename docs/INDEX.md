@@ -39,9 +39,10 @@
 - `docs/operations/ci-failure-runbook.md` - CI 失敗時ランブック
 - `docs/operations/framework-request-to-commit-visual-guide.md` - ユーザー要望から実装・コミットまでのフロー可視化ガイド
 - `docs/operations/high-priority-backlog.md` - 高優先バックログ
+- `docs/operations/legacy-documents-policy.md` - 旧資料の隔離運用ポリシー
 - `docs/operations/skills-framework-flow-guide.md` - Skills Framework Flow Guide
 - `docs/operations/skills-sync-runbook.md` - Skills Sync Runbook
-- `docs/operations/stage-terminology.md` - 開発段階用語集（旧称対応）
+- `docs/operations/stage-terminology.md` - 開発段階用語集
 - `docs/operations/validator-enhancement-backlog.md` - Validator Enhancement Backlog
 
 ## 7. 更新手順

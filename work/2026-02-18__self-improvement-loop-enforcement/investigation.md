@@ -12,7 +12,7 @@
 ## 3. 観測方法 [空欄禁止]
 
 - 参照資料:
-  - `開発ワークフローと自動化.md`
+  - `archive/legacy-documents/開発ワークフローと自動化.md`
   - `tools/consistency-check/check.ps1`
   - `.github/workflows/ci-framework.yml`
 - 実施した確認:
