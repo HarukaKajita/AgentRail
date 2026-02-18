@@ -15,6 +15,7 @@ param(
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+$jsonSchemaVersion = "1.0.0"
 
 $failures = New-Object System.Collections.Generic.List[object]
 
@@ -474,9 +475,17 @@ $overallStatus = if ($allFailures.Count -eq 0) { "PASS" } else { "FAIL" }
 $exitCode = if ($allFailures.Count -eq 0) { 0 } else { 1 }
 
 $jsonPayloadObject = if ($results.Count -eq 1) {
-  $results[0]
+  $singleResult = $results[0]
+  [PSCustomObject]@{
+    schema_version = $jsonSchemaVersion
+    task_id        = $singleResult.task_id
+    status         = $singleResult.status
+    failure_count  = $singleResult.failure_count
+    failures       = $singleResult.failures
+  }
 } else {
   [PSCustomObject]@{
+    schema_version = $jsonSchemaVersion
     mode          = $PSCmdlet.ParameterSetName
     task_count    = $results.Count
     status        = $overallStatus

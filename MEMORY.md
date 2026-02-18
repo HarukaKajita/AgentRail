@@ -5,30 +5,30 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-18__framework-request-to-commit-visual-guide
-- タイトル: ユーザー要望から実装・コミットまでのフロー可視化資料作成
+- Task ID: 2026-02-18__consistency-check-json-schema-version-policy
+- タイトル: Consistency Check JSON Schema Version Policy
 - 状態: done
-- 最終更新日時: 2026-02-19T00:39:32+09:00
+- 最終更新日時: 2026-02-19T01:01:17+09:00
 - 担当: Codex
 
 ## 2. 今回の目的
 
-- 要望提示から実装・コミットまでのフレームワーク内イベントを図解した資料を提供する。
-- CLI 要望サンプルと AI 応答サンプルを含む、初見ユーザー向け運用ガイドを完成させる。
-- 資料追加後の INDEX 導線・タスク状態・レビュー結果を整合させる。
+- `consistency-check` JSON 出力へ `schema_version` を追加する。
+- JSON スキーマ互換ポリシー（major/minor/patch）を docs へ明文化する。
+- task 成果物・バックログ状態・レビュー結果を整合させる。
 
 ## 3. 完了済み
 
-- `docs/operations/framework-request-to-commit-visual-guide.md` を追加し、Mermaid 図・工程解説・CLI/AI サンプルを実装した。
-- `docs/INDEX.md` を更新し、運用セクションから新規資料へ遷移できる導線を追加した。
-- `work/2026-02-18__framework-request-to-commit-visual-guide/{investigation,plan,review,state.json}` を更新し、完了判定を記録した。
-- `docs/operations/high-priority-backlog.md` で当該タスクを Completed へ移動した。
+- `tools/consistency-check/check.ps1` に `schema_version` (`1.0.0`) を追加し、single/multi 両 JSON 出力へ反映した。
+- `docs/specs/phase2-automation-spec.md` に `schema_version` を含む JSON スキーマ例と互換ポリシーを追記した。
+- `work/2026-02-18__consistency-check-json-schema-version-policy/{investigation,spec,plan,review,state.json}` を更新した。
+- `docs/operations/high-priority-backlog.md` で本タスクを Completed へ移動した。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-19
-- 決定内容: 可視化資料タスクを最優先で完了し、以降は残り planned タスクを優先順で着手する。
-- 根拠資料: `docs/operations/high-priority-backlog.md`
+- 決定内容: consistency-check JSON schema の初期版を `1.0.0` とし、互換追加は minor、破壊変更は major を採用する。
+- 根拠資料: `docs/specs/phase2-automation-spec.md`
 
 ## 5. 未解決・ブロッカー
 
@@ -36,9 +36,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-18__consistency-check-json-schema-version-policy` を着手して schema version 方針を確定する。
-2. `2026-02-18__consistency-check-all-tasks-exclusion-rules` を着手して `-AllTasks` 除外条件を設計する。
-3. `2026-02-18__validator-enhancement-backlog-reflection` を着手して validator 強化項目を運用資料へ反映する。
+1. `2026-02-18__consistency-check-all-tasks-exclusion-rules` の計画具体化を行い、`-AllTasks` 除外条件を実装する。
+2. `2026-02-18__validator-enhancement-backlog-reflection` の計画具体化を行い、validator 強化項目を運用バックログへ反映する。
+3. 各タスク完了時に都度コミットし、次タスク開始前に作業ツリーを clean にする。
 
 ## 7. 参照先
 

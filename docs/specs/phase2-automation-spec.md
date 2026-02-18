@@ -53,7 +53,7 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 - チェック結果レポート（PASS/FAIL）
 - 失敗一覧（ルールID、対象ファイル、理由）
 - 終了コード（成功 0 / 失敗 1）
-- `-OutputFormat json` 時は機械可読 JSON（`task_id`, `status`, `failure_count`, `failures[]`）
+- `-OutputFormat json` 時は機械可読 JSON（`schema_version`, `task_id`, `status`, `failure_count`, `failures[]`）
 - 複数 task モード時は task ごとの PASS/FAIL サマリ
 
 ### 3.3 検査項目
@@ -82,6 +82,7 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 
 ```json
 {
+  "schema_version": "1.0.0",
   "task_id": "2026-02-18__example-task",
   "status": "PASS",
   "failure_count": 0,
@@ -91,6 +92,10 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 
 - `-OutputFormat json` で標準出力へ JSON を返す。
 - `-OutputFile <path>` 指定時は同一 JSON をファイル保存する。
+- 互換ポリシー:
+  - 既存キーを壊さない追加変更は `minor` を上げる。
+  - 既存キーの削除/型変更/意味変更は `major` を上げる。
+  - 説明修正などデータ形状へ影響しない変更は `patch` を上げる。
 
 ## 4. 実装方式（確定）
 
@@ -125,6 +130,5 @@ Phase 1 の手動運用を補助するため、以下 2 機能の自動化仕様
 
 次タスクでは本仕様を基に、以下を決定してから実装へ進む。
 
-1. checker JSON に schema version を追加するかどうか
-2. `-AllTasks` の除外条件（archive/legacy）を定義するかどうか
-3. 自己改善起票の運用結果を踏まえて閾値（must/high固定）を見直すかどうか
+1. `-AllTasks` の除外条件（archive/legacy）を定義するかどうか
+2. 自己改善起票の運用結果を踏まえて閾値（must/high固定）を見直すかどうか
