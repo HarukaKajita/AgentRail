@@ -27,12 +27,7 @@ jobs:
       - name: Run docs-indexer
         shell: pwsh
         run: |
-          pwsh -NoProfile -File tools/docs-indexer/index.ps1
-
-      - name: Fail when docs/INDEX.md is not up to date
-        shell: bash
-        run: |
-          git diff --exit-code -- docs/INDEX.md
+          pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check
 
       - name: Resolve task ID
         id: resolve_task

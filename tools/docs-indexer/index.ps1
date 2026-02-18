@@ -1,4 +1,6 @@
 param(
+  [ValidateSet("apply", "check")]
+  [string]$Mode = "apply",
   [string]$DocsRoot = "docs",
   [string]$IndexPath = "docs/INDEX.md"
 )
@@ -70,6 +72,7 @@ if (-not (Test-Path -LiteralPath $IndexPath)) {
 
 $repoRoot = (Resolve-Path ".").Path
 $indexContent = Get-Content -LiteralPath $IndexPath -Raw
+$originalIndexContent = $indexContent
 $newline = if ($indexContent.Contains("`r`n")) { "`r`n" } else { "`n" }
 
 $targets = @(
@@ -164,9 +167,22 @@ foreach ($target in $targets) {
   $indexContent = Set-ManagedSection -Content $indexContent -Heading $heading -Body $generatedByHeading[$heading]
 }
 
-Set-Content -LiteralPath $IndexPath -Value $indexContent -NoNewline
+$hasDiff = $indexContent -ne $originalIndexContent
 
-Write-Output "docs-indexer: PASS"
+if ($Mode -eq "apply") {
+  Set-Content -LiteralPath $IndexPath -Value $indexContent -NoNewline
+} elseif ($hasDiff) {
+  Write-Output "Reason: docs/INDEX.md is not synchronized. Run docs-indexer in apply mode and commit the result."
+}
+
+if ($Mode -eq "check" -and $hasDiff) {
+  $result = "FAIL"
+} else {
+  $result = "PASS"
+}
+
+Write-Output "docs-indexer: $result"
+Write-Output "Mode: $Mode"
 Write-Output "Summary:"
 Write-Output "  Added: $($allAdded.Count)"
 foreach ($entry in ($allAdded | Sort-Object)) {
@@ -179,4 +195,8 @@ foreach ($entry in ($allUpdated | Sort-Object)) {
 Write-Output "  Removed: $($allRemoved.Count)"
 foreach ($entry in ($allRemoved | Sort-Object)) {
   Write-Output "    - $entry"
+}
+
+if ($Mode -eq "check" -and $hasDiff) {
+  exit 1
 }

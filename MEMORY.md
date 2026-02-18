@@ -5,30 +5,30 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-18__ci-task-resolution-no-fallback
-- タイトル: CI task-id 解決の fallback 廃止
+- Task ID: 2026-02-18__docs-indexer-check-mode
+- タイトル: docs-indexer check モード追加
 - 状態: done
-- 最終更新日時: 2026-02-18T21:23:25+09:00
+- 最終更新日時: 2026-02-18T21:27:16+09:00
 - 担当: Codex
 
 ## 2. 今回の目的
 
-- task-id 解決を `manual` / `diff` / `skip` 契約へ整理し、fallback を廃止する。
-- 差分 0 件時は checker 系 step を skip し、無関係 task への誤検査を防止する。
-- `workflow_dispatch` の `task_id` 未指定を fail-fast にする。
+- `docs-indexer` に `-Mode apply|check` を追加し、CI で非破壊検証を行えるようにする。
+- `check` で差分検出時は終了コード1、差分なしは0の明確な契約を提供する。
+- workflow から `apply + git diff` 依存を外し、`check` モードを直接利用する。
 
 ## 3. 完了済み
 
-- `tools/ci/resolve-task-id.ps1` から fallback 分岐を削除し、`workflow_dispatch` 未指定を fail-fast 化した。
-- push 差分 0 件時に `source=skip` を返す挙動を追加した。
-- `.github/workflows/ci-framework.yml` で `resolved_task_source` 条件により scan/check の実行可否を分岐した。
-- `docs/specs/phase2-ci-integration-spec.md` / `docs/specs/phase2-automation-spec.md` / ADR を新ルールに更新した。
+- `tools/docs-indexer/index.ps1` に `-Mode apply|check` を追加した。
+- `check` モードで非破壊比較のみを実施し、差分あり時は FAIL/exit 1 とした。
+- `.github/workflows/ci-framework.yml` の docs step を `-Mode check` 呼び出しへ切り替えた。
+- CI連携仕様 docs を `check` モード前提に更新した。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-18
-- 決定内容: CI の task-id 解決は fallback を使わず、差分 0 件時は `skip` とする。
-- 根拠資料: `docs/decisions/20260218-ci-governance-and-task-resolution.md`
+- 決定内容: CI の docs 検証は `docs-indexer -Mode check` を正本とし、書き込み判定に依存しない。
+- 根拠資料: `docs/specs/phase2-ci-integration-spec.md`
 
 ## 5. 未解決・ブロッカー
 
@@ -36,9 +36,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-18__docs-indexer-check-mode` の実装計画を更新し、`-Mode check` を導入する。
-2. `2026-02-18__project-profile-schema-validation` を実装する。
-3. `2026-02-18__state-transition-validation` を実装する。
+1. `2026-02-18__project-profile-schema-validation` の実装計画を更新し、validator を追加する。
+2. `2026-02-18__state-transition-validation` を実装する。
+3. `2026-02-18__consistency-check-json-output` と `multi-task-mode` の順で整備する。
 
 ## 7. 参照先
 
