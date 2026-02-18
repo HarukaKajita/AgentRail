@@ -13,31 +13,43 @@
 
 ## スキル一覧とフロー上の役割
 
-1. `ask_user_questions`
+1. `write-request`
+- フロー位置: 要望整理
+- 役割: 要望の具体化、拡張提案、分割提案により `request.md` の粒度を適正化
+
+2. `ask-user-questions`
 - フロー位置: 要望整理〜調査
 - 役割: 不足情報の質問化、blocked 判定、提案オプション作成
 
-2. `read_profile`
+3. `write-investigation`
+- フロー位置: 調査
+- 役割: 仮説・観測方法・観測結果・結論を `investigation.md` に確定
+
+4. `read-profile`
 - フロー位置: 実装前チェック、テスト計画
 - 役割: `project.profile.yaml` の必須キー検証と実行コマンド抽出
 
-3. `write_spec`
+5. `write-spec`
 - フロー位置: 要件確定
 - 役割: `spec.md` の空欄禁止項目充足、AC とテスト要件の対応定義
 
-4. `write_plan`
+6. `write-plan`
 - フロー位置: 実装計画
 - 役割: `spec.md` を参照した実施順序・リスク・ロールバック定義
 
-5. `write_test_requirements`
+7. `write-test-requirements`
 - フロー位置: 要件確定〜テスト準備
 - 役割: AC を検証可能なテスト要件へ分解
 
-6. `update_docs`
+8. `review-quality-loop`
+- フロー位置: レビュー〜改善ループ
+- 役割: 要件適合に加えて SOLID/DRY/KISS/YAGNI、セキュリティ、性能をレビューし、改善提案と再レビュー計画を確定
+
+9. `update-docs`
 - フロー位置: レビュー後〜資料更新
 - 役割: docs 本体と `docs/INDEX.md` の整合更新
 
-7. `list-planned-tasks-by-backlog-priority`
+10. `list-planned-tasks-by-backlog-priority`
 - フロー位置: 着手前の優先度判断
 - 役割: backlog と `state.json` の planned 状態照合
 

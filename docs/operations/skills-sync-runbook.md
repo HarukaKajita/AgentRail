@@ -25,7 +25,7 @@ pwsh -NoProfile -File tools/skills-sync/sync.ps1
 ### 3. 指定スキルのみ同期
 
 ```powershell
-pwsh -NoProfile -File tools/skills-sync/sync.ps1 -SkillNames write_spec,write_plan
+pwsh -NoProfile -File tools/skills-sync/sync.ps1 -SkillNames write-spec,write-plan
 ```
 
 ### 4. 余剰ファイル削除付き同期
