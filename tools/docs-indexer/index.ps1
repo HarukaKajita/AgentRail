@@ -76,7 +76,8 @@ $targets = @(
   @{ Heading = "## 2. テンプレート"; RelativeDir = "templates" },
   @{ Heading = "## 3. 仕様"; RelativeDir = "specs" },
   @{ Heading = "## 4. 意思決定"; RelativeDir = "decisions" },
-  @{ Heading = "## 5. 調査"; RelativeDir = "investigations" }
+  @{ Heading = "## 5. 調査"; RelativeDir = "investigations" },
+  @{ Heading = "## 6. 運用"; RelativeDir = "operations" }
 )
 
 $parseErrors = New-Object System.Collections.Generic.List[string]

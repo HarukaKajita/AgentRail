@@ -24,14 +24,18 @@
 - `docs/specs/phase2-implementation-spec.md` - Phase 2 実装仕様
 
 ## 4. 意思決定
-- （未登録）
+- `docs/decisions/20260218-ci-governance-and-task-resolution.md` - CI ガバナンスと task-id 解決戦略
 
 ## 5. 調査
 - `docs/investigations/framework-pilot-01-investigation.md` - Framework Pilot 01 調査記録
 - `docs/investigations/phase2-ci-integration-investigation.md` - Phase 2 CI 連携調査記録
 - `docs/investigations/phase2-implementation-investigation.md` - Phase 2 実装調査記録
 
-## 6. 更新手順
+## 6. 運用
+- `docs/operations/ci-failure-runbook.md` - CI 失敗時ランブック
+- `docs/operations/high-priority-backlog.md` - 高優先バックログ
+
+## 7. 更新手順
 
 1. 新規または更新した資料を上記カテゴリに追加する。
 2. パスの存在確認を行う。

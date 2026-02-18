@@ -10,6 +10,7 @@
 - `specs/`: 要件仕様
 - `decisions/`: ADR (Architecture Decision Record / アーキテクチャ意思決定記録)
 - `investigations/`: 調査記録
+- `operations/`: 運用手順・ランブック・バックログ
 
 ## 運用ルール
 
@@ -17,6 +18,7 @@
 2. 既存資料を変更した場合は、関連資料リンクの整合を確認する。
 3. `work/<task-id>/` で確定した内容のみ docs に昇格する。
 4. `templates/` を直接運用資料として使わない。
+5. 重要な設計・運用判断は `decisions/` に ADR として残す。
 
 ## 完了判定との関係
 
