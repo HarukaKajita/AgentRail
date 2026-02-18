@@ -3,7 +3,8 @@ param(
   [string]$TaskId,
   [Parameter(Mandatory = $true, ParameterSetName = "all")]
   [switch]$AllTasks,
-  [string]$WorkRoot = "work"
+  [string]$WorkRoot = "work",
+  [string]$DocsIndexPath = "docs/INDEX.md"
 )
 
 Set-StrictMode -Version Latest
@@ -14,6 +15,8 @@ $successTasks = New-Object System.Collections.Generic.List[string]
 $allowedStates = @("planned", "in_progress", "blocked", "done")
 $requiredStateKeys = @("state", "owner", "updated_at", "blocking_issues")
 $requiredTaskFiles = @("request.md", "investigation.md", "spec.md", "plan.md", "review.md", "state.json")
+$script:docsIndexContent = $null
+$script:normalizedDocsIndexPath = ""
 
 function Add-Failure {
   param(
@@ -27,6 +30,39 @@ function Add-Failure {
       file    = $File
       reason  = $Reason
     })
+}
+
+function Normalize-PathString {
+  param(
+    [string]$Value
+  )
+
+  return $Value.Replace("\", "/")
+}
+
+function Get-HeadingBlock {
+  param(
+    [string]$Content,
+    [string]$HeadingRegex,
+    [string]$EndRegex
+  )
+
+  $startMatch = [Regex]::Match($Content, $HeadingRegex, [System.Text.RegularExpressions.RegexOptions]::Multiline)
+  if (-not $startMatch.Success) {
+    return $null
+  }
+
+  $startIndex = $startMatch.Index
+  $searchStart = $startMatch.Index + $startMatch.Length
+  $remaining = $Content.Substring($searchStart)
+  $endMatch = [Regex]::Match($remaining, $EndRegex, [System.Text.RegularExpressions.RegexOptions]::Multiline)
+
+  if ($endMatch.Success) {
+    $length = $startMatch.Length + $endMatch.Index
+    return $Content.Substring($startIndex, $length)
+  }
+
+  return $Content.Substring($startIndex)
 }
 
 function Validate-Task {
@@ -126,6 +162,40 @@ function Validate-Task {
         Add-Failure -Task $TargetTaskId -File $reviewPath -Reason "state=done is inconsistent because review.md still has pending status lines."
       }
     }
+
+    $specPath = Join-Path -Path $taskDir -ChildPath "spec.md"
+    if (-not (Test-Path -LiteralPath $specPath -PathType Leaf)) {
+      Add-Failure -Task $TargetTaskId -File $specPath -Reason "state=done requires spec.md."
+    } elseif ($null -eq $script:docsIndexContent) {
+      Add-Failure -Task $TargetTaskId -File $DocsIndexPath -Reason "state=done requires docs index content."
+    } else {
+      $specContent = Get-Content -LiteralPath $specPath -Raw
+      $relatedLinksBlock = Get-HeadingBlock -Content $specContent -HeadingRegex "(?m)^##\s+9\.\s+関連資料リンク" -EndRegex "(?m)^##\s+"
+      if (-not $relatedLinksBlock) {
+        Add-Failure -Task $TargetTaskId -File $specPath -Reason "state=done requires '## 9. 関連資料リンク' in spec.md."
+      } else {
+        $docPathMatches = @([Regex]::Matches($relatedLinksBlock, '(?m)^\s*-\s+`(docs/[^`]+)`'))
+        if ($docPathMatches.Count -eq 0) {
+          Add-Failure -Task $TargetTaskId -File $specPath -Reason "state=done requires at least one docs path under related links."
+        } else {
+          foreach ($match in $docPathMatches) {
+            $docPath = $match.Groups[1].Value.Trim()
+            if (-not (Test-Path -LiteralPath $docPath)) {
+              Add-Failure -Task $TargetTaskId -File $specPath -Reason "state=done references missing docs path: $docPath"
+            }
+
+            $normalizedDocPath = Normalize-PathString -Value $docPath
+            if ($normalizedDocPath -eq $script:normalizedDocsIndexPath) {
+              continue
+            }
+
+            if (-not $script:docsIndexContent.Contains($docPath)) {
+              Add-Failure -Task $TargetTaskId -File $DocsIndexPath -Reason "state=done requires docs/INDEX.md to include docs path: $docPath"
+            }
+          }
+        }
+      }
+    }
   }
 
   $taskFailures = @($failures | Where-Object { $_.task_id -eq $TargetTaskId })
@@ -136,13 +206,24 @@ function Validate-Task {
 
 if (-not (Test-Path -LiteralPath $WorkRoot -PathType Container)) {
   Add-Failure -Task "<global>" -File $WorkRoot -Reason "work root does not exist."
-} elseif ($AllTasks) {
+}
+
+if (-not (Test-Path -LiteralPath $DocsIndexPath -PathType Leaf)) {
+  Add-Failure -Task "<global>" -File $DocsIndexPath -Reason "docs index does not exist."
+} else {
+  $script:docsIndexContent = Get-Content -LiteralPath $DocsIndexPath -Raw
+  $script:normalizedDocsIndexPath = Normalize-PathString -Value $DocsIndexPath
+}
+
+if (Test-Path -LiteralPath $WorkRoot -PathType Container) {
+  if ($AllTasks) {
   $taskDirectories = Get-ChildItem -LiteralPath $WorkRoot -Directory | Sort-Object Name
   foreach ($taskDirectory in $taskDirectories) {
     Validate-Task -TargetTaskId $taskDirectory.Name
   }
-} else {
-  Validate-Task -TargetTaskId $TaskId
+  } else {
+    Validate-Task -TargetTaskId $TaskId
+  }
 }
 
 if ($failures.Count -eq 0) {

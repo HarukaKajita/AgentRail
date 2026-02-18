@@ -44,6 +44,7 @@
 - `docs/operations/skills-framework-flow-guide.md` - Skills Framework Flow Guide
 - `docs/operations/skills-sync-runbook.md` - Skills Sync Runbook
 - `docs/operations/stage-terminology.md` - 開発段階用語集
+- `docs/operations/state-validator-done-docs-index-consistency.md` - State Validator Done Docs Index Consistency
 - `docs/operations/validator-enhancement-backlog.md` - Validator Enhancement Backlog
 
 ## 7. 更新手順

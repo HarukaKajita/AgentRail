@@ -5,33 +5,32 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-19__profile-validator-required-checks-source-of-truth
-- タイトル: Profile Validator Required Checks Source Of Truth
+- Task ID: 2026-02-19__state-validator-done-docs-index-consistency
+- タイトル: State Validator Done Docs Index Consistency
 - 状態: done
-- 最終更新日時: 2026-02-19T04:14:45+09:00
+- 最終更新日時: 2026-02-19T04:21:57+09:00
 - 担当: Codex
 
 ## 2. 今回の目的
 
-- profile validator の required checks 定義を source of truth 化する。
-- `requiredChecks` 静的配列による更新漏れリスクを下げる。
+- state validator の `state=done` 判定に docs/INDEX 整合チェックを追加する。
+- docs 反映漏れのまま done 化されるリスクを低減する。
 - docs/バックログ/タスク記録を `done` 状態まで更新する。
 
 ## 3. 完了済み
 
-- `tools/profile-validate/profile-schema.json` を新規追加し、required key path / value_type を定義した。
-- `tools/profile-validate/validate.ps1` を schema 読み込み型へ更新し、静的 `requiredChecks` 配列を廃止した。
-- validator の PASS/FAIL（欠落キー検出）を実測し、`review.md` へ反映した。
-- `docs/operations/profile-validator-required-checks-source-of-truth.md` を追加した。
-- `docs/operations/validator-enhancement-backlog.md` の VE-001 を `done` に更新した。
+- `tools/state-validate/validate.ps1` に `DocsIndexPath` パラメータと done+docs 整合検証を追加した。
+- 正常系（`-AllTasks`）と異常系（index から docs path を削除）で state validator の PASS/FAIL を実測した。
+- `docs/operations/state-validator-done-docs-index-consistency.md` を追加した。
+- `docs/operations/validator-enhancement-backlog.md` の VE-003 を `done` に更新した。
 - `docs/operations/high-priority-backlog.md` で本タスクを Completed へ移動した。
 - `tools/docs-indexer/index.ps1` 実行で `docs/INDEX.md` を同期した。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-19
-- 決定内容: profile validator の required key source of truth は `tools/profile-validate/profile-schema.json` とし、validator は schema から判定ロジックを組み立てる。
-- 根拠資料: `work/2026-02-19__profile-validator-required-checks-source-of-truth/review.md`
+- 決定内容: state validator の done 判定は spec の docs リンク実在確認と `docs/INDEX.md` 収録確認を必須とする。
+- 根拠資料: `work/2026-02-19__state-validator-done-docs-index-consistency/review.md`
 
 ## 5. 未解決・ブロッカー
 
@@ -39,9 +38,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-19__state-validator-done-docs-index-consistency` に着手する。
-2. 上記タスク完了後、次タスクへ進む前にコミット境界を維持する。
-3. 低優先（VE-002/VE-004）は高優先完了後に順次着手する。
+1. `2026-02-19__profile-validator-schema-version-field` に着手する。
+2. 上記タスク完了後にコミットし、`2026-02-19__state-validator-history-strategy` へ進む。
+3. state/profile validator の重複検証ロジック共通化候補を次フェーズで整理する。
 
 ## 7. 参照先
 
