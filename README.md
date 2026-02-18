@@ -143,6 +143,12 @@ AgentRail は次の問題を解決することを目的にしています。
 - 重大度 `must/high` の finding は `action_required: yes` とし、`linked_task_id` で follow-up task を紐づける
 - `tools/improvement-harvest/scan.ps1` と `tools/consistency-check/check.ps1` で機械検証する
 
+### 4.6 旧資料の扱い
+
+- `archive/legacy-documents/` は履歴・草案の隔離領域とし、通常の設計/実装判断では参照しない
+- 現行判断は `docs/` と `work/` を正本とする
+- 運用ポリシーは `docs/operations/legacy-documents-policy.md` を参照する
+
 ---
 
 ## 5. 主な機能
@@ -256,6 +262,8 @@ pwsh -NoProfile -File tools/improvement-harvest/create-task.ps1 `
 │     └─ ci-framework.yml         # Framework CI
 ├─ agents/
 │  └─ skills/                     # エージェントスキル定義
+├─ archive/
+│  └─ legacy-documents/           # 旧資料（履歴・草案の隔離領域）
 ├─ docs/
 │  ├─ INDEX.md                    # docs全体インデックス
 │  ├─ README.md                   # docs運用ルール
