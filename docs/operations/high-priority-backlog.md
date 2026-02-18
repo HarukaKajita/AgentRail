@@ -6,17 +6,22 @@
 
 ## 優先タスク一覧
 
-1. `2026-02-18__docs-indexer-check-mode`
+1. `2026-02-18__ci-task-resolution-no-fallback`
+- 状態: planned
+- 目的: task-id fallback を廃止し、差分0件時は checker を skip する
+- 参照: `work/2026-02-18__ci-task-resolution-no-fallback/spec.md`
+
+2. `2026-02-18__docs-indexer-check-mode`
 - 状態: planned
 - 目的: `docs-indexer` の `check` モードを導入し、CI 判定を非破壊化
 - 参照: `work/2026-02-18__docs-indexer-check-mode/spec.md`
 
-2. `2026-02-18__project-profile-schema-validation`
+3. `2026-02-18__project-profile-schema-validation`
 - 状態: planned
 - 目的: `project.profile.yaml` の専用 validator 導入
 - 参照: `work/2026-02-18__project-profile-schema-validation/spec.md`
 
-3. `2026-02-18__state-transition-validation`
+4. `2026-02-18__state-transition-validation`
 - 状態: planned
 - 目的: `state.json` の整合検証を CI に導入
 - 参照: `work/2026-02-18__state-transition-validation/spec.md`
