@@ -1,5 +1,6 @@
 param(
-  [string]$ProfilePath = "project.profile.yaml"
+  [string]$ProfilePath = "project.profile.yaml",
+  [string]$SchemaPath = ""
 )
 
 Set-StrictMode -Version Latest
@@ -12,53 +13,155 @@ function Add-Failure {
   $failures.Add($Reason)
 }
 
-if (-not (Test-Path -LiteralPath $ProfilePath -PathType Leaf)) {
-  Add-Failure "Profile file does not exist: $ProfilePath"
+function Write-ValidationResult {
+  param([int]$ExitCode)
+
+  if ($failures.Count -eq 0) {
+    Write-Output "PROFILE_VALIDATE: PASS"
+    Write-Output "Validated profile: $ProfilePath"
+    exit 0
+  }
+
   Write-Output "PROFILE_VALIDATE: FAIL"
   Write-Output "Failure Count: $($failures.Count)"
   foreach ($failure in $failures) {
     Write-Output "- $failure"
   }
-  exit 1
+  exit $ExitCode
+}
+
+function Get-RequiredKeyPattern {
+  param(
+    [string]$Path,
+    [string]$ValueType
+  )
+
+  if ([string]::IsNullOrWhiteSpace($Path)) {
+    return ""
+  }
+
+  $segments = @($Path.Split("."))
+  if ($segments.Count -eq 0) {
+    return ""
+  }
+
+  $builder = New-Object System.Text.StringBuilder
+  # Build nested-key regex from dotted key path and 2-space YAML indentation.
+  [void]$builder.Append("(?m)")
+
+  for ($index = 0; $index -lt $segments.Count; $index++) {
+    $segment = [string]$segments[$index]
+    if ([string]::IsNullOrWhiteSpace($segment)) {
+      return ""
+    }
+
+    $indent = " " * ($index * 2)
+    $escapedSegment = [Regex]::Escape($segment.Trim())
+    $isLast = $index -eq ($segments.Count - 1)
+
+    if ($isLast) {
+      if ($ValueType -eq "container") {
+        [void]$builder.Append("^${indent}${escapedSegment}:\s*$")
+      } else {
+        [void]$builder.Append("^${indent}${escapedSegment}:\s*\S+")
+      }
+      continue
+    }
+
+    [void]$builder.Append("^${indent}${escapedSegment}:\s*$[\s\S]*?")
+  }
+
+  return $builder.ToString()
+}
+
+if (-not (Test-Path -LiteralPath $ProfilePath -PathType Leaf)) {
+  Add-Failure "Profile file does not exist: $ProfilePath"
+  Write-ValidationResult -ExitCode 1
+}
+
+$resolvedSchemaPath = if ([string]::IsNullOrWhiteSpace($SchemaPath)) {
+  Join-Path -Path $PSScriptRoot -ChildPath "profile-schema.json"
+} else {
+  $SchemaPath
+}
+
+if (-not (Test-Path -LiteralPath $resolvedSchemaPath -PathType Leaf)) {
+  Add-Failure "Profile schema file does not exist: $resolvedSchemaPath"
+  Write-ValidationResult -ExitCode 1
 }
 
 $profileContent = Get-Content -LiteralPath $ProfilePath -Raw
-if ($profileContent.Contains("TODO_SET_ME")) {
-  Add-Failure "Forbidden placeholder remains: TODO_SET_ME"
+$schema = $null
+try {
+  $schema = Get-Content -LiteralPath $resolvedSchemaPath -Raw | ConvertFrom-Json
+} catch {
+  Add-Failure "Profile schema is not valid JSON: $resolvedSchemaPath"
+  Write-ValidationResult -ExitCode 1
 }
 
-$requiredChecks = @(
-  @{ Path = "version"; Pattern = "(?m)^version:\s*\S+" },
-  @{ Path = "project.name"; Pattern = "(?m)^project:\s*$[\s\S]*?^\s{2}name:\s*\S+" },
-  @{ Path = "workflow.task_root"; Pattern = "(?m)^workflow:\s*$[\s\S]*?^\s{2}task_root:\s*\S+" },
-  @{ Path = "workflow.docs_root"; Pattern = "(?m)^workflow:\s*$[\s\S]*?^\s{2}docs_root:\s*\S+" },
-  @{ Path = "workflow.strict_blocking"; Pattern = "(?m)^workflow:\s*$[\s\S]*?^\s{2}strict_blocking:\s*\S+" },
-  @{ Path = "commands.build.command"; Pattern = "(?m)^\s{2}build:\s*$[\s\S]*?^\s{4}command:\s*\S+" },
-  @{ Path = "commands.test.command"; Pattern = "(?m)^\s{2}test:\s*$[\s\S]*?^\s{4}command:\s*\S+" },
-  @{ Path = "commands.format.command"; Pattern = "(?m)^\s{2}format:\s*$[\s\S]*?^\s{4}command:\s*\S+" },
-  @{ Path = "commands.lint.command"; Pattern = "(?m)^\s{2}lint:\s*$[\s\S]*?^\s{4}command:\s*\S+" },
-  @{ Path = "paths.source_roots"; Pattern = "(?m)^paths:\s*$[\s\S]*?^\s{2}source_roots:\s*$" },
-  @{ Path = "paths.artifacts"; Pattern = "(?m)^paths:\s*$[\s\S]*?^\s{2}artifacts:\s*$" },
-  @{ Path = "review.required_checks"; Pattern = "(?m)^review:\s*$[\s\S]*?^\s{2}required_checks:\s*$" },
-  @{ Path = "defaults.documentation_language"; Pattern = "(?m)^defaults:\s*$[\s\S]*?^\s{2}documentation_language:\s*\S+" },
-  @{ Path = "defaults.code_comment_language"; Pattern = "(?m)^defaults:\s*$[\s\S]*?^\s{2}code_comment_language:\s*\S+" }
-)
-
-foreach ($check in $requiredChecks) {
-  if (-not [Regex]::IsMatch($profileContent, [string]$check.Pattern)) {
-    Add-Failure "Missing required key path: $($check.Path)"
+$forbiddenPlaceholders = @("TODO_SET_ME")
+if ($schema -and $schema.PSObject.Properties.Name -contains "forbidden_placeholders") {
+  $configuredPlaceholders = @($schema.forbidden_placeholders | ForEach-Object { [string]$_ })
+  if ($configuredPlaceholders.Count -gt 0) {
+    $forbiddenPlaceholders = $configuredPlaceholders
   }
 }
 
-if ($failures.Count -eq 0) {
-  Write-Output "PROFILE_VALIDATE: PASS"
-  Write-Output "Validated profile: $ProfilePath"
-  exit 0
+foreach ($placeholder in $forbiddenPlaceholders) {
+  if ([string]::IsNullOrWhiteSpace($placeholder)) {
+    continue
+  }
+
+  if ($profileContent.Contains($placeholder)) {
+    Add-Failure "Forbidden placeholder remains: $placeholder"
+  }
 }
 
-Write-Output "PROFILE_VALIDATE: FAIL"
-Write-Output "Failure Count: $($failures.Count)"
-foreach ($failure in $failures) {
-  Write-Output "- $failure"
+$requiredKeys = @()
+if ($schema -and $schema.PSObject.Properties.Name -contains "required_keys") {
+  $requiredKeys = @($schema.required_keys)
+} else {
+  Add-Failure "Profile schema is missing required_keys: $resolvedSchemaPath"
 }
-exit 1
+
+if ($requiredKeys.Count -eq 0) {
+  Add-Failure "Profile schema contains no required_keys entries: $resolvedSchemaPath"
+}
+
+$allowedValueTypes = @("scalar", "container")
+foreach ($requiredKey in $requiredKeys) {
+  if ($null -eq $requiredKey) {
+    Add-Failure "Invalid required_keys entry: null"
+    continue
+  }
+
+  $hasPath = $requiredKey.PSObject.Properties.Name -contains "path"
+  if (-not $hasPath -or [string]::IsNullOrWhiteSpace([string]$requiredKey.path)) {
+    Add-Failure "Invalid required_keys entry: path is missing or empty."
+    continue
+  }
+
+  $path = [string]$requiredKey.path
+  $valueType = "scalar"
+  if ($requiredKey.PSObject.Properties.Name -contains "value_type" -and -not [string]::IsNullOrWhiteSpace([string]$requiredKey.value_type)) {
+    $valueType = [string]$requiredKey.value_type
+  }
+  $valueType = $valueType.ToLowerInvariant()
+
+  if ($valueType -notin $allowedValueTypes) {
+    Add-Failure "Invalid value_type '$valueType' for required key path: $path"
+    continue
+  }
+
+  $pattern = Get-RequiredKeyPattern -Path $path -ValueType $valueType
+  if ([string]::IsNullOrWhiteSpace($pattern)) {
+    Add-Failure "Failed to build validation pattern for required key path: $path"
+    continue
+  }
+
+  if (-not [Regex]::IsMatch($profileContent, $pattern)) {
+    Add-Failure "Missing required key path: $path"
+  }
+}
+
+Write-ValidationResult -ExitCode 1

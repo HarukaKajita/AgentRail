@@ -5,12 +5,18 @@
 
 ## 1. 必須キー
 
+source of truth:
+- `tools/profile-validate/profile-schema.json`
+
+主要キー（抜粋）:
 - `commands.build.command`
 - `commands.test.command`
 - `commands.format.command`
 - `commands.lint.command`
 - `paths.source_roots`
 - `review.required_checks`
+
+`project.profile.yaml` の厳密な required key 一覧は validator schema（`tools/profile-validate/profile-schema.json`）を参照する。
 
 ## 2. 記入ルール
 

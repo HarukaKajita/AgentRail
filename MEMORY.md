@@ -5,33 +5,33 @@
 
 ## 1. 現在のタスク
 
-- Task ID: backlog-intake-2026-02-19
-- タイトル: Validator backlog follow-up task intake
+- Task ID: 2026-02-19__profile-validator-required-checks-source-of-truth
+- タイトル: Profile Validator Required Checks Source Of Truth
 - 状態: done
-- 最終更新日時: 2026-02-19T02:12:15+09:00
+- 最終更新日時: 2026-02-19T04:14:45+09:00
 - 担当: Codex
 
 ## 2. 今回の目的
 
-- validator backlog から follow-up 候補を複数 task として起票する。
-- 高優先バックログと validator backlog の状態を同期する。
-- 次セッションで着手可能な planned task セットを整備する。
+- profile validator の required checks 定義を source of truth 化する。
+- `requiredChecks` 静的配列による更新漏れリスクを下げる。
+- docs/バックログ/タスク記録を `done` 状態まで更新する。
 
 ## 3. 完了済み
 
-- 以下 4 task を `work/` に起票した。
-  - `2026-02-19__profile-validator-required-checks-source-of-truth`（VE-001）
-  - `2026-02-19__state-validator-done-docs-index-consistency`（VE-003）
-  - `2026-02-19__profile-validator-schema-version-field`（VE-002）
-  - `2026-02-19__state-validator-history-strategy`（VE-004）
-- `docs/operations/high-priority-backlog.md` の planned 一覧へ 4 task を追加した。
-- `docs/operations/validator-enhancement-backlog.md` の VE-001〜VE-004 を `planned` + `linked_task` 付きへ更新した。
+- `tools/profile-validate/profile-schema.json` を新規追加し、required key path / value_type を定義した。
+- `tools/profile-validate/validate.ps1` を schema 読み込み型へ更新し、静的 `requiredChecks` 配列を廃止した。
+- validator の PASS/FAIL（欠落キー検出）を実測し、`review.md` へ反映した。
+- `docs/operations/profile-validator-required-checks-source-of-truth.md` を追加した。
+- `docs/operations/validator-enhancement-backlog.md` の VE-001 を `done` に更新した。
+- `docs/operations/high-priority-backlog.md` で本タスクを Completed へ移動した。
+- `tools/docs-indexer/index.ps1` 実行で `docs/INDEX.md` を同期した。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-19
-- 決定内容: VE-001〜VE-004 は全件起票し、medium 優先（VE-001/VE-003）で着手順を管理する。
-- 根拠資料: `docs/operations/high-priority-backlog.md`
+- 決定内容: profile validator の required key source of truth は `tools/profile-validate/profile-schema.json` とし、validator は schema から判定ロジックを組み立てる。
+- 根拠資料: `work/2026-02-19__profile-validator-required-checks-source-of-truth/review.md`
 
 ## 5. 未解決・ブロッカー
 
@@ -39,9 +39,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-19__profile-validator-required-checks-source-of-truth` の実装計画を具体化して着手する。
-2. `2026-02-19__state-validator-done-docs-index-consistency` の実装計画を具体化して着手する。
-3. 残り low 優先（VE-002/VE-004）を順次着手する。
+1. `2026-02-19__state-validator-done-docs-index-consistency` に着手する。
+2. 上記タスク完了後、次タスクへ進む前にコミット境界を維持する。
+3. 低優先（VE-002/VE-004）は高優先完了後に順次着手する。
 
 ## 7. 参照先
 
