@@ -1,0 +1,45 @@
+version: 1
+
+project:
+  name: AgentRail
+  description: "Stack-agnostic agentic development framework repository"
+
+workflow:
+  task_root: "work"
+  docs_root: "docs"
+  strict_blocking: true
+
+commands:
+  build:
+    description: "Project-specific build command"
+    command: "TODO_SET_ME"
+  test:
+    description: "Project-specific test command"
+    command: "TODO_SET_ME"
+  format:
+    description: "Project-specific format command"
+    command: "TODO_SET_ME"
+  lint:
+    description: "Project-specific lint command"
+    command: "TODO_SET_ME"
+
+paths:
+  source_roots:
+    - "TODO_SET_ME"
+  artifacts:
+    - "TODO_SET_ME"
+
+review:
+  required_checks:
+    - id: "spec_required_sections_filled"
+      description: "spec.md の空欄禁止項目が埋まっている"
+    - id: "test_requirements_defined"
+      description: "テスト要件が実施可能な粒度で定義されている"
+    - id: "plan_references_spec"
+      description: "plan.md が spec.md を参照している"
+    - id: "docs_index_updated"
+      description: "docs/INDEX.md が更新されている"
+
+defaults:
+  documentation_language: "ja"
+  code_comment_language: "en"
