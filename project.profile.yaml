@@ -12,22 +12,29 @@ workflow:
 commands:
   build:
     description: "Project-specific build command"
-    command: "TODO_SET_ME"
+    command: >-
+      pwsh -NoProfile -Command "Write-Output 'Build step: documentation-only repository, no binary build required.'"
   test:
     description: "Project-specific test command"
-    command: "TODO_SET_ME"
+    command: >-
+      pwsh -NoProfile -Command "$required = @('AGENTS.md','CLAUDE.md','MEMORY.md','project.profile.yaml','docs/INDEX.md'); $missing = $required | Where-Object { -not (Test-Path $_) }; if ($missing.Count -gt 0) { Write-Error ('Missing files: ' + ($missing -join ', ')); exit 1 } ; Write-Output 'Baseline framework file check passed.'"
   format:
     description: "Project-specific format command"
-    command: "TODO_SET_ME"
+    command: >-
+      pwsh -NoProfile -Command "Write-Output 'Format step: markdown formatting is manual in this repository.'"
   lint:
     description: "Project-specific lint command"
-    command: "TODO_SET_ME"
+    command: >-
+      pwsh -NoProfile -Command "Write-Output 'Lint step: policy checks are performed via review checklist.'"
 
 paths:
   source_roots:
-    - "TODO_SET_ME"
+    - "agents"
+    - "docs"
+    - "work"
   artifacts:
-    - "TODO_SET_ME"
+    - "work"
+    - "docs"
 
 review:
   required_checks:

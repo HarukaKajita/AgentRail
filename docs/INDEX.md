@@ -20,7 +20,8 @@
 
 ## 3. 仕様
 
-- （未登録）
+- `docs/specs/framework-pilot-01-spec.md` - パイロットタスク仕様（運用開始検証）
+- `docs/specs/phase2-automation-spec.md` - Phase 2 自動化仕様（設計のみ）
 
 ## 4. 意思決定
 
@@ -28,7 +29,7 @@
 
 ## 5. 調査
 
-- （未登録）
+- `docs/investigations/framework-pilot-01-investigation.md` - パイロット開始前の調査記録
 
 ## 6. 更新手順
 
