@@ -9,6 +9,7 @@ source of truth:
 - `tools/profile-validate/profile-schema.json`
 
 主要キー（抜粋）:
+- `schema_version`
 - `commands.build.command`
 - `commands.test.command`
 - `commands.format.command`
@@ -23,6 +24,7 @@ source of truth:
 1. すべて実行可能なコマンドを記載する。
 2. 不要なコマンドでも `N/A` ではなく代替運用をコメントで明記する。
 3. 推測で書かず、実プロジェクトの事実を記入する。
+4. `schema_version` は `tools/profile-validate/profile-schema.json` の `supported_profile_schema_versions` に含まれる値を使う。
 
 ## 3. 例（Unity、参考）
 

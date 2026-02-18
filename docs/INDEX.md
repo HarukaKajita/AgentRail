@@ -41,6 +41,7 @@
 - `docs/operations/high-priority-backlog.md` - 高優先バックログ
 - `docs/operations/legacy-documents-policy.md` - 旧資料の隔離運用ポリシー
 - `docs/operations/profile-validator-required-checks-source-of-truth.md` - Profile Validator Required Checks Source Of Truth
+- `docs/operations/profile-validator-schema-version-policy.md` - Profile Validator Schema Version Policy
 - `docs/operations/skills-framework-flow-guide.md` - Skills Framework Flow Guide
 - `docs/operations/skills-sync-runbook.md` - Skills Sync Runbook
 - `docs/operations/stage-terminology.md` - 開発段階用語集

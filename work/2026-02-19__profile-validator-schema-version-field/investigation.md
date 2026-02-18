@@ -6,33 +6,44 @@
 
 ## 2. 仮説 (Hypothesis / 仮説) [空欄禁止]
 
-- 該当 finding に対する対策を実装すれば、同種の問題を再発防止できる。
+- `project.profile.yaml` に schema_version を導入し、validator 側でサポートバージョンを明示すれば、互換性判断を運用で一貫できる。
 
 ## 3. 観測方法 [空欄禁止]
 
 - 参照資料:
   - work/2026-02-18__project-profile-schema-validation/review.md
+  - project.profile.yaml
+  - tools/profile-validate/validate.ps1
+  - tools/profile-validate/profile-schema.json
 - 実施した確認:
-  - finding の再現条件と影響範囲を確認する。
+  - 現行 profile で schema version を表す専用フィールド有無を確認する。
+  - profile validator がバージョン互換をどこで判断しているかを確認する。
+  - 既存 `version` フィールドとの役割分担を確認する。
 
 ## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
 
-- 調査前。実装時に更新する。
+- `project.profile.yaml` は `version` を持つが、profile schema 互換を示す専用フィールドは未定義。
+- `tools/profile-validate/validate.ps1` は required key 判定中心で、schema version 互換（許容バージョン）の検証は未実装。
+- `tools/profile-validate/profile-schema.json` に互換対象バージョンを追加し、validator で照合すれば、運用上の判断をコード化できる。
 
 ## 5. 結論 (Conclusion / 結論) [空欄禁止]
 
-- 調査前。実装時に更新する。
+- `project.profile.yaml` に `schema_version` を追加し、profile schema 互換判定の基準値とする。
+- `tools/profile-validate/profile-schema.json` に `supported_profile_schema_versions` を定義し、validator が `schema_version` を照合する。
+- schema version 運用ルールを docs に記録し、更新時の意思決定手順を固定する。
 
 ## 6. 未解決事項 [空欄禁止]
 
-- 具体的な実装方式の最終選定。
+- `version` と `schema_version` の将来統合方針（本タスクでは両立運用を採用）。
 
 ## 7. 次アクション [空欄禁止]
 
-1. 要件を確定する。
-2. 実装計画を策定する。
+1. profile / validator schema / validator 本体に schema version 互換チェックを実装する。
+2. 互換バージョン外の profile を一時ファイルで再現し、FAIL を確認する。
+3. docs / review / state を更新して完了判定を記録する。
 
 ## 8. 関連リンク [空欄禁止]
 
 - request: work/2026-02-19__profile-validator-schema-version-field/request.md
 - spec: work/2026-02-19__profile-validator-schema-version-field/spec.md
+- source review: work/2026-02-18__project-profile-schema-validation/review.md

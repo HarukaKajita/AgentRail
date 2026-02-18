@@ -1,12 +1,19 @@
 {
   "schema_id": "agentrail.project_profile.required_keys",
   "schema_version": "1.0.0",
+  "supported_profile_schema_versions": [
+    "1.0.0"
+  ],
   "forbidden_placeholders": [
     "TODO_SET_ME"
   ],
   "required_keys": [
     {
       "path": "version",
+      "value_type": "scalar"
+    },
+    {
+      "path": "schema_version",
       "value_type": "scalar"
     },
     {

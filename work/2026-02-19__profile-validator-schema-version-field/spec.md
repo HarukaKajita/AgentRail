@@ -2,80 +2,101 @@
 
 ## 1. メタ情報 [空欄禁止]
 
-- Task ID: 2026-02-19__profile-validator-schema-version-field
+- Task ID: `2026-02-19__profile-validator-schema-version-field`
 - タイトル: Profile Validator Schema Version Field
 - 作成日: 2026-02-19
 - 更新日: 2026-02-19
 - 作成者: codex
-- 関連要望: work/2026-02-19__profile-validator-schema-version-field/request.md
+- 関連要望: `work/2026-02-19__profile-validator-schema-version-field/request.md`
 
 ## 2. 背景と目的 [空欄禁止]
 
-- 背景: 2026-02-18__project-profile-schema-validation の finding F-001 が改善アクションを要求している。
-- 目的: finding に対する恒久対応を実装し、同種問題の再発を防止する。
+- 背景: profile validator には `project.profile.yaml` の schema 互換を示す明示フィールドがなく、拡張時の互換判断を運用メモに依存していた。
+- 目的: `schema_version` フィールドを導入し、validator で許容バージョン照合を実施して互換ポリシーを明確化する。
 
 ## 3. スコープ [空欄禁止]
 
 ### 3.1 In Scope [空欄禁止]
 
-- finding に直接対応する修正を実装する。
-- 必要な docs と運用ルールを更新する。
+- `project.profile.yaml` に `schema_version` を追加する。
+- `tools/profile-validate/profile-schema.json` に許容 schema version 定義を追加する。
+- `tools/profile-validate/validate.ps1` で `schema_version` の互換チェックを追加する。
+- schema version 運用ルールを docs と backlog に反映する。
 
 ### 3.2 Out of Scope [空欄禁止]
 
-- finding と無関係な大規模リファクタ。
+- `version` フィールド廃止・統合。
+- profile validator 以外の validator への schema version 強制導入。
 
 ## 4. 受入条件 (Acceptance Criteria / 受入条件) [空欄禁止]
 
-- AC-001: finding の原因に対する実装が完了する。
-- AC-002: 必要な docs が更新される。
+- AC-001: `project.profile.yaml` が `schema_version` を持ち、`tools/profile-validate/profile-schema.json` の required key と整合する。
+- AC-002: `tools/profile-validate/validate.ps1` が `schema_version` を抽出し、`supported_profile_schema_versions` と照合する。
+- AC-003: 非互換 `schema_version` を含む一時 profile では validator が FAIL し、互換エラーを出力する。
+- AC-004: schema version の運用方針が docs に記録され、`docs/INDEX.md` から参照できる。
 
 ## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
 
 ### 5.1 Unit Test (Unit Test / 単体テスト) [空欄禁止]
 
-- 対象: 修正対象モジュール
-- 観点: finding の再発条件が検知/防止される
-- 合格条件: 期待どおり PASS
+- 対象: `tools/profile-validate/validate.ps1`
+- 観点: `schema_version` 抽出と許容バージョン照合が機能する。
+- 合格条件: 現行 profile は PASS、非互換 `schema_version` は FAIL。
 
 ### 5.2 Integration Test (Integration Test / 結合テスト) [空欄禁止]
 
-- 対象: CI および関連スクリプト
-- 観点: 修正結果がパイプラインへ反映される
-- 合格条件: 期待どおり PASS
+- 対象: `tools/profile-validate/validate.ps1` と `project.profile.yaml`
+- 観点: required key と supported version の両方が同時に満たされたときに PASS する。
+- 合格条件: `pwsh -NoProfile -File tools/profile-validate/validate.ps1 -ProfilePath project.profile.yaml` が PASS。
 
 ### 5.3 Regression Test (Regression Test / 回帰テスト) [空欄禁止]
 
-- 対象: 既存フロー
-- 観点: 既存の正常ケースを壊さない
-- 合格条件: 期待どおり PASS
+- 対象: `tools/consistency-check/check.ps1` と `tools/docs-indexer/index.ps1`
+- 観点: task 文書と docs 更新後も既存運用チェックが PASS する。
+- 合格条件: consistency-check と docs-indexer check が PASS。
 
 ### 5.4 Manual Verification (Manual Verification / 手動検証) [空欄禁止]
 
-- 手順: 対応実装後に対象コマンドを順次実行する
-- 期待結果: AC-001 と AC-002 を満たす
+- 手順:
+  1. `pwsh -NoProfile -File tools/profile-validate/validate.ps1 -ProfilePath project.profile.yaml` を実行する。
+  2. 一時 profile の `schema_version` を `9.9.9` に変更して validator を実行する。
+  3. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-19__profile-validator-schema-version-field` を実行する。
+  4. `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check` を実行する。
+- 期待結果: 手順1/3/4は PASS、手順2は `Unsupported schema_version` を出力して FAIL。
 
 ## 6. 影響範囲 [空欄禁止]
 
-- 影響ファイル/モジュール: finding に関連するファイル一式
-- 影響する仕様: 必要に応じて該当 spec を更新
-- 非機能影響: 品質と再現性の向上
+- 影響ファイル/モジュール:
+  - `project.profile.yaml`
+  - `tools/profile-validate/profile-schema.json`
+  - `tools/profile-validate/validate.ps1`
+  - `docs/templates/project-profile.md`
+  - `docs/operations/profile-validator-schema-version-policy.md`（新規）
+  - `docs/operations/validator-enhancement-backlog.md`
+  - `docs/operations/high-priority-backlog.md`
+  - `docs/INDEX.md`
+- 影響する仕様:
+  - `docs/operations/validator-enhancement-backlog.md`
+- 非機能影響:
+  - profile schema 拡張時の互換判断が明文化される。
 
 ## 7. 制約とリスク [空欄禁止]
 
-- 制約: 既存ワークフロー互換を維持する
-- 想定リスク: 修正漏れが残る可能性
-- 回避策: reviewer で finding クローズ条件を確認する
+- 制約: 既存 `version` フィールド互換を維持しつつ段階導入する。
+- 想定リスク: schema version 値の書式ゆれで誤判定する可能性。
+- 回避策: `supported_profile_schema_versions` に明示値を列挙し、validator で照合失敗時に具体エラーメッセージを返す。
 
 ## 8. 未確定事項 [空欄禁止]
 
-- 実装時に発見された追加要件の扱い。
+- `version` と `schema_version` の統合時期。
 
 ## 9. 関連資料リンク [空欄禁止]
 
-- request: work/2026-02-19__profile-validator-schema-version-field/request.md
-- investigation: work/2026-02-19__profile-validator-schema-version-field/investigation.md
-- plan: work/2026-02-19__profile-validator-schema-version-field/plan.md
-- review: work/2026-02-19__profile-validator-schema-version-field/review.md
+- request: `work/2026-02-19__profile-validator-schema-version-field/request.md`
+- investigation: `work/2026-02-19__profile-validator-schema-version-field/investigation.md`
+- plan: `work/2026-02-19__profile-validator-schema-version-field/plan.md`
+- review: `work/2026-02-19__profile-validator-schema-version-field/review.md`
 - docs:
+  - `docs/operations/profile-validator-schema-version-policy.md`
+  - `docs/operations/validator-enhancement-backlog.md`
   - `docs/operations/high-priority-backlog.md`

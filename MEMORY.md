@@ -5,32 +5,34 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-19__state-validator-done-docs-index-consistency
-- タイトル: State Validator Done Docs Index Consistency
+- Task ID: 2026-02-19__profile-validator-schema-version-field
+- タイトル: Profile Validator Schema Version Field
 - 状態: done
-- 最終更新日時: 2026-02-19T04:21:57+09:00
+- 最終更新日時: 2026-02-19T04:29:12+09:00
 - 担当: Codex
 
 ## 2. 今回の目的
 
-- state validator の `state=done` 判定に docs/INDEX 整合チェックを追加する。
-- docs 反映漏れのまま done 化されるリスクを低減する。
+- `project.profile.yaml` に `schema_version` を導入する。
+- profile validator で `schema_version` 互換性を機械判定する。
 - docs/バックログ/タスク記録を `done` 状態まで更新する。
 
 ## 3. 完了済み
 
-- `tools/state-validate/validate.ps1` に `DocsIndexPath` パラメータと done+docs 整合検証を追加した。
-- 正常系（`-AllTasks`）と異常系（index から docs path を削除）で state validator の PASS/FAIL を実測した。
-- `docs/operations/state-validator-done-docs-index-consistency.md` を追加した。
-- `docs/operations/validator-enhancement-backlog.md` の VE-003 を `done` に更新した。
+- `project.profile.yaml` に `schema_version: "1.0.0"` を追加した。
+- `tools/profile-validate/profile-schema.json` に `supported_profile_schema_versions` と required key `schema_version` を追加した。
+- `tools/profile-validate/validate.ps1` に `schema_version` 抽出・互換照合ロジックを追加した。
+- 正常系（`schema_version=1.0.0`）と異常系（`schema_version=9.9.9`）で validator の PASS/FAIL を実測した。
+- `docs/operations/profile-validator-schema-version-policy.md` を追加した。
+- `docs/operations/validator-enhancement-backlog.md` の VE-002 を `done` に更新した。
 - `docs/operations/high-priority-backlog.md` で本タスクを Completed へ移動した。
 - `tools/docs-indexer/index.ps1` 実行で `docs/INDEX.md` を同期した。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-19
-- 決定内容: state validator の done 判定は spec の docs リンク実在確認と `docs/INDEX.md` 収録確認を必須とする。
-- 根拠資料: `work/2026-02-19__state-validator-done-docs-index-consistency/review.md`
+- 決定内容: profile schema 互換判定は `schema_version` を正とし、許容バージョンは `supported_profile_schema_versions` で管理する。
+- 根拠資料: `work/2026-02-19__profile-validator-schema-version-field/review.md`
 
 ## 5. 未解決・ブロッカー
 
@@ -38,9 +40,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-19__profile-validator-schema-version-field` に着手する。
-2. 上記タスク完了後にコミットし、`2026-02-19__state-validator-history-strategy` へ進む。
-3. state/profile validator の重複検証ロジック共通化候補を次フェーズで整理する。
+1. `2026-02-19__state-validator-history-strategy` に着手する。
+2. 上記タスク完了後にコミットし、validator backlog（VE-004）をクローズする。
+3. `version` と `schema_version` の統合方針を次フェーズで検討する。
 
 ## 7. 参照先
 

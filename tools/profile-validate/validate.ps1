@@ -74,6 +74,34 @@ function Get-RequiredKeyPattern {
   return $builder.ToString()
 }
 
+function Get-TopLevelScalarValue {
+  param(
+    [string]$Content,
+    [string]$Key
+  )
+
+  if ([string]::IsNullOrWhiteSpace($Content) -or [string]::IsNullOrWhiteSpace($Key)) {
+    return ""
+  }
+
+  $escapedKey = [Regex]::Escape($Key)
+  $match = [Regex]::Match($Content, "(?m)^${escapedKey}:\s*(.+?)\s*$")
+  if (-not $match.Success) {
+    return ""
+  }
+
+  $rawValue = [string]$match.Groups[1].Value.Trim()
+  if ($rawValue.Length -ge 2 -and $rawValue.StartsWith('"') -and $rawValue.EndsWith('"')) {
+    return $rawValue.Substring(1, $rawValue.Length - 2)
+  }
+
+  if ($rawValue.Length -ge 2 -and $rawValue.StartsWith("'") -and $rawValue.EndsWith("'")) {
+    return $rawValue.Substring(1, $rawValue.Length - 2)
+  }
+
+  return $rawValue
+}
+
 if (-not (Test-Path -LiteralPath $ProfilePath -PathType Leaf)) {
   Add-Failure "Profile file does not exist: $ProfilePath"
   Write-ValidationResult -ExitCode 1
@@ -161,6 +189,24 @@ foreach ($requiredKey in $requiredKeys) {
 
   if (-not [Regex]::IsMatch($profileContent, $pattern)) {
     Add-Failure "Missing required key path: $path"
+  }
+}
+
+$supportedProfileSchemaVersions = @()
+if ($schema -and $schema.PSObject.Properties.Name -contains "supported_profile_schema_versions") {
+  $supportedProfileSchemaVersions = @($schema.supported_profile_schema_versions | ForEach-Object { [string]$_ })
+} else {
+  Add-Failure "Profile schema is missing supported_profile_schema_versions: $resolvedSchemaPath"
+}
+
+if ($supportedProfileSchemaVersions.Count -eq 0) {
+  Add-Failure "Profile schema contains no supported_profile_schema_versions entries: $resolvedSchemaPath"
+} else {
+  $profileSchemaVersion = Get-TopLevelScalarValue -Content $profileContent -Key "schema_version"
+  if ([string]::IsNullOrWhiteSpace($profileSchemaVersion)) {
+    Add-Failure "schema_version is missing or blank."
+  } elseif ($profileSchemaVersion -notin $supportedProfileSchemaVersions) {
+    Add-Failure "Unsupported schema_version '$profileSchemaVersion'. Supported: $($supportedProfileSchemaVersions -join ', ')"
   }
 }
 
