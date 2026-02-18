@@ -5,40 +5,40 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-18__phase2-ci-integration
-- タイトル: Phase 2 後半 CI 連携（GitHub Actions）
+- Task ID: 2026-02-18__ci-task-resolution-determinism
+- タイトル: CI 対象 task-id 決定性強化
 - 状態: done
-- 最終更新日時: 2026-02-18T19:05:00+09:00
+- 最終更新日時: 2026-02-18T19:52:00+09:00
 - 担当: Codex
 
 ## 2. 今回の目的
 
-- `docs-indexer` と `check_consistency` を GitHub Actions に統合する。
-- INDEX 差分検出と latest task-id 自動解決を CI ゲートとして導入する。
+- CI の checker 対象 task-id を差分ベースで決定し、判定の再現性を高める。
+- manual 指定、差分抽出、フォールバックの優先順を固定する。
 
 ## 3. 完了済み
 
-- `.github/workflows/ci-framework.yml` を追加し、push/pull_request で framework チェックを自動化。
-- CI で `docs-indexer` 実行後の `docs/INDEX.md` 差分検出を導入。
-- CI で `work/` 配下から latest task-id を自動解決して `check_consistency` を実行。
-- `work/2026-02-18__phase2-ci-integration/` の必須 6 ファイルを作成し完了。
-- `docs/specs/phase2-ci-integration-spec.md` と `docs/investigations/phase2-ci-integration-investigation.md` を追加。
+- `tools/ci/resolve-task-id.ps1` を追加し、manual優先/差分抽出/フォールバックを実装。
+- `.github/workflows/ci-framework.yml` を更新し、task-id 解決を新スクリプトへ移管。
+- workflow に `workflow_dispatch` と `task_id` 入力を追加。
+- `docs/specs/phase2-ci-integration-spec.md` と `docs/specs/phase2-automation-spec.md` を更新。
+- `work/2026-02-18__ci-task-resolution-determinism/` を `done` へ更新。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-18
-- 決定内容: CI 基盤は GitHub Actions。task-id は latest task 自動解決。INDEX 差分は失敗扱い。
+- 決定内容: task-id 解決は manual指定 > 差分抽出 > フォールバック（ディレクトリ名降順先頭）の順とする。
 - 根拠資料: `docs/specs/phase2-automation-spec.md`
 
 ## 5. 未解決・ブロッカー
 
-- 次の優先改善（3件）は起票済みだが未着手。
+- 追加の高優先改善（docs-indexer check / profile schema / state validation）は起票済みだが未着手。
 
 ## 6. 次アクション
 
-1. `work/2026-02-18__ci-task-resolution-determinism/` を着手し、CIのtask-id解決を差分ベースへ変更する。
-2. `work/2026-02-18__consistency-check-multi-task-mode/` を着手し、checkerの複数task走査を実装する。
-3. `work/2026-02-18__consistency-check-json-output/` を着手し、checkerのJSON出力を実装する。
+1. `work/2026-02-18__docs-indexer-check-mode/` を着手する。
+2. `work/2026-02-18__project-profile-schema-validation/` を着手する。
+3. `work/2026-02-18__state-transition-validation/` を着手する。
 
 ## 7. 参照先
 

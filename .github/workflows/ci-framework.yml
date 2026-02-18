@@ -3,6 +3,12 @@ name: Framework CI
 on:
   push:
   pull_request:
+  workflow_dispatch:
+    inputs:
+      task_id:
+        description: "Optional task ID to force consistency-check target"
+        required: false
+        type: string
 
 jobs:
   framework-checks:
@@ -10,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Verify PowerShell
         shell: pwsh
@@ -26,34 +34,29 @@ jobs:
         run: |
           git diff --exit-code -- docs/INDEX.md
 
-      - name: Resolve latest task ID
+      - name: Resolve task ID
         id: resolve_task
         shell: pwsh
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          HEAD_SHA: ${{ github.sha }}
+          BASE_SHA_PR: ${{ github.event.pull_request.base.sha }}
+          BASE_SHA_PUSH: ${{ github.event.before }}
+          MANUAL_TASK_ID: ${{ inputs.task_id }}
         run: |
-          Set-StrictMode -Version Latest
-          $ErrorActionPreference = "Stop"
-
-          if (-not (Test-Path -LiteralPath "work")) {
-            throw "work directory is not found."
+          $baseSha = ""
+          if ($env:EVENT_NAME -eq "pull_request") {
+            $baseSha = $env:BASE_SHA_PR
+          } elseif ($env:EVENT_NAME -eq "push") {
+            $baseSha = $env:BASE_SHA_PUSH
           }
 
-          $taskDirs = Get-ChildItem -LiteralPath "work" -Directory
-          if ($taskDirs.Count -eq 0) {
-            throw "No task directories found in work/."
-          }
-
-          $sorted = $taskDirs | Sort-Object LastWriteTimeUtc -Descending
-          $latestTime = $sorted[0].LastWriteTimeUtc
-          $latestCandidates = $sorted | Where-Object { $_.LastWriteTimeUtc -eq $latestTime }
-
-          if ($latestCandidates.Count -gt 1) {
-            $names = ($latestCandidates | Select-Object -ExpandProperty Name) -join ", "
-            throw "Cannot resolve unique latest task-id. Candidates: $names"
-          }
-
-          $resolvedTaskId = $latestCandidates[0].Name
-          "resolved_task_id=$resolvedTaskId" >> $env:GITHUB_OUTPUT
-          Write-Output "Resolved task-id: $resolvedTaskId"
+          pwsh -NoProfile -File tools/ci/resolve-task-id.ps1 `
+            -EventName $env:EVENT_NAME `
+            -RepoRoot "." `
+            -HeadSha $env:HEAD_SHA `
+            -BaseSha $baseSha `
+            -ManualTaskId $env:MANUAL_TASK_ID
 
       - name: Run consistency-check
         shell: pwsh
