@@ -13,43 +13,43 @@
 
 ## スキル一覧とフロー上の役割
 
-1. `write-request`
+1. `Rail1:write-request`
 - フロー位置: 要望整理
 - 役割: 要望の具体化、拡張提案、分割提案により `request.md` の粒度を適正化
 
-2. `ask-user-questions`
+2. `Rail2:ask-user-questions`
 - フロー位置: 要望整理〜調査
 - 役割: 不足情報の質問化、blocked 判定、提案オプション作成
 
-3. `write-investigation`
+3. `Rail3:write-investigation`
 - フロー位置: 調査
 - 役割: 仮説・観測方法・観測結果・結論を `investigation.md` に確定
 
-4. `read-profile`
+4. `Rail4:read-profile`
 - フロー位置: 実装前チェック、テスト計画
 - 役割: `project.profile.yaml` の必須キー検証と実行コマンド抽出
 
-5. `write-spec`
+5. `Rail5:write-spec`
 - フロー位置: 要件確定
 - 役割: `spec.md` の空欄禁止項目充足、AC とテスト要件の対応定義
 
-6. `write-plan`
+6. `Rail6:write-plan`
 - フロー位置: 実装計画
 - 役割: `spec.md` を参照した実施順序・リスク・ロールバック定義
 
-7. `write-test-requirements`
+7. `Rail7:write-test-requirements`
 - フロー位置: 要件確定〜テスト準備
 - 役割: AC を検証可能なテスト要件へ分解
 
-8. `review-quality-loop`
+8. `Rail8:review-quality-loop`
 - フロー位置: レビュー〜改善ループ
 - 役割: 要件適合に加えて SOLID/DRY/KISS/YAGNI、セキュリティ、性能をレビューし、改善提案と再レビュー計画を確定
 
-9. `update-docs`
+9. `Rail9:update-docs`
 - フロー位置: レビュー後〜資料更新
 - 役割: docs 本体と `docs/INDEX.md` の整合更新
 
-10. `list-planned-tasks-by-backlog-priority`
+10. `Rail10:list-planned-tasks-by-backlog-priority`
 - フロー位置: 着手前の優先度判断
 - 役割: backlog と `state.json` の planned 状態照合
 
