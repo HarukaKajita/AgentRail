@@ -6,17 +6,22 @@
 
 ## 優先タスク一覧
 
-1. `2026-02-18__consistency-check-json-schema-version-policy`
+1. `2026-02-18__framework-request-to-commit-visual-guide`
+- 状態: planned
+- 目的: 要望提示から実装・コミットまでの流れを図解し、CLI 要望例と AI 応答例を含む運用資料を作成する
+- 参照: `work/2026-02-18__framework-request-to-commit-visual-guide/spec.md`
+
+2. `2026-02-18__consistency-check-json-schema-version-policy`
 - 状態: planned
 - 目的: consistency-check JSON 出力に `schema_version` を追加し、互換方針を定義する
 - 参照: `work/2026-02-18__consistency-check-json-schema-version-policy/spec.md`
 
-2. `2026-02-18__consistency-check-all-tasks-exclusion-rules`
+3. `2026-02-18__consistency-check-all-tasks-exclusion-rules`
 - 状態: planned
 - 目的: `-AllTasks` 実行時の除外条件（archive/legacy）を定義する
 - 参照: `work/2026-02-18__consistency-check-all-tasks-exclusion-rules/spec.md`
 
-3. `2026-02-18__validator-enhancement-backlog-reflection`
+4. `2026-02-18__validator-enhancement-backlog-reflection`
 - 状態: planned
 - 目的: profile/state validator の強化項目を構造化して運用バックログへ反映する
 - 参照: `work/2026-02-18__validator-enhancement-backlog-reflection/spec.md`

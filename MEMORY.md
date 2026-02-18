@@ -5,30 +5,29 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-18__consistency-check-multi-task-mode
-- タイトル: consistency-check 複数 task 走査モード
-- 状態: done
-- 最終更新日時: 2026-02-18T22:35:58+09:00
+- Task ID: 2026-02-18__framework-request-to-commit-visual-guide
+- タイトル: ユーザー要望から実装・コミットまでのフロー可視化資料作成
+- 状態: planned
+- 最終更新日時: 2026-02-19T00:24:26+09:00
 - 担当: Codex
 
 ## 2. 今回の目的
 
-- consistency-check を複数 task 対応（`-TaskIds`, `-AllTasks`）へ拡張する。
-- 単一 task モードの後方互換を保ちながら task単位サマリを出力する。
-- 複数走査で FAIL が含まれる場合に終了コード1を返す集計ロジックを導入する。
+- 要望提示から実装・コミットまでのフレームワーク内イベントを図解した資料を作るタスクを起票する。
+- CLI 要望サンプルと AI 応答サンプルを含む資料の実装要件を定義する。
+- 新規タスクを高優先バックログの最上位に登録する。
 
 ## 3. 完了済み
 
-- `tools/consistency-check/check.ps1` を関数化し、`-TaskId`, `-TaskIds`, `-AllTasks` の parameter set を実装した。
-- 複数モードで task ごとの PASS/FAIL サマリと failure 集計を出力するようにした。
-- 既存単一モードの `CHECK_RESULT` 出力互換を維持した。
-- docs に複数taskモードの入力/出力/コマンド例を反映した。
+- `work/2026-02-18__framework-request-to-commit-visual-guide/` を起票し、必須6ファイルを生成した。
+- 新規タスクの `request/spec/plan/investigation` を可視化資料要件向けに具体化した。
+- `docs/operations/high-priority-backlog.md` の優先タスク一覧へ最優先で登録した。
 
 ## 4. 重要な意思決定
 
-- 日付: 2026-02-18
-- 決定内容: 複数taskモードでも単一モード互換を最優先し、CI既定呼び出しは `-TaskId` を維持する。
-- 根拠資料: `work/2026-02-18__consistency-check-multi-task-mode/spec.md`
+- 日付: 2026-02-19
+- 決定内容: 可視化資料タスクを既存 planned タスクより上位で着手する。
+- 根拠資料: `docs/operations/high-priority-backlog.md`
 
 ## 5. 未解決・ブロッカー
 
@@ -36,9 +35,10 @@
 
 ## 6. 次アクション
 
-1. `2026-02-18__consistency-check-json-schema-version-policy` を着手して schema version 方針を確定する。
-2. `2026-02-18__consistency-check-all-tasks-exclusion-rules` を着手して `-AllTasks` 除外条件を設計する。
-3. `2026-02-18__validator-enhancement-backlog-reflection` を着手して validator 強化項目を運用資料へ反映する。
+1. `2026-02-18__framework-request-to-commit-visual-guide` を着手して、フロー可視化資料と CLI/AI サンプル資料を作成する。
+2. `2026-02-18__consistency-check-json-schema-version-policy` を着手して schema version 方針を確定する。
+3. `2026-02-18__consistency-check-all-tasks-exclusion-rules` を着手して `-AllTasks` 除外条件を設計する。
+4. `2026-02-18__validator-enhancement-backlog-reflection` を着手して validator 強化項目を運用資料へ反映する。
 
 ## 7. 参照先
 
