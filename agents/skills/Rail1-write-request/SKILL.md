@@ -30,6 +30,11 @@ description: ユーザー要望を work/<task-id>/request.md 向けに具体化�
 9. 依存先 task が不足する場合は追加起票を提案し、未解決なら `blocked` を提案する。
 10. 起票境界が確定したら、境界コミット前チェックを提案する。
    - `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase kickoff`
+11. Subagent delegation governance が有効な task では、以下を満たす。
+   - 対象フェーズは request / investigation / spec / plan-draft の4工程。
+   - 4工程は単一 `delegated_agent_id` で連続実行する。
+   - `request.md` には後続フェーズに引き渡す delegation context（task_id / delegated_agent_id / objective / constraints / acceptance）を残す。
+   - 親の `gate_result=pass` 前は kickoff commit に進まない。
 
 ## 出力フォーマット
 

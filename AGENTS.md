@@ -56,6 +56,19 @@ Claude 互換の補助は `CLAUDE.md` に記載しますが、矛盾時はこの
 - `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase implementation`
 - `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase finalize -AllowCommonSharedPaths`
 
+### 3.2 Subagent Delegation Governance
+
+品質維持のため、subagent / multi_agent 委譲は次の契約で運用する。
+
+1. 委譲対象は `request` / `investigation` / `spec` / `plan-draft` に限定する。
+2. 4工程は単一 `delegated_agent_id` で連続実行する。
+3. 一次成果物は `request.md` / `investigation.md` / `spec.md` / `plan.md`（`plan-draft` 節）へ直接反映する。
+4. 委譲実行ごとに sidecar 監査ログ（`work/<task-id>/agent-logs/...`）を残す。
+5. 親エージェントは `plan-draft` 完了後に `gate_result=pass|fail` を記録する。
+6. `gate_result=pass` まで kickoff commit / depends_on gate / `plan-final` / commit を禁止する。
+7. `gate_result=fail` は差し戻しとし、状態は `blocked` または `in_progress` で維持する。
+8. `depends_on gate` / `plan-final` / 実装 / テスト / レビュー / docs 更新 / commit は親固定とする。
+
 ## 4. 厳格ブロック条件
 
 以下のいずれかに該当した場合は、状態を `blocked` にして先に是正する。
@@ -63,6 +76,7 @@ Claude 互換の補助は `CLAUDE.md` に記載しますが、矛盾時はこの
 - `spec.md` の空欄禁止項目が未記入。
 - `spec.md` の `テスト要件` が抽象的で検証条件になっていない。
 - `plan.md` が `spec.md` を参照していない。
+- `gate_result=pass` 前に kickoff commit / depends_on gate / `plan-final` / commit へ進もうとしている。
 - `plan-final` 確定前に実装へ進もうとしている。
 - 着手対象 task の `depends_on` に未完了依存がある。
 - active task の資料に `前提知識` セクションがない、または参照先が解決できない。

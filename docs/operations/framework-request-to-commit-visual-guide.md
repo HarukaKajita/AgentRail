@@ -58,15 +58,16 @@ flowchart TD
 4. 調査: `investigation.md` で現状確認と仮説を整理する。
 5. 要件確定: `spec.md` に受入条件とテスト要件を定義する。
 6. 実装計画ドラフト: `plan-draft` を作成し、探索用の実施方針を記録する。
-7. 起票境界コミット: `request.md` / `investigation.md` / `spec.md` / `plan-draft` の確定内容をコミットする。
-8. 依存解決確認: `state.json` の `depends_on` を確認し、未解決依存があれば先行タスクへ切り替える。
-9. 実装計画確定: gate pass 後に `plan-final` を確定する。
-10. 実装: コード/ドキュメントを変更する。
-11. テスト: 実行コマンドで期待結果を検証する。
-12. レビュー: `review.md` に AC 判定・テスト結果・Process Findings を記録する。
-13. 資料更新: 変更した docs を更新し、`docs/INDEX.md` へ導線を追加する。
-14. 記憶更新: `MEMORY.md` と `state.json` を最新化する。
-15. コミット: 実装境界 / 完了境界の単位でコミットする。
+7. 親再検討ゲート: subagent / multi_agent を使う場合は `gate_result=pass|fail` を親が記録する。
+8. 起票境界コミット: `request.md` / `investigation.md` / `spec.md` / `plan-draft` の確定内容をコミットする（`gate_result=pass` の場合のみ）。
+9. 依存解決確認: `state.json` の `depends_on` を確認し、未解決依存があれば先行タスクへ切り替える。
+10. 実装計画確定: gate pass 後に `plan-final` を確定する。
+11. 実装: コード/ドキュメントを変更する。
+12. テスト: 実行コマンドで期待結果を検証する。
+13. レビュー: `review.md` に AC 判定・テスト結果・Process Findings を記録する。
+14. 資料更新: 変更した docs を更新し、`docs/INDEX.md` へ導線を追加する。
+15. 記憶更新: `MEMORY.md` と `state.json` を最新化する。
+16. コミット: 実装境界 / 完了境界の単位でコミットする。
 
 ## 3.1 コミット境界ルール
 
@@ -75,6 +76,16 @@ flowchart TD
 1. 起票境界コミット: `plan-draft` 作成後、起票と要件確定（request/investigation/spec/plan-draft）完了時
 2. 実装境界コミット: depends_on gate 通過後の plan-final 確定 + 実装 + テスト完了時
 3. 完了境界コミット: review/docs/memory/state 更新完了時
+
+### 3.2 Subagent Delegation Governance
+
+subagent / multi_agent を使う場合の標準契約は次のとおりです。
+
+1. 委譲対象は `request` / `investigation` / `spec` / `plan-draft` の4工程。
+2. 4工程は単一 `delegated_agent_id` で連続実行。
+3. 親は `plan-draft` 完了後に `gate_result` を判定し、`pass` のときのみ kickoff 可能。
+4. `gate_result=fail` の場合は差し戻しし、kickoff / depends_on gate / `plan-final` / commit を禁止。
+5. `depends_on gate` 以降（`plan-final` / 実装 / テスト / レビュー / docs 更新 / commit）は親固定。
 
 境界コミット前の推奨確認:
 

@@ -27,6 +27,8 @@ description: work/<task-id>/investigation.md を作成・更新し、仮説・�
 6. 結論、未解決事項、次アクションを確定する。
 7. 不足情報が残る場合は確認質問 2〜4 件を提示する。
 8. 実装判断が確定不能なら `blocked` を提案する。
+9. Subagent delegation governance が有効な task では、単一 `delegated_agent_id` を維持し、spec と plan-draft へ渡す delegation context を更新する。
+10. 親の `gate_result=pass` 前は kickoff commit / depends_on gate / plan-final へ進まない前提で結論を記録する。
 
 ## 出力フォーマット
 

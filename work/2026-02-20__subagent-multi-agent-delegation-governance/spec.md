@@ -7,9 +7,10 @@
   - `docs/INDEX.md`
   - `work/2026-02-20__subagent-multi-agent-delegation-governance/request.md`
   - `work/2026-02-20__subagent-multi-agent-delegation-governance/investigation.md`
+  - `work/2026-02-20__subagent-multi-agent-delegation-governance/plan.md`
   - `docs/operations/skills-framework-flow-guide.md`
 - 理解ポイント:
-  - 品質優先のため、委譲範囲を request / investigation / spec に限定する。
+  - 品質優先のため、委譲範囲を request / investigation / spec / plan-draft に限定する。
 
 ## 1. メタ情報 [空欄禁止]
 
@@ -27,36 +28,36 @@
 ## 2. 背景と目的 [空欄禁止]
 
 - 背景: subagent / multi_agent の全面委譲は速度面の利点がある一方で、品質ばらつきの懸念がある。
-- 目的: request / investigation / spec を単一の委譲エージェントに限定して実行し、親エージェントが再検討して問題ない場合のみ次工程とコミットを許可する運用を確立する。
+- 目的: request / investigation / spec / plan-draft を単一の委譲エージェントに限定して実行し、親エージェントが再検討して問題ない場合のみ kickoff と次工程およびコミットを許可する運用を確立する。
 
 ## 3. スコープ [空欄禁止]
 
 ### 3.1 In Scope [空欄禁止]
 
-- 委譲対象を `request / investigation / spec` の3工程に限定する。
-- 3工程を同一 `delegated_agent_id` で処理する契約を定義する。
+- 委譲対象を `request / investigation / spec / plan-draft` の4工程に限定する。
+- 4工程を同一 `delegated_agent_id` で処理する契約を定義する。
 - 委譲時の必須コンテキスト（task_id, delegated_agent_id, phase, objective, scope, constraints, acceptance, expected_output, editable_sections）を定義する。
-- 一次成果物として `request.md / investigation.md / spec.md` を直接更新する規約を定義する。
+- 一次成果物として `request.md / investigation.md / spec.md / plan.md(plan-draft)` を直接更新する規約を定義する。
 - sidecar 監査ログ保存先と記録項目を定義する。
 - 親再検討ゲート（`gate_result=pass|fail`）と進行可否を定義する。
-- 親ゲート `pass` 前は `plan` 着手およびコミットを禁止するルールを定義する。
+- 親ゲート `pass` 前は kickoff と `depends_on gate` / `plan-final` 着手およびコミットを禁止するルールを定義する。
 
 ### 3.2 Out of Scope [空欄禁止]
 
-- `plan / test / review / docs_update` の委譲標準化。
+- `depends_on gate / plan-final / test / review / docs_update` の委譲標準化。
 - 複数サブエージェントの並列分担運用。
 - CI への新規自動検査導入。
 - subagent 実行インフラそのものの改修。
 
 ## 4. 受入条件 (Acceptance Criteria / 受入条件) [空欄禁止]
 
-- AC-001: 委譲範囲が `request / investigation / spec` のみに限定されている。
-- AC-002: 3工程を同一 `delegated_agent_id` で処理する実行契約が定義されている。
+- AC-001: 委譲範囲が `request / investigation / spec / plan-draft` のみに限定されている。
+- AC-002: 4工程を同一 `delegated_agent_id` で処理する実行契約が定義されている。
 - AC-003: 委譲必須コンテキスト項目（task_id, delegated_agent_id, phase, objective, scope, constraints, acceptance, expected_output, editable_sections）が定義されている。
-- AC-004: 一次成果物更新先（`request.md / investigation.md / spec.md`）と sidecar 監査ログ規約が定義されている。
+- AC-004: 一次成果物更新先（`request.md / investigation.md / spec.md / plan.md(plan-draft)`）と sidecar 監査ログ規約が定義されている。
 - AC-005: 親再検討時の返却フォーマットと再検証項目が定義されている。
-- AC-006: `gate_result=pass` 前は次工程（`plan`）とコミットを禁止し、`fail` では差し戻しとなるルールが定義されている。
-- AC-007: 親固定工程（`plan / test / review / docs_update / commit`）が定義されている。
+- AC-006: `gate_result=pass` 前は kickoff と次工程（`depends_on gate` / `plan-final`）およびコミットを禁止し、`fail` では差し戻しとなるルールが定義されている。
+- AC-007: 親固定工程（`depends_on gate / plan-final / test / review / docs_update / commit`）が定義されている。
 - AC-008: 実装時に更新すべき docs と skill ファイル範囲が明示されている。
 
 ## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
@@ -65,18 +66,18 @@
 
 - 対象: 委譲仕様（範囲、単一エージェント契約、ゲート契約）
 - 観点:
-  - 委譲対象が 3工程に限定されている。
+  - 委譲対象が 4工程に限定されている。
   - 単一 `delegated_agent_id` 契約が定義されている。
   - 必須コンテキスト項目が欠落なく列挙されている。
-  - `gate_result=pass` 前進行禁止が明示されている。
+  - `gate_result=pass` 前の kickoff / depends_on gate / plan-final 進行禁止が明示されている。
 - 合格条件: 仕様文書中に各定義が欠落なく存在する。
 
 ### 5.2 Integration Test (Integration Test / 結合テスト) [空欄禁止]
 
 - 対象: task 文書間の整合
 - 観点:
-  - request/investigation/spec/plan の用語が「3工程限定委譲 + 親再検討」で整合する。
-  - 親固定工程の定義が plan と矛盾しない。
+  - request / investigation / spec / plan-draft の用語が「4工程限定委譲 + 親再検討」で整合する。
+  - 親固定工程の定義が plan-final 以降と矛盾しない。
 - 合格条件: 整合チェックで矛盾が検出されない。
 
 ### 5.3 Regression Test (Regression Test / 回帰テスト) [空欄禁止]
@@ -91,10 +92,10 @@
 ### 5.4 Manual Verification (Manual Verification / 手動検証) [空欄禁止]
 
 - 手順:
-  1. 単一 `delegated_agent_id` で `request -> investigation -> spec` を連続実行する。
-  2. `request.md / investigation.md / spec.md` が更新され、sidecar 監査ログが残ることを確認する。
-  3. 親再検討で `gate_result=fail` を記録し、`plan` 着手とコミットが禁止されることを確認する。
-  4. 親再検討で `gate_result=pass` を記録し、`plan` 着手とコミットが許可されることを確認する。
+  1. 単一 `delegated_agent_id` で request -> investigation -> spec -> plan-draft を連続実行する。
+  2. `request.md / investigation.md / spec.md / plan.md(plan-draft)` が更新され、sidecar 監査ログが残ることを確認する。
+  3. 親再検討で `gate_result=fail` を記録し、kickoff / depends_on gate / plan-final とコミットが禁止されることを確認する。
+  4. 親再検討で `gate_result=pass` を記録し、kickoff / depends_on gate / plan-final とコミットが許可されることを確認する。
 - 期待結果:
   - 品質ゲート結果に応じて遷移可否が一意に決まる。
 
@@ -124,17 +125,17 @@
   - dependency gate
 - 非機能影響:
   - 品質確認強化によりスループットは一部低下する可能性がある。
-  - 3工程の草案生成は委譲により初動速度を維持できる。
+  - 4工程の草案生成は委譲により初動速度を維持できる。
 
 ## 7. 制約とリスク [空欄禁止]
 
 - 制約:
-  - 委譲対象は `request / investigation / spec` のみ。
-  - 3工程は同一 `delegated_agent_id` で処理する。
-  - `plan` 以降とコミットは親固定。
+  - 委譲対象は request / investigation / spec / plan-draft のみ。
+  - 4工程は同一 `delegated_agent_id` で処理する。
+  - `depends_on gate` 以降とコミットは親固定。
 - 想定リスク:
   - 単一委譲でボトルネックが発生する。
-  - コンテキスト不足で3工程すべてに誤りが波及する。
+  - コンテキスト不足で4工程すべてに誤りが波及する。
 - 回避策:
   - 親の再検討チェックリストを固定化する。
   - `gate_result=fail` で即時差し戻しし、次工程とコミットを停止する。
@@ -148,7 +149,9 @@
 | request | delegated agent | 同一 `delegated_agent_id` で実行 |
 | investigation | delegated agent | 同一 `delegated_agent_id` で実行 |
 | spec | delegated agent | 同一 `delegated_agent_id` で実行 |
-| plan | parent agent | 委譲禁止（親固定） |
+| plan-draft | delegated agent | 同一 `delegated_agent_id` で実行 |
+| depends_on gate | parent agent | 委譲禁止（親固定） |
+| plan-final | parent agent | 委譲禁止（親固定） |
 | test | parent agent | 委譲禁止（親固定） |
 | review | parent agent | 委譲禁止（親固定） |
 | docs_update | parent agent | 委譲禁止（親固定） |
@@ -173,6 +176,7 @@
   - `work/<task-id>/request.md`
   - `work/<task-id>/investigation.md`
   - `work/<task-id>/spec.md`
+  - `work/<task-id>/plan.md`（`plan-draft` 節）
 - sidecar 保存先規約:
   - `work/<task-id>/agent-logs/<phase>/<timestamp>-<delegated-agent-id>.md`
 - sidecar 必須項目:
@@ -204,8 +208,9 @@
 
 ### 8.5 ゲート・遷移・コミット契約 [空欄禁止]
 
-- 親は `spec` 確定後に `gate_result`（`pass` or `fail`）を記録する。
-- `gate_result=pass` まで `plan` 着手を禁止する。
+- 親は `plan-draft` 確定後に `gate_result`（`pass` or `fail`）を記録する。
+- `gate_result=pass` まで kickoff commit を禁止する。
+- `gate_result=pass` まで `depends_on gate` と `plan-final` 着手を禁止する。
 - `gate_result=pass` まで `git commit` を禁止する。
 - `gate_result=fail` は差し戻しとし、`state.json` の `state` は `blocked` または `in_progress` の範囲で維持する。
 

@@ -26,6 +26,10 @@ description: docs/templates/spec.md に従って work/<task-id>/spec.md を作�
 5. 空欄禁止項目を全て埋める。
 6. なお未確定の判断点だけを確認質問 2〜4 件に絞る。
 7. 未確定が実装阻害なら `blocked` を提案する。
+8. Subagent delegation governance が有効な task では、spec に以下を明記する。
+   - 委譲対象が request / investigation / spec / plan-draft の4工程であること。
+   - 4工程が単一 `delegated_agent_id` で実行されること。
+   - 親の `gate_result=pass` 前は kickoff commit / depends_on gate / plan-final / commit を禁止すること。
 
 ## 出力フォーマット
 

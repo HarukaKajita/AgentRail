@@ -28,6 +28,10 @@ description: 確定済み spec.md を参照して work/<task-id>/plan.md を作�
 7. 実装開始不能なら `blocked` を提案する。
 8. 実装着手前に、起票境界コミット完了を確認する。
    - `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase kickoff`
+9. Subagent delegation governance が有効な task では plan を2分割で扱う。
+   - delegated agent: `plan-draft` を作成し、request/investigation/spec と同一 `delegated_agent_id` で連続実行する。
+   - parent agent: `gate_result=pass` と depends_on gate pass 後に `plan-final` を確定する。
+   - `gate_result=pass` 前は kickoff commit / depends_on gate / plan-final / commit に進まない。
 
 ## 出力フォーマット
 

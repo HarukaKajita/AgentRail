@@ -131,6 +131,18 @@ pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task
 - `plan-draft` は gate 前の探索用計画として扱い、実装/コミット判断に使わない
 - `plan-final` は gate pass 後のみ確定する
 
+### 2.3 Subagent Delegation Governance
+
+subagent / multi_agent を使う場合は、品質担保のため次の契約を適用する。
+
+1. 委譲対象は `request` / `investigation` / `spec` / `plan-draft` に限定する。
+2. 4工程は同一 `delegated_agent_id` で連続実行する。
+3. 一次成果物は `request.md` / `investigation.md` / `spec.md` / `plan.md`（`plan-draft` 節）へ直接反映する。
+4. 委譲実行ごとに sidecar 監査ログ（`work/<task-id>/agent-logs/...`）を残す。
+5. 親は `plan-draft` 完了後に `gate_result` を判定し、`pass` 前は kickoff commit / depends_on gate / `plan-final` / commit を禁止する。
+6. `gate_result=fail` は差し戻しとし、状態を `blocked` または `in_progress` で維持する。
+7. `depends_on gate` / `plan-final` / 実装 / テスト / レビュー / docs 更新 / commit は親固定とする。
+
 ### 3. ブレインストーミング出力の統一
 
 ユーザー要求を受けたら、最低限以下を出力する。
