@@ -5,35 +5,36 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-19__task-doc-prerequisite-knowledge-section
-- タイトル: Task and Spec Docs Prerequisite Knowledge Section Standardization
+- Task ID: 2026-02-19__task-dependency-aware-prioritization-flow
+- タイトル: Dependency-Aware Task Prioritization Flow
 - 状態: planned
-- 最終更新日時: 2026-02-19T19:27:25+09:00
+- 最終更新日時: 2026-02-19T19:33:14+09:00
 - 担当: codex
 
 ## 2. 今回の目的
 
-- 仕様資料と task 資料に前提知識セクションを導入する要件を task として起票する。
-- どの資料からでも参照を遡って理解できる導線を、受入条件とテスト要件として確定する。
+- タスク依存関係を起票時・着手時・backlog表示・Rail10表示に組み込む要件を task として起票する。
+- 先行完了タスクを優先する運用ルールを、受入条件とテスト要件として確定する。
 - 起票完了後に差分をコミットする。
 
 ## 3. 完了済み
 
-- `work/2026-02-19__task-doc-prerequisite-knowledge-section/` を作成し、必須6ファイル（request/investigation/spec/plan/review/state）を作成した。
-- `investigation.md` で templates、起票生成、consistency-check の現状を調査し、前提知識セクション未整備を確認した。
-- `spec.md` で AC-001〜AC-005 とテスト要件（Unit/Integration/Regression/Manual）を確定した。
+- `work/2026-02-19__task-dependency-aware-prioritization-flow/` を作成し、必須6ファイル（request/investigation/spec/plan/review/state）を作成した。
+- `investigation.md` で現行フレームワークに依存関係モデルと依存ゲートが未組み込みであることを確認した。
+- `spec.md` で AC-001〜AC-006 とテスト要件（Unit/Integration/Regression/Manual）を確定した。
 - `docs/operations/high-priority-backlog.md` に本タスクを `planned` の優先タスクとして追加した。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-19
-- 決定内容: 前提知識セクションは docs/work の標準フォーマットとして定義し、参照を遡れる記法を必須化する。
-- 決定内容: 起票生成と consistency-check の両面で前提知識セクション運用を強制する方針を採用する。
+- 決定内容: 依存関係は state/backlog/Rail10 の3層で一貫管理する。
+- 決定内容: 起票時依存調査と着手時依存ゲートを標準フローへ組み込む。
+- 決定内容: 依存未解決時は先行タスクを優先対象として提示し、着手対象を切り替える。
 - 根拠資料:
-  - `docs/templates/spec.md`
-  - `tools/improvement-harvest/create-task.ps1`
-  - `tools/consistency-check/check.ps1`
-  - `work/2026-02-19__task-doc-prerequisite-knowledge-section/spec.md`
+  - `tools/state-validate/validate.ps1`
+  - `.agents/skills/Rail10-list-planned-tasks-by-backlog-priority/scripts/list_planned_tasks.ps1`
+  - `docs/operations/high-priority-backlog.md`
+  - `work/2026-02-19__task-dependency-aware-prioritization-flow/spec.md`
 
 ## 5. 未解決・ブロッカー
 
@@ -41,16 +42,16 @@
 
 ## 6. 次アクション
 
-1. 前提知識セクションの標準スキーマ（見出し、必須項目、記法）を決定してテンプレートへ反映する。
-2. 起票生成と consistency-check に前提知識セクション要件を実装する。
-3. active docs/work への遡及更新を実施し、`review.md` と `state.json` を完了状態へ更新する。
+1. state/backlog の依存フィールド仕様を確定し、validator/checker へ反映する。
+2. 起票時依存調査・不足依存追加起票・着手時依存ゲートを実装する。
+3. Rail10 表示と docs フローを更新し、review/state を完了状態へ更新する。
 
 ## 7. 参照先
 
-- `work/2026-02-19__task-doc-prerequisite-knowledge-section/request.md`
-- `work/2026-02-19__task-doc-prerequisite-knowledge-section/investigation.md`
-- `work/2026-02-19__task-doc-prerequisite-knowledge-section/spec.md`
-- `work/2026-02-19__task-doc-prerequisite-knowledge-section/plan.md`
+- `work/2026-02-19__task-dependency-aware-prioritization-flow/request.md`
+- `work/2026-02-19__task-dependency-aware-prioritization-flow/investigation.md`
+- `work/2026-02-19__task-dependency-aware-prioritization-flow/spec.md`
+- `work/2026-02-19__task-dependency-aware-prioritization-flow/plan.md`
 
 ## 8. 引き継ぎ時チェック
 
