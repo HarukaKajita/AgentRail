@@ -19,6 +19,7 @@ validator（profile/state）の改善候補を、task review から継続的に�
 | VE-003 | state-validator | `work/2026-02-18__state-transition-validation/review.md` | `done` 判定の検証対象に docs 反映整合（例: `docs/INDEX.md` 導線）を追加する是非を検討する。 | medium | done | `2026-02-19__state-validator-done-docs-index-consistency` |
 | VE-004 | state-validator | `work/2026-02-18__state-transition-validation/review.md` | `state history` 管理方式（履歴保持するか、履歴を別 artifacts に逃がすか）を決定する。 | low | done | `2026-02-19__state-validator-history-strategy` |
 | VE-005 | profile-validator | `work/2026-02-19__profile-validator-schema-version-field/review.md` | `version` を廃止し、`schema_version` 単一運用へ統合する。 | medium | done | `2026-02-19__profile-version-schema-version-unification-strategy` |
+| VE-006 | profile-validator | `work/2026-02-19__profile-version-schema-version-unification-strategy/review.md` | `schema_version` 更新運用（2.x 以降）を CI で強制し、更新漏れ・不整合を fail-fast で検出する。 | high | planned | `2026-02-19__ci-profile-schema-version-governance-gate` |
 
 ## 関連資料
 

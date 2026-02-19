@@ -5,30 +5,36 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-19__profile-version-schema-version-unification-strategy
-- タイトル: Profile Version Schema Version Unification Strategy
+- Task ID: 2026-02-19__ci-profile-schema-version-governance-gate
+- タイトル: CI Profile Schema Version Governance Gate
 - 状態: planned
-- 最終更新日時: 2026-02-19T15:58:57+09:00
-- 担当: Codex
+- 最終更新日時: 2026-02-19T18:49:17+09:00
+- 担当: codex
 
 ## 2. 今回の目的
 
-- `version` と `schema_version` の将来統合方針を実装可能な粒度で定義する。
-- 正本フィールド・移行期間・廃止条件を明確化する。
-- 新規 planned task と backlog 導線を起票する。
+- `schema_version` 更新運用（2.x 以降）を CI で自動強制する。
+- profile schema 変更時の versioning ミスを fail-fast で検出する。
+- 起票から `spec.md` 確定までを完了する。
 
 ## 3. 完了済み
 
-- `work/2026-02-19__profile-version-schema-version-unification-strategy/` を新規作成し、必須6ファイルを起票した。
-- `docs/operations/validator-enhancement-backlog.md` に VE-005 を `planned` で追加した。
-- `docs/operations/high-priority-backlog.md` の優先タスク一覧へ本タスクを追加した。
-- 新タスク文書の整合が取れるよう request/investigation/spec/plan を具体化した。
+- `work/2026-02-19__ci-profile-schema-version-governance-gate/` を作成し、必須6ファイルを作成した。
+- `request.md` で要望範囲（直要求/潜在要求/非要求）と境界条件を確定した。
+- `investigation.md` で CI 現状と未実装ギャップを調査し、実装候補を定義した。
+- `spec.md` で AC-001〜AC-006 とテスト要件（Unit/Integration/Regression/Manual）を確定した。
+- `docs/operations/validator-enhancement-backlog.md` に VE-006 を `planned` で追加した。
+- `docs/operations/high-priority-backlog.md` に本タスクを優先タスクとして追加した。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-19
-- 決定内容: 統合方針タスクを VE-005 として起票し、次の着手対象を `2026-02-19__profile-version-schema-version-unification-strategy` に設定する。
-- 根拠資料: `docs/operations/high-priority-backlog.md`
+- 決定内容: schema version ガバナンスは CI で強制し、違反時は workflow を失敗させる。
+- 決定内容: 判定ルールは少なくとも「schema file 変更時の version 更新必須」「supported list 整合必須」「breaking change 時 major 増分必須」を含む。
+- 根拠資料:
+  - `.github/workflows/ci-framework.yml`
+  - `docs/operations/profile-validator-schema-version-policy.md`
+  - `work/2026-02-19__ci-profile-schema-version-governance-gate/spec.md`
 
 ## 5. 未解決・ブロッカー
 
@@ -36,16 +42,16 @@
 
 ## 6. 次アクション
 
-1. `2026-02-19__profile-version-schema-version-unification-strategy` の実装（方針確定）に着手する。
-2. 方針確定後に validator 実装タスクへ分解する。
-3. 既存 docs（policy/template）との整合を再確認する。
+1. `tools/profile-validate/enforce-schema-version-governance.ps1` を実装する。
+2. `.github/workflows/ci-framework.yml` へ governance step を追加する。
+3. policy/spec/runbook/index を実装結果に合わせて更新し、review で AC を判定する。
 
 ## 7. 参照先
 
-- work/<task-id>/request.md
-- work/<task-id>/spec.md
-- work/<task-id>/plan.md
-- work/<task-id>/review.md
+- `work/2026-02-19__ci-profile-schema-version-governance-gate/request.md`
+- `work/2026-02-19__ci-profile-schema-version-governance-gate/investigation.md`
+- `work/2026-02-19__ci-profile-schema-version-governance-gate/spec.md`
+- `work/2026-02-19__ci-profile-schema-version-governance-gate/plan.md`
 
 ## 8. 引き継ぎ時チェック
 

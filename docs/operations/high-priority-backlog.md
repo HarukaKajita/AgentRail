@@ -6,7 +6,11 @@
 
 ## 優先タスク一覧
 
-- なし
+1. `2026-02-19__ci-profile-schema-version-governance-gate`
+- 状態: planned
+- 目的: `schema_version` 更新運用（2.x 以降）を CI で強制し、破壊的変更時の versioning 不整合を fail-fast で検出する
+- 参照: `work/2026-02-19__ci-profile-schema-version-governance-gate/spec.md`
+- 元候補: `docs/operations/validator-enhancement-backlog.md` の VE-006
 
 ## Completed
 
