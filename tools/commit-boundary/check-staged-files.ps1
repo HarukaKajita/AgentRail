@@ -65,7 +65,21 @@ if ($Phase -eq "finalize") {
 }
 
 $effectiveAllowed = New-Object System.Collections.Generic.HashSet[string]([System.StringComparer]::OrdinalIgnoreCase)
-foreach ($item in $baseAllowed + $AdditionalAllowedPaths) {
+
+if ($AllowCommonSharedPaths) {
+  foreach ($item in $baseAllowed) {
+    $rawText = [string]$item
+    if ([string]::IsNullOrWhiteSpace($rawText)) {
+      continue
+    }
+    $normalized = Normalize-RepoPath -PathValue ($rawText.Trim().Trim('"'))
+    if (-not [string]::IsNullOrWhiteSpace($normalized)) {
+      [void]$effectiveAllowed.Add($normalized)
+    }
+  }
+}
+
+foreach ($item in $AdditionalAllowedPaths) {
   $rawText = [string]$item
   if ([string]::IsNullOrWhiteSpace($rawText)) {
     continue
@@ -134,7 +148,7 @@ foreach ($path in $normalizedFiles) {
     continue
   }
 
-  if ($AllowCommonSharedPaths -and $effectiveAllowed.Contains($path)) {
+  if ($effectiveAllowed.Contains($path)) {
     continue
   }
 
