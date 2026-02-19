@@ -7,8 +7,8 @@
 
 - Task ID: 2026-02-20__subagent-multi-agent-delegation-governance
 - タイトル: Subagent Multi Agent Delegation Governance
-- 状態: planned
-- 最終更新日時: 2026-02-20T04:27:01+09:00
+- 状態: done
+- 最終更新日時: 2026-02-20T04:40:52+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -30,6 +30,7 @@
 - `2026-02-19__rail10-skill-command-path-fix` を完了。
 - `2026-02-20__dependency-gate-before-plan-flow` を完了。
 - `2026-02-20__plan-draft-before-kickoff-commit-flow` を完了。
+- `2026-02-20__subagent-multi-agent-delegation-governance` を完了。
 
 ## 4. 重要な意思決定
 
@@ -43,6 +44,7 @@
 - 決定内容: ベストプラクティスに合わせ、`plan-draft -> depends_on gate -> plan-final` を採用する方針で起票する。
 - 決定内容: 2段階計画フローを AGENTS/docs/Rail10/checker/state-validator へ実装し、`plan-final` は depends_on gate pass 後のみ確定可能とした。
 - 決定内容: 起票境界コミットは `plan-draft` 作成後に実行する方針で統一し、可視化資料も同順序へ修正する。
+- 決定内容: subagent / multi_agent の委譲範囲は request / investigation / spec / plan-draft とし、親の `gate_result=pass` 前は kickoff / depends_on gate / plan-final / commit を禁止する。
 - 根拠資料:
   - `.agents/skills/Rail10-list-planned-tasks-by-backlog-priority/SKILL.md`
   - `agents/skills/Rail10-list-planned-tasks-by-backlog-priority/SKILL.md`
@@ -56,8 +58,8 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__subagent-multi-agent-delegation-governance` を優先で実装する。
-2. backlog の planned 一覧を Rail10 出力で確認し、`plan-ready` タスクから順次着手する。
+1. 新規要望受領後に task を起票し、`plan-draft -> kickoff -> depends_on gate -> plan-final` の順序で進行する。
+2. 委譲運用が必要な task では、request / investigation / spec / plan-draft を単一 `delegated_agent_id` で実行する。
 3. 各 task で kickoff / implementation / finalize のコミット境界を維持する。
 
 ## 7. 参照先

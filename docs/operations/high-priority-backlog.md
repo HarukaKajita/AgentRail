@@ -15,14 +15,7 @@
 
 ## 優先タスク一覧
 
-1. `2026-02-20__subagent-multi-agent-delegation-governance`
-- 状態: planned
-- 計画段階: plan-draft
-- ゲート状態: plan-ready
-- 依存: `2026-02-19__task-dependency-aware-prioritization-flow`, `2026-02-19__task-commit-boundary-automation-flow`, `2026-02-19__task-doc-prerequisite-knowledge-section`
-- 依存状態: 解決済み
-- 目的: 各工程で subagent / multi_agent を標準活用しつつ、品質低下懸念工程を例外化する運用ルールを仕様化する
-- 参照: `work/2026-02-20__subagent-multi-agent-delegation-governance/spec.md`
+なし
 
 ## Completed
 
@@ -160,6 +153,13 @@
 - 依存状態: 解決済み
 - 目的: `plan-draft` を起票境界コミット前に確定する順序へ統一し、可視化ガイドの順序不整合を解消する
 - 参照: `work/2026-02-20__plan-draft-before-kickoff-commit-flow/spec.md`
+
+25. `2026-02-20__subagent-multi-agent-delegation-governance`
+- 状態: done
+- 依存: `2026-02-19__task-dependency-aware-prioritization-flow`, `2026-02-19__task-commit-boundary-automation-flow`, `2026-02-19__task-doc-prerequisite-knowledge-section`
+- 依存状態: 解決済み
+- 目的: subagent / multi_agent の委譲範囲を request / investigation / spec / plan-draft へ拡張し、親ゲート通過前の kickoff と次工程進行を抑止する運用を定義する
+- 参照: `work/2026-02-20__subagent-multi-agent-delegation-governance/spec.md`
 
 ## 更新ルール
 
