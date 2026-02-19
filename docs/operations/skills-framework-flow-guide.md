@@ -107,6 +107,12 @@
 2. 実装境界コミット
 3. 完了境界コミット
 
+境界ごとの前提:
+
+- 起票境界コミット: `request.md` / `investigation.md` / `spec.md` / `plan-draft` が確定済みであること。
+- 実装境界コミット: depends_on gate pass 後に `plan-final` が確定し、実装とテストが完了していること。
+- 完了境界コミット: `review.md` / docs / `MEMORY.md` / `state.json` の更新が完了していること。
+
 コミット前の推奨チェック:
 
 ```powershell
