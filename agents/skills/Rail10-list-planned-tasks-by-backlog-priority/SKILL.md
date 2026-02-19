@@ -29,13 +29,13 @@ description: docs/operations/high-priority-backlog.md と work/*/state.json を�
 ## コマンド
 
 ```powershell
-pwsh -NoProfile -File "$HOME/.agents/skills/Rail10-list-planned-tasks-by-backlog-priority/scripts/list_planned_tasks.ps1" -RepoRoot .
+pwsh -NoProfile -File ".agents/skills/Rail10-list-planned-tasks-by-backlog-priority/scripts/list_planned_tasks.ps1" -RepoRoot .
 ```
 
-開発中にリポジトリ内から直接実行する場合:
+スキルディレクトリ直下（`.agents/skills/Rail10-list-planned-tasks-by-backlog-priority`）から実行する場合:
 
 ```powershell
-pwsh -NoProfile -File "agents/skills/Rail10-list-planned-tasks-by-backlog-priority/scripts/list_planned_tasks.ps1" -RepoRoot .
+pwsh -NoProfile -File "./scripts/list_planned_tasks.ps1" -RepoRoot "../../.."
 ```
 
 ## 出力フォーマット

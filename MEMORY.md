@@ -5,34 +5,33 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-19__rail10-skill-command-path-fix
-- タイトル: Rail10 Skill Command Path Fix
+- Task ID: 2026-02-19__ci-profile-schema-version-governance-gate
+- タイトル: CI Profile Schema Version Governance Gate
 - 状態: planned
-- 最終更新日時: 2026-02-19T22:17:35+09:00
+- 最終更新日時: 2026-02-19T23:09:18+09:00
 - 担当: codex
 
 ## 2. 今回の目的
 
-- Rail10 の SKILL コマンド案内をスキル同梱 script 実行に統一する。
+- `project.profile.yaml` schema の変更時に `schema_version` 運用を CI で強制する。
 - planned タスクを優先順で1件ずつ完了し、次タスクへ移る前に必ずコミットする。
 
 ## 3. 完了済み
 
-- 2026-02-19__task-commit-boundary-automation-flow を完了。
-- 2026-02-19__task-dependency-aware-prioritization-flow を完了し、依存優先フローを実装。
-- 2026-02-19__task-doc-prerequisite-knowledge-section を完了し、前提知識セクション標準化と checker 連携を反映。
+- `2026-02-19__task-commit-boundary-automation-flow` を完了。
+- `2026-02-19__task-dependency-aware-prioritization-flow` を完了。
+- `2026-02-19__task-doc-prerequisite-knowledge-section` を完了。
+- `2026-02-19__rail10-skill-command-path-fix` を完了。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-19
-- 決定内容: active task（planned/in_progress/blocked）の equest/investigation/spec/plan/review には 前提知識 セクションを必須化する。
-- 決定内容: 	ools/consistency-check/check.ps1 で前提知識セクションの存在と参照解決を検証する。
+- 決定内容: Rail10 のコマンド案内は `$HOME/.agents` を使わず、スキル同梱 `scripts/list_planned_tasks.ps1` 実行で統一する。
+- 決定内容: active task では `前提知識` セクションを checker で必須化する。
 - 根拠資料:
-  - AGENTS.md
-  - docs/templates/spec.md
-  - docs/templates/investigation.md
-  - docs/templates/review.md
-  - work/2026-02-19__task-doc-prerequisite-knowledge-section/review.md
+  - `.agents/skills/Rail10-list-planned-tasks-by-backlog-priority/SKILL.md`
+  - `agents/skills/Rail10-list-planned-tasks-by-backlog-priority/SKILL.md`
+  - `work/2026-02-19__rail10-skill-command-path-fix/review.md`
 
 ## 5. 未解決・ブロッカー
 
@@ -40,19 +39,19 @@
 
 ## 6. 次アクション
 
-1. 2026-02-19__rail10-skill-command-path-fix を完了する。
-2. その後 2026-02-19__ci-profile-schema-version-governance-gate に着手する。
+1. `2026-02-19__ci-profile-schema-version-governance-gate` を完了する。
+2. CI governance step と docs 運用の整合を最終確認してコミットする。
 
 ## 7. 参照先
 
-- work/2026-02-19__task-doc-prerequisite-knowledge-section/request.md
-- work/2026-02-19__task-doc-prerequisite-knowledge-section/investigation.md
-- work/2026-02-19__task-doc-prerequisite-knowledge-section/spec.md
-- work/2026-02-19__task-doc-prerequisite-knowledge-section/plan.md
-- work/2026-02-19__task-doc-prerequisite-knowledge-section/review.md
+- `work/2026-02-19__rail10-skill-command-path-fix/request.md`
+- `work/2026-02-19__rail10-skill-command-path-fix/investigation.md`
+- `work/2026-02-19__rail10-skill-command-path-fix/spec.md`
+- `work/2026-02-19__rail10-skill-command-path-fix/plan.md`
+- `work/2026-02-19__rail10-skill-command-path-fix/review.md`
 
 ## 8. 引き継ぎ時チェック
 
-- [x] state.json が最新か
-- [x] docs/INDEX.md を更新済みか（既存導線ファイル更新のため追加不要）
+- [x] `state.json` が最新か
+- [x] `docs/INDEX.md` を更新済みか（既存導線ファイル更新のため追加不要）
 - [x] 次アクションが実行可能な粒度か
