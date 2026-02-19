@@ -51,7 +51,7 @@
 
 10. `Rail10:list-planned-tasks-by-backlog-priority`
 - フロー位置: 着手前の優先度判断
-- 役割: backlog と `state.json` の planned 状態照合
+- 役割: backlog と `state.json` の planned 状態・`depends_on` を照合し、依存解決済み task を優先提示
 
 11. `Commit Boundary Check`
 - フロー位置: 各作業境界コミット直前
@@ -85,6 +85,7 @@
 - `docs/INDEX.md` 更新漏れ
 - `project.profile.yaml` 必須キー不足
 - stage 差分に対象 task 以外の `work/<task-id>/` が混在
+- 着手対象 task の `depends_on` に `state != done` の依存先がある
 
 ### 2.1 コミット境界の統一
 
@@ -101,6 +102,14 @@ pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task
 pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase implementation
 pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase finalize -AllowCommonSharedPaths
 ```
+
+### 2.2 依存関係ゲート
+
+着手時は `state.json` の `depends_on` を必ず確認し、未解決依存がある task は先行着手しない。
+
+- ready 判定: `depends_on` が空、または依存先がすべて `state=done`
+- blocked-by-dependency 判定: 依存先に `state!=done` が1件以上ある
+- fail 条件: 自己依存・循環依存・不存在 task-id 参照
 
 ### 3. ブレインストーミング出力の統一
 

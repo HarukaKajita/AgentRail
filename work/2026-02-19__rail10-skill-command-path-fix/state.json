@@ -1,6 +1,9 @@
 {
   "state": "planned",
   "owner": "unassigned",
-  "updated_at": "2026-02-19T19:19:04+09:00",
-  "blocking_issues": []
+  "updated_at": "02/19/2026 19:19:04",
+  "blocking_issues": [],
+  "depends_on": [
+    "2026-02-19__task-dependency-aware-prioritization-flow"
+  ]
 }

@@ -1,6 +1,7 @@
 {
   "state": "planned",
   "owner": "unassigned",
-  "updated_at": "2026-02-19T18:49:17+09:00",
-  "blocking_issues": []
+  "updated_at": "02/19/2026 18:49:17",
+  "blocking_issues": [],
+  "depends_on": []
 }

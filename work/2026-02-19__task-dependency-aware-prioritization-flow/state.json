@@ -1,6 +1,7 @@
 {
-  "state": "planned",
-  "owner": "unassigned",
-  "updated_at": "2026-02-19T19:33:14+09:00",
-  "blocking_issues": []
+  "state": "done",
+  "owner": "codex",
+  "updated_at": "2026-02-19T22:06:51+09:00",
+  "blocking_issues": [],
+  "depends_on": []
 }

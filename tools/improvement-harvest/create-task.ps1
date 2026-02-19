@@ -11,6 +11,7 @@ param(
   [Parameter(Mandatory = $true)]
   [ValidateSet("flow", "docs", "ci", "quality", "other")]
   [string]$Category,
+  [string[]]$DependsOn = @(),
   [string]$TaskId = "",
   [string]$WorkRoot = "work",
   [string]$Author = "codex"
@@ -54,6 +55,28 @@ function Get-NextTaskId {
   return $candidate
 }
 
+function Resolve-DependencyTaskIds {
+  param(
+    [string[]]$RawDependencyValues
+  )
+
+  $resolved = New-Object System.Collections.Generic.List[string]
+  foreach ($rawValue in $RawDependencyValues) {
+    foreach ($splitValue in ([string]$rawValue -split ",")) {
+      $taskId = $splitValue.Trim()
+      if ([string]::IsNullOrWhiteSpace($taskId)) {
+        continue
+      }
+      if ($resolved.Contains($taskId)) {
+        continue
+      }
+      $resolved.Add($taskId) | Out-Null
+    }
+  }
+
+  return $resolved.ToArray()
+}
+
 if (-not (Test-Path -LiteralPath $WorkRoot -PathType Container)) {
   Fail("work root does not exist: $WorkRoot")
 }
@@ -71,6 +94,18 @@ if ([string]::IsNullOrWhiteSpace($resolvedTaskId)) {
   $resolvedTaskId = Get-NextTaskId -Root $WorkRoot -BaseTaskId $baseTaskId
 }
 
+$dependencyTaskIds = Resolve-DependencyTaskIds -RawDependencyValues $DependsOn
+foreach ($dependencyTaskId in $dependencyTaskIds) {
+  if ($dependencyTaskId -eq $resolvedTaskId) {
+    Fail("depends_on must not include the created task itself: $dependencyTaskId")
+  }
+
+  $dependencyTaskPath = Join-Path -Path $WorkRoot -ChildPath $dependencyTaskId
+  if (-not (Test-Path -LiteralPath $dependencyTaskPath -PathType Container)) {
+    Fail("depends_on references missing task directory: $dependencyTaskPath")
+  }
+}
+
 $newTaskPath = Join-Path -Path $WorkRoot -ChildPath $resolvedTaskId
 if (Test-Path -LiteralPath $newTaskPath) {
   Fail("task already exists: $newTaskPath")
@@ -80,6 +115,12 @@ $today = Get-Date -Format "yyyy-MM-dd"
 $nowIso = Get-Date -Format "yyyy-MM-ddTHH:mm:ssK"
 $seedActionRequired = if ($Severity -in @("must", "high")) { "yes" } else { "no" }
 $seedLinkedTaskId = if ($seedActionRequired -eq "yes") { $resolvedTaskId } else { "none" }
+$backtick = [string][char]96
+$dependencyLabel = if ($dependencyTaskIds.Count -eq 0) {
+  "なし"
+} else {
+  ($dependencyTaskIds | ForEach-Object { "$backtick$_$backtick" }) -join ", "
+}
 
 New-Item -ItemType Directory -Path $newTaskPath -Force | Out-Null
 
@@ -97,12 +138,14 @@ $requestContent = @(
   "- Category: $Category",
   "- Severity: $Severity",
   "- Title: $Title",
+  "- Depends On: $dependencyLabel",
   "",
   "## 成功条件（要望レベル）",
   "",
   "1. work/$resolvedTaskId/ に必須6ファイルが作成される。",
   "2. 生成された spec.md が consistency-check の必須フォーマットを満たす。",
-  "3. 元タスクと finding のトレーサビリティが残る。"
+  "3. 元タスクと finding のトレーサビリティが残る。",
+  "4. state.json に depends_on が定義される。"
 ) -join "`n"
 
 $investigationContent = @(
@@ -111,6 +154,7 @@ $investigationContent = @(
   "## 1. 調査対象 [空欄禁止]",
   "",
   "- Source task $SourceTaskId の finding $FindingId の根本原因分析。",
+  "- 依存タスク (`$depends_on`) の妥当性確認。",
   "",
   "## 2. 仮説 (Hypothesis / 仮説) [空欄禁止]",
   "",
@@ -122,6 +166,7 @@ $investigationContent = @(
   "  - work/$SourceTaskId/review.md",
   "- 実施した確認:",
   "  - finding の再現条件と影響範囲を確認する。",
+  "  - depends_on に設定した task-id が着手前完了条件を満たすか確認する。",
   "",
   "## 4. 観測結果 (Observations / 観測結果) [空欄禁止]",
   "",
@@ -157,6 +202,7 @@ $specContent = @(
   "- 更新日: $today",
   "- 作成者: $Author",
   "- 関連要望: work/$resolvedTaskId/request.md",
+  "- 依存タスク: $dependencyLabel",
   "",
   "## 2. 背景と目的 [空欄禁止]",
   "",
@@ -245,9 +291,10 @@ $planContent = @(
   "## 3. 実施ステップ",
   "",
   "1. finding の再現条件を確認する。",
-  "2. 対応実装を行う。",
-  "3. docs と review を更新する。",
-  "4. consistency-check を実行する。",
+  "2. depends_on の先行完了状態を確認する。",
+  "3. 対応実装を行う。",
+  "4. docs と review を更新する。",
+  "5. consistency-check を実行する。",
   "",
   "## 4. 変更対象ファイル",
   "",
@@ -343,6 +390,7 @@ $stateObject = [PSCustomObject]@{
   owner           = "unassigned"
   updated_at      = $nowIso
   blocking_issues = @()
+  depends_on      = $dependencyTaskIds
 }
 $stateContent = $stateObject | ConvertTo-Json -Depth 4
 
@@ -356,4 +404,9 @@ Set-Content -LiteralPath (Join-Path -Path $newTaskPath -ChildPath "state.json") 
 Write-Output "improvement-create-task: PASS"
 Write-Output "created_task_id=$resolvedTaskId"
 Write-Output "created_path=$newTaskPath"
+if ($dependencyTaskIds.Count -eq 0) {
+  Write-Output "created_depends_on=none"
+} else {
+  Write-Output ("created_depends_on=" + ($dependencyTaskIds -join ","))
+}
 exit 0

@@ -13,7 +13,7 @@ $ErrorActionPreference = "Stop"
 $failures = New-Object System.Collections.Generic.List[object]
 $successTasks = New-Object System.Collections.Generic.List[string]
 $allowedStates = @("planned", "in_progress", "blocked", "done")
-$requiredStateKeys = @("state", "owner", "updated_at", "blocking_issues")
+$requiredStateKeys = @("state", "owner", "updated_at", "blocking_issues", "depends_on")
 $requiredTaskFiles = @("request.md", "investigation.md", "spec.md", "plan.md", "review.md", "state.json")
 $forbiddenStateKeys = @("history", "state_history")
 $script:docsIndexContent = $null
@@ -64,6 +64,172 @@ function Get-HeadingBlock {
   }
 
   return $Content.Substring($startIndex)
+}
+
+function Get-DependsOnList {
+  param(
+    [string]$TaskId,
+    [string]$StatePath,
+    [object]$StateObject
+  )
+
+  if (-not ($StateObject.PSObject.Properties.Name -contains "depends_on")) {
+    return @()
+  }
+
+  if ($null -eq $StateObject.depends_on) {
+    Add-Failure -Task $TaskId -File $StatePath -Reason "depends_on must be an array."
+    return @()
+  }
+
+  $dependencyIds = New-Object System.Collections.Generic.List[string]
+  foreach ($rawDependencyId in @($StateObject.depends_on)) {
+    $dependencyId = [string]$rawDependencyId
+    if ([string]::IsNullOrWhiteSpace($dependencyId)) {
+      Add-Failure -Task $TaskId -File $StatePath -Reason "depends_on must not include empty task ids."
+      continue
+    }
+
+    if ($dependencyIds.Contains($dependencyId)) {
+      Add-Failure -Task $TaskId -File $StatePath -Reason "depends_on must not include duplicate task ids: $dependencyId"
+      continue
+    }
+
+    if ($dependencyId -eq $TaskId) {
+      Add-Failure -Task $TaskId -File $StatePath -Reason "depends_on must not include self task id: $dependencyId"
+      continue
+    }
+
+    $dependencyTaskDir = Join-Path -Path $WorkRoot -ChildPath $dependencyId
+    if (-not (Test-Path -LiteralPath $dependencyTaskDir -PathType Container)) {
+      Add-Failure -Task $TaskId -File $StatePath -Reason "depends_on references unknown task id: $dependencyId"
+      continue
+    }
+
+    $dependencyIds.Add($dependencyId) | Out-Null
+  }
+
+  return $dependencyIds.ToArray()
+}
+
+function Get-DependencyCycleForTask {
+  param(
+    [string]$StartTaskId,
+    [hashtable]$DependencyMap
+  )
+
+  if (-not $DependencyMap.ContainsKey($StartTaskId)) {
+    return ""
+  }
+
+  $stack = New-Object System.Collections.Stack
+  $path = New-Object System.Collections.Generic.List[string]
+  $nextIndexByTask = @{}
+  $closedSet = New-Object System.Collections.Generic.HashSet[string]
+
+  $stack.Push($StartTaskId)
+  while ($stack.Count -gt 0) {
+    $currentTaskId = [string]$stack.Peek()
+    if (-not $nextIndexByTask.ContainsKey($currentTaskId)) {
+      $nextIndexByTask[$currentTaskId] = 0
+      $path.Add($currentTaskId) | Out-Null
+    }
+
+    $dependencies = @()
+    if ($DependencyMap.ContainsKey($currentTaskId)) {
+      $dependencies = @($DependencyMap[$currentTaskId])
+    }
+
+    $nextIndex = [int]$nextIndexByTask[$currentTaskId]
+    if ($nextIndex -ge $dependencies.Count) {
+      [void]$stack.Pop()
+      [void]$nextIndexByTask.Remove($currentTaskId)
+      [void]$closedSet.Add($currentTaskId)
+      if ($path.Count -gt 0) {
+        $path.RemoveAt($path.Count - 1)
+      }
+      continue
+    }
+
+    $dependencyId = [string]$dependencies[$nextIndex]
+    $nextIndexByTask[$currentTaskId] = $nextIndex + 1
+
+    if (-not $DependencyMap.ContainsKey($dependencyId)) {
+      continue
+    }
+
+    $activeIndex = $path.IndexOf($dependencyId)
+    if ($activeIndex -ge 0) {
+      $cycleNodes = @($path[$activeIndex..($path.Count - 1)])
+      $cycleNodes += $dependencyId
+      return ($cycleNodes -join " -> ")
+    }
+
+    if ($closedSet.Contains($dependencyId)) {
+      continue
+    }
+
+    $stack.Push($dependencyId)
+  }
+
+  return ""
+}
+
+function Validate-DependencyCycles {
+  param(
+    [string[]]$TargetTaskIds
+  )
+
+  $dependencyMap = @{}
+
+  if (-not (Test-Path -LiteralPath $WorkRoot -PathType Container)) {
+    return
+  }
+
+  $taskDirectories = Get-ChildItem -LiteralPath $WorkRoot -Directory
+  foreach ($taskDirectory in $taskDirectories) {
+    $statePath = Join-Path -Path $taskDirectory.FullName -ChildPath "state.json"
+    if (-not (Test-Path -LiteralPath $statePath -PathType Leaf)) {
+      continue
+    }
+
+    try {
+      $stateObject = Get-Content -LiteralPath $statePath -Raw | ConvertFrom-Json
+    } catch {
+      continue
+    }
+
+    if (-not ($stateObject.PSObject.Properties.Name -contains "depends_on")) {
+      $dependencyMap[$taskDirectory.Name] = @()
+      continue
+    }
+
+    $dependencyIds = New-Object System.Collections.Generic.List[string]
+    foreach ($rawDependencyId in @($stateObject.depends_on)) {
+      $dependencyId = [string]$rawDependencyId
+      if ([string]::IsNullOrWhiteSpace($dependencyId)) {
+        continue
+      }
+      if ($dependencyIds.Contains($dependencyId)) {
+        continue
+      }
+      $dependencyIds.Add($dependencyId) | Out-Null
+    }
+
+    $dependencyMap[$taskDirectory.Name] = $dependencyIds.ToArray()
+  }
+
+  foreach ($targetTaskId in $TargetTaskIds) {
+    if (-not $dependencyMap.ContainsKey($targetTaskId)) {
+      continue
+    }
+
+    $cyclePath = Get-DependencyCycleForTask -StartTaskId $targetTaskId -DependencyMap $dependencyMap
+    if (-not [string]::IsNullOrWhiteSpace($cyclePath)) {
+      $statePath = Join-Path -Path (Join-Path -Path $WorkRoot -ChildPath $targetTaskId) -ChildPath "state.json"
+      Add-Failure -Task $targetTaskId -File $statePath -Reason "Dependency cycle detected: $cyclePath"
+    }
+  }
 }
 
 function Validate-Task {
@@ -139,6 +305,29 @@ function Validate-Task {
 
   if ($state -ne "blocked" -and $blockingIssues.Count -gt 0) {
     Add-Failure -Task $TargetTaskId -File $statePath -Reason "blocking_issues must be empty unless state=blocked."
+  }
+
+  $dependencyIds = Get-DependsOnList -TaskId $TargetTaskId -StatePath $statePath -StateObject $stateObject
+  if ($state -in @("in_progress", "done")) {
+    foreach ($dependencyId in $dependencyIds) {
+      $dependencyStatePath = Join-Path -Path (Join-Path -Path $WorkRoot -ChildPath $dependencyId) -ChildPath "state.json"
+      if (-not (Test-Path -LiteralPath $dependencyStatePath -PathType Leaf)) {
+        Add-Failure -Task $TargetTaskId -File $statePath -Reason "state=$state requires dependency state file: $dependencyId/state.json"
+        continue
+      }
+
+      try {
+        $dependencyStateObject = Get-Content -LiteralPath $dependencyStatePath -Raw | ConvertFrom-Json
+      } catch {
+        Add-Failure -Task $TargetTaskId -File $statePath -Reason "state=$state requires valid dependency state.json: $dependencyId"
+        continue
+      }
+
+      $dependencyState = [string]$dependencyStateObject.state
+      if ($dependencyState -ne "done") {
+        Add-Failure -Task $TargetTaskId -File $statePath -Reason "state=$state requires dependency state=done: $dependencyId (actual: $dependencyState)"
+      }
+    }
   }
 
   if ($state -eq "done") {
@@ -224,14 +413,18 @@ if (-not (Test-Path -LiteralPath $DocsIndexPath -PathType Leaf)) {
 }
 
 if (Test-Path -LiteralPath $WorkRoot -PathType Container) {
+  $validatedTaskIds = @()
   if ($AllTasks) {
-  $taskDirectories = Get-ChildItem -LiteralPath $WorkRoot -Directory | Sort-Object Name
-  foreach ($taskDirectory in $taskDirectories) {
-    Validate-Task -TargetTaskId $taskDirectory.Name
-  }
+    $taskDirectories = Get-ChildItem -LiteralPath $WorkRoot -Directory | Sort-Object Name
+    foreach ($taskDirectory in $taskDirectories) {
+      Validate-Task -TargetTaskId $taskDirectory.Name
+      $validatedTaskIds += $taskDirectory.Name
+    }
   } else {
     Validate-Task -TargetTaskId $TaskId
+    $validatedTaskIds += $TaskId
   }
+  Validate-DependencyCycles -TargetTaskIds $validatedTaskIds
 }
 
 if ($failures.Count -eq 0) {

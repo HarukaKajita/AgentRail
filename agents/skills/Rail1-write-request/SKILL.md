@@ -25,9 +25,10 @@ description: ユーザー要望を work/<task-id>/request.md 向けに具体化�
 4. 推奨案を1つ選び、採用理由と非採用理由を明示する。
 5. 要望が過大な場合は、分割後のサブ要求一覧と実施順序を提案する。
 6. 未確定点のみ確認質問 2〜4 件を作る。
-7. `request.md` に反映する確定要望、非要望、境界条件を明示する。
-8. 未確定が後続工程を止める場合は `blocked` を提案する。
-9. 起票境界が確定したら、境界コミット前チェックを提案する。
+7. 着手前完了が必要な依存 task を調査し、`depends_on` 候補を明示する。
+8. `request.md` に反映する確定要望、非要望、境界条件を明示する。
+9. 依存先 task が不足する場合は追加起票を提案し、未解決なら `blocked` を提案する。
+10. 起票境界が確定したら、境界コミット前チェックを提案する。
    - `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase kickoff`
 
 ## 出力フォーマット
@@ -37,8 +38,9 @@ description: ユーザー要望を work/<task-id>/request.md 向けに具体化�
 3. 推奨案
 4. 分割提案（必要時）
 5. 確認質問（2〜4件）
-6. `request.md` 反映案
-7. blocked 判定
+6. 依存関係整理（depends_on 候補 / 不足依存）
+7. `request.md` 反映案
+8. blocked 判定
 
 ## 禁止事項
 

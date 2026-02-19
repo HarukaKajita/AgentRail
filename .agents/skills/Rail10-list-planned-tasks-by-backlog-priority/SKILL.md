@@ -1,13 +1,13 @@
 ---
 name: Rail10:list-planned-tasks-by-backlog-priority
-description: docs/operations/high-priority-backlog.md と work/*/state.json を照合し、planned タスクを優先度順で表示する。表示後は提案3案と確認質問2-4件で次の着手判断を支援する。
+description: docs/operations/high-priority-backlog.md と work/*/state.json を照合し、planned タスクを依存関係込みで優先表示する。表示後は提案3案と確認質問2-4件で次の着手判断を支援する。
 ---
 
 # List Planned Tasks By Backlog Priority
 
 ## 役割
 
-バックログと実状態を照合し、次に着手すべきタスク判断を支援する。
+バックログと実状態を照合し、依存解決済みタスクを優先した着手判断を支援する。
 
 ## 事前参照
 
@@ -18,12 +18,13 @@ description: docs/operations/high-priority-backlog.md と work/*/state.json を�
 
 ## 実行手順
 
-1. 付属スクリプトで planned タスクの優先度順一覧を取得する。
-2. 一覧結果と warnings を要約する。
-3. 次の進め方を提案オプション3案で示す。
-4. 推奨案を1つ選び理由を示す。
-5. 必要なら確認質問を 2〜4 件提示する。
-6. 次タスク着手前に、直前タスクの境界コミット完了を確認する。
+1. 付属スクリプトで planned タスクの依存解決済み優先一覧を取得する。
+2. `depends_on` と backlog の依存記述が一致しているか warnings を確認する。
+3. `Ready Tasks` と `Blocked Tasks` を要約し、次に着手可能な task-id を明確化する。
+4. 次の進め方を提案オプション3案で示す。
+5. 推奨案を1つ選び理由を示す。
+6. 必要なら確認質問を 2〜4 件提示する。
+7. 次タスク着手前に、直前タスクの境界コミット完了を確認する。
 
 ## コマンド
 
@@ -40,14 +41,17 @@ pwsh -NoProfile -File "agents/skills/Rail10-list-planned-tasks-by-backlog-priori
 ## 出力フォーマット
 
 1. Planned Tasks (Priority Order)
-2. Warnings
-3. 提案オプション（3案）
-4. 推奨案
-5. 確認質問（2〜4件）
+2. Ready Tasks (Dependency Resolved)
+3. Blocked Tasks (Unresolved Dependencies)
+4. Warnings
+5. 提案オプション（3案）
+6. 推奨案
+7. 確認質問（2〜4件）
 
 ## 禁止事項
 
 - backlog と work の不整合を無視しない。
+- 依存未解決 task を ready 扱いで推奨しない。
 - 一覧表示だけで意思決定支援を省略しない。
 - 根拠なしで優先度を変更しない。
 - 境界コミット未完了のまま次タスク着手を推奨しない。

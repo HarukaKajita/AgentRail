@@ -19,6 +19,8 @@ $jsonSchemaVersion = "1.0.0"
 $allTasksExclusionPattern = "^(archive|legacy)(-|$)"
 
 $failures = New-Object System.Collections.Generic.List[object]
+$script:taskStateSnapshot = $null
+$script:backlogDependencyMetadata = $null
 
 function Add-Failure {
   param(
@@ -107,6 +109,232 @@ function Should-ExcludeAllTasksTarget {
   }
 
   return $TaskDirectoryName.ToLowerInvariant() -match $allTasksExclusionPattern
+}
+
+function Parse-DependencyValues {
+  param(
+    [string]$RawValue
+  )
+
+  if ([string]::IsNullOrWhiteSpace($RawValue)) {
+    return @()
+  }
+
+  $normalized = $RawValue.Trim()
+  if ($normalized -match '^(なし|none|n/a|-\s*)$') {
+    return @()
+  }
+
+  $backtickMatches = @([Regex]::Matches($normalized, '`([^`]+)`'))
+  $result = New-Object System.Collections.Generic.List[string]
+  if ($backtickMatches.Count -gt 0) {
+    foreach ($match in $backtickMatches) {
+      $taskId = $match.Groups[1].Value.Trim()
+      if ([string]::IsNullOrWhiteSpace($taskId)) {
+        continue
+      }
+      if ($result.Contains($taskId)) {
+        continue
+      }
+      $result.Add($taskId) | Out-Null
+    }
+    return $result.ToArray()
+  }
+
+  foreach ($token in ($normalized -split ",")) {
+    $taskId = $token.Trim()
+    if ([string]::IsNullOrWhiteSpace($taskId)) {
+      continue
+    }
+    if ($result.Contains($taskId)) {
+      continue
+    }
+    $result.Add($taskId) | Out-Null
+  }
+
+  return $result.ToArray()
+}
+
+function Get-TaskStateSnapshot {
+  if ($null -ne $script:taskStateSnapshot) {
+    return $script:taskStateSnapshot
+  }
+
+  $snapshot = @{}
+  if (-not (Test-Path -LiteralPath $WorkRoot -PathType Container)) {
+    $script:taskStateSnapshot = $snapshot
+    return $snapshot
+  }
+
+  $taskDirectories = Get-ChildItem -LiteralPath $WorkRoot -Directory
+  foreach ($taskDirectory in $taskDirectories) {
+    $taskId = $taskDirectory.Name
+    $statePath = Join-Path -Path $taskDirectory.FullName -ChildPath "state.json"
+    $taskInfo = [PSCustomObject]@{
+      task_id      = $taskId
+      state_path   = $statePath
+      exists       = Test-Path -LiteralPath $statePath -PathType Leaf
+      json_valid   = $false
+      state        = ""
+      depends_on   = @()
+      has_depends  = $false
+    }
+
+    if ($taskInfo.exists) {
+      try {
+        $stateObject = Get-Content -LiteralPath $statePath -Raw | ConvertFrom-Json
+        $taskInfo.json_valid = $true
+        if ($stateObject.PSObject.Properties.Name -contains "state") {
+          $taskInfo.state = [string]$stateObject.state
+        }
+        if ($stateObject.PSObject.Properties.Name -contains "depends_on") {
+          $taskInfo.has_depends = $true
+          if ($null -ne $stateObject.depends_on) {
+            $dependencyIds = New-Object System.Collections.Generic.List[string]
+            foreach ($rawDependencyId in @($stateObject.depends_on)) {
+              $dependencyId = [string]$rawDependencyId
+              if ([string]::IsNullOrWhiteSpace($dependencyId)) {
+                continue
+              }
+              if ($dependencyIds.Contains($dependencyId)) {
+                continue
+              }
+              $dependencyIds.Add($dependencyId) | Out-Null
+            }
+            $taskInfo.depends_on = $dependencyIds.ToArray()
+          }
+        }
+      } catch {
+        $taskInfo.json_valid = $false
+      }
+    }
+
+    $snapshot[$taskId] = $taskInfo
+  }
+
+  $script:taskStateSnapshot = $snapshot
+  return $snapshot
+}
+
+function Get-BacklogDependencyMetadata {
+  if ($null -ne $script:backlogDependencyMetadata) {
+    return $script:backlogDependencyMetadata
+  }
+
+  $metadata = @{
+    order        = New-Object System.Collections.Generic.List[string]
+    dependencies = @{}
+    has_line     = @{}
+  }
+
+  if (-not (Test-Path -LiteralPath "docs/operations/high-priority-backlog.md" -PathType Leaf)) {
+    $script:backlogDependencyMetadata = $metadata
+    return $metadata
+  }
+
+  $lines = Get-Content -LiteralPath "docs/operations/high-priority-backlog.md"
+  $inPrioritySection = $false
+  $currentTaskId = ""
+
+  foreach ($line in $lines) {
+    if ($line -match '^##\s+(優先タスク一覧|Priority Tasks|Priority Task List)\s*$') {
+      $inPrioritySection = $true
+      continue
+    }
+
+    if (-not $inPrioritySection) {
+      continue
+    }
+
+    if ($line -match '^##\s+') {
+      break
+    }
+
+    if ($line -match '^\s*\d+\.\s+`(?<id>[^`]+)`\s*$') {
+      $currentTaskId = $Matches['id'].Trim()
+      if (-not [string]::IsNullOrWhiteSpace($currentTaskId)) {
+        $metadata.order.Add($currentTaskId) | Out-Null
+        $metadata.dependencies[$currentTaskId] = @()
+        $metadata.has_line[$currentTaskId] = $false
+      }
+      continue
+    }
+
+    if ([string]::IsNullOrWhiteSpace($currentTaskId)) {
+      continue
+    }
+
+    if ($line -match '^\s*-\s*(依存|Depends on)\s*:\s*(?<value>.+?)\s*$') {
+      $metadata.dependencies[$currentTaskId] = Parse-DependencyValues -RawValue $Matches['value']
+      $metadata.has_line[$currentTaskId] = $true
+    }
+  }
+
+  $script:backlogDependencyMetadata = $metadata
+  return $metadata
+}
+
+function Get-DependencyCycleForTask {
+  param(
+    [string]$StartTaskId,
+    [hashtable]$StateSnapshot
+  )
+
+  if (-not $StateSnapshot.ContainsKey($StartTaskId)) {
+    return ""
+  }
+
+  $stack = New-Object System.Collections.Stack
+  $path = New-Object System.Collections.Generic.List[string]
+  $nextIndexByTask = @{}
+  $closedSet = New-Object System.Collections.Generic.HashSet[string]
+
+  $stack.Push($StartTaskId)
+  while ($stack.Count -gt 0) {
+    $currentTaskId = [string]$stack.Peek()
+    if (-not $nextIndexByTask.ContainsKey($currentTaskId)) {
+      $nextIndexByTask[$currentTaskId] = 0
+      $path.Add($currentTaskId) | Out-Null
+    }
+
+    $dependencies = @()
+    if ($StateSnapshot.ContainsKey($currentTaskId)) {
+      $dependencies = @($StateSnapshot[$currentTaskId].depends_on)
+    }
+
+    $nextIndex = [int]$nextIndexByTask[$currentTaskId]
+    if ($nextIndex -ge $dependencies.Count) {
+      [void]$stack.Pop()
+      [void]$nextIndexByTask.Remove($currentTaskId)
+      [void]$closedSet.Add($currentTaskId)
+      if ($path.Count -gt 0) {
+        $path.RemoveAt($path.Count - 1)
+      }
+      continue
+    }
+
+    $dependencyId = [string]$dependencies[$nextIndex]
+    $nextIndexByTask[$currentTaskId] = $nextIndex + 1
+
+    if (-not $StateSnapshot.ContainsKey($dependencyId)) {
+      continue
+    }
+
+    $activeIndex = $path.IndexOf($dependencyId)
+    if ($activeIndex -ge 0) {
+      $cycleNodes = @($path[$activeIndex..($path.Count - 1)])
+      $cycleNodes += $dependencyId
+      return ($cycleNodes -join " -> ")
+    }
+
+    if ($closedSet.Contains($dependencyId)) {
+      continue
+    }
+
+    $stack.Push($dependencyId)
+  }
+
+  return ""
 }
 
 function Validate-ProcessFindings {
@@ -298,6 +526,10 @@ function Invoke-SingleTaskCheck {
   $indexContent = Get-FileOrNull -Path $DocsIndexPath
   $profileContent = Get-FileOrNull -Path $ProfilePath
   $taskState = ""
+  $stateObject = $null
+  $dependsOn = @()
+  $stateSnapshot = Get-TaskStateSnapshot
+  $backlogDependencyMetadata = Get-BacklogDependencyMetadata
 
   if ($stateContent) {
     try {
@@ -305,8 +537,97 @@ function Invoke-SingleTaskCheck {
       if ($stateObject -and $stateObject.PSObject.Properties.Name -contains "state") {
         $taskState = [string]$stateObject.state
       }
+
+      if (-not ($stateObject.PSObject.Properties.Name -contains "depends_on")) {
+        Add-Failure -RuleId "dependencies_declared" -File $statePath -Reason "state.json must include depends_on."
+      } else {
+        if ($null -eq $stateObject.depends_on) {
+          Add-Failure -RuleId "dependencies_declared" -File $statePath -Reason "depends_on must be an array."
+        } else {
+          $dependencyIds = New-Object System.Collections.Generic.List[string]
+          foreach ($rawDependencyId in @($stateObject.depends_on)) {
+            $dependencyId = [string]$rawDependencyId
+            if ([string]::IsNullOrWhiteSpace($dependencyId)) {
+              Add-Failure -RuleId "dependencies_declared" -File $statePath -Reason "depends_on must not include empty task ids."
+              continue
+            }
+
+            if ($dependencyIds.Contains($dependencyId)) {
+              Add-Failure -RuleId "dependencies_declared" -File $statePath -Reason "depends_on must not include duplicate task ids: $dependencyId"
+              continue
+            }
+
+            if ($dependencyId -eq $TargetTaskId) {
+              Add-Failure -RuleId "dependencies_no_self" -File $statePath -Reason "depends_on must not include self task id: $dependencyId"
+              continue
+            }
+
+            if (-not $stateSnapshot.ContainsKey($dependencyId)) {
+              Add-Failure -RuleId "dependencies_exist" -File $statePath -Reason "depends_on references unknown task id: $dependencyId"
+              continue
+            }
+
+            $dependencyInfo = $stateSnapshot[$dependencyId]
+            if (-not $dependencyInfo.exists) {
+              Add-Failure -RuleId "dependencies_exist" -File $statePath -Reason "depends_on references task without state.json: $dependencyId"
+              continue
+            }
+
+            if (-not $dependencyInfo.json_valid) {
+              Add-Failure -RuleId "dependencies_exist" -File $statePath -Reason "depends_on references task with invalid state.json: $dependencyId"
+              continue
+            }
+
+            $dependencyIds.Add($dependencyId) | Out-Null
+          }
+
+          $dependsOn = $dependencyIds.ToArray()
+        }
+      }
     } catch {
       Add-Failure -RuleId "state_json_valid" -File $statePath -Reason "state.json is not valid JSON."
+    }
+  }
+
+  if ($stateObject) {
+    $cyclePath = Get-DependencyCycleForTask -StartTaskId $TargetTaskId -StateSnapshot $stateSnapshot
+    if (-not [string]::IsNullOrWhiteSpace($cyclePath)) {
+      Add-Failure -RuleId "dependencies_no_cycle" -File $statePath -Reason "Dependency cycle detected: $cyclePath"
+    }
+
+    if ($taskState -in @("in_progress", "done")) {
+      foreach ($dependencyId in $dependsOn) {
+        $dependencyState = ""
+        if ($stateSnapshot.ContainsKey($dependencyId)) {
+          $dependencyState = [string]$stateSnapshot[$dependencyId].state
+        }
+        if ($dependencyState -ne "done") {
+          Add-Failure -RuleId "dependency_start_gate" -File $statePath -Reason "state=$taskState requires dependency state=done: $dependencyId (actual: $dependencyState)"
+        }
+      }
+    }
+
+    if ($backlogDependencyMetadata.order.Contains($TargetTaskId)) {
+      $hasDependencyLine = $false
+      if ($backlogDependencyMetadata.has_line.ContainsKey($TargetTaskId)) {
+        $hasDependencyLine = [bool]$backlogDependencyMetadata.has_line[$TargetTaskId]
+      }
+      if (-not $hasDependencyLine) {
+        Add-Failure -RuleId "dependency_backlog_synced" -File "docs/operations/high-priority-backlog.md" -Reason "Backlog entry must include dependency line: $TargetTaskId"
+      } else {
+        $backlogDependencies = @()
+        if ($backlogDependencyMetadata.dependencies.ContainsKey($TargetTaskId)) {
+          $backlogDependencies = @($backlogDependencyMetadata.dependencies[$TargetTaskId])
+        }
+
+        $normalizedStateDependencies = @($dependsOn | Sort-Object)
+        $normalizedBacklogDependencies = @($backlogDependencies | Sort-Object)
+        $stateDependencyFingerprint = $normalizedStateDependencies -join ","
+        $backlogDependencyFingerprint = $normalizedBacklogDependencies -join ","
+        if ($stateDependencyFingerprint -ne $backlogDependencyFingerprint) {
+          Add-Failure -RuleId "dependency_backlog_synced" -File "docs/operations/high-priority-backlog.md" -Reason "Backlog dependencies do not match state.json for task: $TargetTaskId"
+        }
+      }
     }
   }
 

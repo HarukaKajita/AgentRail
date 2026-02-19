@@ -19,6 +19,7 @@ Claude 互換の補助は `CLAUDE.md` に記載しますが、矛盾時はこの
 4. `work/<task-id>/spec.md` の空欄禁止セクションが埋まっている。
 5. `work/<task-id>/plan.md` が作成済み。
 6. `work/<task-id>/state.json` が最新状態を示している。
+7. `work/<task-id>/state.json` の `depends_on` が最新で、未解決依存を把握できている。
 
 ## 3. 固定ワークフロー
 
@@ -28,11 +29,12 @@ Claude 互換の補助は `CLAUDE.md` に記載しますが、矛盾時はこの
 2. 調査 (`investigation.md`)
 3. 要件確定 (`spec.md`)
 4. 実装計画 (`plan.md`)
-5. 実装
-6. テスト
-7. レビュー (`review.md`)
-8. 資料更新 (`docs/INDEX.md` と関連資料)
-9. 記憶更新 (`MEMORY.md` と `state.json`)
+5. 依存解決確認（未解決依存がある場合は依存先を先行）
+6. 実装
+7. テスト
+8. レビュー (`review.md`)
+9. 資料更新 (`docs/INDEX.md` と関連資料)
+10. 記憶更新 (`MEMORY.md` と `state.json`)
 
 ### 3.1 コミット境界 (Commit Boundary)
 
@@ -59,6 +61,7 @@ Claude 互換の補助は `CLAUDE.md` に記載しますが、矛盾時はこの
 - `spec.md` の空欄禁止項目が未記入。
 - `spec.md` の `テスト要件` が抽象的で検証条件になっていない。
 - `plan.md` が `spec.md` を参照していない。
+- 着手対象 task の `depends_on` に未完了依存がある。
 - レビュー後に `docs/INDEX.md` が未更新。
 - `project.profile.yaml` の必須キー不足。
 - stage 差分に対象 task 以外の `work/<task-id>/` 変更が混在している。
@@ -80,6 +83,7 @@ Claude 互換の補助は `CLAUDE.md` に記載しますが、矛盾時はこの
 - `owner`
 - `updated_at`
 - `blocking_issues`
+- `depends_on`
 
 ## 6. `project.profile.yaml` の扱い
 

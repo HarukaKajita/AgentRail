@@ -1,6 +1,7 @@
 {
   "state": "done",
   "owner": "codex",
-  "updated_at": "2026-02-18T21:38:20+09:00",
-  "blocking_issues": []
+  "updated_at": "02/18/2026 21:38:20",
+  "blocking_issues": [],
+  "depends_on": []
 }
