@@ -8,7 +8,7 @@
   - `work/2026-02-20__subagent-multi-agent-delegation-governance/request.md`
   - `work/2026-02-20__subagent-multi-agent-delegation-governance/spec.md`
 - 理解ポイント:
-  - `spec.md` の委譲マトリクスと品質ゲートを実装計画へ変換する。
+  - 委譲範囲は request / investigation / spec のみで、plan 以降は親固定。
 
 ## 1. 対象仕様
 
@@ -29,11 +29,12 @@
 
 ## 3. 実施ステップ
 
-1. 委譲対象工程と例外工程のマトリクスを docs へ反映する。
-2. subagent 依頼コンテキストと返却フォーマットを各スキルへ反映する。
-3. 工程 md の Subagent Worklog 記録テンプレートを標準化する。
-4. 親側品質ゲート（再検証・差し戻し）を運用資料へ反映する。
-5. checker 実行とレビュー更新で完了判定する。
+1. `request / investigation / spec` を同一 `delegated_agent_id` で処理する実行契約を定義する。
+2. 委譲必須コンテキストと一次成果物更新先（3ファイル）を定義する。
+3. sidecar 監査ログ規約と親返却フォーマットを定義する。
+4. 親再検討ゲート（`gate_result`）を定義し、`pass` 前の `plan` 着手禁止とコミット禁止を明記する。
+5. 親固定工程（`plan / test / review / docs_update / commit`）を明記する。
+6. checker 実行と `review.md` 更新で AC 完了判定を行う。
 
 ## 4. 変更対象ファイル
 
@@ -47,14 +48,14 @@
 ## 5. リスクとロールバック
 
 - リスク:
-  - 委譲規則が過剰で運用コストが増加する。
-  - 例外工程定義が不十分で品質事故が発生する。
+  - 単一委譲エージェントがボトルネックになる。
+  - 委譲した3工程に同系統の誤りが連鎖する。
 - ロールバック:
-  1. 例外工程を増やして親固定範囲を一時拡大する。
-  2. 適用対象スキルを段階導入に戻す。
+  1. `request / investigation / spec` を親主導に戻し、委譲を停止する。
+  2. 一時的に `request` のみ委譲して段階再導入する。
 
 ## 6. 完了判定
 
-- AC-001〜AC-006 が `review.md` で PASS になる。
+- AC-001〜AC-008 が `review.md` で PASS になる。
 - `tools/consistency-check/check.ps1 -AllTasks` が PASS する。
 - `tools/state-validate/validate.ps1 -AllTasks` が PASS する。

@@ -9,7 +9,7 @@
   - `work/2026-02-20__subagent-multi-agent-delegation-governance/investigation.md`
   - `docs/operations/skills-framework-flow-guide.md`
 - 理解ポイント:
-  - 固定ワークフローを維持しつつ、subagent / multi_agent を標準活用する設計を行う。
+  - 品質優先のため、委譲範囲を request / investigation / spec に限定する。
 
 ## 1. メタ情報 [空欄禁止]
 
@@ -26,53 +26,57 @@
 
 ## 2. 背景と目的 [空欄禁止]
 
-- 背景: 既存スキル運用は固定工程を定義済みだが、subagent / multi_agent 利用の標準手順が不明確。
-- 目的: 各工程での委譲方針、例外工程、成果物記録、親エージェント品質ゲートを統一し、再現可能な運用へ改善する。
+- 背景: subagent / multi_agent の全面委譲は速度面の利点がある一方で、品質ばらつきの懸念がある。
+- 目的: request / investigation / spec を単一の委譲エージェントに限定して実行し、親エージェントが再検討して問題ない場合のみ次工程とコミットを許可する運用を確立する。
 
 ## 3. スコープ [空欄禁止]
 
 ### 3.1 In Scope [空欄禁止]
 
-- 委譲対象工程の標準化（request / investigation / spec / plan / docs update / test 実行）。
-- 例外工程の明確化（親エージェント固定）。
-- subagent へ渡す必須コンテキスト定義。
-- 工程 md への記録フォーマット（Subagent Worklog）定義。
-- 親エージェントへ返却する最小情報セット定義。
-- 親側の再検証ルール（品質ゲート）定義。
-- `docs/operations/skills-framework-flow-guide.md` と関連運用 docs への反映方針。
+- 委譲対象を `request / investigation / spec` の3工程に限定する。
+- 3工程を同一 `delegated_agent_id` で処理する契約を定義する。
+- 委譲時の必須コンテキスト（task_id, delegated_agent_id, phase, objective, scope, constraints, acceptance, expected_output, editable_sections）を定義する。
+- 一次成果物として `request.md / investigation.md / spec.md` を直接更新する規約を定義する。
+- sidecar 監査ログ保存先と記録項目を定義する。
+- 親再検討ゲート（`gate_result=pass|fail`）と進行可否を定義する。
+- 親ゲート `pass` 前は `plan` 着手およびコミットを禁止するルールを定義する。
 
 ### 3.2 Out of Scope [空欄禁止]
 
-- 全スキル実装の同時改修完了。
+- `plan / test / review / docs_update` の委譲標準化。
+- 複数サブエージェントの並列分担運用。
 - CI への新規自動検査導入。
 - subagent 実行インフラそのものの改修。
 
 ## 4. 受入条件 (Acceptance Criteria / 受入条件) [空欄禁止]
 
-- AC-001: 委譲対象工程と例外工程が工程別マトリクスで定義される。
-- AC-002: subagent へ渡す必須コンテキスト項目（task_id, phase, objective, scope, constraints, acceptance, expected_output）が定義される。
-- AC-003: 工程 md に記録する `Subagent Worklog` セクション仕様が定義される。
-- AC-004: 親エージェント返却フォーマット（変更ファイル、実行コマンド、結果、未解決リスク、推奨次アクション）が定義される。
-- AC-005: 親側品質ゲート（再検証必須、高リスク工程の親固定、不一致時差し戻し）が定義される。
-- AC-006: 実装時に更新すべき docs と skill ファイル範囲が明示される。
+- AC-001: 委譲範囲が `request / investigation / spec` のみに限定されている。
+- AC-002: 3工程を同一 `delegated_agent_id` で処理する実行契約が定義されている。
+- AC-003: 委譲必須コンテキスト項目（task_id, delegated_agent_id, phase, objective, scope, constraints, acceptance, expected_output, editable_sections）が定義されている。
+- AC-004: 一次成果物更新先（`request.md / investigation.md / spec.md`）と sidecar 監査ログ規約が定義されている。
+- AC-005: 親再検討時の返却フォーマットと再検証項目が定義されている。
+- AC-006: `gate_result=pass` 前は次工程（`plan`）とコミットを禁止し、`fail` では差し戻しとなるルールが定義されている。
+- AC-007: 親固定工程（`plan / test / review / docs_update / commit`）が定義されている。
+- AC-008: 実装時に更新すべき docs と skill ファイル範囲が明示されている。
 
 ## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
 
 ### 5.1 Unit Test (Unit Test / 単体テスト) [空欄禁止]
 
-- 対象: 委譲仕様（工程マトリクス、コンテキスト定義、返却定義）
+- 対象: 委譲仕様（範囲、単一エージェント契約、ゲート契約）
 - 観点:
-  - 例外工程が親固定として明示される。
-  - コンテキスト項目が不足なく列挙される。
-  - 返却フォーマットが機械的に確認可能な粒度で記載される。
+  - 委譲対象が 3工程に限定されている。
+  - 単一 `delegated_agent_id` 契約が定義されている。
+  - 必須コンテキスト項目が欠落なく列挙されている。
+  - `gate_result=pass` 前進行禁止が明示されている。
 - 合格条件: 仕様文書中に各定義が欠落なく存在する。
 
 ### 5.2 Integration Test (Integration Test / 結合テスト) [空欄禁止]
 
-- 対象: 運用 docs と task 文書の整合
+- 対象: task 文書間の整合
 - 観点:
-  - `skills-framework-flow-guide` に委譲方針と例外規則が反映される。
-  - task の request/investigation/spec/plan/review が同一用語で整合する。
+  - request/investigation/spec/plan の用語が「3工程限定委譲 + 親再検討」で整合する。
+  - 親固定工程の定義が plan と矛盾しない。
 - 合格条件: 整合チェックで矛盾が検出されない。
 
 ### 5.3 Regression Test (Regression Test / 回帰テスト) [空欄禁止]
@@ -87,20 +91,23 @@
 ### 5.4 Manual Verification (Manual Verification / 手動検証) [空欄禁止]
 
 - 手順:
-  1. 低リスク工程（例: investigation）で委譲手順が完結することを確認する。
-  2. 高リスク工程（例: 最終受入判定）で親固定ルールが適用されることを確認する。
-  3. Subagent Worklog から親返却情報まで追跡可能であることを確認する。
+  1. 単一 `delegated_agent_id` で `request -> investigation -> spec` を連続実行する。
+  2. `request.md / investigation.md / spec.md` が更新され、sidecar 監査ログが残ることを確認する。
+  3. 親再検討で `gate_result=fail` を記録し、`plan` 着手とコミットが禁止されることを確認する。
+  4. 親再検討で `gate_result=pass` を記録し、`plan` 着手とコミットが許可されることを確認する。
 - 期待結果:
-  - 委譲可能工程と例外工程の挙動差が明確に説明できる。
+  - 品質ゲート結果に応じて遷移可否が一意に決まる。
 
 ### 5.5 AC-テスト要件対応表 [空欄禁止]
 
-- AC-001: Unit Test + Manual Verification-1/2
-- AC-002: Unit Test
-- AC-003: Unit Test + Manual Verification-3
-- AC-004: Unit Test + Manual Verification-3
-- AC-005: Unit Test + Manual Verification-2
-- AC-006: Integration Test + Regression Test
+- AC-001: Unit Test
+- AC-002: Unit Test + Manual Verification-1
+- AC-003: Unit Test
+- AC-004: Unit Test + Manual Verification-2
+- AC-005: Unit Test
+- AC-006: Unit Test + Manual Verification-3/4
+- AC-007: Unit Test + Integration Test
+- AC-008: Integration Test + Regression Test
 
 ## 6. 影響範囲 [空欄禁止]
 
@@ -112,26 +119,95 @@
   - `agents/skills/**/SKILL.md`（実装段階）
   - `work/2026-02-20__subagent-multi-agent-delegation-governance/*`
 - 影響する仕様:
-  - fixed workflow, commit boundaries, dependency gate
+  - fixed workflow
+  - commit boundaries
+  - dependency gate
 - 非機能影響:
-  - 並列化による作業速度向上
-  - 親再検証ステップ追加によるレビュー負荷増
+  - 品質確認強化によりスループットは一部低下する可能性がある。
+  - 3工程の草案生成は委譲により初動速度を維持できる。
 
 ## 7. 制約とリスク [空欄禁止]
 
 - 制約:
-  - 高リスク工程は親エージェント固定とする。
-  - 委譲時は工程 md へのログ記録を必須とする。
+  - 委譲対象は `request / investigation / spec` のみ。
+  - 3工程は同一 `delegated_agent_id` で処理する。
+  - `plan` 以降とコミットは親固定。
 - 想定リスク:
-  - サブエージェントへのコンテキスト不足で品質低下が起きる。
-  - 返却情報の粒度不足で親の再検証が困難になる。
+  - 単一委譲でボトルネックが発生する。
+  - コンテキスト不足で3工程すべてに誤りが波及する。
 - 回避策:
-  - コンテキスト必須項目を固定し、不足時は blocked 扱いにする。
-  - 親側で再検証コマンド実行を必須化する。
+  - 親の再検討チェックリストを固定化する。
+  - `gate_result=fail` で即時差し戻しし、次工程とコミットを停止する。
 
-## 8. 未確定事項 [空欄禁止]
+## 8. 委譲実行契約 [空欄禁止]
 
-- なし。
+### 8.1 工程別オーナー契約 (Phase Ownership Matrix) [空欄禁止]
+
+| phase | owner | rule |
+| --- | --- | --- |
+| request | delegated agent | 同一 `delegated_agent_id` で実行 |
+| investigation | delegated agent | 同一 `delegated_agent_id` で実行 |
+| spec | delegated agent | 同一 `delegated_agent_id` で実行 |
+| plan | parent agent | 委譲禁止（親固定） |
+| test | parent agent | 委譲禁止（親固定） |
+| review | parent agent | 委譲禁止（親固定） |
+| docs_update | parent agent | 委譲禁止（親固定） |
+| commit | parent agent | 委譲禁止（親固定） |
+
+### 8.2 委譲入力コンテキスト契約 [空欄禁止]
+
+- 必須キー:
+  - `task_id`
+  - `delegated_agent_id`
+  - `phase`
+  - `objective`
+  - `scope`
+  - `constraints`
+  - `acceptance`
+  - `expected_output`
+  - `editable_sections`
+
+### 8.3 一次成果物と sidecar 監査ログ契約 [空欄禁止]
+
+- 一次成果物:
+  - `work/<task-id>/request.md`
+  - `work/<task-id>/investigation.md`
+  - `work/<task-id>/spec.md`
+- sidecar 保存先規約:
+  - `work/<task-id>/agent-logs/<phase>/<timestamp>-<delegated-agent-id>.md`
+- sidecar 必須項目:
+  - `parent_agent_id`
+  - `delegated_agent_id`
+  - `phase`
+  - `target_md_path`
+  - `commands_executed`
+  - `summary`
+  - `changed_files`
+  - `open_risks`
+
+### 8.4 親返却フォーマットと再検討契約 [空欄禁止]
+
+- 必須キー:
+  - `phase`
+  - `target_md_path`
+  - `edited_sections`
+  - `summary`
+  - `evidence_commands`
+  - `changed_files`
+  - `open_risks`
+  - `needs_decision`
+  - `sidecar_log_path`
+- 親再検討チェック:
+  - 返却 `edited_sections` と実差分の一致確認
+  - `evidence_commands` の再実行または同等検証
+  - 要件逸脱有無の確認
+
+### 8.5 ゲート・遷移・コミット契約 [空欄禁止]
+
+- 親は `spec` 確定後に `gate_result`（`pass` or `fail`）を記録する。
+- `gate_result=pass` まで `plan` 着手を禁止する。
+- `gate_result=pass` まで `git commit` を禁止する。
+- `gate_result=fail` は差し戻しとし、`state.json` の `state` は `blocked` または `in_progress` の範囲で維持する。
 
 ## 9. 関連資料リンク [空欄禁止]
 
@@ -143,3 +219,7 @@
   - `docs/operations/high-priority-backlog.md`
   - `docs/operations/skills-framework-flow-guide.md`
   - `docs/operations/framework-request-to-commit-visual-guide.md`
+
+## 10. 未確定事項 [空欄禁止]
+
+- なし。
