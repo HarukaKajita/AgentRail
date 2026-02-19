@@ -24,30 +24,29 @@ flowchart TD
   A[ユーザーが要望を提示] --> B[request.md 作成・要望整理]
   B --> C[investigation.md 調査]
   C --> D[spec.md 要件確定]
-  D --> E[plan-draft 作成]
-  E --> K1[起票境界コミット]
+  D --> L{厳格ブロック条件を満たすか}
+  L -- No --> M[state=blocked]
+  L -- Yes --> E[plan-draft 作成]
+
+  E --> R{gate_result=pass か}
+  R -- No --> S[差し戻し（blocked/in_progress）]
+  R -- Yes --> K1[起票境界コミット]
+
   K1 --> E1[depends_on 依存解決確認]
-  E1 --> E2[plan-final 確定]
+  E1 --> D1{依存先はすべて done か}
+  D1 -- No --> D2[依存先 task を先行着手]
+  D2 --> E1
+  D1 -- Yes --> E2[plan-final 確定]
   E2 --> F[実装]
   F --> G[テスト]
   G --> K2[実装境界コミット]
   K2 --> H[review.md レビュー]
-  H --> I[docs 更新 + docs/INDEX.md 更新]
-  I --> J[MEMORY.md + state.json 更新]
-  J --> K3[完了境界コミット]
-
-  D --> L{厳格ブロック条件を満たすか}
-  L -- No --> M[state=blocked]
-  L -- Yes --> E
-
-  E1 --> D1{依存先はすべて done か}
-  D1 -- No --> D2[依存先 task を先行着手]
-  D1 -- Yes --> E2
-
   H --> N{done 条件を満たすか}
   N -- No --> O[修正して再テスト]
   O --> G
-  N -- Yes --> I
+  N -- Yes --> I[docs 更新 + docs/INDEX.md 更新]
+  I --> J[MEMORY.md + state.json 更新]
+  J --> K3[完了境界コミット]
 ```
 
 ## 3. 工程ごとの出来事
