@@ -1,5 +1,14 @@
 # Investigation: 2026-02-19__state-validator-history-strategy
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+- 理解ポイント:
+  - 本資料に入る前に、目的・受入条件・依存関係を把握する。
+
+
 ## 1. 調査対象 [空欄禁止]
 
 - Source task 2026-02-18__state-transition-validation の finding F-001 の根本原因分析。

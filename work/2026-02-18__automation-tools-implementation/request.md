@@ -1,5 +1,14 @@
 # Request: 2026-02-18__automation-tools-implementation
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+- 理解ポイント:
+  - 本資料に入る前に、目的・受入条件・依存関係を把握する。
+
+
 ## 要望の原文
 
 - `docs/specs/automation-tools-design-spec.md` を基に自動化基盤段階の実装タスクを起票し、実装する。

@@ -1,5 +1,14 @@
 # Investigation: 2026-02-18__automation-tools-implementation
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+- 理解ポイント:
+  - 本資料に入る前に、目的・受入条件・依存関係を把握する。
+
+
 ## 1. 調査対象 [空欄禁止]
 
 - 自動化基盤段階の設計を実装へ落とす際の最小構成と失敗条件の具体化。

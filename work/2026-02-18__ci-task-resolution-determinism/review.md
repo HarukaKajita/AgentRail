@@ -1,5 +1,14 @@
 # Review: 2026-02-18__ci-task-resolution-determinism
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+- 理解ポイント:
+  - 本資料に入る前に、目的・受入条件・依存関係を把握する。
+
+
 ## 1. レビュー対象
 
 - `.github/workflows/ci-framework.yml`

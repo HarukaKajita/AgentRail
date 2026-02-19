@@ -1,5 +1,14 @@
 # Profile Validator Required Checks Source Of Truth
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+- 理解ポイント:
+  - 本資料に入る前に、目的・受入条件・依存関係を把握する。
+
+
 ## 目的
 
 `tools/profile-validate/validate.ps1` の required key 判定を、スクリプト内の静的配列ではなく単一の schema 定義から管理する。

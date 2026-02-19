@@ -1,5 +1,14 @@
 # Request: 2026-02-18__automation-tools-ci-integration
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+- 理解ポイント:
+  - 本資料に入る前に、目的・受入条件・依存関係を把握する。
+
+
 ## 要望の原文
 
 - CI 連携タスク（自動化基盤段階）を起票して `index_docs` / `check_consistency` をパイプラインに組み込む。

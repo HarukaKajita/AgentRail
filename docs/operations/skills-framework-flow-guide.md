@@ -1,5 +1,14 @@
 # Skills Framework Flow Guide
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+- 理解ポイント:
+  - 本資料に入る前に、目的・受入条件・依存関係を把握する。
+
+
 ## 目的
 
 `agents/skills` で開発するスキルが、実運用時 (`./.agents/skills`) にも同一品質で動作するための設計・運用ルールを定義する。

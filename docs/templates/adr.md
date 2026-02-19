@@ -1,5 +1,14 @@
 # ADR テンプレート
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+- 理解ポイント:
+  - 本資料に入る前に、目的・受入条件・依存関係を把握する。
+
+
 ADR (Architecture Decision Record / アーキテクチャ意思決定記録) を残すためのテンプレートです。  
 ファイル名は `YYYYMMDD-<short-title>.md` を推奨します。
 

@@ -1,17 +1,21 @@
 # 高優先バックログ
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+- 理解ポイント:
+  - 本資料に入る前に、目的・受入条件・依存関係を把握する。
+
+
 ## 目的
 
 次に着手すべき高優先タスクを docs から俯瞰できるようにする。
 
 ## 優先タスク一覧
 
-1. `2026-02-19__existing-docs-prerequisites-retrofit`
-- 状態: planned
-- 依存: `2026-02-19__task-doc-prerequisite-knowledge-section`
-- 依存状態: 解決済み
-- 目的: 既存資料（`docs/` と `work/` の `archive/legacy` 除外）へ前提知識セクションを優先度順で遡及適用する
-- 参照: `work/2026-02-19__existing-docs-prerequisites-retrofit/spec.md`
+- なし
 
 ## Completed
 
@@ -128,6 +132,13 @@
 - 状態: done
 - 目的: Process Findings + 改善起票強制 + CI 改善ゲート導入
 - 参照: `work/2026-02-18__self-improvement-loop-enforcement/spec.md`
+
+22. `2026-02-19__existing-docs-prerequisites-retrofit`
+- 状態: done
+- 依存: `2026-02-19__task-doc-prerequisite-knowledge-section`
+- 依存状態: 解決済み
+- 目的: 既存資料（`docs/` と `work/` の archive/legacy 除外）へ前提知識セクションを優先度順で遡及適用する
+- 参照: `work/2026-02-19__existing-docs-prerequisites-retrofit/spec.md`
 
 ## 更新ルール
 

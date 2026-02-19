@@ -1,5 +1,14 @@
 # Profile Validator Schema Version Policy
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+- 理解ポイント:
+  - 本資料に入る前に、目的・受入条件・依存関係を把握する。
+
+
 ## 目的
 
 `project.profile.yaml` の schema 互換判定を `schema_version` に一本化し、`version` 依存を排除する。
