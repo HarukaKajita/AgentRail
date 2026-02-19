@@ -5,34 +5,35 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-19__rail10-skill-command-path-fix
-- タイトル: Rail10 Skill Command Path Fix
+- Task ID: 2026-02-19__task-doc-prerequisite-knowledge-section
+- タイトル: Task and Spec Docs Prerequisite Knowledge Section Standardization
 - 状態: planned
-- 最終更新日時: 2026-02-19T19:19:04+09:00
+- 最終更新日時: 2026-02-19T19:27:25+09:00
 - 担当: codex
 
 ## 2. 今回の目的
 
-- `Rail10:list-planned-tasks-by-backlog-priority` のコマンド案内を、スキル同梱 `scripts/` 実行へ統一するタスクを起票する。
-- 実装前に受入条件・テスト要件・docs 更新範囲を `spec.md` まで確定する。
+- 仕様資料と task 資料に前提知識セクションを導入する要件を task として起票する。
+- どの資料からでも参照を遡って理解できる導線を、受入条件とテスト要件として確定する。
 - 起票完了後に差分をコミットする。
 
 ## 3. 完了済み
 
-- `work/2026-02-19__rail10-skill-command-path-fix/` を作成し、必須6ファイル（request/investigation/spec/plan/review/state）を作成した。
-- `investigation.md` で `SKILL.md` の `$HOME/.agents/...` と `agents/skills/...` の混在を確認した。
+- `work/2026-02-19__task-doc-prerequisite-knowledge-section/` を作成し、必須6ファイル（request/investigation/spec/plan/review/state）を作成した。
+- `investigation.md` で templates、起票生成、consistency-check の現状を調査し、前提知識セクション未整備を確認した。
 - `spec.md` で AC-001〜AC-005 とテスト要件（Unit/Integration/Regression/Manual）を確定した。
 - `docs/operations/high-priority-backlog.md` に本タスクを `planned` の優先タスクとして追加した。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-19
-- 決定内容: Rail10 スキルの実行案内は `$HOME` 依存を排除し、スキル同梱 `scripts/list_planned_tasks.ps1` を正本導線にする。
-- 決定内容: `.agents/skills/...` と `agents/skills/...` が併存する場合、`SKILL.md` は同内容を維持する。
+- 決定内容: 前提知識セクションは docs/work の標準フォーマットとして定義し、参照を遡れる記法を必須化する。
+- 決定内容: 起票生成と consistency-check の両面で前提知識セクション運用を強制する方針を採用する。
 - 根拠資料:
-  - `.agents/skills/Rail10-list-planned-tasks-by-backlog-priority/SKILL.md`
-  - `.agents/skills/Rail10-list-planned-tasks-by-backlog-priority/scripts/list_planned_tasks.ps1`
-  - `work/2026-02-19__rail10-skill-command-path-fix/spec.md`
+  - `docs/templates/spec.md`
+  - `tools/improvement-harvest/create-task.ps1`
+  - `tools/consistency-check/check.ps1`
+  - `work/2026-02-19__task-doc-prerequisite-knowledge-section/spec.md`
 
 ## 5. 未解決・ブロッカー
 
@@ -40,16 +41,16 @@
 
 ## 6. 次アクション
 
-1. `Rail10` スキルの `SKILL.md` コマンドセクションを `scripts/` 起点へ実装修正する。
-2. 記載コマンドの実行確認を行い、`review.md` に結果を記録する。
-3. `state.json` を `done` に更新する。
+1. 前提知識セクションの標準スキーマ（見出し、必須項目、記法）を決定してテンプレートへ反映する。
+2. 起票生成と consistency-check に前提知識セクション要件を実装する。
+3. active docs/work への遡及更新を実施し、`review.md` と `state.json` を完了状態へ更新する。
 
 ## 7. 参照先
 
-- `work/2026-02-19__rail10-skill-command-path-fix/request.md`
-- `work/2026-02-19__rail10-skill-command-path-fix/investigation.md`
-- `work/2026-02-19__rail10-skill-command-path-fix/spec.md`
-- `work/2026-02-19__rail10-skill-command-path-fix/plan.md`
+- `work/2026-02-19__task-doc-prerequisite-knowledge-section/request.md`
+- `work/2026-02-19__task-doc-prerequisite-knowledge-section/investigation.md`
+- `work/2026-02-19__task-doc-prerequisite-knowledge-section/spec.md`
+- `work/2026-02-19__task-doc-prerequisite-knowledge-section/plan.md`
 
 ## 8. 引き継ぎ時チェック
 
