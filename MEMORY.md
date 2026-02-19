@@ -5,33 +5,30 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-19__state-validator-history-strategy
-- タイトル: State Validator History Strategy
-- 状態: done
-- 最終更新日時: 2026-02-19T04:35:37+09:00
+- Task ID: 2026-02-19__profile-version-schema-version-unification-strategy
+- タイトル: Profile Version Schema Version Unification Strategy
+- 状態: planned
+- 最終更新日時: 2026-02-19T15:58:57+09:00
 - 担当: Codex
 
 ## 2. 今回の目的
 
-- state history の管理方式を決定する。
-- state validator で履歴混入を検知できるようにする。
-- docs/バックログ/タスク記録を `done` 状態まで更新する。
+- `version` と `schema_version` の将来統合方針を実装可能な粒度で定義する。
+- 正本フィールド・移行期間・廃止条件を明確化する。
+- 新規 planned task と backlog 導線を起票する。
 
 ## 3. 完了済み
 
-- state history 方式を「`state.json` 非保持、Git 履歴へ外部化」に決定した。
-- `tools/state-validate/validate.ps1` に `history` / `state_history` 禁止チェックを追加した。
-- 正常系（`-AllTasks`）と異常系（history キー混入）で state validator の PASS/FAIL を実測した。
-- `docs/operations/state-history-strategy.md` を追加した。
-- `docs/operations/validator-enhancement-backlog.md` の VE-004 を `done` に更新した。
-- `docs/operations/high-priority-backlog.md` で本タスクを Completed へ移動した。
-- `tools/docs-indexer/index.ps1` 実行で `docs/INDEX.md` を同期した。
+- `work/2026-02-19__profile-version-schema-version-unification-strategy/` を新規作成し、必須6ファイルを起票した。
+- `docs/operations/validator-enhancement-backlog.md` に VE-005 を `planned` で追加した。
+- `docs/operations/high-priority-backlog.md` の優先タスク一覧へ本タスクを追加した。
+- 新タスク文書の整合が取れるよう request/investigation/spec/plan を具体化した。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-19
-- 決定内容: state history は `state.json` に保持せず、Git 履歴を正として運用する。
-- 根拠資料: `work/2026-02-19__state-validator-history-strategy/review.md`
+- 決定内容: 統合方針タスクを VE-005 として起票し、次の着手対象を `2026-02-19__profile-version-schema-version-unification-strategy` に設定する。
+- 根拠資料: `docs/operations/high-priority-backlog.md`
 
 ## 5. 未解決・ブロッカー
 
@@ -39,9 +36,9 @@
 
 ## 6. 次アクション
 
-1. planned backlog が空であることを定期確認する。
-2. `version` と `schema_version` の統合方針を次フェーズで検討する。
-3. state history 専用 artifact が必要になった場合は新規 task を起票する。
+1. `2026-02-19__profile-version-schema-version-unification-strategy` の実装（方針確定）に着手する。
+2. 方針確定後に validator 実装タスクへ分解する。
+3. 既存 docs（policy/template）との整合を再確認する。
 
 ## 7. 参照先
 

@@ -6,7 +6,11 @@
 
 ## 優先タスク一覧
 
-- （なし）
+1. `2026-02-19__profile-version-schema-version-unification-strategy`
+- 状態: planned
+- 目的: `version` と `schema_version` の将来統合方針（正本フィールド、移行期間、validator 互換モード）を確定する
+- 参照: `work/2026-02-19__profile-version-schema-version-unification-strategy/spec.md`
+- 元候補: `docs/operations/validator-enhancement-backlog.md` の VE-005
 
 ## Completed
 
