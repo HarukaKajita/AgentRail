@@ -2,16 +2,24 @@
 
 ## 要望の原文
 
-- version と schema_version の将来統合方針タスクを起票して
+- 2026-02-19__profile-version-schema-version-unification-strategy に着手する。
+- 着手前にテスト要件と docs 更新範囲を確定する。
+- review -> docs -> memory まで一気通貫で完了する。
+- `version` と `schema_version` を統合し、`version` 依存箇所を一括修正する。
+- 過去バージョン互換は考慮せず、合理的な破壊的変更を許容する。
 
 ## 要望の整理
 
-- 背景: `project.profile.yaml` に `version` と `schema_version` が共存しており、将来の正本フィールドを明確化する必要がある。
-- 目的: 統合方針（正本フィールド、移行期間、validator 互換モード）を定義するための実装タスクを起票する。
-- 参照: `work/2026-02-19__profile-validator-schema-version-field/review.md`
+- 背景: `project.profile.yaml` で `version` と `schema_version` が共存し、profile schema の正本フィールドが重複している。
+- 目的: `schema_version` を唯一の正本に一本化し、`version` 依存と両立運用を終了する。
+- 方針: 互換モードを持たず、破壊的変更として `version` を廃止する。
+- 参照:
+  - `work/2026-02-19__profile-validator-schema-version-field/review.md`
+  - `docs/operations/profile-validator-schema-version-policy.md`
 
 ## 成功条件（要望レベル）
 
-1. `work/2026-02-19__profile-version-schema-version-unification-strategy/` に必須6ファイルが作成される。
-2. `spec.md` の空欄禁止項目とテスト要件が実施可能な粒度で記述される。
-3. `docs/operations/high-priority-backlog.md` と `docs/operations/validator-enhancement-backlog.md` に planned として登録される。
+1. `project.profile.yaml` から `version` が削除され、`schema_version` のみで運用される。
+2. profile validator が `version` キーを拒否し、`schema_version` のみを互換判定に使う。
+3. 着手前に確定したテスト要件を実施し、結果が `review.md` に記録される。
+4. 関連 docs と `docs/INDEX.md`、`MEMORY.md`、`state.json` が更新される。

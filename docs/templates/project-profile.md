@@ -25,6 +25,7 @@ source of truth:
 2. 不要なコマンドでも `N/A` ではなく代替運用をコメントで明記する。
 3. 推測で書かず、実プロジェクトの事実を記入する。
 4. `schema_version` は `tools/profile-validate/profile-schema.json` の `supported_profile_schema_versions` に含まれる値を使う。
+5. top-level `version` は廃止済みのため記載しない（存在すると validator が FAIL）。
 
 ## 3. 例（Unity、参考）
 

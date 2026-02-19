@@ -18,7 +18,7 @@ validator（profile/state）の改善候補を、task review から継続的に�
 | VE-002 | profile-validator | `work/2026-02-18__project-profile-schema-validation/review.md` | `project.profile.yaml` に `schema_version` フィールドを導入し、validator 互換方針を明確化する。 | low | done | `2026-02-19__profile-validator-schema-version-field` |
 | VE-003 | state-validator | `work/2026-02-18__state-transition-validation/review.md` | `done` 判定の検証対象に docs 反映整合（例: `docs/INDEX.md` 導線）を追加する是非を検討する。 | medium | done | `2026-02-19__state-validator-done-docs-index-consistency` |
 | VE-004 | state-validator | `work/2026-02-18__state-transition-validation/review.md` | `state history` 管理方式（履歴保持するか、履歴を別 artifacts に逃がすか）を決定する。 | low | done | `2026-02-19__state-validator-history-strategy` |
-| VE-005 | profile-validator | `work/2026-02-19__profile-validator-schema-version-field/review.md` | `version` と `schema_version` の将来統合方針（正本・移行・廃止条件）を定義する。 | medium | planned | `2026-02-19__profile-version-schema-version-unification-strategy` |
+| VE-005 | profile-validator | `work/2026-02-19__profile-validator-schema-version-field/review.md` | `version` を廃止し、`schema_version` 単一運用へ統合する。 | medium | done | `2026-02-19__profile-version-schema-version-unification-strategy` |
 
 ## 関連資料
 

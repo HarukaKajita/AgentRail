@@ -145,6 +145,22 @@ foreach ($placeholder in $forbiddenPlaceholders) {
   }
 }
 
+$forbiddenTopLevelKeys = @()
+if ($schema -and $schema.PSObject.Properties.Name -contains "forbidden_top_level_keys") {
+  $forbiddenTopLevelKeys = @($schema.forbidden_top_level_keys | ForEach-Object { [string]$_ })
+}
+
+foreach ($forbiddenTopLevelKey in $forbiddenTopLevelKeys) {
+  if ([string]::IsNullOrWhiteSpace($forbiddenTopLevelKey)) {
+    continue
+  }
+
+  $escapedForbiddenKey = [Regex]::Escape($forbiddenTopLevelKey.Trim())
+  if ([Regex]::IsMatch($profileContent, "(?m)^${escapedForbiddenKey}:\s*")) {
+    Add-Failure "Forbidden top-level key is present: $forbiddenTopLevelKey"
+  }
+}
+
 $requiredKeys = @()
 if ($schema -and $schema.PSObject.Properties.Name -contains "required_keys") {
   $requiredKeys = @($schema.required_keys)

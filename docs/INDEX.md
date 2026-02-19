@@ -54,3 +54,4 @@
 1. 新規または更新した資料を上記カテゴリに追加する。
 2. パスの存在確認を行う。
 3. タスク完了前に更新漏れがないか確認する。
+4. profile schema 運用変更時は `docs/operations/profile-validator-schema-version-policy.md` を優先参照する。

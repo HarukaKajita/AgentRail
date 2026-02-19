@@ -2,11 +2,12 @@
 
 ## 1. 調査対象 [空欄禁止]
 
-- `version` と `schema_version` の共存状態を将来どう統合するか。
+- `project.profile.yaml` で `version` と `schema_version` を一本化する最短変更。
+- `version` 依存箇所の実コードと docs 反映範囲。
 
 ## 2. 仮説 (Hypothesis / 仮説) [空欄禁止]
 
-- 正本を `schema_version` に統一し、`version` を段階的に廃止する移行方針を定義すれば、互換性と保守性を両立できる。
+- `schema_version` を唯一の正本に固定し、`version` の存在自体を validator で禁止すると、運用判断の分岐を最小化できる。
 
 ## 3. 観測方法 [空欄禁止]
 
@@ -15,34 +16,39 @@
   - `tools/profile-validate/validate.ps1`
   - `tools/profile-validate/profile-schema.json`
   - `docs/operations/profile-validator-schema-version-policy.md`
+  - `docs/operations/high-priority-backlog.md`
+  - `docs/operations/validator-enhancement-backlog.md`
 - 実施した確認:
-  - 現行 validator が `schema_version` を互換判定に利用していることを確認する。
-  - `version` フィールドの残存理由（互換維持）を確認する。
-  - 既存タスク・docs 側で `version` を直接参照する箇所を把握する。
+  - `schema_version` 照合ロジックが validator 実装済みであること。
+  - `version` が required key として残存していること。
+  - `version` 参照が profile/policy/backlog/task 文書に分散していること。
 
 ## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
 
-- 現在の互換判定は `schema_version` を正として実装済み。
-- `version` は互換維持のため残しているが、統合完了条件は未定義。
-- 統合方針が未確定のため、将来の破壊的変更タイミングを判断しづらい。
+- validator の互換判定は `schema_version` を使用している。
+- `version` は `tools/profile-validate/profile-schema.json` の required key に残っており、共存を許容している。
+- 現行 policy は `version` を互換目的で維持する記述のまま。
+- 未着手の planned タスクが本件 1 件で、統合完了後は backlog を done へ反映できる。
 
 ## 5. 結論 (Conclusion / 結論) [空欄禁止]
 
-- 本タスクで `version` と `schema_version` の統合ロードマップを確定する。
-- 最低限、次を成果物として定義する:
-  1. 正本フィールド決定
-  2. 移行期間と段階ゲート
-  3. validator の warning/fail 切替条件
+- 本タスクでは互換モードを廃止し、`schema_version` 単一運用へ即時移行する。
+- 実装上の確定事項:
+  1. `project.profile.yaml` から `version` を削除する。
+  2. profile schema の `required_keys` から `version` を削除する。
+  3. validator に `version` キー拒否チェックを追加する。
+  4. `schema_version` を `2.0.0` に更新し、許容バージョンを `2.0.0` のみにする。
+  5. policy/backlog/index/memory/task 文書を done 状態へ更新する。
 
 ## 6. 未解決事項 [空欄禁止]
 
-- 廃止猶予期間を日付ベースで管理するか、schema_version のメジャー更新で管理するか。
+- なし（破壊的変更許容は要望で明示済み）。
 
 ## 7. 次アクション [空欄禁止]
 
-1. 統合方針タスクの受入条件を spec に具体化する。
-2. 実装順序とロールバックを plan に定義する。
-3. backlog へ planned 登録して着手順を固定する。
+1. `spec.md` で AC とテスト要件を破壊的変更前提へ更新する。
+2. `plan.md` で docs 更新範囲と実行コマンドを確定する。
+3. 実装・テスト・review・docs・memory を一気通貫で完了する。
 
 ## 8. 関連リンク [空欄禁止]
 
