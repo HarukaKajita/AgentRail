@@ -6,7 +6,12 @@
 
 ## 優先タスク一覧
 
-- なし
+1. `2026-02-19__existing-docs-prerequisites-retrofit`
+- 状態: planned
+- 依存: `2026-02-19__task-doc-prerequisite-knowledge-section`
+- 依存状態: 解決済み
+- 目的: 既存資料（`docs/` と `work/` の `archive/legacy` 除外）へ前提知識セクションを優先度順で遡及適用する
+- 参照: `work/2026-02-19__existing-docs-prerequisites-retrofit/spec.md`
 
 ## Completed
 

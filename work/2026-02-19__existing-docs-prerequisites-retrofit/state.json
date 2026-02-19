@@ -1,0 +1,9 @@
+{
+  "state": "planned",
+  "owner": "unassigned",
+  "updated_at": "02/20/2026 00:39:00",
+  "blocking_issues": [],
+  "depends_on": [
+    "2026-02-19__task-doc-prerequisite-knowledge-section"
+  ]
+}

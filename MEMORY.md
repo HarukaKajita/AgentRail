@@ -5,16 +5,17 @@
 
 ## 1. 現在のタスク
 
-- Task ID: none
-- タイトル: high-priority planned tasks completed
-- 状態: done
-- 最終更新日時: 2026-02-19T23:43:00+09:00
+- Task ID: 2026-02-19__existing-docs-prerequisites-retrofit
+- タイトル: Existing Docs Prerequisites Retrofit
+- 状態: planned
+- 最終更新日時: 2026-02-20T00:39:00+09:00
 - 担当: codex
 
 ## 2. 今回の目的
 
 - `project.profile.yaml` schema の変更時に `schema_version` 運用を CI で強制する。
 - planned タスクを優先順で1件ずつ完了し、次タスクへ移る前に必ずコミットする。
+- 既存資料への前提知識セクション遡及適用タスクを起票し、要件確定まで進める。
 
 ## 3. 完了済み
 
@@ -30,11 +31,13 @@
 - 決定内容: Rail10 のコマンド案内は `$HOME/.agents` を使わず、スキル同梱 `scripts/list_planned_tasks.ps1` 実行で統一する。
 - 決定内容: active task では `前提知識` セクションを checker で必須化する。
 - 決定内容: profile schema 変更時は `tools/profile-validate/check-schema-governance.ps1` を CI fail-fast gate として必須実行する。
+- 決定内容: 既存資料への前提知識セクション遡及適用は P1-P3 の優先度フェーズで実施する。
 - 根拠資料:
   - `.agents/skills/Rail10-list-planned-tasks-by-backlog-priority/SKILL.md`
   - `agents/skills/Rail10-list-planned-tasks-by-backlog-priority/SKILL.md`
   - `work/2026-02-19__rail10-skill-command-path-fix/review.md`
   - `work/2026-02-19__ci-profile-schema-version-governance-gate/review.md`
+  - `work/2026-02-19__existing-docs-prerequisites-retrofit/spec.md`
 
 ## 5. 未解決・ブロッカー
 
@@ -42,16 +45,16 @@
 
 ## 6. 次アクション
 
-1. 新規要望の受領待ち（`docs/operations/high-priority-backlog.md` の planned は現在 `なし`）。
-2. 次回着手時は `docs/operations/high-priority-backlog.md` と `work/*/state.json` を再同期確認する。
+1. `2026-02-19__existing-docs-prerequisites-retrofit` の実装フェーズ（P1）へ着手する。
+2. フェーズごとに consistency/state/docs check を実行して境界コミットする。
 
 ## 7. 参照先
 
-- `work/2026-02-19__ci-profile-schema-version-governance-gate/request.md`
-- `work/2026-02-19__ci-profile-schema-version-governance-gate/investigation.md`
-- `work/2026-02-19__ci-profile-schema-version-governance-gate/spec.md`
-- `work/2026-02-19__ci-profile-schema-version-governance-gate/plan.md`
-- `work/2026-02-19__ci-profile-schema-version-governance-gate/review.md`
+- `work/2026-02-19__existing-docs-prerequisites-retrofit/request.md`
+- `work/2026-02-19__existing-docs-prerequisites-retrofit/investigation.md`
+- `work/2026-02-19__existing-docs-prerequisites-retrofit/spec.md`
+- `work/2026-02-19__existing-docs-prerequisites-retrofit/plan.md`
+- `work/2026-02-19__existing-docs-prerequisites-retrofit/review.md`
 
 ## 8. 引き継ぎ時チェック
 
