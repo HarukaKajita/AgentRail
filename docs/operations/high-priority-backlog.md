@@ -15,16 +15,7 @@
 
 ## 優先タスク一覧
 
-1. `2026-02-20__dependency-gate-before-plan-flow`
-- 状態: planned
-- 計画段階: plan-draft
-- ゲート状態: plan-ready
-- 依存: `2026-02-19__task-dependency-aware-prioritization-flow`, `2026-02-19__task-commit-boundary-automation-flow`
-- 依存状態: 解決済み
-- 目的: `plan-draft -> depends_on gate -> plan-final` の2段階計画フローを定義し、依存未解決時は final 計画確定を抑止する
-- 参照: `work/2026-02-20__dependency-gate-before-plan-flow/spec.md`
-
-2. `2026-02-20__subagent-multi-agent-delegation-governance`
+1. `2026-02-20__subagent-multi-agent-delegation-governance`
 - 状態: planned
 - 計画段階: plan-draft
 - ゲート状態: plan-ready
@@ -155,6 +146,13 @@
 - 依存状態: 解決済み
 - 目的: 既存資料（`docs/` と `work/` の archive/legacy 除外）へ前提知識セクションを優先度順で遡及適用する
 - 参照: `work/2026-02-19__existing-docs-prerequisites-retrofit/spec.md`
+
+23. `2026-02-20__dependency-gate-before-plan-flow`
+- 状態: done
+- 依存: `2026-02-19__task-dependency-aware-prioritization-flow`, `2026-02-19__task-commit-boundary-automation-flow`
+- 依存状態: 解決済み
+- 目的: `plan-draft -> depends_on gate -> plan-final` の2段階計画フローを導入し、依存未解決時の final 計画確定を抑止する
+- 参照: `work/2026-02-20__dependency-gate-before-plan-flow/spec.md`
 
 ## 更新ルール
 

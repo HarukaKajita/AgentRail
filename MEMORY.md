@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__dependency-gate-before-plan-flow
-- タイトル: Dependency Gate Before Plan Flow
+- Task ID: 2026-02-20__subagent-multi-agent-delegation-governance
+- タイトル: Subagent Multi Agent Delegation Governance
 - 状態: planned
-- 最終更新日時: 2026-02-20T02:30:00+09:00
+- 最終更新日時: 2026-02-20T03:59:39+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -27,6 +27,7 @@
 - `2026-02-19__task-dependency-aware-prioritization-flow` を完了。
 - `2026-02-19__task-doc-prerequisite-knowledge-section` を完了。
 - `2026-02-19__rail10-skill-command-path-fix` を完了。
+- `2026-02-20__dependency-gate-before-plan-flow` を完了。
 
 ## 4. 重要な意思決定
 
@@ -38,6 +39,7 @@
 - 決定内容: docs 30/30、work 130/130（archive/legacy 除外）で前提知識セクション適用を完了した。
 - 決定内容: subagent / multi_agent は原則活用し、品質低下懸念工程は親エージェント固定とする方針で要件化する。
 - 決定内容: ベストプラクティスに合わせ、`plan-draft -> depends_on gate -> plan-final` を採用する方針で起票する。
+- 決定内容: 2段階計画フローを AGENTS/docs/Rail10/checker/state-validator へ実装し、`plan-final` は depends_on gate pass 後のみ確定可能とした。
 - 根拠資料:
   - `.agents/skills/Rail10-list-planned-tasks-by-backlog-priority/SKILL.md`
   - `agents/skills/Rail10-list-planned-tasks-by-backlog-priority/SKILL.md`
@@ -51,9 +53,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__dependency-gate-before-plan-flow` の要件確定を完了する。
-2. `2026-02-20__subagent-multi-agent-delegation-governance` を仕様どおりに実装する。
-3. 依存ゲート前倒しフローの実装タスクへ着手し、docs / skills / checker を同期更新する。
+1. `2026-02-20__subagent-multi-agent-delegation-governance` を優先で実装する。
+2. backlog の planned 一覧を Rail10 出力で確認し、`plan-ready` タスクから順次着手する。
+3. 各 task で kickoff / implementation / finalize のコミット境界を維持する。
 
 ## 7. 参照先
 
@@ -62,6 +64,7 @@
 - `work/2026-02-20__dependency-gate-before-plan-flow/spec.md`
 - `work/2026-02-20__dependency-gate-before-plan-flow/plan.md`
 - `work/2026-02-20__dependency-gate-before-plan-flow/review.md`
+- `work/2026-02-20__subagent-multi-agent-delegation-governance/spec.md`
 
 ## 8. 引き継ぎ時チェック
 
