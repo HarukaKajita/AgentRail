@@ -17,7 +17,7 @@
 
 - `state=done` 判定に docs/INDEX 反映整合を追加すれば、docs 更新漏れのまま done 化されるリスクを低減できる。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - work/2026-02-18__state-transition-validation/review.md
@@ -28,7 +28,7 @@
   - docs/INDEX 整合を検証している既存ロジックがどこにあるかを確認する。
   - state validator へ最小追加で導入できる検証方式を確認する。
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - `tools/state-validate/validate.ps1` の done 判定は owner / review PENDING の整合を主に検証しており、docs/INDEX 反映は対象外。
 - `tools/consistency-check/check.ps1` には spec の docs path と `docs/INDEX.md` の整合確認ロジックがある。

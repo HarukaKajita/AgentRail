@@ -17,7 +17,7 @@
 
 - `-AllTasks` で archive/legacy 系ディレクトリを除外すれば、保守対象外 task のノイズを減らしつつ、現行 task の fail-fast は維持できる。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - `work/2026-02-18__consistency-check-multi-task-mode/review.md`
@@ -29,7 +29,7 @@
   - `-AllTasks` 実装が現状は `work/` 直下を無条件で全ディレクトリ走査していることを確認
   - 既存仕様で archive/legacy の除外条件が未定義なことを確認
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - source task の finding では、`-AllTasks` が legacy task の不整合を拾い、運用上のノイズになる点が指摘されている。
 - 現行 `tools/consistency-check/check.ps1` の all モードは `work/` 直下ディレクトリをすべて対象化し、名前による除外判定を持たない。

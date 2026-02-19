@@ -17,7 +17,7 @@
 
 - 既存 review の改善提案・Process Findings を構造化し、運用資料として明示すれば、validator 拡張の優先順位を安定して管理できる。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - `work/2026-02-18__project-profile-schema-validation/review.md`
@@ -30,7 +30,7 @@
   - 既存 docs に validator 専用 backlog がないことを確認
   - high-priority backlog へ参照導線を追加すべきかを確認
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - profile validator では「requiredChecks の静的管理」「profile schema version 検討」が継続課題として残っている。
 - state validator では「done 判定の強化余地」「state history 導入判断」が残っている。

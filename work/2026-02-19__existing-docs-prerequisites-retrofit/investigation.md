@@ -19,7 +19,7 @@
 
 - docs/work の既存資料を優先度フェーズで分割して適用すれば、品質リスクを抑えつつ全体導線を改善できる。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - `docs/`
@@ -31,7 +31,7 @@
   - `work` 配下 markdown の前提知識見出し有無を集計。
   - backlog 現状（planned なし）を確認。
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - 事実:
   - `docs` は 30 件中 22 件が未適用（archive/legacy 除外）。

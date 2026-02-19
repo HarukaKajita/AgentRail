@@ -18,7 +18,7 @@
 - `project.profile.yaml` の `TODO_SET_ME` が主ブロッカーであり、これを解消すれば運用開始できる。
 - 実タスク成果物が 1 件もないため、`work/` と `docs/` の連携が検証できていない。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - `AGENTS.md`
@@ -29,7 +29,7 @@
   - 厳格ブロック条件との照合
   - テンプレート必須項目の確認
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - `project.profile.yaml` の build/test/format/lint と paths が未設定。
 - `docs/INDEX.md` は運用資料とテンプレートのみ登録済みで、spec/investigation 登録が未実施。

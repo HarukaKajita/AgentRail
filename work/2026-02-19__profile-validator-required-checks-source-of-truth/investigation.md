@@ -17,7 +17,7 @@
 
 - `requiredChecks` をスクリプト内の静的配列から切り離し、専用 schema 定義へ移せば、profile 拡張時の更新漏れリスクを下げられる。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - work/2026-02-18__project-profile-schema-validation/review.md
@@ -28,7 +28,7 @@
   - required key 定義の保守点がどこに分散しているかを確認する。
   - validator の挙動を変えずに source of truth 化できる実装方式を確認する。
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - `tools/profile-validate/validate.ps1` に `requiredChecks` 配列があり、required path と regex が直接ハードコードされている。
 - 必須キーの追加・変更時に、`tools/profile-validate/validate.ps1` の配列修正を忘れると validator が実態と乖離するリスクがある。

@@ -18,7 +18,7 @@
 - `apply` と `check` のモード分岐を追加すれば、ローカル更新用途とCI検証用途を両立できる。
 - 差分判定はメモリ上の再生成結果と現行 `docs/INDEX.md` を比較すれば実現できる。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - `tools/docs-indexer/index.ps1`
@@ -28,7 +28,7 @@
   - 現状は常に `docs/INDEX.md` を上書き
   - CI は `git diff --exit-code` に依存
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - 現行実装は副作用（書き込み）前提で、CI向けには過剰操作が含まれる。
 - `check` モードを追加すれば、CIの安全性と意図明確性が向上する。

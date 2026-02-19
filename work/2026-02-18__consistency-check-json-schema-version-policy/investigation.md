@@ -17,7 +17,7 @@
 
 - JSON 出力のトップレベルに `schema_version` を明示し、互換ポリシーを docs に定義すれば、将来拡張時の破壊的変更判定が容易になる。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - `tools/consistency-check/check.ps1`
@@ -28,7 +28,7 @@
   - 既存仕様で `schema_version` が未定義であることを確認
   - docs 側に「次タスク検討事項」として未決事項が残っていることを確認
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - 現行 JSON は task_id / status / failure_count / failures（single）または mode / task_count / results（multi）を返すが、スキーマ版を識別するキーがない。
 - そのため、将来 `results` 配下やトップレベル項目を変更した際に、利用側が互換判定を自動化しにくい。

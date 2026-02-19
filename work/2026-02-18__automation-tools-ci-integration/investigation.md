@@ -18,7 +18,7 @@
 - GitHub Actions で PowerShell スクリプトをそのまま実行できる。
 - `work/` 最新ディレクトリを選べば、毎回対象 task-id を明示入力せずに運用できる。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - `docs/specs/automation-tools-design-spec.md`
@@ -30,7 +30,7 @@
   - CI 基盤の候補を比較し GitHub Actions を採用
   - task-id 解決方式（最新 task 自動検出）を確定
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - リポジトリに CI 定義が存在せず、現状はローカル運用のみ。
 - `check_consistency` は `-TaskId` 必須のため、CI で task-id 解決 step が必要。

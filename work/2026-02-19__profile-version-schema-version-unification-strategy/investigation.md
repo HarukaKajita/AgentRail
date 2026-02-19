@@ -18,7 +18,7 @@
 
 - `schema_version` を唯一の正本に固定し、`version` の存在自体を validator で禁止すると、運用判断の分岐を最小化できる。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - `project.profile.yaml`
@@ -32,7 +32,7 @@
   - `version` が required key として残存していること。
   - `version` 参照が profile/policy/backlog/task 文書に分散していること。
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - validator の互換判定は `schema_version` を使用している。
 - `version` は `tools/profile-validate/profile-schema.json` の required key に残っており、共存を許容している。

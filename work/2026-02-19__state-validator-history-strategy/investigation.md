@@ -17,7 +17,7 @@
 
 - state history の保存先を `state.json` ではなく Git 履歴に統一し、validator で `history` キー混入を防げば運用一貫性を保てる。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - work/2026-02-18__state-transition-validation/review.md
@@ -28,7 +28,7 @@
   - `state.json` の構造を拡張した場合の運用コストを確認する。
   - history を `state.json` 内保持する案と外部化する案の影響を比較する。
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - 現行 `state.json` は `state` / `owner` / `updated_at` / `blocking_issues` の最小セットで運用されている。
 - `tools/state-validate/validate.ps1` は extra key を許容しており、history キーが混入しても検知しない。

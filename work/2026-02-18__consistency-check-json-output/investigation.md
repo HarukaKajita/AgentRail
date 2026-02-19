@@ -18,7 +18,7 @@
 - `-OutputFormat text|json` を導入すれば既存互換を維持しつつ拡張できる。
 - JSON へ run metadata と failures を含めれば CI 集計に十分使える。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - `tools/consistency-check/check.ps1`
@@ -28,7 +28,7 @@
   - 現在はテキストのみ
   - CI の失敗詳細はログ依存
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - テキストログは人間には読めるが機械集計しにくい。
 - JSON 追加だけでも、通知・集計・可視化の拡張余地が大きい。

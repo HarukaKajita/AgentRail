@@ -18,7 +18,7 @@
 - PowerShell 単体で docs 走査・Markdown解析・整合チェックが実装できる。
 - `docs/INDEX.md` は見出し単位で部分更新すれば手動記述を保護できる。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - `docs/specs/automation-tools-design-spec.md`
@@ -29,7 +29,7 @@
   - task ドキュメントの形式
   - profile コマンド体系
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - docs の管理対象カテゴリは見出し `## 2`〜`## 5` で固定されている。
 - task 情報は `work/<task-id>/` の6ファイルで完結している。

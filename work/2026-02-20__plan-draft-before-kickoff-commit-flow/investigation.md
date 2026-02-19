@@ -21,7 +21,7 @@
 
 - フロー図のみが逆順になっており、文書定義を `plan-draft` 先行へ統一すれば最小修正で解決できる。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - `AGENTS.md`
@@ -32,7 +32,7 @@
   - commit boundary 定義が「`request.md` / `investigation.md` / `spec.md` / `plan-draft` 完了時」であることを確認。
   - 可視化資料の mermaid で kickoff が `plan-draft` より前にある箇所を確認。
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - 事実:
   - `AGENTS.md` と `docs/operations/skills-framework-flow-guide.md` は `plan-draft` 先行の定義になっている。

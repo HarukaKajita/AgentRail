@@ -18,7 +18,7 @@
 - fallback を廃止し、差分0件では checker 系を skip すれば無関係 FAIL を防げる。
 - `workflow_dispatch` の `task_id` を必須化すれば実行意図が明確になる。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - `.github/workflows/ci-framework.yml`
@@ -28,7 +28,7 @@
   - 現状は差分0件時に fallback で `work/` 降順先頭 task を採用している。
   - workflow は常に checker 系を実行している。
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - 差分に無関係な planned task が選ばれる可能性がある。
 - planned task の未実装参照により CI が失敗することがある。

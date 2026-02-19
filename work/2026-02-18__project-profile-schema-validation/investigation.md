@@ -18,7 +18,7 @@
 - PowerShell で YAML パース + キー検証を行えば依存を増やさず実装できる。
 - profile 専用 validator を分離すると保守しやすい。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - `project.profile.yaml`
@@ -28,7 +28,7 @@
   - 現在は checker 内に一部パターン検証のみ
   - profile 単体の検証責務が独立していない
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - スキーマ不整合が checker 実行時まで遅延する。
 - profile 専用 validator 追加で失敗原因を明確化できる。

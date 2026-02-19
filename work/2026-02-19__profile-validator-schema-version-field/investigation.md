@@ -17,7 +17,7 @@
 
 - `project.profile.yaml` に schema_version を導入し、validator 側でサポートバージョンを明示すれば、互換性判断を運用で一貫できる。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - work/2026-02-18__project-profile-schema-validation/review.md
@@ -29,7 +29,7 @@
   - profile validator がバージョン互換をどこで判断しているかを確認する。
   - 既存 `version` フィールドとの役割分担を確認する。
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - `project.profile.yaml` は `version` を持つが、profile schema 互換を示す専用フィールドは未定義。
 - `tools/profile-validate/validate.ps1` は required key 判定中心で、schema version 互換（許容バージョン）の検証は未実装。
