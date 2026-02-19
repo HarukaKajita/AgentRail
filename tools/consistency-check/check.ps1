@@ -234,8 +234,20 @@ function Validate-CommitBoundaries {
       continue
     }
 
-    if (-not ([Regex]::IsMatch($block, "(?m)^\s*-\s*commit:\s*[0-9a-f]{7,40}\s*$", [System.Text.RegularExpressions.RegexOptions]::IgnoreCase))) {
-      Add-Failure -RuleId "commit_boundaries_tracked" -File $ReviewPath -Reason ("Phase '" + $phase.PhaseName + "' requires a concrete commit hash.")
+    $requiresConcreteHash = $phase.PhaseName -ne "Finalize"
+    $commitPattern = if ($requiresConcreteHash) {
+      "(?m)^\s*-\s*commit:\s*[0-9a-f]{7,40}\s*$"
+    } else {
+      "(?m)^\s*-\s*commit:\s*([0-9a-f]{7,40}|CURRENT_COMMIT)\s*$"
+    }
+
+    if (-not ([Regex]::IsMatch($block, $commitPattern, [System.Text.RegularExpressions.RegexOptions]::IgnoreCase))) {
+      $reason = if ($requiresConcreteHash) {
+        "Phase '" + $phase.PhaseName + "' requires a concrete commit hash."
+      } else {
+        "Phase '" + $phase.PhaseName + "' requires a commit hash or CURRENT_COMMIT."
+      }
+      Add-Failure -RuleId "commit_boundaries_tracked" -File $ReviewPath -Reason $reason
     }
 
     if (-not ([Regex]::IsMatch($block, "(?m)^\s*-\s*scope_check:\s*PASS\s*$", [System.Text.RegularExpressions.RegexOptions]::IgnoreCase))) {
