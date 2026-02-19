@@ -17,12 +17,13 @@
 1. `push` / `pull_request` で workflow 起動
 2. `workflow_dispatch` で任意 `task_id` 指定起動に対応
 3. `tools/docs-indexer/index.ps1 -Mode check` を実行
-4. `tools/profile-validate/validate.ps1 -ProfilePath project.profile.yaml` を実行
-5. `tools/state-validate/validate.ps1 -AllTasks` を実行
-6. `check` または validator 群が失敗した場合はジョブを停止する
-7. `tools/ci/resolve-task-id.ps1` で task-id を解決
-8. `tools/improvement-harvest/scan.ps1 -TaskId <resolved-task-id>` を実行
-9. `tools/consistency-check/check.ps1 -TaskId <resolved-task-id>` を実行（必要に応じて `-OutputFormat json` を利用可能）
+4. `tools/profile-validate/check-schema-governance.ps1 -RepoRoot . -BaseSha <base-sha> -HeadSha <head-sha>` を実行
+5. `tools/profile-validate/validate.ps1 -ProfilePath project.profile.yaml` を実行
+6. `tools/state-validate/validate.ps1 -AllTasks` を実行
+7. `check` または validator 群が失敗した場合はジョブを停止する
+8. `tools/ci/resolve-task-id.ps1` で task-id を解決
+9. `tools/improvement-harvest/scan.ps1 -TaskId <resolved-task-id>` を実行
+10. `tools/consistency-check/check.ps1 -TaskId <resolved-task-id>` を実行（必要に応じて `-OutputFormat json` を利用可能）
 
 ### checker 実行モード
 
@@ -41,6 +42,7 @@
 - task-id 解決不能は失敗
 - 差分から複数 task-id が検出された場合は失敗
 - `workflow_dispatch` で `task_id` 未指定の場合は失敗
+- profile schema governance ルール（R-001〜R-005）違反は失敗
 - INDEX 差分が残る場合は失敗
 - Process Findings の構造不備または未起票重大 finding は失敗
 - consistency-check FAIL は失敗

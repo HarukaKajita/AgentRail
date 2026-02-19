@@ -29,6 +29,26 @@ jobs:
         run: |
           pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check
 
+      - name: Enforce profile schema governance
+        shell: pwsh
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          HEAD_SHA: ${{ github.sha }}
+          BASE_SHA_PR: ${{ github.event.pull_request.base.sha }}
+          BASE_SHA_PUSH: ${{ github.event.before }}
+        run: |
+          $baseSha = ""
+          if ($env:EVENT_NAME -eq "pull_request") {
+            $baseSha = $env:BASE_SHA_PR
+          } elseif ($env:EVENT_NAME -eq "push") {
+            $baseSha = $env:BASE_SHA_PUSH
+          }
+
+          pwsh -NoProfile -File tools/profile-validate/check-schema-governance.ps1 `
+            -RepoRoot "." `
+            -HeadSha $env:HEAD_SHA `
+            -BaseSha $baseSha
+
       - name: Validate project profile
         shell: pwsh
         run: |

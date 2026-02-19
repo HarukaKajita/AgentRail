@@ -55,3 +55,4 @@
 2. パスの存在確認を行う。
 3. タスク完了前に更新漏れがないか確認する。
 4. profile schema 運用変更時は `docs/operations/profile-validator-schema-version-policy.md` を優先参照する。
+5. profile schema 変更を含む PR では `tools/profile-validate/check-schema-governance.ps1` の PASS を確認する。

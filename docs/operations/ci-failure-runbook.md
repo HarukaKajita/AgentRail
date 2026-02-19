@@ -21,7 +21,20 @@
   1. ローカルで `pwsh -NoProfile -File tools/docs-indexer/index.ps1` 実行
   2. 失敗メッセージのファイルを修正
 
-### 2. `docs/INDEX.md` 差分検出失敗
+### 2. `profile schema governance` 失敗
+
+- 症状: `tools/profile-validate/check-schema-governance.ps1` step が失敗
+- 確認:
+  1. `tools/profile-validate/profile-schema.json` を変更した場合に `schema_version` を更新したか
+  2. `schema_version` が SemVer 形式（`major.minor.patch`）か
+  3. `schema_version` が `supported_profile_schema_versions` に含まれているか
+  4. `required_keys` / `forbidden_top_level_keys` / `schema_id` 変更、または supported versions の削除がある場合に major を増分したか
+- 対処:
+  1. ローカルで `pwsh -NoProfile -File tools/profile-validate/check-schema-governance.ps1 -RepoRoot . -BaseSha <base-sha> -HeadSha <head-sha>` を実行
+  2. 失敗した `rule_id`（R-001〜R-005）に対応する schema version 更新を実施
+  3. 再実行して `SCHEMA_GOVERNANCE: PASS` を確認
+
+### 3. `docs/INDEX.md` 差分検出失敗
 
 - 症状: `git diff --exit-code -- docs/INDEX.md` で失敗
 - 確認:
@@ -30,7 +43,7 @@
   1. `pwsh -NoProfile -File tools/docs-indexer/index.ps1` を実行
   2. `docs/INDEX.md` をコミット対象へ含める
 
-### 3. `Resolve task ID` 失敗
+### 4. `Resolve task ID` 失敗
 
 - 症状: `tools/ci/resolve-task-id.ps1` が失敗
 - 確認:
@@ -41,7 +54,7 @@
   1. 必要なら `workflow_dispatch` の `task_id` を明示指定
   2. 複数 task 変更を分割して PR を作成
 
-### 4. `consistency-check` 失敗
+### 5. `consistency-check` 失敗
 
 - 症状: `tools/consistency-check/check.ps1` が FAIL
 - 確認:
@@ -53,7 +66,7 @@
   1. ローカルで同コマンドを再実行
   2. failure の `rule_id/file/reason` を順に修正
 
-### 5. `improvement-harvest scan` 失敗
+### 6. `improvement-harvest scan` 失敗
 
 - 症状: `tools/improvement-harvest/scan.ps1` が FAIL
 - 確認:
@@ -69,6 +82,7 @@
 ## 復旧後チェック
 
 1. `pwsh -NoProfile -File tools/docs-indexer/index.ps1`
-2. `pwsh -NoProfile -File tools/improvement-harvest/scan.ps1 -TaskId <task-id>`
-3. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId <task-id>`
-4. `git diff --exit-code -- docs/INDEX.md`
+2. `pwsh -NoProfile -File tools/profile-validate/check-schema-governance.ps1 -RepoRoot . -BaseSha <base-sha> -HeadSha <head-sha>`
+3. `pwsh -NoProfile -File tools/improvement-harvest/scan.ps1 -TaskId <task-id>`
+4. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId <task-id>`
+5. `git diff --exit-code -- docs/INDEX.md`
