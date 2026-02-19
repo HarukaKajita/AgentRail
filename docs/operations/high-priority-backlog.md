@@ -15,7 +15,12 @@
 
 ## 優先タスク一覧
 
-- なし
+1. `2026-02-20__subagent-multi-agent-delegation-governance`
+- 状態: planned
+- 依存: `2026-02-19__task-dependency-aware-prioritization-flow`, `2026-02-19__task-commit-boundary-automation-flow`, `2026-02-19__task-doc-prerequisite-knowledge-section`
+- 依存状態: 解決済み
+- 目的: 各工程で subagent / multi_agent を標準活用しつつ、品質低下懸念工程を例外化する運用ルールを仕様化する
+- 参照: `work/2026-02-20__subagent-multi-agent-delegation-governance/spec.md`
 
 ## Completed
 

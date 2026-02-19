@@ -1,0 +1,11 @@
+{
+  "state": "planned",
+  "owner": "unassigned",
+  "updated_at": "02/20/2026 01:06:00",
+  "blocking_issues": [],
+  "depends_on": [
+    "2026-02-19__task-dependency-aware-prioritization-flow",
+    "2026-02-19__task-commit-boundary-automation-flow",
+    "2026-02-19__task-doc-prerequisite-knowledge-section"
+  ]
+}
