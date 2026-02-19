@@ -15,7 +15,16 @@
 
 ## 優先タスク一覧
 
-1. `2026-02-20__subagent-multi-agent-delegation-governance`
+1. `2026-02-20__plan-draft-before-kickoff-commit-flow`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: plan-ready
+- 依存: `2026-02-19__task-commit-boundary-automation-flow`, `2026-02-19__task-dependency-aware-prioritization-flow`, `2026-02-20__dependency-gate-before-plan-flow`
+- 依存状態: 解決済み
+- 目的: `plan-draft` を起票境界コミット前に確定する順序へ統一し、可視化ガイドの順序不整合を解消する
+- 参照: `work/2026-02-20__plan-draft-before-kickoff-commit-flow/spec.md`
+
+2. `2026-02-20__subagent-multi-agent-delegation-governance`
 - 状態: planned
 - 計画段階: plan-draft
 - ゲート状態: plan-ready
