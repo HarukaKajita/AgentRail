@@ -32,7 +32,7 @@
 
 3. `Rail3:write-investigation`
 - フロー位置: 調査
-- 役割: 仮説・観測方法・観測結果・結論を `investigation.md` に確定
+- 役割: 仮説・調査方法（観測方法）・調査結果（観測結果）・結論を `investigation.md` に確定
 
 4. `Rail4:read-profile`
 - フロー位置: 実装前チェック、テスト計画
