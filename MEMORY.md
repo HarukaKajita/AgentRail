@@ -5,20 +5,17 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__subagent-multi-agent-delegation-governance
-- タイトル: Subagent Multi Agent Delegation Governance
-- 状態: done
-- 最終更新日時: 2026-02-20T04:40:52+09:00
+- Task ID: 2026-02-20__fix-improvement-create-task-parser-errors
+- タイトル: Fix improvement create-task parser errors
+- 状態: in_progress
+- 最終更新日時: 2026-02-20T05:17:35+09:00
 - 担当: codex
 
 ## 2. 今回の目的
 
-- `project.profile.yaml` schema の変更時に `schema_version` 運用を CI で強制する。
-- planned タスクを優先順で1件ずつ完了し、次タスクへ移る前に必ずコミットする。
-- 既存資料への前提知識セクション遡及適用（docs/work, archive/legacy 除外）を完了する。
-- subagent / multi_agent を標準活用する工程運用を要件化し、例外工程ルールを確定する。
-- `plan-draft -> depends_on gate -> plan-final` の2段階計画フローを要件化する。
-- `plan-draft` を起票境界コミット前に固定し、docs の順序不整合を解消する。
+- repository review で検出した不備 8 件を修正タスクとして起票し、優先順で着手する。
+- 最優先の blocker（`tools/improvement-harvest/create-task.ps1` 構文エラー）を解消する。
+- 以降の CI / docs / template / task 文書不整合修正へ順次着手できる状態を整える。
 
 ## 3. 完了済み
 
@@ -54,23 +51,21 @@
 
 ## 5. 未解決・ブロッカー
 
-- なし
+- `tools/improvement-harvest/create-task.ps1` が構文エラーで実行不能（最優先で対応中）。
 
 ## 6. 次アクション
 
-1. 新規要望受領後に task を起票し、`plan-draft -> kickoff -> depends_on gate -> plan-final` の順序で進行する。
-2. 委譲運用が必要な task では、request / investigation / spec / plan-draft を単一 `delegated_agent_id` で実行する。
-3. 各 task で kickoff / implementation / finalize のコミット境界を維持する。
+1. `2026-02-20__fix-improvement-create-task-parser-errors` を実装し、parser/実行確認を通す。
+2. `2026-02-20__align-workflow-dispatch-task-id-contract` と `2026-02-20__allow-schema-governance-without-base-sha` に着手する。
+3. medium/low 優先の docs・テンプレート不整合修正を順次処理する。
 
 ## 7. 参照先
 
-- `work/2026-02-20__dependency-gate-before-plan-flow/request.md`
-- `work/2026-02-20__dependency-gate-before-plan-flow/investigation.md`
-- `work/2026-02-20__dependency-gate-before-plan-flow/spec.md`
-- `work/2026-02-20__dependency-gate-before-plan-flow/plan.md`
-- `work/2026-02-20__dependency-gate-before-plan-flow/review.md`
-- `work/2026-02-20__plan-draft-before-kickoff-commit-flow/spec.md`
-- `work/2026-02-20__subagent-multi-agent-delegation-governance/spec.md`
+- `docs/operations/high-priority-backlog.md`
+- `work/2026-02-20__fix-improvement-create-task-parser-errors/request.md`
+- `work/2026-02-20__fix-improvement-create-task-parser-errors/spec.md`
+- `work/2026-02-20__align-workflow-dispatch-task-id-contract/spec.md`
+- `work/2026-02-20__allow-schema-governance-without-base-sha/spec.md`
 
 ## 8. 引き継ぎ時チェック
 

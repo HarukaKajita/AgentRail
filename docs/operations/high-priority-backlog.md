@@ -15,7 +15,85 @@
 
 ## 優先タスク一覧
 
-なし
+1. `2026-02-20__fix-improvement-create-task-parser-errors`
+- 状態: in_progress
+- 計画段階: plan-draft
+- ゲート状態: plan-ready
+- 依存: なし
+- 依存状態: なし
+- 優先度: critical
+- 目的: `tools/improvement-harvest/create-task.ps1` の構文エラーを解消し、改善タスク自動起票を復旧する
+- 参照: `work/2026-02-20__fix-improvement-create-task-parser-errors/spec.md`
+
+2. `2026-02-20__align-workflow-dispatch-task-id-contract`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: plan-ready
+- 依存: なし
+- 依存状態: なし
+- 優先度: high
+- 目的: `workflow_dispatch` の task_id 入力契約と `resolve-task-id` の挙動を一致させる
+- 参照: `work/2026-02-20__align-workflow-dispatch-task-id-contract/spec.md`
+
+3. `2026-02-20__allow-schema-governance-without-base-sha`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: plan-ready
+- 依存: なし
+- 依存状態: なし
+- 優先度: high
+- 目的: BaseSha なし（初回 push など）の schema governance 判定を運用可能な形へ修正する
+- 参照: `work/2026-02-20__allow-schema-governance-without-base-sha/spec.md`
+
+4. `2026-02-20__fix-improvement-create-task-dependency-placeholder`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: dependency-blocked
+- 依存: `2026-02-20__fix-improvement-create-task-parser-errors`
+- 依存状態: 未解決
+- 優先度: medium
+- 目的: create-task の生成文面から `$depends_on` プレースホルダ残留を除去する
+- 参照: `work/2026-02-20__fix-improvement-create-task-dependency-placeholder/spec.md`
+
+5. `2026-02-20__add-sidecar-log-rule-to-visual-guide`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: plan-ready
+- 依存: なし
+- 依存状態: なし
+- 優先度: medium
+- 目的: 可視化ガイドの委譲契約説明へ sidecar 監査ログ要件を追記する
+- 参照: `work/2026-02-20__add-sidecar-log-rule-to-visual-guide/spec.md`
+
+6. `2026-02-20__fix-invalid-docs-path-in-self-improvement-spec`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: plan-ready
+- 依存: なし
+- 依存状態: なし
+- 優先度: medium
+- 目的: `work/2026-02-18__self-improvement-loop-enforcement/spec.md` の実在しない docs パス記述を修正する
+- 参照: `work/2026-02-20__fix-invalid-docs-path-in-self-improvement-spec/spec.md`
+
+7. `2026-02-20__add-plan-template-and-index-link`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: plan-ready
+- 依存: なし
+- 依存状態: なし
+- 優先度: medium
+- 目的: `plan.md` 用テンプレート導線を `docs/templates` と `docs/INDEX.md` に整備する
+- 参照: `work/2026-02-20__add-plan-template-and-index-link/spec.md`
+
+8. `2026-02-20__normalize-remaining-investigation-heading-terms`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: plan-ready
+- 依存: なし
+- 依存状態: なし
+- 優先度: low
+- 目的: 残存する `観測方法/観測結果` 見出しを併記方針へ統一する
+- 参照: `work/2026-02-20__normalize-remaining-investigation-heading-terms/spec.md`
 
 ## Completed
 

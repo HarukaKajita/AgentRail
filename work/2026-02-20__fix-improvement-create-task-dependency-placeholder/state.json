@@ -1,0 +1,9 @@
+{
+  "state": "planned",
+  "owner": "codex",
+  "updated_at": "2026-02-20T05:16:00+09:00",
+  "blocking_issues": [],
+  "depends_on": [
+    "2026-02-20__fix-improvement-create-task-parser-errors"
+  ]
+}
