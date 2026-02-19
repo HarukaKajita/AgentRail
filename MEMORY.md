@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__plan-draft-before-kickoff-commit-flow
-- タイトル: Plan Draft Before Kickoff Commit Flow
+- Task ID: 2026-02-20__subagent-multi-agent-delegation-governance
+- タイトル: Subagent Multi Agent Delegation Governance
 - 状態: planned
-- 最終更新日時: 2026-02-20T04:28:00+09:00
+- 最終更新日時: 2026-02-20T04:27:01+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -29,6 +29,7 @@
 - `2026-02-19__task-doc-prerequisite-knowledge-section` を完了。
 - `2026-02-19__rail10-skill-command-path-fix` を完了。
 - `2026-02-20__dependency-gate-before-plan-flow` を完了。
+- `2026-02-20__plan-draft-before-kickoff-commit-flow` を完了。
 
 ## 4. 重要な意思決定
 
@@ -55,8 +56,8 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__plan-draft-before-kickoff-commit-flow` の docs 実装と完了反映を行う。
-2. 次に `2026-02-20__subagent-multi-agent-delegation-governance` を優先で実装する。
+1. `2026-02-20__subagent-multi-agent-delegation-governance` を優先で実装する。
+2. backlog の planned 一覧を Rail10 出力で確認し、`plan-ready` タスクから順次着手する。
 3. 各 task で kickoff / implementation / finalize のコミット境界を維持する。
 
 ## 7. 参照先

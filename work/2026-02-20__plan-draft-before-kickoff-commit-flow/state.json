@@ -1,7 +1,7 @@
 {
-  "state": "planned",
-  "owner": "unassigned",
-  "updated_at": "2026-02-20T04:28:00+09:00",
+  "state": "done",
+  "owner": "codex",
+  "updated_at": "2026-02-20T04:27:01+09:00",
   "blocking_issues": [],
   "depends_on": [
     "2026-02-19__task-commit-boundary-automation-flow",
