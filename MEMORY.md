@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__subagent-multi-agent-delegation-governance
-- タイトル: Subagent Multi-Agent Delegation Governance
+- Task ID: 2026-02-20__dependency-gate-before-plan-flow
+- タイトル: Dependency Gate Before Plan Flow
 - 状態: planned
-- 最終更新日時: 2026-02-20T01:06:00+09:00
+- 最終更新日時: 2026-02-20T02:30:00+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -17,6 +17,7 @@
 - planned タスクを優先順で1件ずつ完了し、次タスクへ移る前に必ずコミットする。
 - 既存資料への前提知識セクション遡及適用（docs/work, archive/legacy 除外）を完了する。
 - subagent / multi_agent を標準活用する工程運用を要件化し、例外工程ルールを確定する。
+- `plan-draft -> depends_on gate -> plan-final` の2段階計画フローを要件化する。
 
 ## 3. 完了済み
 
@@ -36,6 +37,7 @@
 - 決定内容: 既存資料への前提知識セクション遡及適用は P1-P3 の優先度フェーズで実施する。
 - 決定内容: docs 30/30、work 130/130（archive/legacy 除外）で前提知識セクション適用を完了した。
 - 決定内容: subagent / multi_agent は原則活用し、品質低下懸念工程は親エージェント固定とする方針で要件化する。
+- 決定内容: ベストプラクティスに合わせ、`plan-draft -> depends_on gate -> plan-final` を採用する方針で起票する。
 - 根拠資料:
   - `.agents/skills/Rail10-list-planned-tasks-by-backlog-priority/SKILL.md`
   - `agents/skills/Rail10-list-planned-tasks-by-backlog-priority/SKILL.md`
@@ -49,16 +51,17 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__subagent-multi-agent-delegation-governance` の要件確定を完了する。
-2. 要件確定後に実装タスクへ着手し、工程ごとの委譲ルールを docs / skills へ反映する。
+1. `2026-02-20__dependency-gate-before-plan-flow` の要件確定を完了する。
+2. `2026-02-20__subagent-multi-agent-delegation-governance` を仕様どおりに実装する。
+3. 依存ゲート前倒しフローの実装タスクへ着手し、docs / skills / checker を同期更新する。
 
 ## 7. 参照先
 
-- `work/2026-02-20__subagent-multi-agent-delegation-governance/request.md`
-- `work/2026-02-20__subagent-multi-agent-delegation-governance/investigation.md`
-- `work/2026-02-20__subagent-multi-agent-delegation-governance/spec.md`
-- `work/2026-02-20__subagent-multi-agent-delegation-governance/plan.md`
-- `work/2026-02-20__subagent-multi-agent-delegation-governance/review.md`
+- `work/2026-02-20__dependency-gate-before-plan-flow/request.md`
+- `work/2026-02-20__dependency-gate-before-plan-flow/investigation.md`
+- `work/2026-02-20__dependency-gate-before-plan-flow/spec.md`
+- `work/2026-02-20__dependency-gate-before-plan-flow/plan.md`
+- `work/2026-02-20__dependency-gate-before-plan-flow/review.md`
 
 ## 8. 引き継ぎ時チェック
 
