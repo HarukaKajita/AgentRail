@@ -1,5 +1,13 @@
 # 自動化基盤 CI 連携仕様
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+  - `docs/operations/high-priority-backlog.md`
+- 理解ポイント:
+  - 本仕様の背景、関連調査、運用制約を先に確認してから詳細を読む。
 ## 概要
 
 自動化基盤の CI 連携として、`docs-indexer` と `consistency-check` を GitHub Actions に統合する。
@@ -43,3 +51,4 @@
 - `work/2026-02-18__automation-tools-ci-integration/spec.md`
 - `.github/workflows/ci-framework.yml`
 - `docs/specs/self-improvement-loop-spec.md`
+

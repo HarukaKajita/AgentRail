@@ -2,6 +2,14 @@
 
 このテンプレートは `work/<task-id>/investigation.md` で利用します。
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+- 理解ポイント:
+  - 調査前に把握すべき背景と前提条件を記載する。
+
 ## 1. 調査対象 [空欄禁止]
 
 - 
@@ -36,3 +44,4 @@
 
 - request:
 - spec:
+

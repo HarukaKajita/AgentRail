@@ -1,5 +1,14 @@
 # 仕様書: 2026-02-19__rail10-skill-command-path-fix
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+  - `work/2026-02-19__rail10-skill-command-path-fix/request.md`
+  - `work/2026-02-19__rail10-skill-command-path-fix/spec.md`
+- 理解ポイント:
+  - 本資料に入る前に、task の目的・受入条件・依存関係を把握する。
 ## 1. メタ情報 [空欄禁止]
 
 - Task ID: `2026-02-19__rail10-skill-command-path-fix`
@@ -116,3 +125,4 @@
 - docs:
   - `docs/operations/high-priority-backlog.md`
   - `.agents/skills/Rail10-list-planned-tasks-by-backlog-priority/SKILL.md`
+

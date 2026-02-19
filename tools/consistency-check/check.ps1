@@ -17,6 +17,8 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $jsonSchemaVersion = "1.0.0"
 $allTasksExclusionPattern = "^(archive|legacy)(-|$)"
+$prerequisiteRequiredStates = @("planned", "in_progress", "blocked")
+$prerequisiteRequiredTaskFiles = @("request.md", "investigation.md", "spec.md", "plan.md", "review.md")
 
 $failures = New-Object System.Collections.Generic.List[object]
 $script:taskStateSnapshot = $null
@@ -97,6 +99,97 @@ function Normalize-MarkdownValue {
   }
 
   return $trimmed
+}
+
+function Is-PathLikeToken {
+  param([string]$RawToken)
+
+  if ([string]::IsNullOrWhiteSpace($RawToken)) {
+    return $false
+  }
+
+  if ($RawToken -match "^(https?://|<task-id>|Task ID|AC-\d+)") {
+    return $false
+  }
+
+  if ($RawToken.Contains("<task-id>")) {
+    return $false
+  }
+
+  if ($RawToken.Contains(" ")) {
+    return $false
+  }
+
+  if ($RawToken.Contains("*")) {
+    return $false
+  }
+
+  if ($RawToken -match "^(pwsh|powershell)$") {
+    return $false
+  }
+
+  return $RawToken.Contains("/") -or
+    $RawToken.EndsWith(".md") -or
+    $RawToken.EndsWith(".yaml") -or
+    $RawToken.EndsWith(".json") -or
+    $RawToken.EndsWith(".ps1")
+}
+
+function Test-LocalPathReference {
+  param(
+    [string]$RawToken,
+    [string]$BaseDir
+  )
+
+  $normalized = Normalize-PathString -Value $RawToken
+  $candidates = New-Object System.Collections.Generic.List[string]
+  $candidates.Add($normalized)
+  if (-not [System.IO.Path]::IsPathRooted($normalized)) {
+    $candidates.Add((Normalize-PathString -Value (Join-Path -Path $BaseDir -ChildPath $normalized)))
+  }
+
+  foreach ($candidate in $candidates) {
+    if (Test-Path -LiteralPath $candidate) {
+      return $true
+    }
+  }
+
+  return $false
+}
+
+function Validate-PrerequisitesSection {
+  param(
+    [string]$Content,
+    [string]$FilePath
+  )
+
+  $sectionBlock = Get-HeadingBlock -Content $Content -HeadingRegex "(?m)^##\s+前提知識(?:\s*\(Prerequisites.*?\))?(?:\s*\[空欄禁止\])?\s*$" -EndRegex "(?m)^##\s+"
+  if (-not $sectionBlock) {
+    Add-Failure -RuleId "prerequisites_section_present" -File $FilePath -Reason "Missing '## 前提知識' section."
+    return
+  }
+
+  $tokenMatches = [Regex]::Matches($sectionBlock, '`([^`]+)`')
+  $pathLikeTokens = New-Object System.Collections.Generic.List[string]
+  foreach ($tokenMatch in $tokenMatches) {
+    $rawToken = $tokenMatch.Groups[1].Value.Trim()
+    if (-not (Is-PathLikeToken -RawToken $rawToken)) {
+      continue
+    }
+    $pathLikeTokens.Add($rawToken) | Out-Null
+  }
+
+  if ($pathLikeTokens.Count -eq 0) {
+    Add-Failure -RuleId "prerequisites_section_present" -File $FilePath -Reason "Prerequisites section must include at least one local reference path."
+    return
+  }
+
+  $baseDir = Split-Path -Parent $FilePath
+  foreach ($pathLikeToken in $pathLikeTokens) {
+    if (-not (Test-LocalPathReference -RawToken $pathLikeToken -BaseDir $baseDir)) {
+      Add-Failure -RuleId "prerequisites_section_present" -File $FilePath -Reason "Prerequisites section contains unresolved path: $pathLikeToken"
+    }
+  }
 }
 
 function Should-ExcludeAllTasksTarget {
@@ -628,6 +721,24 @@ function Invoke-SingleTaskCheck {
           Add-Failure -RuleId "dependency_backlog_synced" -File "docs/operations/high-priority-backlog.md" -Reason "Backlog dependencies do not match state.json for task: $TargetTaskId"
         }
       }
+    }
+  }
+
+  $normalizedTaskState = $taskState.ToLowerInvariant()
+  if ($normalizedTaskState -in $prerequisiteRequiredStates) {
+    foreach ($requiredFileName in $prerequisiteRequiredTaskFiles) {
+      if (-not $existingTaskFiles.ContainsKey($requiredFileName)) {
+        continue
+      }
+
+      $requiredFilePath = $existingTaskFiles[$requiredFileName]
+      $requiredFileContent = Get-FileOrNull -Path $requiredFilePath
+      if (-not $requiredFileContent) {
+        Add-Failure -RuleId "prerequisites_section_present" -File $requiredFilePath -Reason "Failed to read required task file."
+        continue
+      }
+
+      Validate-PrerequisitesSection -Content $requiredFileContent -FilePath $requiredFilePath
     }
   }
 

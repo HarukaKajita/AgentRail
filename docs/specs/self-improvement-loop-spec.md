@@ -1,5 +1,13 @@
 # 自己改善ループ仕様
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+  - `docs/operations/high-priority-backlog.md`
+- 理解ポイント:
+  - 本仕様の背景、関連調査、運用制約を先に確認してから詳細を読む。
 ## 1. 目的
 
 開発フロー中に発見された運用・品質・手順上の問題を、`review.md` から機械的に要件化し、再発防止タスクへ確実に接続する。
@@ -61,3 +69,4 @@
 - `docs/specs/automation-tools-design-spec.md`
 - `docs/specs/automation-tools-ci-integration-spec.md`
 - `docs/operations/ci-failure-runbook.md`
+

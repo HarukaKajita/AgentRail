@@ -86,6 +86,7 @@
 - `project.profile.yaml` 必須キー不足
 - stage 差分に対象 task 以外の `work/<task-id>/` が混在
 - 着手対象 task の `depends_on` に `state != done` の依存先がある
+- active task の資料に `前提知識` セクションが不足している
 
 ### 2.1 コミット境界の統一
 

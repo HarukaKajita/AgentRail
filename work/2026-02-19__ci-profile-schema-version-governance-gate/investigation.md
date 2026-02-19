@@ -1,5 +1,14 @@
 # Investigation: 2026-02-19__ci-profile-schema-version-governance-gate
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+  - `work/2026-02-19__ci-profile-schema-version-governance-gate/request.md`
+  - `work/2026-02-19__ci-profile-schema-version-governance-gate/spec.md`
+- 理解ポイント:
+  - 本資料に入る前に、task の目的・受入条件・依存関係を把握する。
 ## 1. 調査対象 [空欄禁止]
 
 - `schema_version`（2.x 以降）更新ルールを CI で強制する設計方針。
@@ -56,3 +65,4 @@
 
 - request: `work/2026-02-19__ci-profile-schema-version-governance-gate/request.md`
 - spec: `work/2026-02-19__ci-profile-schema-version-governance-gate/spec.md`
+

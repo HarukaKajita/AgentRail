@@ -20,6 +20,7 @@ Claude 互換の補助は `CLAUDE.md` に記載しますが、矛盾時はこの
 5. `work/<task-id>/plan.md` が作成済み。
 6. `work/<task-id>/state.json` が最新状態を示している。
 7. `work/<task-id>/state.json` の `depends_on` が最新で、未解決依存を把握できている。
+8. `request/investigation/spec/plan/review` に `前提知識` セクションがあり、参照先が解決できる。
 
 ## 3. 固定ワークフロー
 
@@ -62,6 +63,7 @@ Claude 互換の補助は `CLAUDE.md` に記載しますが、矛盾時はこの
 - `spec.md` の `テスト要件` が抽象的で検証条件になっていない。
 - `plan.md` が `spec.md` を参照していない。
 - 着手対象 task の `depends_on` に未完了依存がある。
+- active task の資料に `前提知識` セクションがない、または参照先が解決できない。
 - レビュー後に `docs/INDEX.md` が未更新。
 - `project.profile.yaml` の必須キー不足。
 - stage 差分に対象 task 以外の `work/<task-id>/` 変更が混在している。

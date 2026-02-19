@@ -1,5 +1,14 @@
 # Request: 2026-02-19__rail10-skill-command-path-fix
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+  - `work/2026-02-19__rail10-skill-command-path-fix/request.md`
+  - `work/2026-02-19__rail10-skill-command-path-fix/spec.md`
+- 理解ポイント:
+  - 本資料に入る前に、task の目的・受入条件・依存関係を把握する。
 ## 要望の原文
 
 - `list-planned-tasks-by-backlog-priority` スキルの `.agents/skills/Rail10-list-planned-tasks-by-backlog-priority/SKILL.md` に、"$HOME/.agents/..." の PowerShell スクリプト実行案内がある。
@@ -23,3 +32,4 @@
 2. `spec.md` が空欄禁止項目を満たし、受入条件とテスト要件が検証可能な粒度で確定される。
 3. `docs/operations/high-priority-backlog.md` に本タスクが `planned` として追加される。
 4. 起票差分がコミットされる。
+

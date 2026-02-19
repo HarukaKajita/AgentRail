@@ -1,5 +1,13 @@
 # 自動化基盤 実装仕様
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+  - `docs/operations/high-priority-backlog.md`
+- 理解ポイント:
+  - 本仕様の背景、関連調査、運用制約を先に確認してから詳細を読む。
 ## 概要
 
 自動化基盤の設計に基づき、`docs-indexer` と `consistency-check` を PowerShell で実装する。
@@ -27,3 +35,4 @@
 - `work/2026-02-18__automation-tools-implementation/spec.md`
 - `docs/specs/automation-tools-ci-integration-spec.md`
 - `docs/specs/self-improvement-loop-spec.md`
+

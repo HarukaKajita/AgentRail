@@ -1,5 +1,14 @@
 # Request: 2026-02-19__task-doc-prerequisite-knowledge-section
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+  - `work/2026-02-19__task-doc-prerequisite-knowledge-section/request.md`
+  - `work/2026-02-19__task-doc-prerequisite-knowledge-section/spec.md`
+- 理解ポイント:
+  - 本資料に入る前に、task の目的・受入条件・依存関係を把握する。
 ## 要望の原文
 
 - 各仕様やタスクの資料に、その資料の内容を理解するために必要な前提知識を記載するセクションを追加したい。
@@ -57,3 +66,4 @@
 ## blocked 判定
 
 - blocked ではない（起票に必要な情報は揃っている）。
+

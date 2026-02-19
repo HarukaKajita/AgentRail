@@ -1,5 +1,14 @@
 # 仕様書: 2026-02-19__ci-profile-schema-version-governance-gate
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+  - `work/2026-02-19__ci-profile-schema-version-governance-gate/request.md`
+  - `work/2026-02-19__ci-profile-schema-version-governance-gate/spec.md`
+- 理解ポイント:
+  - 本資料に入る前に、task の目的・受入条件・依存関係を把握する。
 ## 1. メタ情報 [空欄禁止]
 
 - Task ID: `2026-02-19__ci-profile-schema-version-governance-gate`
@@ -128,3 +137,4 @@
   - `docs/operations/profile-validator-schema-version-policy.md`
   - `docs/specs/automation-tools-ci-integration-spec.md`
   - `docs/operations/ci-failure-runbook.md`
+

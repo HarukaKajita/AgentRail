@@ -5,34 +5,34 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-19__task-doc-prerequisite-knowledge-section
-- タイトル: Task/Spec Prerequisite Knowledge Section Standardization
+- Task ID: 2026-02-19__rail10-skill-command-path-fix
+- タイトル: Rail10 Skill Command Path Fix
 - 状態: planned
-- 最終更新日時: 2026-02-19T22:08:32+09:00
+- 最終更新日時: 2026-02-19T22:17:35+09:00
 - 担当: codex
 
 ## 2. 今回の目的
 
-- 仕様資料と task 資料へ前提知識セクションを標準化し、どの資料からでも遡及理解できる導線を作る。
+- Rail10 の SKILL コマンド案内をスキル同梱 script 実行に統一する。
 - planned タスクを優先順で1件ずつ完了し、次タスクへ移る前に必ずコミットする。
 
 ## 3. 完了済み
 
-- 2026-02-19__task-commit-boundary-automation-flow を完了し、境界コミット運用を標準化した。
-- 2026-02-19__task-dependency-aware-prioritization-flow を完了し、depends_on を validator/checker/Rail10/backlog/create-task に統合した。
-- 全 task の state.json に depends_on フィールドを追加し、依存整合チェックを有効化した。
+- 2026-02-19__task-commit-boundary-automation-flow を完了。
+- 2026-02-19__task-dependency-aware-prioritization-flow を完了し、依存優先フローを実装。
+- 2026-02-19__task-doc-prerequisite-knowledge-section を完了し、前提知識セクション標準化と checker 連携を反映。
 
 ## 4. 重要な意思決定
 
 - 日付: 2026-02-19
-- 決定内容: depends_on を state.json の必須キーにする。
-- 決定内容: 着手ゲートは「state=in_progress|done なら依存先はすべて state=done 必須」とする。
-- 決定内容: Rail10 は docs 優先順に加えて依存解決済み優先で着手候補を提示する。
+- 決定内容: active task（planned/in_progress/blocked）の equest/investigation/spec/plan/review には 前提知識 セクションを必須化する。
+- 決定内容: 	ools/consistency-check/check.ps1 で前提知識セクションの存在と参照解決を検証する。
 - 根拠資料:
   - AGENTS.md
-  - docs/operations/high-priority-backlog.md
-  - docs/operations/skills-framework-flow-guide.md
-  - work/2026-02-19__task-dependency-aware-prioritization-flow/review.md
+  - docs/templates/spec.md
+  - docs/templates/investigation.md
+  - docs/templates/review.md
+  - work/2026-02-19__task-doc-prerequisite-knowledge-section/review.md
 
 ## 5. 未解決・ブロッカー
 
@@ -40,17 +40,16 @@
 
 ## 6. 次アクション
 
-1. 2026-02-19__task-doc-prerequisite-knowledge-section を実装完了まで進める。
-2. タスク完了時に review/docs/memory/state を更新してコミットする。
-3. 次順位 2026-02-19__rail10-skill-command-path-fix へ移る。
+1. 2026-02-19__rail10-skill-command-path-fix を完了する。
+2. その後 2026-02-19__ci-profile-schema-version-governance-gate に着手する。
 
 ## 7. 参照先
 
-- work/2026-02-19__task-dependency-aware-prioritization-flow/request.md
-- work/2026-02-19__task-dependency-aware-prioritization-flow/investigation.md
-- work/2026-02-19__task-dependency-aware-prioritization-flow/spec.md
-- work/2026-02-19__task-dependency-aware-prioritization-flow/plan.md
-- work/2026-02-19__task-dependency-aware-prioritization-flow/review.md
+- work/2026-02-19__task-doc-prerequisite-knowledge-section/request.md
+- work/2026-02-19__task-doc-prerequisite-knowledge-section/investigation.md
+- work/2026-02-19__task-doc-prerequisite-knowledge-section/spec.md
+- work/2026-02-19__task-doc-prerequisite-knowledge-section/plan.md
+- work/2026-02-19__task-doc-prerequisite-knowledge-section/review.md
 
 ## 8. 引き継ぎ時チェック
 

@@ -1,5 +1,14 @@
 # Request: 2026-02-19__ci-profile-schema-version-governance-gate
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+  - `work/2026-02-19__ci-profile-schema-version-governance-gate/request.md`
+  - `work/2026-02-19__ci-profile-schema-version-governance-gate/spec.md`
+- 理解ポイント:
+  - 本資料に入る前に、task の目的・受入条件・依存関係を把握する。
 ## 要望の原文
 
 - `schema_version` 更新運用（2.x 以降）を CI で強制するタスクを起票してほしい。
@@ -28,3 +37,4 @@
 1. `work/2026-02-19__ci-profile-schema-version-governance-gate/` に必須6ファイルが作成される。
 2. `request.md` / `investigation.md` / `spec.md` が空欄禁止項目を満たし、実装可能粒度になる。
 3. `docs/operations/validator-enhancement-backlog.md` と `docs/operations/high-priority-backlog.md` に `planned` として登録される。
+

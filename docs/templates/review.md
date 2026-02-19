@@ -2,6 +2,14 @@
 
 このテンプレートは `work/<task-id>/review.md` で利用します。
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+- 理解ポイント:
+  - レビュー対象の背景、期待仕様、確認観点を先に整理する。
+
 ## 1. レビュー対象
 
 - 
@@ -71,3 +79,4 @@
 
 - commit: PENDING
 - scope_check: PENDING
+

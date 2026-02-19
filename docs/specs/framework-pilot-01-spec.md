@@ -1,5 +1,13 @@
 # Framework Pilot 01 仕様
 
+## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+
+- 参照資料:
+  - `AGENTS.md`
+  - `docs/INDEX.md`
+  - `docs/operations/high-priority-backlog.md`
+- 理解ポイント:
+  - 本仕様の背景、関連調査、運用制約を先に確認してから詳細を読む。
 ## 概要
 
 手動運用導入段階で整備したフレームワークを実際に 1 件運用し、厳格ブロック運用が成立することを検証する。
@@ -30,3 +38,4 @@
 ## 詳細仕様
 
 - 実運用仕様は `work/2026-02-18__framework-pilot-01/spec.md` を参照する。
+
