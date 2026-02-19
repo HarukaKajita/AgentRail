@@ -15,13 +15,15 @@ flowchart TD
   A[ユーザーが要望を提示] --> B[request.md 作成・要望整理]
   B --> C[investigation.md 調査]
   C --> D[spec.md 要件確定]
-  D --> E[plan.md 実装計画]
+  D --> K1[起票境界コミット]
+  K1 --> E[plan.md 実装計画]
   E --> F[実装]
   F --> G[テスト]
-  G --> H[review.md レビュー]
+  G --> K2[実装境界コミット]
+  K2 --> H[review.md レビュー]
   H --> I[docs 更新 + docs/INDEX.md 更新]
   I --> J[MEMORY.md + state.json 更新]
-  J --> K[コミット]
+  J --> K3[完了境界コミット]
 
   D --> L{厳格ブロック条件を満たすか}
   L -- No --> M[state=blocked]
@@ -46,6 +48,22 @@ flowchart TD
 9. 資料更新: 変更した docs を更新し、`docs/INDEX.md` へ導線を追加する。
 10. 記憶更新: `MEMORY.md` と `state.json` を最新化する。
 11. コミット: 変更を意味のある単位でコミットする。
+
+## 3.1 コミット境界ルール
+
+差分混在を防ぐため、コミットを次の3境界で行う。
+
+1. 起票境界コミット: 起票と要件確定（request/investigation/spec/plan）完了時
+2. 実装境界コミット: 実装 + テスト完了時
+3. 完了境界コミット: review/docs/memory/state 更新完了時
+
+境界コミット前の推奨確認:
+
+```powershell
+pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase kickoff
+pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase implementation
+pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase finalize -AllowCommonSharedPaths
+```
 
 ## 4. blocked / done の判断ポイント
 
@@ -104,4 +122,4 @@ AI:
 - `spec.md` と `plan.md` を埋めてから実装する
 - テスト結果を `review.md` に残す
 - `docs/INDEX.md`, `MEMORY.md`, `state.json` を更新する
-- コミット前に consistency-check を通す
+- コミット前に境界チェック（`tools/commit-boundary/check-staged-files.ps1`）と consistency-check を通す

@@ -23,6 +23,7 @@ description: docs/operations/high-priority-backlog.md と work/*/state.json を�
 3. 次の進め方を提案オプション3案で示す。
 4. 推奨案を1つ選び理由を示す。
 5. 必要なら確認質問を 2〜4 件提示する。
+6. 次タスク着手前に、直前タスクの境界コミット完了を確認する。
 
 ## コマンド
 
@@ -49,4 +50,5 @@ pwsh -NoProfile -File "agents/skills/Rail10-list-planned-tasks-by-backlog-priori
 - backlog と work の不整合を無視しない。
 - 一覧表示だけで意思決定支援を省略しない。
 - 根拠なしで優先度を変更しない。
+- 境界コミット未完了のまま次タスク着手を推奨しない。
 

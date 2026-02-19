@@ -34,6 +34,24 @@ Claude 互換の補助は `CLAUDE.md` に記載しますが、矛盾時はこの
 8. 資料更新 (`docs/INDEX.md` と関連資料)
 9. 記憶更新 (`MEMORY.md` と `state.json`)
 
+### 3.1 コミット境界 (Commit Boundary)
+
+差分混在を防ぐため、次の境界でコミットを行う。
+
+1. 起票境界コミット:
+   - `request.md` / `investigation.md` / `spec.md` / `plan.md` の要件確定と backlog 登録が完了した時点
+2. 実装境界コミット:
+   - 実装とテストが完了し、レビュー前に差分が安定した時点
+3. 完了境界コミット:
+   - `review.md` / docs / `MEMORY.md` / `state.json` 更新まで完了した時点
+
+コミット前には、stage された差分が単一 task に閉じていることを確認する。
+
+推奨コマンド:
+- `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase kickoff`
+- `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase implementation`
+- `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase finalize -AllowCommonSharedPaths`
+
 ## 4. 厳格ブロック条件
 
 以下のいずれかに該当した場合は、状態を `blocked` にして先に是正する。
@@ -43,6 +61,7 @@ Claude 互換の補助は `CLAUDE.md` に記載しますが、矛盾時はこの
 - `plan.md` が `spec.md` を参照していない。
 - レビュー後に `docs/INDEX.md` が未更新。
 - `project.profile.yaml` の必須キー不足。
+- stage 差分に対象 task 以外の `work/<task-id>/` 変更が混在している。
 
 ## 5. タスク成果物の必須セット
 

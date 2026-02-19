@@ -26,6 +26,8 @@ description: 確定済み spec.md を参照して work/<task-id>/plan.md を作�
 5. profile ベースのテスト実行順を定義する。
 6. 高影響の不確定点のみ確認質問 2〜4 件を提示する。
 7. 実装開始不能なら `blocked` を提案する。
+8. 実装着手前に、起票境界コミット完了を確認する。
+   - `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase kickoff`
 
 ## 出力フォーマット
 

@@ -54,3 +54,20 @@
 - evidence: Review completed without additional flow gaps.
 - action_required: no
 - linked_task_id: none
+
+## 7. Commit Boundaries
+
+### 7.1 Kickoff Commit
+
+- commit: PENDING
+- scope_check: PENDING
+
+### 7.2 Implementation Commit
+
+- commit: PENDING
+- scope_check: PENDING
+
+### 7.3 Finalize Commit
+
+- commit: PENDING
+- scope_check: PENDING

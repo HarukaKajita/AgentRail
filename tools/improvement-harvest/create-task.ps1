@@ -318,7 +318,24 @@ $reviewContent = @(
   "- summary: Improvement task bootstrap generated from source finding.",
   "- evidence: Source task $SourceTaskId / finding $FindingId requested follow-up.",
   "- action_required: $seedActionRequired",
-  "- linked_task_id: $seedLinkedTaskId"
+  "- linked_task_id: $seedLinkedTaskId",
+  "",
+  "## 7. Commit Boundaries",
+  "",
+  "### 7.1 Kickoff Commit",
+  "",
+  "- commit: PENDING",
+  "- scope_check: PENDING",
+  "",
+  "### 7.2 Implementation Commit",
+  "",
+  "- commit: PENDING",
+  "- scope_check: PENDING",
+  "",
+  "### 7.3 Finalize Commit",
+  "",
+  "- commit: PENDING",
+  "- scope_check: PENDING"
 ) -join "`n"
 
 $stateObject = [PSCustomObject]@{

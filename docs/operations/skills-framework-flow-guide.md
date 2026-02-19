@@ -53,6 +53,10 @@
 - フロー位置: 着手前の優先度判断
 - 役割: backlog と `state.json` の planned 状態照合
 
+11. `Commit Boundary Check`
+- フロー位置: 各作業境界コミット直前
+- 役割: stage 差分が単一 task に閉じていることを検証し、混在を fail-fast する
+
 ## 共通設計ルール
 
 ### 1. フロー準拠
@@ -80,6 +84,23 @@
 - `plan.md` の `spec.md` 非参照
 - `docs/INDEX.md` 更新漏れ
 - `project.profile.yaml` 必須キー不足
+- stage 差分に対象 task 以外の `work/<task-id>/` が混在
+
+### 2.1 コミット境界の統一
+
+全スキル運用で次の境界コミットを前提とする。
+
+1. 起票境界コミット
+2. 実装境界コミット
+3. 完了境界コミット
+
+コミット前の推奨チェック:
+
+```powershell
+pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase kickoff
+pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase implementation
+pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase finalize -AllowCommonSharedPaths
+```
 
 ### 3. ブレインストーミング出力の統一
 

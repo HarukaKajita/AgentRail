@@ -197,6 +197,53 @@ function Validate-ProcessFindings {
   }
 }
 
+function Validate-CommitBoundaries {
+  param(
+    [string]$ReviewContent,
+    [string]$ReviewPath
+  )
+
+  $commitBoundaryBlock = Get-HeadingBlock -Content $ReviewContent -HeadingRegex "(?m)^##\s+7\.\s+Commit Boundaries" -EndRegex "(?m)^##\s+\d+\."
+  if (-not $commitBoundaryBlock) {
+    Add-Failure -RuleId "commit_boundaries_tracked" -File $ReviewPath -Reason "state=done task requires '## 7. Commit Boundaries' in review.md."
+    return
+  }
+
+  $phaseChecks = @(
+    @{
+      HeadingRegex = "(?m)^###\s+7\.1\s+Kickoff Commit"
+      EndRegex     = "(?m)^###\s+7\.2\s+Implementation Commit|^##\s+"
+      PhaseName    = "Kickoff"
+    },
+    @{
+      HeadingRegex = "(?m)^###\s+7\.2\s+Implementation Commit"
+      EndRegex     = "(?m)^###\s+7\.3\s+Finalize Commit|^##\s+"
+      PhaseName    = "Implementation"
+    },
+    @{
+      HeadingRegex = "(?m)^###\s+7\.3\s+Finalize Commit"
+      EndRegex     = "(?m)^##\s+"
+      PhaseName    = "Finalize"
+    }
+  )
+
+  foreach ($phase in $phaseChecks) {
+    $block = Get-HeadingBlock -Content $commitBoundaryBlock -HeadingRegex $phase.HeadingRegex -EndRegex $phase.EndRegex
+    if (-not $block) {
+      Add-Failure -RuleId "commit_boundaries_tracked" -File $ReviewPath -Reason ("Missing commit boundary section for phase: " + $phase.PhaseName)
+      continue
+    }
+
+    if (-not ([Regex]::IsMatch($block, "(?m)^\s*-\s*commit:\s*[0-9a-f]{7,40}\s*$", [System.Text.RegularExpressions.RegexOptions]::IgnoreCase))) {
+      Add-Failure -RuleId "commit_boundaries_tracked" -File $ReviewPath -Reason ("Phase '" + $phase.PhaseName + "' requires a concrete commit hash.")
+    }
+
+    if (-not ([Regex]::IsMatch($block, "(?m)^\s*-\s*scope_check:\s*PASS\s*$", [System.Text.RegularExpressions.RegexOptions]::IgnoreCase))) {
+      Add-Failure -RuleId "commit_boundaries_tracked" -File $ReviewPath -Reason ("Phase '" + $phase.PhaseName + "' requires scope_check: PASS.")
+    }
+  }
+}
+
 function Invoke-SingleTaskCheck {
   param(
     [string]$TargetTaskId
@@ -376,6 +423,16 @@ function Invoke-SingleTaskCheck {
     $shouldValidateProcessFindings = $hasProcessFindingsSection -or $taskState.ToLowerInvariant() -eq "done"
     if ($shouldValidateProcessFindings) {
       Validate-ProcessFindings -ReviewContent $reviewContent -ReviewPath $reviewPath -WorkRootPath $WorkRoot
+    }
+
+    if ($taskState.ToLowerInvariant() -eq "done") {
+      $requiresCommitBoundary = $false
+      if ($specContent) {
+        $requiresCommitBoundary = [Regex]::IsMatch($specContent, "(?i)commit boundary|境界コミット")
+      }
+      if ($requiresCommitBoundary) {
+        Validate-CommitBoundaries -ReviewContent $reviewContent -ReviewPath $reviewPath
+      }
     }
   }
 

@@ -27,6 +27,8 @@ description: ユーザー要望を work/<task-id>/request.md 向けに具体化�
 6. 未確定点のみ確認質問 2〜4 件を作る。
 7. `request.md` に反映する確定要望、非要望、境界条件を明示する。
 8. 未確定が後続工程を止める場合は `blocked` を提案する。
+9. 起票境界が確定したら、境界コミット前チェックを提案する。
+   - `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase kickoff`
 
 ## 出力フォーマット
 
