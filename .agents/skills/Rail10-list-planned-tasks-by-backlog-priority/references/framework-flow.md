@@ -7,12 +7,14 @@
 1. 要望整理 (`request.md`)
 2. 調査 (`investigation.md`)
 3. 要件確定 (`spec.md`)
-4. 実装計画 (`plan.md`)
-5. 実装
-6. テスト
-7. レビュー (`review.md`)
-8. 資料更新 (`docs/INDEX.md` と関連資料)
-9. 記憶更新 (`MEMORY.md` と `state.json`)
+4. 実装計画ドラフト (`plan-draft`)
+5. 依存解決確認（depends_on gate）
+6. 実装計画確定 (`plan-final`)
+7. 実装
+8. テスト
+9. レビュー (`review.md`)
+10. 資料更新 (`docs/INDEX.md` と関連資料)
+11. 記憶更新 (`MEMORY.md` と `state.json`)
 
 順序を飛ばして進めない。
 
@@ -23,7 +25,7 @@
 - `project.profile.yaml` が存在し必須キーが埋まっている。
 - `work/<task-id>/request.md` がある。
 - `work/<task-id>/spec.md` の空欄禁止項目が埋まっている。
-- `work/<task-id>/plan.md` がある。
+- `work/<task-id>/plan.md` がある（`plan-draft` を含む）。
 - `work/<task-id>/state.json` が最新。
 
 ## 3. ブロック条件
@@ -33,6 +35,7 @@
 - `spec.md` の空欄禁止項目が未記入。
 - `spec.md` のテスト要件が抽象的。
 - `plan.md` が `spec.md` を参照していない。
+- `plan-final` 確定前に実装へ進もうとしている。
 - docs 更新後に `docs/INDEX.md` が未更新。
 - profile の必須キー不足。
 

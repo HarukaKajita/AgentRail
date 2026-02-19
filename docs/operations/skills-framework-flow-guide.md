@@ -43,8 +43,8 @@
 - 役割: `spec.md` の空欄禁止項目充足、AC とテスト要件の対応定義
 
 6. `Rail6:write-plan`
-- フロー位置: 実装計画
-- 役割: `spec.md` を参照した実施順序・リスク・ロールバック定義
+- フロー位置: 実装計画（`plan-draft` / `plan-final`）
+- 役割: `spec.md` を参照した実施順序・リスク・ロールバックを、依存ゲート前後の2段階で定義
 
 7. `Rail7:write-test-requirements`
 - フロー位置: 要件確定〜テスト準備
@@ -75,7 +75,9 @@
 - 要望整理
 - 調査
 - 要件確定
-- 実装計画
+- 実装計画ドラフト（`plan-draft`）
+- 依存関係ゲート（depends_on gate）
+- 実装計画確定（`plan-final`）
 - 実装
 - テスト
 - レビュー
@@ -115,11 +117,13 @@ pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task
 
 ### 2.2 依存関係ゲート
 
-着手時は `state.json` の `depends_on` を必ず確認し、未解決依存がある task は先行着手しない。
+着手時は `state.json` の `depends_on` を必ず確認し、未解決依存がある task は `plan-final` へ進めない。
 
 - ready 判定: `depends_on` が空、または依存先がすべて `state=done`
 - blocked-by-dependency 判定: 依存先に `state!=done` が1件以上ある
 - fail 条件: 自己依存・循環依存・不存在 task-id 参照
+- `plan-draft` は gate 前の探索用計画として扱い、実装/コミット判断に使わない
+- `plan-final` は gate pass 後のみ確定する
 
 ### 3. ブレインストーミング出力の統一
 

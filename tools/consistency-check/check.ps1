@@ -816,6 +816,22 @@ function Invoke-SingleTaskCheck {
     }
   }
 
+  if ($specContent) {
+    $requiresTwoStagePlan = [Regex]::IsMatch($specContent, "(?i)plan-draft|plan-final")
+    if ($requiresTwoStagePlan) {
+      if (-not $planContent) {
+        Add-Failure -RuleId "plan_two_stage_defined" -File $planPath -Reason "Two-stage planning is required but plan.md is missing."
+      } else {
+        if (-not ([Regex]::IsMatch($planContent, "(?i)plan-draft"))) {
+          Add-Failure -RuleId "plan_two_stage_defined" -File $planPath -Reason "plan.md must define plan-draft when spec requires two-stage planning."
+        }
+        if (-not ([Regex]::IsMatch($planContent, "(?i)plan-final"))) {
+          Add-Failure -RuleId "plan_two_stage_defined" -File $planPath -Reason "plan.md must define plan-final when spec requires two-stage planning."
+        }
+      }
+    }
+  }
+
   if ($specContent -and $indexContent) {
     $relatedLinksBlock = Get-HeadingBlock -Content $specContent -HeadingRegex "(?m)^##\s+9\.\s+関連資料リンク" -EndRegex "(?m)^##\s+"
     $docPathMatches = @()

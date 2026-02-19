@@ -17,6 +17,8 @@
 
 1. `2026-02-20__dependency-gate-before-plan-flow`
 - 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: plan-ready
 - 依存: `2026-02-19__task-dependency-aware-prioritization-flow`, `2026-02-19__task-commit-boundary-automation-flow`
 - 依存状態: 解決済み
 - 目的: `plan-draft -> depends_on gate -> plan-final` の2段階計画フローを定義し、依存未解決時は final 計画確定を抑止する
@@ -24,6 +26,8 @@
 
 2. `2026-02-20__subagent-multi-agent-delegation-governance`
 - 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: plan-ready
 - 依存: `2026-02-19__task-dependency-aware-prioritization-flow`, `2026-02-19__task-commit-boundary-automation-flow`, `2026-02-19__task-doc-prerequisite-knowledge-section`
 - 依存状態: 解決済み
 - 目的: 各工程で subagent / multi_agent を標準活用しつつ、品質低下懸念工程を例外化する運用ルールを仕様化する
@@ -155,7 +159,9 @@
 ## 更新ルール
 
 - task の状態を更新したら本資料も同時更新する。
-- `planned` タスクには `依存` と `依存状態` を必ず記載し、`state.json` の `depends_on` と一致させる。
+- `planned` タスクには `計画段階`、`ゲート状態`、`依存` と `依存状態` を必ず記載する。
+- `依存` は `state.json` の `depends_on` と一致させる。
+- `計画段階` は `plan-draft` / `plan-final` を使用し、`ゲート状態` は `plan-ready` / `dependency-blocked` を使用する。
 - 完了タスクは `Completed` セクションへ移動する。
 - `review.md` の `Process Findings` で `must/high` が検出された場合は、同一PR内で follow-up task を起票して本資料へ登録する。
 - 自動起票時は `tools/improvement-harvest/create-task.ps1` を使用し、`request/spec` に source task と finding ID を記録する。

@@ -29,22 +29,23 @@ Claude 互換の補助は `CLAUDE.md` に記載しますが、矛盾時はこの
 1. 要望整理 (`request.md`)
 2. 調査 (`investigation.md`)
 3. 要件確定 (`spec.md`)
-4. 実装計画 (`plan.md`)
-5. 依存解決確認（未解決依存がある場合は依存先を先行）
-6. 実装
-7. テスト
-8. レビュー (`review.md`)
-9. 資料更新 (`docs/INDEX.md` と関連資料)
-10. 記憶更新 (`MEMORY.md` と `state.json`)
+4. 実装計画ドラフト (`plan.md` の `plan-draft`)
+5. 依存解決確認（depends_on gate）
+6. 実装計画確定 (`plan-final`)
+7. 実装
+8. テスト
+9. レビュー (`review.md`)
+10. 資料更新 (`docs/INDEX.md` と関連資料)
+11. 記憶更新 (`MEMORY.md` と `state.json`)
 
 ### 3.1 コミット境界 (Commit Boundary)
 
 差分混在を防ぐため、次の境界でコミットを行う。
 
 1. 起票境界コミット:
-   - `request.md` / `investigation.md` / `spec.md` / `plan.md` の要件確定と backlog 登録が完了した時点
+   - `request.md` / `investigation.md` / `spec.md` / `plan-draft` の要件確定と backlog 登録が完了した時点
 2. 実装境界コミット:
-   - 実装とテストが完了し、レビュー前に差分が安定した時点
+   - `depends_on gate` 通過後の `plan-final` 確定、実装とテストが完了し、レビュー前に差分が安定した時点
 3. 完了境界コミット:
    - `review.md` / docs / `MEMORY.md` / `state.json` 更新まで完了した時点
 
@@ -62,6 +63,7 @@ Claude 互換の補助は `CLAUDE.md` に記載しますが、矛盾時はこの
 - `spec.md` の空欄禁止項目が未記入。
 - `spec.md` の `テスト要件` が抽象的で検証条件になっていない。
 - `plan.md` が `spec.md` を参照していない。
+- `plan-final` 確定前に実装へ進もうとしている。
 - 着手対象 task の `depends_on` に未完了依存がある。
 - active task の資料に `前提知識` セクションがない、または参照先が解決できない。
 - レビュー後に `docs/INDEX.md` が未更新。

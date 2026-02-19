@@ -1,13 +1,13 @@
 ---
 name: Rail10:list-planned-tasks-by-backlog-priority
-description: docs/operations/high-priority-backlog.md と work/*/state.json を照合し、planned タスクを依存関係込みで優先表示する。表示後は提案3案と確認質問2-4件で次の着手判断を支援する。
+description: docs/operations/high-priority-backlog.md と work/*/state.json を照合し、planned タスクを依存関係込みで優先表示する。`plan-draft` / `plan-ready` / `dependency-blocked` を示したうえで提案3案と確認質問2-4件で次の着手判断を支援する。
 ---
 
 # List Planned Tasks By Backlog Priority
 
 ## 役割
 
-バックログと実状態を照合し、依存解決済みタスクを優先した着手判断を支援する。
+バックログと実状態を照合し、`plan-draft`・`plan-ready`・`dependency-blocked` を可視化して着手判断を支援する。
 
 ## 事前参照
 
@@ -20,7 +20,7 @@ description: docs/operations/high-priority-backlog.md と work/*/state.json を�
 
 1. 付属スクリプトで planned タスクの依存解決済み優先一覧を取得する。
 2. `depends_on` と backlog の依存記述が一致しているか warnings を確認する。
-3. `Ready Tasks` と `Blocked Tasks` を要約し、次に着手可能な task-id を明確化する。
+3. `Ready Tasks (plan-ready)` と `Blocked Tasks (dependency-blocked)` を要約し、次に着手可能な task-id を明確化する。
 4. 次の進め方を提案オプション3案で示す。
 5. 推奨案を1つ選び理由を示す。
 6. 必要なら確認質問を 2〜4 件提示する。
@@ -41,8 +41,8 @@ pwsh -NoProfile -File "./scripts/list_planned_tasks.ps1" -RepoRoot "../../.."
 ## 出力フォーマット
 
 1. Planned Tasks (Priority Order)
-2. Ready Tasks (Dependency Resolved)
-3. Blocked Tasks (Unresolved Dependencies)
+2. Ready Tasks (plan-ready)
+3. Blocked Tasks (dependency-blocked)
 4. Warnings
 5. 提案オプション（3案）
 6. 推奨案

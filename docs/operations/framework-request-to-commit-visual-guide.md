@@ -25,9 +25,10 @@ flowchart TD
   B --> C[investigation.md 調査]
   C --> D[spec.md 要件確定]
   D --> K1[起票境界コミット]
-  K1 --> E[plan.md 実装計画]
+  K1 --> E[plan-draft 作成]
   E --> E1[depends_on 依存解決確認]
-  E1 --> F[実装]
+  E1 --> E2[plan-final 確定]
+  E2 --> F[実装]
   F --> G[テスト]
   G --> K2[実装境界コミット]
   K2 --> H[review.md レビュー]
@@ -41,7 +42,7 @@ flowchart TD
 
   E1 --> D1{依存先はすべて done か}
   D1 -- No --> D2[依存先 task を先行着手]
-  D1 -- Yes --> F
+  D1 -- Yes --> E2
 
   H --> N{done 条件を満たすか}
   N -- No --> O[修正して再テスト]
@@ -56,21 +57,22 @@ flowchart TD
 3. 前提知識整理: task 資料に `前提知識` セクションを記載し、参照先を解決可能にする。
 4. 調査: `investigation.md` で現状確認と仮説を整理する。
 5. 要件確定: `spec.md` に受入条件とテスト要件を定義する。
-6. 実装計画: `plan.md` に手順・リスク・完了判定を明記する。
-7. 着手前依存確認: `state.json` の `depends_on` を確認し、未解決依存があれば先行タスクへ切り替える。
-8. 実装: コード/ドキュメントを変更する。
-9. テスト: 実行コマンドで期待結果を検証する。
-10. レビュー: `review.md` に AC 判定・テスト結果・Process Findings を記録する。
-11. 資料更新: 変更した docs を更新し、`docs/INDEX.md` へ導線を追加する。
-12. 記憶更新: `MEMORY.md` と `state.json` を最新化する。
-13. コミット: 変更を意味のある単位でコミットする。
+6. 実装計画ドラフト: `plan-draft` を作成し、探索用の実施方針を記録する。
+7. 依存解決確認: `state.json` の `depends_on` を確認し、未解決依存があれば先行タスクへ切り替える。
+8. 実装計画確定: gate pass 後に `plan-final` を確定する。
+9. 実装: コード/ドキュメントを変更する。
+10. テスト: 実行コマンドで期待結果を検証する。
+11. レビュー: `review.md` に AC 判定・テスト結果・Process Findings を記録する。
+12. 資料更新: 変更した docs を更新し、`docs/INDEX.md` へ導線を追加する。
+13. 記憶更新: `MEMORY.md` と `state.json` を最新化する。
+14. コミット: 変更を意味のある単位でコミットする。
 
 ## 3.1 コミット境界ルール
 
 差分混在を防ぐため、コミットを次の3境界で行う。
 
-1. 起票境界コミット: 起票と要件確定（request/investigation/spec/plan）完了時
-2. 実装境界コミット: 実装 + テスト完了時
+1. 起票境界コミット: 起票と要件確定（request/investigation/spec/plan-draft）完了時
+2. 実装境界コミット: depends_on gate 通過後の plan-final 確定 + 実装 + テスト完了時
 3. 完了境界コミット: review/docs/memory/state 更新完了時
 
 境界コミット前の推奨確認:

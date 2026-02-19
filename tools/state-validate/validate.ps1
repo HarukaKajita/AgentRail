@@ -330,6 +330,23 @@ function Validate-Task {
     }
   }
 
+  $twoStageSpecPath = Join-Path -Path $taskDir -ChildPath "spec.md"
+  $twoStagePlanPath = Join-Path -Path $taskDir -ChildPath "plan.md"
+  $twoStageSpecContent = if (Test-Path -LiteralPath $twoStageSpecPath -PathType Leaf) { Get-Content -LiteralPath $twoStageSpecPath -Raw } else { $null }
+  $twoStagePlanContent = if (Test-Path -LiteralPath $twoStagePlanPath -PathType Leaf) { Get-Content -LiteralPath $twoStagePlanPath -Raw } else { $null }
+  if ($twoStageSpecContent -and [Regex]::IsMatch($twoStageSpecContent, "(?i)plan-draft|plan-final")) {
+    if ([string]::IsNullOrWhiteSpace($twoStagePlanContent)) {
+      Add-Failure -Task $TargetTaskId -File $twoStagePlanPath -Reason "Two-stage planning is required but plan.md is missing."
+    } else {
+      if (-not [Regex]::IsMatch($twoStagePlanContent, "(?i)plan-draft")) {
+        Add-Failure -Task $TargetTaskId -File $twoStagePlanPath -Reason "Two-stage planning requires plan-draft in plan.md."
+      }
+      if (-not [Regex]::IsMatch($twoStagePlanContent, "(?i)plan-final")) {
+        Add-Failure -Task $TargetTaskId -File $twoStagePlanPath -Reason "Two-stage planning requires plan-final in plan.md."
+      }
+    }
+  }
+
   if ($state -eq "done") {
     $owner = [string]$stateObject.owner
     if ([string]::IsNullOrWhiteSpace($owner) -or $owner -eq "unassigned") {

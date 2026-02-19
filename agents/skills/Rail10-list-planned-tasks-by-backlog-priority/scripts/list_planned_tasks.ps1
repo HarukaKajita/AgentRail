@@ -300,12 +300,17 @@ foreach ($taskId in $docsTaskOrder) {
         "blocked"
     }
 
+    $planningPhase = "plan-draft"
+    $planningStatus = if ($dependencyStatus -eq "blocked") { "dependency-blocked" } else { "plan-ready" }
+
     $resultRows.Add([pscustomobject]@{
         task_id            = $taskId
         source             = "docs"
         priority_index     = $priorityIndex
         depends_on         = $stateDependencies
         dependency_status  = $dependencyStatus
+        planning_phase     = $planningPhase
+        planning_status    = $planningStatus
         unresolved         = $unresolved.ToArray()
     })
     $priorityIndex++
@@ -335,12 +340,17 @@ foreach ($taskId in $workOnlyPlanned) {
         "blocked"
     }
 
+    $planningPhase = "plan-draft"
+    $planningStatus = if ($dependencyStatus -eq "blocked") { "dependency-blocked" } else { "plan-ready" }
+
     $resultRows.Add([pscustomobject]@{
         task_id            = $taskId
         source             = "work-only"
         priority_index     = 100000 + $priorityIndex
         depends_on         = $stateDependencies
         dependency_status  = $dependencyStatus
+        planning_phase     = $planningPhase
+        planning_status    = $planningStatus
         unresolved         = $unresolved.ToArray()
     })
     $priorityIndex++
@@ -376,30 +386,30 @@ else {
     foreach ($row in $orderedRows) {
         $dependsLabel = Format-DependencyList -DependencyIds @($row.depends_on)
         $unresolvedLabel = Format-DependencyList -DependencyIds @($row.unresolved)
-        Write-Output ("{0}. {1} (source: {2}, dependency: {3}, depends_on: {4}, unresolved: {5})" -f $index, $row.task_id, $row.source, $row.dependency_status, $dependsLabel, $unresolvedLabel)
+        Write-Output ("{0}. {1} (source: {2}, phase: {3}, gate: {4}, dependency: {5}, depends_on: {6}, unresolved: {7})" -f $index, $row.task_id, $row.source, $row.planning_phase, $row.planning_status, $row.dependency_status, $dependsLabel, $unresolvedLabel)
         $index++
     }
 }
 
 Write-Output ""
-Write-Output "Ready Tasks (Dependency Resolved)"
+Write-Output "Ready Tasks (plan-ready)"
 if ($readyRows.Count -eq 0) {
     Write-Output "None"
 }
 else {
     foreach ($row in $readyRows) {
-        Write-Output ("- {0}" -f $row.task_id)
+        Write-Output ("- {0} ({1}, phase: {2})" -f $row.task_id, $row.planning_status, $row.planning_phase)
     }
 }
 
 Write-Output ""
-Write-Output "Blocked Tasks (Unresolved Dependencies)"
+Write-Output "Blocked Tasks (dependency-blocked)"
 if ($blockedRows.Count -eq 0) {
     Write-Output "None"
 }
 else {
     foreach ($row in $blockedRows) {
-        Write-Output ("- {0}: {1}" -f $row.task_id, (Format-DependencyList -DependencyIds @($row.unresolved)))
+        Write-Output ("- {0}: {1} ({2}, phase: {3})" -f $row.task_id, (Format-DependencyList -DependencyIds @($row.unresolved)), $row.planning_status, $row.planning_phase)
     }
 }
 
