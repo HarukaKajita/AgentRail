@@ -6,7 +6,13 @@
 
 ## 優先タスク一覧
 
-1. `2026-02-19__ci-profile-schema-version-governance-gate`
+1. `2026-02-19__rail10-skill-command-path-fix`
+- 状態: planned
+- 目的: `Rail10:list-planned-tasks-by-backlog-priority` の `SKILL.md` コマンド案内を `$HOME/.agents/...` 依存からスキル同梱 `scripts/` 実行へ統一する
+- 参照: `work/2026-02-19__rail10-skill-command-path-fix/spec.md`
+- 元候補: ユーザー要望（2026-02-19）
+
+2. `2026-02-19__ci-profile-schema-version-governance-gate`
 - 状態: planned
 - 目的: `schema_version` 更新運用（2.x 以降）を CI で強制し、破壊的変更時の versioning 不整合を fail-fast で検出する
 - 参照: `work/2026-02-19__ci-profile-schema-version-governance-gate/spec.md`
