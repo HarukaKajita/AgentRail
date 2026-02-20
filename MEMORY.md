@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__fix-improvement-create-task-parser-errors
-- タイトル: Fix improvement create-task parser errors
-- 状態: in_progress
-- 最終更新日時: 2026-02-20T05:17:35+09:00
+- Task ID: 2026-02-20__align-workflow-dispatch-task-id-contract
+- タイトル: Align workflow_dispatch task_id contract
+- 状態: planned
+- 最終更新日時: 2026-02-20T12:46:37+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -19,6 +19,7 @@
 
 ## 3. 完了済み
 
+- `2026-02-20__fix-improvement-create-task-parser-errors` を完了。
 - `2026-02-19__existing-docs-prerequisites-retrofit` を完了。
 - `2026-02-19__ci-profile-schema-version-governance-gate` を完了。
 - `2026-02-19__task-commit-boundary-automation-flow` を完了。
@@ -51,19 +52,17 @@
 
 ## 5. 未解決・ブロッカー
 
-- `tools/improvement-harvest/create-task.ps1` が構文エラーで実行不能（最優先で対応中）。
+- なし
 
 ## 6. 次アクション
 
-1. `2026-02-20__fix-improvement-create-task-parser-errors` を実装し、parser/実行確認を通す。
-2. `2026-02-20__align-workflow-dispatch-task-id-contract` と `2026-02-20__allow-schema-governance-without-base-sha` に着手する。
-3. medium/low 優先の docs・テンプレート不整合修正を順次処理する。
+1. `2026-02-20__align-workflow-dispatch-task-id-contract` を実装して CI 手動実行契約を整合させる。
+2. `2026-02-20__allow-schema-governance-without-base-sha` を実装して初回 push 系のガバナンス判定を安定化する。
+3. 残りの medium/low 優先タスクを backlog 順で順次処理する。
 
 ## 7. 参照先
 
 - `docs/operations/high-priority-backlog.md`
-- `work/2026-02-20__fix-improvement-create-task-parser-errors/request.md`
-- `work/2026-02-20__fix-improvement-create-task-parser-errors/spec.md`
 - `work/2026-02-20__align-workflow-dispatch-task-id-contract/spec.md`
 - `work/2026-02-20__allow-schema-governance-without-base-sha/spec.md`
 
@@ -72,3 +71,4 @@
 - [x] `state.json` が最新か
 - [x] `docs/INDEX.md` を更新済みか（既存導線ファイル更新のため追加不要）
 - [x] 次アクションが実行可能な粒度か
+
