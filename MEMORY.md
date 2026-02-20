@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__wave2-implement-doc-quality-warning-mode
-- タイトル: Wave 2: docs品質チェック warning 導入
+- Task ID: 2026-02-20__wave2-enforce-doc-quality-fail-mode
+- タイトル: Wave 2: docs品質チェック fail 昇格
 - 状態: planned
-- 最終更新日時: 2026-02-20T17:55:25+09:00
+- 最終更新日時: 2026-02-20T18:42:00+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -69,6 +69,12 @@
   - `docs/operations/wave2-doc-quality-check-rules-spec.md` を追加し、DQ-001〜DQ-004 と warning/fail 段階導入方針を定義。
   - `docs/operations/high-priority-backlog.md` で warning 導入タスクを plan-ready に更新。
   - `work/2026-02-20__wave2-spec-doc-quality-check-rules/{plan,spec,review,state.json}` を done 条件へ更新。
+- `2026-02-20__wave2-implement-doc-quality-warning-mode` を完了。
+  - `tools/consistency-check/check.ps1` / `tools/state-validate/validate.ps1` に `DocQualityMode off|warning|fail` を追加。
+  - warning summary（`total_rules / warning_count / error_count`）を text 出力へ追加し、`consistency-check` の json 出力へ doc quality セクションを追加。
+  - `docs/operations/wave2-doc-quality-warning-mode.md` を追加し、warning 運用手順と観測値（warning=21）を記録。
+  - `docs/operations/high-priority-backlog.md` で fail 昇格タスクを plan-ready に更新。
+  - `work/2026-02-20__wave2-implement-doc-quality-warning-mode/{request,investigation,spec,plan,review,state.json}` を done 条件へ更新。
 - Wave 実行タスク 12 件を起票。
   - Wave 0: `2026-02-20__wave0-inventory-human-centric-doc-coverage`, `2026-02-20__wave0-define-doc-ownership-and-update-matrix`
   - Wave 1: `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`, `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`, `2026-02-20__wave1-normalize-doc-work-cross-links`
@@ -90,9 +96,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__wave2-implement-doc-quality-warning-mode` を完了し、段階導入を実装する。
-2. `2026-02-20__wave2-enforce-doc-quality-fail-mode` を完了し、fail モードへ昇格する。
-3. `2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates` を完了し、CI運用資料を整合する。
+1. `2026-02-20__wave2-enforce-doc-quality-fail-mode` を完了し、fail モードへ昇格する。
+2. `2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates` を完了し、CI運用資料を整合する。
+3. `2026-02-20__wave3-define-doc-quality-kpi-thresholds` の前提を満たす。
 
 ## 7. 参照先
 
@@ -126,6 +132,9 @@
 - `work/2026-02-20__wave2-spec-doc-quality-check-rules/spec.md`
 - `work/2026-02-20__wave2-spec-doc-quality-check-rules/review.md`
 - `docs/operations/wave2-doc-quality-check-rules-spec.md`
+- `work/2026-02-20__wave2-implement-doc-quality-warning-mode/spec.md`
+- `work/2026-02-20__wave2-implement-doc-quality-warning-mode/review.md`
+- `docs/operations/wave2-doc-quality-warning-mode.md`
 
 ## 8. 引き継ぎ時チェック
 

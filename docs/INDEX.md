@@ -83,6 +83,7 @@
 - `docs/operations/wave1-doc-work-cross-link-normalization.md` - Wave 1: Doc-Work Cross-Link Normalization
 - `docs/operations/wave1-operations-docs-human-centric-migration.md` - Wave 1 Operations Docs: Human-Centric Migration
 - `docs/operations/wave2-doc-quality-check-rules-spec.md` - Wave 2 Spec: Doc Quality Check Rules
+- `docs/operations/wave2-doc-quality-warning-mode.md` - Wave 2: Doc Quality Warning Mode
 
 ## 7. 更新手順
 

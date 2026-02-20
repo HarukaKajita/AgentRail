@@ -4,73 +4,72 @@
 
 - 参照資料:
   - `AGENTS.md`
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
+  - `docs/operations/wave2-doc-quality-check-rules-spec.md`
   - `work/2026-02-20__wave2-implement-doc-quality-warning-mode/request.md`
+  - `tools/consistency-check/check.ps1`
+  - `tools/state-validate/validate.ps1`
 - 理解ポイント:
-  - Wave 2: docs品質チェック warning 導入 の実行順序は wave 計画と depends_on に従う。
+  - warning 段階ではルール違反を観測値として出力し、終了コードへ影響させない。
 
 ## 1. 調査対象 [空欄禁止]
 
-- 課題: docs 品質チェックを warning モードで段階導入する。
-- 目的: 実行対象、検証方法、ロールバック条件を明確化する。
-- 依存: 2026-02-20__wave2-spec-doc-quality-check-rules
+- 課題: DQ-001〜DQ-004 を warning として可視化する実装方式の確定。
+- 目的: fail 昇格前に warnings を継続観測できる実装を導入する。
+- 依存: `2026-02-20__wave2-spec-doc-quality-check-rules`
 
 ## 2. 仮説 (Hypothesis / 仮説) [空欄禁止]
 
-- 入力・出力・ゲートを明示すれば、後続 wave への引き継ぎ精度を維持できる。
+- `DocQualityMode` を `off|warning|fail` の共通スイッチで両 validator に導入すれば、段階導入と昇格の両方を同一手順で扱える。
 
 ## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
-  - `docs/INDEX.md`
+  - `docs/operations/wave2-doc-quality-check-rules-spec.md`
   - `docs/operations/high-priority-backlog.md`
-  - tools/consistency-check/check.ps1
-  - tools/state-validate/validate.ps1
+  - `tools/consistency-check/check.ps1`
+  - `tools/state-validate/validate.ps1`
 - 実施した確認:
-  - 依存タスクの完了状態を確認する。
-  - 本タスク成果物の配置先と参照更新箇所を確認する。
-  - 検証コマンドの実行可能性を確認する。
+  1. 現行 validator のパラメータ・終了コード・出力形式を確認した。
+  2. docs 関連の既存検証（前提知識/INDEX/depends_on）と DQ-001〜DQ-004 の対応関係を整理した。
+  3. `-AllTasks` 実行で warning 観測件数を取得し、既存 PASS を維持できることを確認した。
 
 ## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - 事実:
-  - Wave 2: docs品質チェック warning 導入 は wave 計画の分割単位として必要。
-  - depends_on は 未解決（2026-02-20__wave2-spec-doc-quality-check-rules[planned]）。
+  - 既存実装は docs 品質観点を FAIL 判定に直接組み込む箇所と未実装箇所が混在していた。
+  - `DocQualityMode=warning` 実装後、`consistency-check -AllTasks` / `state-validate -AllTasks` は PASS を維持した。
+  - warning 集計は全体で 21 件を観測した（主に DQ-002: docs/work 双方向参照不足）。
 - 推測:
-  - task 完了時に docs 導線と review 証跡を残すことで回帰リスクを低減できる。
+  - fail 昇格時は観測済み warning を優先的に解消し、CI fail へ切替えても回帰を抑制できる。
 
 ## 5. 提案オプション [空欄禁止]
 
-1. 最短経路:
-   - 最低限の文書更新のみ実施。
-2. 標準経路（推奨）:
-   - 文書更新 + 検証 + state 更新まで実施。
-3. 先行拡張:
-   - 後続タスク範囲まで同時に拡張。
+1. `consistency-check` のみ対応
+2. 両 validator を同時対応（推奨）
+3. 先に CI fail へ昇格
 
 ## 6. 推奨案 [空欄禁止]
 
-- 推奨: 2. 標準経路
+- 推奨: 2. 両 validator を同時対応
 - 理由:
-  - 品質ゲートを満たしつつ、過剰実装を避けられる。
+  - ルール適用範囲を揃えた上で warning 観測を開始でき、後続タスクの切替コストを下げられるため。
 
 ## 7. 結論 (Conclusion / 結論) [空欄禁止]
 
-- Wave 2: docs品質チェック warning 導入 を単独タスクとして起票し、wave 依存順序を維持して進行する。
+- `DocQualityMode` を `consistency-check` / `state-validate` に追加し、warning mode を既定として導入する。
 
 ## 8. 未解決事項 [空欄禁止]
 
-- 実行時に追加で判明する運用制約は review で Process Findings へ記録する。
+- fail モード昇格時に警告 21 件をどう扱うかの閾値設計（後続 `wave2-enforce` で確定）。
 
 ## 9. 次アクション [空欄禁止]
 
-1. spec で受入条件とテスト要件を確定する。
-2. plan で depends_on gate と検証順序を確定する。
-3. backlog/state と同期する。
+1. 実装差分を docs に反映し warning mode 運用ガイドを作成する。
+2. `wave2-enforce-doc-quality-fail-mode` を plan-ready へ更新する。
+3. fail 昇格前の解消対象 warning を backlog 管理へ接続する。
 
 ## 10. 関連リンク [空欄禁止]
 
 - request: `work/2026-02-20__wave2-implement-doc-quality-warning-mode/request.md`
 - spec: `work/2026-02-20__wave2-implement-doc-quality-warning-mode/spec.md`
-
+- docs: `docs/operations/wave2-doc-quality-warning-mode.md`

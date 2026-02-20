@@ -10,7 +10,9 @@ param(
   [string]$ProfilePath = "project.profile.yaml",
   [ValidateSet("text", "json")]
   [string]$OutputFormat = "text",
-  [string]$OutputFile = ""
+  [string]$OutputFile = "",
+  [ValidateSet("off", "warning", "fail")]
+  [string]$DocQualityMode = "warning"
 )
 
 Set-StrictMode -Version Latest
@@ -20,6 +22,7 @@ $jsonSchemaVersion = "1.0.0"
 $allTasksExclusionPattern = "^(archive|legacy)(-|$)"
 $prerequisiteRequiredStates = @("planned", "in_progress", "blocked")
 $prerequisiteRequiredTaskFiles = @("request.md", "investigation.md", "spec.md", "plan.md", "review.md")
+$docQualityRuleIds = @("DQ-001", "DQ-002", "DQ-003", "DQ-004")
 
 $failures = New-Object System.Collections.Generic.List[object]
 $script:taskStateSnapshot = $null
@@ -604,6 +607,9 @@ function Invoke-SingleTaskCheck {
   )
 
   $failures = New-Object System.Collections.Generic.List[object]
+  $docQualityIssues = New-Object System.Collections.Generic.List[object]
+  $referencedDocPaths = New-Object System.Collections.Generic.List[string]
+  $backtick = [string][char]96
   $taskDir = Join-Path -Path $WorkRoot -ChildPath $TargetTaskId
   $requiredTaskFiles = @("request.md", "investigation.md", "spec.md", "plan.md", "review.md", "state.json")
 
@@ -644,6 +650,21 @@ function Invoke-SingleTaskCheck {
   $dependsOn = @()
   $stateSnapshot = Get-TaskStateSnapshot
   $backlogDependencyMetadata = Get-BacklogDependencyMetadata
+
+  function Add-DocQualityIssue {
+    param(
+      [string]$RuleId,
+      [string]$File,
+      [string]$Reason
+    )
+
+    $docQualityIssues.Add([PSCustomObject]@{
+        rule_id  = $RuleId
+        severity = "warning"
+        file     = $File
+        reason   = $Reason
+      }) | Out-Null
+  }
 
   if ($stateContent) {
     try {
@@ -740,6 +761,30 @@ function Invoke-SingleTaskCheck {
         $backlogDependencyFingerprint = $normalizedBacklogDependencies -join ","
         if ($stateDependencyFingerprint -ne $backlogDependencyFingerprint) {
           Add-Failure -RuleId "dependency_backlog_synced" -File $script:backlogPath -Reason "Backlog dependencies do not match state.json for task: $TargetTaskId"
+        }
+      }
+    }
+
+    if ($DocQualityMode -ne "off" -and $backlogDependencyMetadata.order.Contains($TargetTaskId)) {
+      $hasDependencyLine = $false
+      if ($backlogDependencyMetadata.has_line.ContainsKey($TargetTaskId)) {
+        $hasDependencyLine = [bool]$backlogDependencyMetadata.has_line[$TargetTaskId]
+      }
+
+      if (-not $hasDependencyLine) {
+        Add-DocQualityIssue -RuleId "DQ-004" -File $script:backlogPath -Reason "Backlog entry does not declare dependency line for this task."
+      } else {
+        $backlogDependencies = @()
+        if ($backlogDependencyMetadata.dependencies.ContainsKey($TargetTaskId)) {
+          $backlogDependencies = @($backlogDependencyMetadata.dependencies[$TargetTaskId])
+        }
+
+        $normalizedStateDependencies = @($dependsOn | Sort-Object)
+        $normalizedBacklogDependencies = @($backlogDependencies | Sort-Object)
+        $stateDependencyFingerprint = $normalizedStateDependencies -join ","
+        $backlogDependencyFingerprint = $normalizedBacklogDependencies -join ","
+        if ($stateDependencyFingerprint -ne $backlogDependencyFingerprint) {
+          Add-DocQualityIssue -RuleId "DQ-004" -File $script:backlogPath -Reason "Backlog depends_on metadata is inconsistent with state.json."
         }
       }
     }
@@ -867,6 +912,9 @@ function Invoke-SingleTaskCheck {
       $normalizedIndexPath = Normalize-PathString -Value $DocsIndexPath
       foreach ($match in $docPathMatches) {
         $docPath = $match.Groups[1].Value
+        if (-not $referencedDocPaths.Contains($docPath)) {
+          $referencedDocPaths.Add($docPath) | Out-Null
+        }
         if (-not (Test-Path -LiteralPath $docPath)) {
           Add-Failure -RuleId "link_targets_exist" -File $specPath -Reason "Referenced docs path does not exist: $docPath"
         }
@@ -876,6 +924,47 @@ function Invoke-SingleTaskCheck {
         if (-not $indexContent.Contains($docPath)) {
           Add-Failure -RuleId "docs_index_updated" -File $DocsIndexPath -Reason "Docs index does not include referenced docs path: $docPath"
         }
+      }
+    }
+  }
+
+  if ($DocQualityMode -ne "off" -and $referencedDocPaths.Count -gt 0) {
+    $docsRefPattern = [Regex]::Escape($backtick + $script:docsRootLabel + "/") + '[^`]+' + [Regex]::Escape($backtick)
+    $workRefPattern = [Regex]::Escape($backtick + $script:taskRootLabel + "/") + '[^`]+' + [Regex]::Escape($backtick)
+    $normalizedIndexPath = Normalize-PathString -Value $DocsIndexPath
+
+    foreach ($docPath in $referencedDocPaths) {
+      $docContent = Get-FileOrNull -Path $docPath
+      if (-not $docContent) {
+        continue
+      }
+
+      $prerequisitesBlock = Get-HeadingBlock -Content $docContent -HeadingRegex "(?m)^##\s+前提知識(?:\s*\(Prerequisites.*?\))?(?:\s*\[空欄禁止\])?\s*$" -EndRegex "(?m)^##\s+"
+      if (-not $prerequisitesBlock) {
+        Add-DocQualityIssue -RuleId "DQ-001" -File $docPath -Reason "Missing prerequisites section."
+      } else {
+        $tokenMatches = [Regex]::Matches($prerequisitesBlock, '`([^`]+)`')
+        $hasPathLikeReference = $false
+        foreach ($tokenMatch in $tokenMatches) {
+          if (Is-PathLikeToken -RawToken $tokenMatch.Groups[1].Value.Trim()) {
+            $hasPathLikeReference = $true
+            break
+          }
+        }
+
+        if (-not $hasPathLikeReference) {
+          Add-DocQualityIssue -RuleId "DQ-001" -File $docPath -Reason "Prerequisites section does not include local reference paths."
+        }
+      }
+
+      $hasDocsReference = [Regex]::IsMatch($docContent, $docsRefPattern)
+      $hasWorkReference = [Regex]::IsMatch($docContent, $workRefPattern)
+      if (-not $hasDocsReference -or -not $hasWorkReference) {
+        Add-DocQualityIssue -RuleId "DQ-002" -File $docPath -Reason "Related links should include both docs/* and work/* references."
+      }
+
+      if ((Normalize-PathString -Value $docPath) -ne $normalizedIndexPath -and -not $indexContent.Contains($docPath)) {
+        Add-DocQualityIssue -RuleId "DQ-003" -File $DocsIndexPath -Reason "docs/INDEX.md does not include referenced docs path: $docPath"
       }
     }
   }
@@ -969,12 +1058,19 @@ function Invoke-SingleTaskCheck {
     }
   }
 
-  $status = if ($failures.Count -eq 0) { "PASS" } else { "FAIL" }
+  $effectiveFailureCount = $failures.Count
+  if ($DocQualityMode -eq "fail") {
+    $effectiveFailureCount += $docQualityIssues.Count
+  }
+
+  $status = if ($effectiveFailureCount -eq 0) { "PASS" } else { "FAIL" }
   return [PSCustomObject]@{
-    task_id       = $TargetTaskId
-    status        = $status
-    failure_count = $failures.Count
-    failures      = $failures.ToArray()
+    task_id                 = $TargetTaskId
+    status                  = $status
+    failure_count           = $effectiveFailureCount
+    failures                = $failures.ToArray()
+    doc_quality_issue_count = $docQualityIssues.Count
+    doc_quality_issues      = $docQualityIssues.ToArray()
   }
 }
 
@@ -1026,26 +1122,68 @@ foreach ($result in $results) {
   }
 }
 
-$overallStatus = if ($allFailures.Count -eq 0) { "PASS" } else { "FAIL" }
-$exitCode = if ($allFailures.Count -eq 0) { 0 } else { 1 }
+$allDocQualityIssues = New-Object System.Collections.Generic.List[object]
+foreach ($result in $results) {
+  foreach ($issue in $result.doc_quality_issues) {
+    $severity = if ($DocQualityMode -eq "fail") { "error" } else { "warning" }
+    $allDocQualityIssues.Add([PSCustomObject]@{
+        task_id  = $result.task_id
+        rule_id  = $issue.rule_id
+        severity = $severity
+        file     = $issue.file
+        reason   = $issue.reason
+      }) | Out-Null
+  }
+}
+
+$allEffectiveFailures = New-Object System.Collections.Generic.List[object]
+foreach ($failure in $allFailures) {
+  $allEffectiveFailures.Add($failure) | Out-Null
+}
+
+if ($DocQualityMode -eq "fail") {
+  foreach ($issue in $allDocQualityIssues) {
+    $allEffectiveFailures.Add([PSCustomObject]@{
+        task_id = $issue.task_id
+        rule_id = $issue.rule_id
+        file    = $issue.file
+        reason  = $issue.reason
+      }) | Out-Null
+  }
+}
+
+$docQualitySummary = [PSCustomObject]@{
+  total_rules   = $docQualityRuleIds.Count
+  warning_count = if ($DocQualityMode -eq "warning") { $allDocQualityIssues.Count } else { 0 }
+  error_count   = if ($DocQualityMode -eq "fail") { $allDocQualityIssues.Count } else { 0 }
+}
+
+$overallStatus = if ($allEffectiveFailures.Count -eq 0) { "PASS" } else { "FAIL" }
+$exitCode = if ($allEffectiveFailures.Count -eq 0) { 0 } else { 1 }
 
 $jsonPayloadObject = if ($results.Count -eq 1) {
   $singleResult = $results[0]
   [PSCustomObject]@{
-    schema_version = $jsonSchemaVersion
-    task_id        = $singleResult.task_id
-    status         = $singleResult.status
-    failure_count  = $singleResult.failure_count
-    failures       = $singleResult.failures
+    schema_version    = $jsonSchemaVersion
+    task_id           = $singleResult.task_id
+    status            = $singleResult.status
+    failure_count     = $singleResult.failure_count
+    failures          = $singleResult.failures
+    doc_quality_mode  = $DocQualityMode
+    doc_quality       = $docQualitySummary
+    doc_quality_issues = @($allDocQualityIssues | Where-Object { $_.task_id -eq $singleResult.task_id })
   }
 } else {
   [PSCustomObject]@{
-    schema_version = $jsonSchemaVersion
-    mode          = $PSCmdlet.ParameterSetName
-    task_count    = $results.Count
-    status        = $overallStatus
-    failure_count = $allFailures.Count
-    results       = $results.ToArray()
+    schema_version    = $jsonSchemaVersion
+    mode              = $PSCmdlet.ParameterSetName
+    task_count        = $results.Count
+    status            = $overallStatus
+    failure_count     = $allEffectiveFailures.Count
+    doc_quality_mode  = $DocQualityMode
+    doc_quality       = $docQualitySummary
+    doc_quality_issues = $allDocQualityIssues.ToArray()
+    results           = $results.ToArray()
   }
 }
 
@@ -1069,8 +1207,8 @@ if ($results.Count -eq 1) {
     $textLines.Add("All checks passed for task: $($results[0].task_id)")
   } else {
     $textLines.Add("CHECK_RESULT: FAIL")
-    $textLines.Add("Failure Count: $($allFailures.Count)")
-    foreach ($failure in $allFailures) {
+    $textLines.Add("Failure Count: $($allEffectiveFailures.Count)")
+    foreach ($failure in $allEffectiveFailures) {
       $textLines.Add("- rule_id=$($failure.rule_id); file=$($failure.file); reason=$($failure.reason)")
     }
   }
@@ -1081,10 +1219,22 @@ if ($results.Count -eq 1) {
     $textLines.Add("- task_id=$($result.task_id); status=$($result.status); failure_count=$($result.failure_count)")
   }
 
-  if ($allFailures.Count -gt 0) {
-    $textLines.Add("Failure Count: $($allFailures.Count)")
-    foreach ($failure in $allFailures) {
+  if ($allEffectiveFailures.Count -gt 0) {
+    $textLines.Add("Failure Count: $($allEffectiveFailures.Count)")
+    foreach ($failure in $allEffectiveFailures) {
       $textLines.Add("- task_id=$($failure.task_id); rule_id=$($failure.rule_id); file=$($failure.file); reason=$($failure.reason)")
+    }
+  }
+}
+
+if ($DocQualityMode -ne "off") {
+  $textLines.Add("Doc Quality Mode: $DocQualityMode")
+  $textLines.Add("Doc Quality Summary: total_rules=$($docQualitySummary.total_rules); warning_count=$($docQualitySummary.warning_count); error_count=$($docQualitySummary.error_count)")
+  foreach ($issue in $allDocQualityIssues) {
+    if ($results.Count -eq 1) {
+      $textLines.Add("- rule_id=$($issue.rule_id); severity=$($issue.severity); file=$($issue.file); reason=$($issue.reason)")
+    } else {
+      $textLines.Add("- task_id=$($issue.task_id); rule_id=$($issue.rule_id); severity=$($issue.severity); file=$($issue.file); reason=$($issue.reason)")
     }
   }
 }

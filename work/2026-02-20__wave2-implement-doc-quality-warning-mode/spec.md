@@ -10,12 +10,11 @@
 
 - 参照資料:
   - `AGENTS.md`
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
+  - `docs/operations/wave2-doc-quality-check-rules-spec.md`
   - `work/2026-02-20__wave2-implement-doc-quality-warning-mode/request.md`
   - `work/2026-02-20__wave2-implement-doc-quality-warning-mode/investigation.md`
 - 理解ポイント:
-  - Wave 2: docs品質チェック warning 導入 は wave 計画を実行するための分割タスクである。
+  - 本タスクは Wave 2-1 として docs 品質チェックを warning 段階へ導入し、fail 段階へ接続する。
 
 ## 1. メタ情報 [空欄禁止]
 
@@ -28,69 +27,90 @@
 
 ## 2. 背景と目的 [空欄禁止]
 
-- 背景: wave 計画を実行可能な粒度へ分割する必要がある。
-- 目的: docs 品質チェックを warning モードで段階導入する。
+- 背景: docs 品質ルール（DQ-001〜DQ-004）は設計済みだが、validator への段階導入が未実装だった。
+- 目的: `consistency-check` と `state-validate` に warning モードを実装し、ルール違反を観測可能にする。
 
 ## 3. スコープ [空欄禁止]
 
 ### 3.1 In Scope [空欄禁止]
 
-- 本タスク対象の成果物定義と実施方針の確定。
-- depends_on / gate / rollback の明文化。
-- review と検証結果の記録。
+- `tools/consistency-check/check.ps1` へ `-DocQualityMode off|warning|fail` を追加する。
+- `tools/state-validate/validate.ps1` へ `-DocQualityMode off|warning|fail` を追加する。
+- warning 集計の出力（`rule_id / severity / file / reason` と `total_rules / warning_count / error_count`）を追加する。
+- warning mode の運用手順を docs 化し、backlog/state/MEMORY を同期する。
 
 ### 3.2 Out of Scope [空欄禁止]
 
-- 依存していない後続 wave タスクの完了。
-- 全 docs の一括改修。
+- CI の既定実行を fail モードへ切り替えること。
+- warning 21 件の完全解消。
 
 ## 4. 受入条件 (Acceptance Criteria / 受入条件) [空欄禁止]
 
-- AC-001: Wave 2: docs品質チェック warning 導入 の成果物・手順・ゲート・ロールバックが task 資料に明記される。
-- AC-002: depends_on と backlog/state/plan の整合が維持される。
+- AC-001: `tools/consistency-check/check.ps1` が `DocQualityMode=warning` で docs品質結果を warning として出力し、終了コードを変えない。
+- AC-002: `tools/state-validate/validate.ps1` が `DocQualityMode=warning` で docs品質結果を warning として出力し、終了コードを変えない。
+- AC-003: `DocQualityMode=fail` を指定した場合に docs品質問題を error として扱える実装が提供される。
+- AC-004: `docs/operations/wave2-doc-quality-warning-mode.md`、`docs/operations/high-priority-backlog.md`、`MEMORY.md`、task資料が同期される。
 
 ## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
 
 ### 5.1 Unit Test (Unit Test / 単体テスト) [空欄禁止]
 
-- 対象: `work/2026-02-20__wave2-implement-doc-quality-warning-mode` の request/investigation/spec/plan/review/state
-- 観点: 空欄禁止セクション、依存、成果物定義の整合
-- 合格条件: consistency-check -TaskId 2026-02-20__wave2-implement-doc-quality-warning-mode が PASS
+- 対象: `tools/consistency-check/check.ps1`, `tools/state-validate/validate.ps1`
+- 観点: `DocQualityMode` パラメータと warning summary 出力が機能する。
+- 合格条件:
+  - `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__wave2-implement-doc-quality-warning-mode -DocQualityMode warning` が PASS。
+  - `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave2-implement-doc-quality-warning-mode -DocQualityMode warning` が PASS。
 
 ### 5.2 Integration Test (Integration Test / 結合テスト) [空欄禁止]
 
-- 対象: depends_on で接続される task 間の整合
-- 観点: depends_on 記述と backlog 表示が一致
-- 合格条件: 依存 task + 本 task の consistency-check が PASS
+- 対象: `2026-02-20__wave2-spec-doc-quality-check-rules` と本 task の接続。
+- 観点: 依存タスクの仕様に沿った warning mode 実装と docs 連携。
+- 合格条件:
+  - `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-20__wave2-spec-doc-quality-check-rules,2026-02-20__wave2-implement-doc-quality-warning-mode -DocQualityMode warning` が PASS。
 
 ### 5.3 Regression Test (Regression Test / 回帰テスト) [空欄禁止]
 
-- 対象: 全 task の state / consistency 運用
-- 観点: 既存完了タスクの PASS を維持
-- 合格条件: state-validate -AllTasks と consistency-check -AllTasks が PASS
+- 対象: 全 task 検証フロー。
+- 観点: warning mode 導入後も既存の必須 FAIL 判定が崩れない。
+- 合格条件:
+  - `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks -DocQualityMode warning` が PASS。
+  - `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning` が PASS。
+  - `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check` が PASS。
 
 ### 5.4 Manual Verification (Manual Verification / 手動検証) [空欄禁止]
 
-- 手順: backlog と MEMORY を確認し、依存順序と次アクションが明示されることを確認
-- 期待結果: AC-001 と AC-002 を満たす
+- 手順:
+  1. warning summary の `total_rules / warning_count / error_count` を確認する。
+  2. `DocQualityMode=fail` で単一 task を実行し、インタフェース互換を確認する。
+  3. backlog で本 task が done、次 task が plan-ready へ遷移していることを確認する。
+- 期待結果: AC-001〜AC-004 を満たす。
 
 ## 6. 影響範囲 [空欄禁止]
 
-- 影響ファイル/モジュール: `work/2026-02-20__wave2-implement-doc-quality-warning-mode`/*, `docs/operations/high-priority-backlog.md`, `MEMORY.md`
-- 影響する仕様: human-centric docs migration wave 計画
-- 非機能影響: docs 更新の追跡性とレビュー可能性が向上する
+- 影響ファイル/モジュール:
+  - `tools/consistency-check/check.ps1`
+  - `tools/state-validate/validate.ps1`
+  - `docs/operations/wave2-doc-quality-warning-mode.md`
+  - `docs/operations/high-priority-backlog.md`
+  - `work/2026-02-20__wave2-implement-doc-quality-warning-mode/*`
+  - `MEMORY.md`
+- 影響する仕様:
+  - `docs/operations/wave2-doc-quality-check-rules-spec.md`
+- 非機能影響:
+  - docs 品質問題の可観測性が向上し、fail 昇格前の運用判断が可能になる。
 
 ## 7. 制約とリスク [空欄禁止]
 
-- 制約: depends_on 未解決時は dependency-blocked を維持する。
+- 制約: warning 段階では終了コードへ影響させない。
 - 想定リスク:
-  - 依存順序を崩した前倒し実装
-  - docs 導線更新漏れ
-- 回避策: gate 判定と docs-indexer check を完了条件へ含める。
+  - warning が多い状態のまま fail 昇格すると CI が不安定化する。
+  - DQ-002（docs/work 双方向参照）の既存不足が一度に顕在化する。
+- 回避策:
+  - warning 件数を記録し、後続 `wave2-enforce` で fail 適用条件を定義する。
 
 ## 8. 未確定事項 [空欄禁止]
 
-- 実施時に発生する追加改善点は review の Process Findings で管理する。
+- fail モード昇格時の許容 warning 件数と移行閾値（後続 task で確定）。
 
 ## 9. 関連資料リンク [空欄禁止]
 
@@ -99,6 +119,6 @@
 - plan: `work/2026-02-20__wave2-implement-doc-quality-warning-mode/plan.md`
 - review: `work/2026-02-20__wave2-implement-doc-quality-warning-mode/review.md`
 - docs:
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
-
+  - `docs/operations/wave2-doc-quality-check-rules-spec.md`
+  - `docs/operations/wave2-doc-quality-warning-mode.md`
+  - `docs/operations/high-priority-backlog.md`
