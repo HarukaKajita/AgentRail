@@ -23,6 +23,7 @@
 ## 2. テンプレート
 - `docs/templates/adr.md` - ADR テンプレート
 - `docs/templates/investigation.md` - 調査テンプレート
+- `docs/templates/plan.md` - 計画テンプレート
 - `docs/templates/project-profile.md` - project.profile.yaml 記入ガイド
 - `docs/templates/review.md` - Review テンプレート
 - `docs/templates/spec.md` - 仕様書テンプレート
