@@ -16,31 +16,31 @@
 
 ## 2. 受入条件評価
 
-- AC-001: PENDING
-- AC-002: PENDING
-- AC-003: PENDING
+- AC-001: PASS（`work/2026-02-18__self-improvement-loop-enforcement/spec.md` の誤記パスを実在パス `docs/templates` へ修正）
+- AC-002: PASS（関連 docs パスの整合を確認し、参照切れを解消）
+- AC-003: PASS（対象 task の consistency/state/docs 検証が成功）
 
 ## 3. テスト結果
 
 ### Unit Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `work/2026-02-18__self-improvement-loop-enforcement/spec.md` の In Scope 記載を確認し、`docs/templates` 記述へ更新されていることを検証
+- 結果: PASS
 
 ### Integration Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `Test-Path` により実在パスと非実在パスの存在判定を比較
+- 結果: PASS（実在パス=True、非実在パス=False）
 
 ### Regression Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__fix-invalid-docs-path-in-self-improvement-spec`
+- 結果: PASS
 
 ### Manual Verification
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__fix-invalid-docs-path-in-self-improvement-spec` と `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
+- 結果: PASS
 
 ## 4. 指摘事項
 
@@ -50,7 +50,7 @@
 
 ## 5. 結論
 
-- 実装後に最終判定する。
+- self-improvement-loop spec の docs パス誤記は解消され、参照整合は回復した。
 
 ## 6. Process Findings
 
@@ -59,8 +59,8 @@
 - finding_id: F-001
 - category: docs
 - severity: low
-- summary: 起票時点では追加の process finding は未確定。
-- evidence: 実装前のため評価保留。
+- summary: docs パスは記述時点で実在確認を自動化しないと、非リンク記述でも誤記が残存する。
+- evidence: 非実在の docs パス記述が spec の In Scope に残っていた。
 - action_required: no
 - linked_task_id: none
 
@@ -68,15 +68,15 @@
 
 ### 7.1 Kickoff Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: 9db70a5
+- scope_check: PASS
 
 ### 7.2 Implementation Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: a99ba8c
+- scope_check: PASS
 
 ### 7.3 Finalize Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: CURRENT_COMMIT
+- scope_check: PASS
