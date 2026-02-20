@@ -16,6 +16,17 @@
 - runtime 配布に必須なルールを一箇所に集約し、`AGENTS.md` から詳細規約を分離する。
 - 開発用資産と導入先で必要な資産の境界を明確にする。
 
+## 1.1 Human-Centric 利用ガイド
+
+1. 使い方:
+   - runtime 変更時は本資料を起点に、export/install runbook の順で確認する。
+2. 仕組み:
+   - 配布境界は `framework.runtime.manifest.yaml`、導入境界は `project.profile.yaml` の workflow 設定で制御する。
+3. 実装:
+   - 実行は `tools/runtime/export-runtime.ps1` と `tools/runtime/install-runtime.ps1` を使用する。
+4. 関連:
+   - 変更時は `AGENTS.md` の要旨と `docs/INDEX.md` の導線更新を同時に行う。
+
 ## 2. 適用範囲
 
 - `tools/runtime/export-runtime.ps1` による runtime 配布物生成

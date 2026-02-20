@@ -13,6 +13,17 @@
 
 `Framework CI` が失敗したときに、原因を短時間で切り分けて復旧するための手順。
 
+## Human-Centric 利用ガイド
+
+1. 使い方:
+   - まず失敗した step 名を特定し、本資料の該当パターンへ移動する。
+2. 仕組み:
+   - CI は `docs-indexer -> profile schema governance -> task-id resolve -> consistency-check` の順で判定する。
+3. 実装:
+   - 復旧コマンドは `tools/*` のスクリプトをそのまま使い、ローカル再現してから修正する。
+4. 関連:
+   - task 側の `review.md` と `docs/operations/high-priority-backlog.md` を見て再発防止タスクを紐づける。
+
 ## 対象ワークフロー
 
 - `.github/workflows/ci-framework.yml`

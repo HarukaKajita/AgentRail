@@ -13,23 +13,25 @@
 
 次に着手すべき高優先タスクを docs から俯瞰できるようにする。
 
-## 優先タスク一覧
+## 利用ガイド（Human-Centric）
 
-4. `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`
-- 状態: planned
-- 計画段階: plan-draft
-- ゲート状態: plan-ready
-- 依存: `2026-02-20__wave0-inventory-human-centric-doc-coverage`
-- 依存状態: 解決済み
-- 目的: docs/operations の主要資料を情報モデルに合わせて補完・再編する
-- 参照: `work/2026-02-20__wave1-migrate-operations-docs-to-human-centric-model/spec.md`
+1. 使い方:
+   - `優先タスク一覧` から最上位の `plan-ready` タスクを起点に着手する。
+2. 仕組み:
+   - `depends_on` と `依存状態` で着手可否を判定し、未解決依存があれば先行タスクへ戻る。
+3. 実装:
+   - 完了時は `state.json`、`review.md`、`docs/INDEX.md`、`MEMORY.md` と同時更新する。
+4. 関連:
+   - 詳細ルールは `AGENTS.md`、進行支援は `Rail10:list-planned-tasks-by-backlog-priority` を参照する。
+
+## 優先タスク一覧
 
 5. `2026-02-20__wave1-normalize-doc-work-cross-links`
 - 状態: planned
 - 計画段階: plan-draft
-- ゲート状態: dependency-blocked
+- ゲート状態: plan-ready
 - 依存: `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`, `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`
-- 依存状態: 未解決（先行タスク完了待ち）
+- 依存状態: 解決済み
 - 目的: docs と work の相互参照を統一し、参照切れを解消する
 - 参照: `work/2026-02-20__wave1-normalize-doc-work-cross-links/spec.md`
 
@@ -365,6 +367,13 @@
 - 依存状態: 解決済み
 - 目的: AGENTS.md / README.md / docs/INDEX.md を人間理解中心の情報モデルへ適合させる
 - 参照: `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model/spec.md`
+
+44. `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`
+- 状態: done
+- 依存: `2026-02-20__wave0-inventory-human-centric-doc-coverage`
+- 依存状態: 解決済み
+- 目的: docs/operations の主要資料を情報モデルに合わせて補完・再編する
+- 参照: `work/2026-02-20__wave1-migrate-operations-docs-to-human-centric-model/spec.md`
 
 ## 更新ルール
 

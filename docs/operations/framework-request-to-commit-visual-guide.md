@@ -17,6 +17,17 @@
 - AgentRail を初めて使う依頼者
 - タスク進行をレビューする実装者
 
+## 1.1 Human-Centric 利用ガイド
+
+1. 使い方:
+   - 先に「3. 工程ごとの出来事」を読み、次に「2. 全体フロー図」で現在位置を確認する。
+2. 仕組み:
+   - `plan-draft -> depends_on gate -> plan-final` の順序で進む。
+3. 実装:
+   - 実行時は `tools/commit-boundary/check-staged-files.ps1` と `tools/consistency-check/check.ps1` を併用する。
+4. 関連:
+   - 詳細ルールは `AGENTS.md`、進行状況は `docs/operations/high-priority-backlog.md` を参照する。
+
 ## 2. 全体フロー図
 
 ```mermaid

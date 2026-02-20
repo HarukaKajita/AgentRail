@@ -80,6 +80,7 @@
 - `docs/operations/wave0-doc-ownership-and-update-matrix.md` - Wave 0: Doc Ownership And Update Matrix
 - `docs/operations/wave0-inventory-human-centric-doc-coverage.md` - Wave 0 Inventory: Human-Centric Doc Coverage
 - `docs/operations/wave1-core-docs-human-centric-migration.md` - Wave 1 Core Docs: Human-Centric Migration
+- `docs/operations/wave1-operations-docs-human-centric-migration.md` - Wave 1 Operations Docs: Human-Centric Migration
 
 ## 7. 更新手順
 
