@@ -1,4 +1,4 @@
-# Brainstorming and Clarifying Question Patterns
+﻿# Brainstorming and Clarifying Question Patterns
 
 この資料は、ユーザー要求から満足度の高い提案と確認質問を作るための共通ガイド。
 
@@ -40,4 +40,4 @@
 1. 提案オプション（3案）
 2. 推奨案と理由
 3. 確認質問（2〜4件）
-4. 次アクション（回答後の処理）
+4. 次のアクション（回答後の処理）

@@ -1,4 +1,4 @@
-# Framework Flow Guardrails
+﻿# Framework Flow Guardrails
 
 この資料は、スキルが AgentRail の固定ワークフローに従うための共通ガイド。
 
@@ -22,7 +22,7 @@
 
 - `project.profile.yaml` が存在し必須キーが埋まっている。
 - `work/<task-id>/request.md` がある。
-- `work/<task-id>/spec.md` の空欄禁止項目が埋まっている。
+- `work/<task-id>/spec.md` の(必須)項目が埋まっている。
 - `work/<task-id>/plan.md` がある。
 - `work/<task-id>/state.json` が最新。
 
@@ -30,7 +30,7 @@
 
 次の条件を検出したら `state=blocked` を提案し、`blocking_issues` を明示する。
 
-- `spec.md` の空欄禁止項目が未記入。
+- `spec.md` の(必須)項目が未記入。
 - `spec.md` のテスト要件が抽象的。
 - `plan.md` が `spec.md` を参照していない。
 - docs 更新後に `docs/INDEX.md` が未更新。

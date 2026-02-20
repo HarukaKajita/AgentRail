@@ -1,4 +1,4 @@
-param(
+﻿param(
     [string]$RepoRoot = ".",
     [string]$BacklogPath = "docs/operations/high-priority-backlog.md",
     [string]$WorkDir = "work"

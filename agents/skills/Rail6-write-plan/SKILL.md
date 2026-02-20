@@ -19,14 +19,14 @@ description: 確定済み spec.md を参照して work/<task-id>/plan.md を作�
 
 ## 実行手順
 
-1. `spec.md` 参照有無と空欄禁止充足を確認する。
+1. `spec.md` 参照有無と(必須)充足を確認する。
 2. 実装戦略オプションを3案作る（速度重視 / バランス / 拡張重視）。
 3. 推奨案を選び、実施ステップを時系列で作る。
 4. 変更対象ファイル、リスク、ロールバック方針を定義する。
 5. profile ベースのテスト実行順を定義する。
 6. 高影響の不確定点のみ確認質問 2〜4 件を提示する。
 7. 実装開始不能なら `blocked` を提案する。
-8. 実装着手前に、起票境界コミット完了を確認する。
+8. 実装着手前に、起票境界 (Kickoff Commit)完了を確認する。
    - `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase kickoff`
 9. Subagent delegation governance が有効な task では plan を2分割で扱う。
    - delegated agent: `plan-draft` を作成し、request/investigation/spec と同一 `delegated_agent_id` で連続実行する。

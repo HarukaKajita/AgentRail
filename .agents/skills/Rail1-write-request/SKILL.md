@@ -28,7 +28,7 @@ description: ユーザー要望を work/<task-id>/request.md 向けに具体化�
 7. 着手前完了が必要な依存 task を調査し、`depends_on` 候補を明示する。
 8. `request.md` に反映する確定要望、非要望、境界条件を明示する。
 9. 依存先 task が不足する場合は追加起票を提案し、未解決なら `blocked` を提案する。
-10. 起票境界が確定したら、境界コミット前チェックを提案する。
+10. 起票境界が確定したら、コミット境界前チェックを提案する。
    - `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase kickoff`
 11. Subagent delegation governance が有効な task では、以下を満たす。
    - 対象フェーズは request / investigation / spec / plan-draft の4工程。
