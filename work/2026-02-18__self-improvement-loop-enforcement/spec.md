@@ -31,7 +31,7 @@
 - findings 検証/抽出 CLI 追加
 - follow-up task 自動起票 CLI 追加
 - consistency-check/CI への改善ゲート追加
-- docs/operations/templates 更新
+- `docs/templates` 更新
 
 ### 3.2 Out of Scope [空欄禁止]
 
