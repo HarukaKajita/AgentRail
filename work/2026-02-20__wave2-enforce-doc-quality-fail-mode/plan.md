@@ -4,11 +4,10 @@
 
 - 参照資料:
   - `AGENTS.md`
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
+  - `docs/operations/wave2-doc-quality-warning-mode.md`
   - `work/2026-02-20__wave2-enforce-doc-quality-fail-mode/spec.md`
 - 理解ポイント:
-  - Wave 2: docs品質チェック fail 昇格 は wave 計画に従う実行タスクである。
+  - fail 昇格は CI の対象 task 経路から開始する。
 
 ## 1. 対象仕様
 
@@ -16,45 +15,52 @@
 
 ## 2. plan-draft
 
-- 目的: warning モードの結果を踏まえ、fail モードへ昇格する。
+- 目的: docs品質 issue を CI fail として扱う運用へ昇格する。
 - 実施項目:
-  1. 対象成果物と更新責務を確定する。
-  2. depends_on gate と検証順序を確定する。
-  3. review/state/backlog 連携を確定する。
+  1. CI workflow の対象 task 経路へ `DocQualityMode=fail` を適用
+  2. fail mode 運用 docs と rollback 方針を追加
+  3. backlog/state/MEMORY を次タスク着手状態へ同期
 - 成果物:
-  - task 成果物 6 ファイル
-  - 必要な docs 導線更新
-  - 検証結果記録
+  - `.github/workflows/ci-framework.yml`
+  - `docs/operations/wave2-doc-quality-fail-mode.md`
+  - task 文書一式
 
 ## 3. depends_on gate
 
-- 依存: 2026-02-20__wave2-implement-doc-quality-warning-mode
-- 判定方針: depends_on が全て done になるまで dependency-blocked を維持する。
-- 判定結果: pending（依存タスク完了後に pass へ更新）
+- 依存: `2026-02-20__wave2-implement-doc-quality-warning-mode`
+- 判定方針: 依存 task が done の場合のみ fail 昇格へ進む。
+- 判定結果: pass（`2026-02-20__wave2-implement-doc-quality-warning-mode[done]`）
 
 ## 4. plan-final
 
 - 実行フェーズ:
-  1. 準備: 対象と責務の確認
-  2. 実施: 文書更新と整合反映
-  3. 検証: consistency/state/docs-indexer 実行
-  4. 確定: review/state/backlog/MEMORY 更新
+  1. 実装: CI で対象 task の `state-validate`/`consistency-check` に fail mode を指定
+  2. 文書化: fail mode ガイドと task 文書更新
+  3. 検証: fail/warning 両モードのテスト実行
+  4. 同期: backlog/state/MEMORY 更新
 - 検証順序:
-  1. pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-20__wave2-implement-doc-quality-warning-mode,2026-02-20__wave2-enforce-doc-quality-fail-mode
-  2. pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__wave2-enforce-doc-quality-fail-mode
-  3. pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave2-enforce-doc-quality-fail-mode
-  4. pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check
-- ロールバック: 依存や導線に不整合が出た場合は state を blocked/planned に戻して再計画する。
+  1. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-20__wave2-implement-doc-quality-warning-mode,2026-02-20__wave2-enforce-doc-quality-fail-mode -DocQualityMode fail`
+  2. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave2-enforce-doc-quality-fail-mode -DocQualityMode fail`
+  3. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__framework-pilot-01 -DocQualityMode fail`（FAIL 期待）
+  4. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-18__framework-pilot-01 -DocQualityMode fail`（FAIL 期待）
+  5. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks -DocQualityMode warning`
+  6. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning`
+  7. `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
+- ロールバック:
+  - CI fail mode が過剰にブロックする場合は対象 step を warning 指定へ戻し、次タスクで runbook と閾値を再調整する。
 
 ## 5. Execution Commands
 
-- pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-20__wave2-implement-doc-quality-warning-mode,2026-02-20__wave2-enforce-doc-quality-fail-mode
-- pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__wave2-enforce-doc-quality-fail-mode
-- pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave2-enforce-doc-quality-fail-mode
-- pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check
+- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-20__wave2-implement-doc-quality-warning-mode,2026-02-20__wave2-enforce-doc-quality-fail-mode -DocQualityMode fail`
+- `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave2-enforce-doc-quality-fail-mode -DocQualityMode fail`
+- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__framework-pilot-01 -DocQualityMode fail`
+- `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-18__framework-pilot-01 -DocQualityMode fail`
+- `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
 
 ## 6. 完了判定
 
-- AC-001/AC-002 の判定結果を `work/2026-02-20__wave2-enforce-doc-quality-fail-mode/review.md` に記録する。
-- depends_on と backlog/state/plan の整合が維持される。
-
+- AC-001〜AC-004 が review で PASS。
+- `state.json` は done、`high-priority-backlog` は本 task を Completed へ移動。
+- `2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates` が plan-ready で着手可能。

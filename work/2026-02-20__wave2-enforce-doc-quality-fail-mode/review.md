@@ -8,75 +8,92 @@
   - `work/2026-02-20__wave2-enforce-doc-quality-fail-mode/spec.md`
   - `work/2026-02-20__wave2-enforce-doc-quality-fail-mode/plan.md`
 - 理解ポイント:
-  - AC 判定と depends_on 整合を検証する。
+  - fail mode 強制と段階運用の両立を確認する。
 
 ## 1. レビュー対象
 
-- 起票後に更新する。
+- `.github/workflows/ci-framework.yml`
+- `docs/operations/wave2-doc-quality-fail-mode.md`
+- `docs/operations/high-priority-backlog.md`
+- `work/2026-02-20__wave2-enforce-doc-quality-fail-mode/spec.md`
+- `work/2026-02-20__wave2-enforce-doc-quality-fail-mode/plan.md`
+- `work/2026-02-20__wave2-enforce-doc-quality-fail-mode/state.json`
+- `MEMORY.md`
 
 ## 2. 受入条件評価
 
-- AC-001: PENDING
-- AC-002: PENDING
+- AC-001: PASS（CI の対象 task 経路に `DocQualityMode=fail` を適用した）
+- AC-002: PASS（fail mode 実行で docs品質 issue が FAIL になることを確認した）
+- AC-003: PASS（`docs/operations/wave2-doc-quality-fail-mode.md` へ適用条件と rollback を記録した）
+- AC-004: PASS（backlog/state/MEMORY を次タスク着手状態へ同期した）
 
 ## 3. テスト結果
 
 ### Unit Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容:
+  1. `rg -n "DocQualityMode" .github/workflows/ci-framework.yml`
+  2. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__wave2-enforce-doc-quality-fail-mode -DocQualityMode fail`
+  3. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave2-enforce-doc-quality-fail-mode -DocQualityMode fail`
+- 結果: PASS
 
 ### Integration Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容:
+  - `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-20__wave2-implement-doc-quality-warning-mode,2026-02-20__wave2-enforce-doc-quality-fail-mode -DocQualityMode fail`
+- 結果: PASS
 
 ### Regression Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容:
+  1. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks -DocQualityMode warning`
+  2. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning`
+  3. `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
+- 結果: PASS（warning 集計: 21 件）
 
 ### Manual Verification
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容:
+  1. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__framework-pilot-01 -DocQualityMode fail`（FAIL 期待）
+  2. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-18__framework-pilot-01 -DocQualityMode fail`（FAIL 期待）
+  3. `rg -n "wave2-enforce-doc-quality-fail-mode|wave2-align-ci-runbook-with-doc-quality-gates" docs/operations/high-priority-backlog.md`
+- 結果: PASS
 
 ## 4. 指摘事項
 
 - 重大: なし
 - 改善提案:
-  - なし
+  - warning 21 件の解消手順を次タスクで runbook に具体化する。
 
 ## 5. 結論
 
-- 起票後に最終判定する。
+- 本タスクは fail mode 昇格を完了し、`wave2-align-ci-runbook-with-doc-quality-gates` へ進行可能。
 
 ## 6. Process Findings
 
 ### 6.1 Finding F-001
 
 - finding_id: F-001
-- category: flow
-- severity: low
-- summary: Wave 2: docs品質チェック fail 昇格 task was created from human-centric migration wave plan.
-- evidence: Derived from `docs/operations/human-centric-doc-bank-migration-plan.md` wave execution policy.
-- action_required: no
-- linked_task_id: none
+- category: docs
+- severity: medium
+- summary: fail mode を適用したため、warning 21 件の運用手順を runbook 側で明確化する必要がある。
+- evidence: `-AllTasks -DocQualityMode warning` で warning 21 件、`framework-pilot-01 -DocQualityMode fail` で FAIL を確認。
+- action_required: yes
+- linked_task_id: 2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates
 
 ## 7. Commit Boundaries
 
 ### 7.1 Kickoff Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: N/A
+- scope_check: PASS
 
 ### 7.2 Implementation Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: N/A
+- scope_check: PASS
 
 ### 7.3 Finalize Commit
 
-- commit: PENDING
-- scope_check: PENDING
-
+- commit: N/A
+- scope_check: PASS

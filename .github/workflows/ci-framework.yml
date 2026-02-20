@@ -57,7 +57,7 @@ jobs:
       - name: Validate task states
         shell: pwsh
         run: |
-          pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks
+          pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks -DocQualityMode warning
 
       - name: Resolve task ID
         id: resolve_task
@@ -89,7 +89,8 @@ jobs:
         run: |
           $taskId = "${{ steps.resolve_task.outputs.resolved_task_id }}"
           pwsh -NoProfile -File tools/improvement-harvest/scan.ps1 -TaskId $taskId
-          pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId $taskId
+          pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId $taskId -DocQualityMode fail
+          pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId $taskId -DocQualityMode fail
 
       - name: Skip consistency-check (no changed task)
         if: ${{ steps.resolve_task.outputs.resolved_task_source == 'skip' }}

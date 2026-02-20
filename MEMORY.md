@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__wave2-enforce-doc-quality-fail-mode
-- タイトル: Wave 2: docs品質チェック fail 昇格
+- Task ID: 2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates
+- タイトル: Wave 2: CI runbook と docs品質ゲート整合
 - 状態: planned
-- 最終更新日時: 2026-02-20T18:42:00+09:00
+- 最終更新日時: 2026-02-20T19:05:00+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -75,6 +75,11 @@
   - `docs/operations/wave2-doc-quality-warning-mode.md` を追加し、warning 運用手順と観測値（warning=21）を記録。
   - `docs/operations/high-priority-backlog.md` で fail 昇格タスクを plan-ready に更新。
   - `work/2026-02-20__wave2-implement-doc-quality-warning-mode/{request,investigation,spec,plan,review,state.json}` を done 条件へ更新。
+- `2026-02-20__wave2-enforce-doc-quality-fail-mode` を完了。
+  - `.github/workflows/ci-framework.yml` の変更対象 task 経路に `DocQualityMode=fail` を適用。
+  - `docs/operations/wave2-doc-quality-fail-mode.md` を追加し、fail 適用条件と rollback 方針を定義。
+  - `docs/operations/high-priority-backlog.md` で `wave2-align-ci-runbook` を plan-ready に更新。
+  - `work/2026-02-20__wave2-enforce-doc-quality-fail-mode/{request,investigation,spec,plan,review,state.json}` を done 条件へ更新。
 - Wave 実行タスク 12 件を起票。
   - Wave 0: `2026-02-20__wave0-inventory-human-centric-doc-coverage`, `2026-02-20__wave0-define-doc-ownership-and-update-matrix`
   - Wave 1: `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`, `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`, `2026-02-20__wave1-normalize-doc-work-cross-links`
@@ -96,9 +101,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__wave2-enforce-doc-quality-fail-mode` を完了し、fail モードへ昇格する。
-2. `2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates` を完了し、CI運用資料を整合する。
-3. `2026-02-20__wave3-define-doc-quality-kpi-thresholds` の前提を満たす。
+1. `2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates` を完了し、CI運用資料を整合する。
+2. `2026-02-20__wave3-define-doc-quality-kpi-thresholds` の前提を満たす。
+3. `2026-02-20__wave3-automate-doc-quality-metrics-report` の実施準備を進める。
 
 ## 7. 参照先
 
@@ -135,6 +140,9 @@
 - `work/2026-02-20__wave2-implement-doc-quality-warning-mode/spec.md`
 - `work/2026-02-20__wave2-implement-doc-quality-warning-mode/review.md`
 - `docs/operations/wave2-doc-quality-warning-mode.md`
+- `work/2026-02-20__wave2-enforce-doc-quality-fail-mode/spec.md`
+- `work/2026-02-20__wave2-enforce-doc-quality-fail-mode/review.md`
+- `docs/operations/wave2-doc-quality-fail-mode.md`
 
 ## 8. 引き継ぎ時チェック
 
