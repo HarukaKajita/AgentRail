@@ -16,31 +16,31 @@
 
 ## 2. 受入条件評価
 
-- AC-001: PENDING
-- AC-002: PENDING
-- AC-003: PENDING
+- AC-001: PASS（`investigation.md` 生成文面から ``$depends_on`` 固定プレースホルダを除去し、依存ラベルの実値展開に変更）
+- AC-002: PASS（`tools/improvement-harvest/create-task.ps1` と task 運用資料の整合を維持）
+- AC-003: PASS（対象 task の consistency/state/docs 検証が成功）
 
 ## 3. テスト結果
 
 ### Unit Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `Parser.ParseFile` で `tools/improvement-harvest/create-task.ps1` を構文検証
+- 結果: PASS（`PARSE_PASS`）
 
 ### Integration Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: 一時 work root で `tools/improvement-harvest/create-task.ps1` を `-DependsOn 2026-02-18__self-improvement-loop-enforcement` 付きで実行し、生成された `investigation.md` を検査
+- 結果: PASS（`$depends_on` 残留なし、`依存タスク（`2026-02-18__self-improvement-loop-enforcement`）` を確認）
 
 ### Regression Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__fix-improvement-create-task-dependency-placeholder`
+- 結果: PASS
 
 ### Manual Verification
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__fix-improvement-create-task-dependency-placeholder` と `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
+- 結果: PASS
 
 ## 4. 指摘事項
 
@@ -50,7 +50,7 @@
 
 ## 5. 結論
 
-- 実装後に最終判定する。
+- create-task の investigation 出力における dependency placeholder 残留は解消済み。
 
 ## 6. Process Findings
 
@@ -59,8 +59,8 @@
 - finding_id: F-001
 - category: quality
 - severity: low
-- summary: 起票時点では追加の process finding は未確定。
-- evidence: 実装前のため評価保留。
+- summary: テンプレート文面でプレースホルダを直書きする場合は、実値展開される設計かを生成テストで検証する必要がある。
+- evidence: 実装前は ``$depends_on`` がそのまま出力されていた。
 - action_required: no
 - linked_task_id: none
 
@@ -68,15 +68,15 @@
 
 ### 7.1 Kickoff Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: 9db70a5
+- scope_check: PASS
 
 ### 7.2 Implementation Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: 7baaf9e
+- scope_check: PASS
 
 ### 7.3 Finalize Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: CURRENT_COMMIT
+- scope_check: PASS

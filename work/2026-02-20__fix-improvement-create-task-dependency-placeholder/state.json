@@ -1,7 +1,7 @@
 {
-  "state": "in_progress",
+  "state": "done",
   "owner": "codex",
-  "updated_at": "2026-02-20T12:56:31+09:00",
+  "updated_at": "2026-02-20T12:58:09+09:00",
   "blocking_issues": [],
   "depends_on": [
     "2026-02-20__fix-improvement-create-task-parser-errors"
