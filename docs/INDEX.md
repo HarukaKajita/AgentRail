@@ -66,6 +66,7 @@
 - `docs/operations/human-centric-doc-bank-governance.md` - Human-Centric Doc Bank Governance
 - `docs/operations/human-centric-doc-bank-migration-plan.md` - Human-Centric Doc Bank Migration Plan
 - `docs/operations/legacy-documents-policy.md` - 旧資料の隔離運用ポリシー
+- `docs/operations/onboarding-task-proposals-json-format.md` - Onboarding Task Proposals JSON Format
 - `docs/operations/profile-validator-required-checks-source-of-truth.md` - Profile Validator Required Checks Source Of Truth
 - `docs/operations/profile-validator-schema-version-policy.md` - Profile Validator Schema Version Policy
 - `docs/operations/runtime-distribution-export-guide.md` - Runtime Distribution Export Guide

@@ -113,8 +113,7 @@
 
 ## 8. 未確定事項 [空欄禁止]
 
-- 提案 JSON の最終スキーマ（必須項目と optional 項目）。
-- タスク ID の命名規則（導入日ベースか、連番か、Wave を含めるか）。
+- 提案 JSON の optional 項目（例: 既存 docs の move 方針や、優先度の細分化）をどこまで許容するか。
 - 「高度な情報整理」に使うモデル選定ポリシーの記述場所（docs と profile のどちらを正本にするか）。
 
 ## 9. 関連資料リンク [空欄禁止]
@@ -127,3 +126,4 @@
   - `docs/operations/runtime-framework-rules.md`
   - `docs/operations/runtime-installation-runbook.md`
   - `docs/operations/framework-request-to-commit-visual-guide.md`
+  - `docs/operations/onboarding-task-proposals-json-format.md`

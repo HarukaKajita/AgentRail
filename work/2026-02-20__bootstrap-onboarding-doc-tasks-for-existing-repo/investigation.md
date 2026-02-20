@@ -51,8 +51,7 @@
 
 ## 6. 未解決事項 [空欄禁止]
 
-- 提案 JSON のスキーマ（最低限: title/description/priority/depends_on/task_id 命名の扱い）をどこまで厳格化するか。
-- 既存プロジェクトに “既に docs がある” 場合の扱い（既存 docs の再配置・リンク整備を提案に含めるか）。
+- 提案 JSON のスキーマ（最低限: title/rationale/priority/depends_on/task_id と docs 操作）をどこまで厳格化するか。
 - 生成するタスク ID の粒度（1ファイル=1タスク/カテゴリ単位/段階（Wave）単位）。
 
 ## 7. 次アクション [空欄禁止]
