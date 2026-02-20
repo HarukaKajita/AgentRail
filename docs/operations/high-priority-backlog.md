@@ -26,7 +26,14 @@
 
 ## 優先タスク一覧
 
-- なし
+- `2026-02-20__bootstrap-onboarding-doc-tasks-for-existing-repo`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: plan-ready
+- 依存: なし
+- 依存状態: なし
+- 目的: 既存リポジトリ導入時の「資料棚卸し -> 提案 -> タスク化」を支援する機能を追加する
+- 参照: `work/2026-02-20__bootstrap-onboarding-doc-tasks-for-existing-repo/spec.md`
 
 ## Completed
 

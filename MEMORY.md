@@ -5,16 +5,16 @@
 
 ## 1. 現在のタスク
 
-- Task ID: なし（DQ-002 remediation 完了）
-- タイトル: DQ-002 warning remediation クローズ
-- 状態: done
-- 最終更新日時: 2026-02-20T22:25:00+09:00
+- Task ID: 2026-02-20__bootstrap-onboarding-doc-tasks-for-existing-repo
+- タイトル: 既存リポジトリ導入時の資料棚卸し・タスク起票ブートストラップ（起票）
+- 状態: planned
+- 最終更新日時: 2026-02-20T23:10:00+09:00
 - 担当: codex
 
 ## 2. 今回の目的
 
-- DQ-002 warning remediation を Wave A/B/C の依存順で実施し、`dq002_count=0` を目指す。
-- 起票済み task と backlog/state/MEMORY の整合を維持する。
+- 既存プロジェクトへ AgentRail runtime を導入した直後に、作成すべき資料を整理してタスク化できる導線を追加する。
+- 高度な情報整理は高性能モデルへ寄せつつ、収集/適用は機械的で再現可能な形に分離する。
 
 ## 3. 完了済み
 
