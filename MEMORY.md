@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__define-kpi-report-execution-calendar
-- タイトル: KPI レポート実行カレンダー定義（起票）
+- Task ID: 2026-02-20__run-wave3-doc-operations-review
+- タイトル: Wave3 Docs 運用レビュー（起票）
 - 状態: planned
-- 最終更新日時: 2026-02-20T20:10:00+09:00
+- 最終更新日時: 2026-02-20T20:14:00+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -120,9 +120,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__run-wave3-doc-operations-review` を起票する。
-2. 起票済み4タスクの依存順で実装着手候補を確定する。
-3. DQ-002 解消タスクの分割実装順を backlog へ具体化する。
+1. 起票済み4タスクの依存順で実装着手候補を確定する。
+2. `2026-02-20__prioritize-dq002-warning-remediation` の実装着手に進む。
+3. `2026-02-20__run-wave3-doc-operations-review` の depends_on 解決後に gate 判定を更新する。
 
 ## 7. 参照先
 

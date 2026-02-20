@@ -53,6 +53,15 @@
 - 目的: KPI レポートの週次/リリース前実行タイミングを運用カレンダーへ反映する
 - 参照: `work/2026-02-20__define-kpi-report-execution-calendar/spec.md`
 
+- `2026-02-20__run-wave3-doc-operations-review`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: dependency-blocked
+- 依存: `2026-02-20__define-kpi-report-execution-calendar`
+- 依存状態: 未解決
+- 目的: wave3 docs 3資料の運用レビュー観点を定義し改善起票へ接続する
+- 参照: `work/2026-02-20__run-wave3-doc-operations-review/spec.md`
+
 ## Completed
 
 1. `2026-02-20__redesign-human-centric-doc-bank-governance`
