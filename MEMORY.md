@@ -5,16 +5,16 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__plan-migration-to-human-centric-doc-bank
-- タイトル: 人間理解中心資料バンクへの既存資産移行計画を起票
-- 状態: done
-- 最終更新日時: 2026-02-20T16:52:26+09:00
+- Task ID: 2026-02-20__wave0-inventory-human-centric-doc-coverage
+- タイトル: Wave 0: must対象の資料棚卸しと欠落マップ作成
+- 状態: planned
+- 最終更新日時: 2026-02-20T17:02:00+09:00
 - 担当: codex
 
 ## 2. 今回の目的
 
-- フレームワーク目的を「再現性 + 人間理解」へ拡張したうえで、既存資産の段階移行計画を確定する。
-- Wave 0-3 の実行順序と検証/ロールバック方針を次段タスクへ受け渡せる状態にする。
+- human-centric doc bank の Wave 0-3 実行タスクを依存付きで起票する。
+- backlog と state の依存順序を同期し、次の着手順を明確化する。
 
 ## 3. 完了済み
 
@@ -45,6 +45,11 @@
 - `2026-02-20__plan-migration-to-human-centric-doc-bank` を完了。
   - `docs/operations/human-centric-doc-bank-migration-plan.md` を追加し、Wave 0-3 の移行計画を定義。
   - Task A 依存ゲートを pass 化し、Task B の `review/state/backlog` を完了状態へ更新。
+- Wave 実行タスク 12 件を起票。
+  - Wave 0: `2026-02-20__wave0-inventory-human-centric-doc-coverage`, `2026-02-20__wave0-define-doc-ownership-and-update-matrix`
+  - Wave 1: `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`, `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`, `2026-02-20__wave1-normalize-doc-work-cross-links`
+  - Wave 2: `2026-02-20__wave2-spec-doc-quality-check-rules`, `2026-02-20__wave2-implement-doc-quality-warning-mode`, `2026-02-20__wave2-enforce-doc-quality-fail-mode`, `2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates`
+  - Wave 3: `2026-02-20__wave3-define-doc-quality-kpi-thresholds`, `2026-02-20__wave3-automate-doc-quality-metrics-report`, `2026-02-20__wave3-connect-kpi-to-process-findings-loop`
 
 ## 4. 重要な意思決定
 
@@ -61,9 +66,9 @@
 
 ## 6. 次アクション
 
-1. Wave 0（Inventory）実行タスクを起票し、対象棚卸しを開始する。
-2. Wave 1（Core Docs Migration）準備として must 領域 docs の不足カテゴリを確定する。
-3. docs 品質ゲートのしきい値（更新遅延・網羅率）を Wave 3 で確定する。
+1. `2026-02-20__wave0-inventory-human-centric-doc-coverage` を実行し、must 対象棚卸しと欠落マップを確定する。
+2. `2026-02-20__wave0-define-doc-ownership-and-update-matrix` を実行し、更新責務マトリクスを確定する。
+3. Wave 1 以降は depends_on 解決順に着手し、各 wave 完了時に backlog/MEMORY を同期する。
 
 ## 7. 参照先
 
@@ -79,6 +84,7 @@
 - `work/2026-02-20__redesign-human-centric-doc-bank-governance/spec.md`
 - `work/2026-02-20__plan-migration-to-human-centric-doc-bank/review.md`
 - `work/2026-02-20__plan-migration-to-human-centric-doc-bank/spec.md`
+- `work/2026-02-20__wave0-inventory-human-centric-doc-coverage/spec.md`
 
 ## 8. 引き継ぎ時チェック
 

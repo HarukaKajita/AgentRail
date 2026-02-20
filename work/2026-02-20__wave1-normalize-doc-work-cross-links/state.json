@@ -1,0 +1,10 @@
+{
+  "state": "planned",
+  "owner": "codex",
+  "updated_at": "2026-02-20T17:09:20+09:00",
+  "blocking_issues": [],
+  "depends_on": [
+    "2026-02-20__wave1-migrate-core-docs-to-human-centric-model",
+    "2026-02-20__wave1-migrate-operations-docs-to-human-centric-model"
+  ]
+}

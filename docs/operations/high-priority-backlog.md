@@ -15,7 +15,113 @@
 
 ## 優先タスク一覧
 
-- なし
+1. `2026-02-20__wave0-inventory-human-centric-doc-coverage`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: plan-ready
+- 依存: `2026-02-20__plan-migration-to-human-centric-doc-bank`
+- 依存状態: 解決済み
+- 目的: must 対象資料の棚卸しと欠落カテゴリ（目的/使い方/仕組み/実装/関連）の可視化を行う
+- 参照: `work/2026-02-20__wave0-inventory-human-centric-doc-coverage/spec.md`
+
+2. `2026-02-20__wave0-define-doc-ownership-and-update-matrix`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: dependency-blocked
+- 依存: `2026-02-20__wave0-inventory-human-centric-doc-coverage`
+- 依存状態: 未解決（先行タスク完了待ち）
+- 目的: task owner / implementation owner / reviewer の責務を資料単位で定義する
+- 参照: `work/2026-02-20__wave0-define-doc-ownership-and-update-matrix/spec.md`
+
+3. `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: dependency-blocked
+- 依存: `2026-02-20__wave0-inventory-human-centric-doc-coverage`
+- 依存状態: 未解決（先行タスク完了待ち）
+- 目的: AGENTS.md / README.md / docs/INDEX.md を人間理解中心の情報モデルへ適合させる
+- 参照: `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model/spec.md`
+
+4. `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: dependency-blocked
+- 依存: `2026-02-20__wave0-inventory-human-centric-doc-coverage`
+- 依存状態: 未解決（先行タスク完了待ち）
+- 目的: docs/operations の主要資料を情報モデルに合わせて補完・再編する
+- 参照: `work/2026-02-20__wave1-migrate-operations-docs-to-human-centric-model/spec.md`
+
+5. `2026-02-20__wave1-normalize-doc-work-cross-links`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: dependency-blocked
+- 依存: `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`, `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`
+- 依存状態: 未解決（先行タスク完了待ち）
+- 目的: docs と work の相互参照を統一し、参照切れを解消する
+- 参照: `work/2026-02-20__wave1-normalize-doc-work-cross-links/spec.md`
+
+6. `2026-02-20__wave2-spec-doc-quality-check-rules`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: dependency-blocked
+- 依存: `2026-02-20__wave1-normalize-doc-work-cross-links`
+- 依存状態: 未解決（先行タスク完了待ち）
+- 目的: consistency-check / state-validate へ追加する docs 品質チェック仕様を設計する
+- 参照: `work/2026-02-20__wave2-spec-doc-quality-check-rules/spec.md`
+
+7. `2026-02-20__wave2-implement-doc-quality-warning-mode`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: dependency-blocked
+- 依存: `2026-02-20__wave2-spec-doc-quality-check-rules`
+- 依存状態: 未解決（先行タスク完了待ち）
+- 目的: docs 品質チェックを warning モードで段階導入する
+- 参照: `work/2026-02-20__wave2-implement-doc-quality-warning-mode/spec.md`
+
+8. `2026-02-20__wave2-enforce-doc-quality-fail-mode`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: dependency-blocked
+- 依存: `2026-02-20__wave2-implement-doc-quality-warning-mode`
+- 依存状態: 未解決（先行タスク完了待ち）
+- 目的: warning モードの結果を踏まえ、docs 品質チェックを fail モードへ昇格する
+- 参照: `work/2026-02-20__wave2-enforce-doc-quality-fail-mode/spec.md`
+
+9. `2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: dependency-blocked
+- 依存: `2026-02-20__wave2-enforce-doc-quality-fail-mode`
+- 依存状態: 未解決（先行タスク完了待ち）
+- 目的: CI運用資料を docs 品質ゲートに合わせて更新し、運用手順を整合させる
+- 参照: `work/2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates/spec.md`
+
+10. `2026-02-20__wave3-define-doc-quality-kpi-thresholds`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: dependency-blocked
+- 依存: `2026-02-20__wave2-enforce-doc-quality-fail-mode`, `2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates`
+- 依存状態: 未解決（先行タスク完了待ち）
+- 目的: 更新遅延 / 導線整合 / 網羅率の KPI 指標と暫定閾値を定義する
+- 参照: `work/2026-02-20__wave3-define-doc-quality-kpi-thresholds/spec.md`
+
+11. `2026-02-20__wave3-automate-doc-quality-metrics-report`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: dependency-blocked
+- 依存: `2026-02-20__wave3-define-doc-quality-kpi-thresholds`
+- 依存状態: 未解決（先行タスク完了待ち）
+- 目的: docs 品質 KPI の自動集計と可視化レポートを設計・実装する
+- 参照: `work/2026-02-20__wave3-automate-doc-quality-metrics-report/spec.md`
+
+12. `2026-02-20__wave3-connect-kpi-to-process-findings-loop`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: dependency-blocked
+- 依存: `2026-02-20__wave3-automate-doc-quality-metrics-report`
+- 依存状態: 未解決（先行タスク完了待ち）
+- 目的: KPI悪化時に Process Findings から改善タスクへ接続する運用を定義する
+- 参照: `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/spec.md`
 
 ## Completed
 

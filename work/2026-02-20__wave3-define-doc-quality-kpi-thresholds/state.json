@@ -1,0 +1,10 @@
+{
+  "state": "planned",
+  "owner": "codex",
+  "updated_at": "2026-02-20T17:09:20+09:00",
+  "blocking_issues": [],
+  "depends_on": [
+    "2026-02-20__wave2-enforce-doc-quality-fail-mode",
+    "2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates"
+  ]
+}
