@@ -59,3 +59,14 @@
 
 - `version` は legacy key として廃止済みであり、存在した場合は validator が FAIL する。
 - required key の source of truth は `tools/profile-validate/profile-schema.json` とする。
+
+## 関連資料リンク
+
+- docs:
+  - `docs/operations/profile-validator-required-checks-source-of-truth.md`
+  - `docs/operations/high-priority-backlog.md`
+  - `docs/operations/validator-enhancement-backlog.md`
+- work:
+  - `work/2026-02-19__profile-validator-schema-version-field/spec.md`
+  - `work/2026-02-19__profile-version-schema-version-unification-strategy/spec.md`
+  - `work/2026-02-19__ci-profile-schema-version-governance-gate/spec.md`

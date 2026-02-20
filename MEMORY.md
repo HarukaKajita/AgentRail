@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__dq002-wave-b-fix-profile-validator-schema-policy-links
-- タイトル: DQ-002 Wave B remediation（実装着手前）
+- Task ID: 2026-02-20__dq002-wave-c-fix-remaining-doc-links
+- タイトル: DQ-002 Wave C remediation（実装着手前）
 - 状態: planned
-- 最終更新日時: 2026-02-20T22:05:00+09:00
+- 最終更新日時: 2026-02-20T22:15:00+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -133,6 +133,10 @@
   - `docs/specs/automation-tools-design-spec.md` に `関連資料リンク` を追加し、`docs/*` + `work/*` 導線を補完。
   - `tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning -OutputFormat json` で `dq002_count=9` を確認。
   - `docs/operations/high-priority-backlog.md` で Wave B を `plan-ready` へ更新。
+- `2026-02-20__dq002-wave-b-fix-profile-validator-schema-policy-links` を完了。
+  - `docs/operations/profile-validator-schema-version-policy.md` に `関連資料リンク` を追加し、`docs/*` + `work/*` 導線を補完。
+  - `tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning -OutputFormat json` で `dq002_count=6` を確認。
+  - `docs/operations/high-priority-backlog.md` で Wave C を `plan-ready` へ更新。
 
 ## 4. 重要な意思決定
 
@@ -149,9 +153,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__dq002-wave-b-fix-profile-validator-schema-policy-links` を実装完了し、`dq002_count` を 9 -> 6 へ削減する。
-2. Wave B 完了後に `2026-02-20__dq002-wave-c-fix-remaining-doc-links` へ着手する。
-3. Wave C 完了後に `dq002_count=0` を確認し、DQ-002 remediation をクローズする。
+1. `2026-02-20__dq002-wave-c-fix-remaining-doc-links` を実装完了し、`dq002_count` を 6 -> 0 へ削減する。
+2. Wave C 完了後に `tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning -OutputFormat json` で `dq002_count=0` を確認する。
+3. DQ-002 remediation クローズ後に backlog/MEMORY の planned 項目を完了状態へ同期する。
 
 ## 7. 参照先
 
