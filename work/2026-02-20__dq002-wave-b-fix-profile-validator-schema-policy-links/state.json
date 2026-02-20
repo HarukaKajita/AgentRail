@@ -1,0 +1,9 @@
+{
+  "state": "planned",
+  "owner": "codex",
+  "updated_at": "2026-02-20T20:32:02+09:00",
+  "blocking_issues": [],
+  "depends_on": [
+    "2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links"
+  ]
+}

@@ -5,16 +5,16 @@
 
 ## 1. 現在のタスク
 
-- Task ID: none
-- タイトル: planned backlog 完了後の最終同期
-- 状態: done
-- 最終更新日時: 2026-02-20T20:25:00+09:00
+- Task ID: 2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links
+- タイトル: DQ-002 Wave A remediation（起票完了）
+- 状態: planned
+- 最終更新日時: 2026-02-20T20:39:00+09:00
 - 担当: codex
 
 ## 2. 今回の目的
 
-- human-centric doc bank の Wave 0-3 実行タスクを依存順で完了させる。
-- 各タスクを完了ごとにコミットし、backlog/state/docs/メモの整合を維持する。
+- DQ-002 warning remediation を Wave A/B/C の依存順で実施し、`dq002_count=0` を目指す。
+- 起票済み task と backlog/state/MEMORY の整合を維持する。
 
 ## 3. 完了済み
 
@@ -124,6 +124,11 @@
   - `wave3` 系運用 docs（thresholds/metrics/loop/calendar）へ運用レビュー導線を追加。
   - `docs/operations/high-priority-backlog.md` の planned タスクを 0 件化。
   - `work/2026-02-20__run-wave3-doc-operations-review/{request,investigation,spec,plan,review,state.json}` を done 条件へ更新。
+- DQ-002 remediation の Wave A/B/C タスクを起票。
+  - `2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links`（plan-ready）
+  - `2026-02-20__dq002-wave-b-fix-profile-validator-schema-policy-links`（depends_on: Wave A）
+  - `2026-02-20__dq002-wave-c-fix-remaining-doc-links`（depends_on: Wave B）
+  - `docs/operations/high-priority-backlog.md` と `docs/operations/dq002-warning-remediation-priority-plan.md` へ反映済み。
 
 ## 4. 重要な意思決定
 
@@ -140,9 +145,9 @@
 
 ## 6. 次アクション
 
-1. 新規要望に応じて `docs/operations/high-priority-backlog.md` に次タスクを起票する。
-2. follow-up が必要な `must/high` finding が出た場合は同一PR内で task を追加する。
-3. 次セッション開始時に `MEMORY.md` と backlog の差分を再確認する。
+1. `2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links` を実装完了し、`dq002_count` を 21 -> 9 へ削減する。
+2. Wave A 完了後に `2026-02-20__dq002-wave-b-fix-profile-validator-schema-policy-links` へ着手する。
+3. Wave B 完了後に `2026-02-20__dq002-wave-c-fix-remaining-doc-links` で `dq002_count=0` を達成する。
 
 ## 7. 参照先
 
@@ -151,6 +156,9 @@
 - `docs/operations/wave3-kpi-report-execution-calendar.md`
 - `docs/operations/wave3-doc-operations-review.md`
 - `docs/operations/wave3-kpi-process-findings-loop.md`
+- `work/2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links/spec.md`
+- `work/2026-02-20__dq002-wave-b-fix-profile-validator-schema-policy-links/spec.md`
+- `work/2026-02-20__dq002-wave-c-fix-remaining-doc-links/spec.md`
 - `docs/operations/human-centric-doc-bank-governance.md`
 - `docs/operations/human-centric-doc-bank-migration-plan.md`
 - `work/2026-02-20__prioritize-dq002-warning-remediation/spec.md`

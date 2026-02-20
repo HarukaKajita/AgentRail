@@ -70,3 +70,6 @@
 - work:
   - `work/2026-02-20__prioritize-dq002-warning-remediation/spec.md`
   - `work/2026-02-20__prioritize-dq002-warning-remediation/review.md`
+  - `work/2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links/spec.md`
+  - `work/2026-02-20__dq002-wave-b-fix-profile-validator-schema-policy-links/spec.md`
+  - `work/2026-02-20__dq002-wave-c-fix-remaining-doc-links/spec.md`

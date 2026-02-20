@@ -26,7 +26,32 @@
 
 ## 優先タスク一覧
 
-- なし（planned タスクはすべて完了）
+- `2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: plan-ready
+- 依存: なし
+- 依存状態: なし
+- 目的: Wave A として `docs/specs/automation-tools-design-spec.md` の DQ-002 warning 12件を解消する
+- 参照: `work/2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links/spec.md`
+
+- `2026-02-20__dq002-wave-b-fix-profile-validator-schema-policy-links`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: dependency-blocked
+- 依存: `2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links`
+- 依存状態: 未解決
+- 目的: Wave B として `docs/operations/profile-validator-schema-version-policy.md` の DQ-002 warning 3件を解消する
+- 参照: `work/2026-02-20__dq002-wave-b-fix-profile-validator-schema-policy-links/spec.md`
+
+- `2026-02-20__dq002-wave-c-fix-remaining-doc-links`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: dependency-blocked
+- 依存: `2026-02-20__dq002-wave-b-fix-profile-validator-schema-policy-links`
+- 依存状態: 未解決
+- 目的: Wave C として残存 6 ファイルの DQ-002 warning を最終解消する
+- 参照: `work/2026-02-20__dq002-wave-c-fix-remaining-doc-links/spec.md`
 
 ## Completed
 
