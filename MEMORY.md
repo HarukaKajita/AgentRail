@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__normalize-remaining-investigation-heading-terms
-- タイトル: Normalize remaining investigation heading terms
-- 状態: planned
-- 最終更新日時: 2026-02-20T13:09:46+09:00
+- Task ID: none
+- タイトル: Backlog clearance checkpoint
+- 状態: done
+- 最終更新日時: 2026-02-20T13:14:45+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -19,6 +19,7 @@
 
 ## 3. 完了済み
 
+- `2026-02-20__normalize-remaining-investigation-heading-terms` を完了。
 - `2026-02-20__add-plan-template-and-index-link` を完了。
 - `2026-02-20__fix-invalid-docs-path-in-self-improvement-spec` を完了。
 - `2026-02-20__add-sidecar-log-rule-to-visual-guide` を完了。
@@ -62,9 +63,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__normalize-remaining-investigation-heading-terms` を実装して用語併記を統一する。
-2. 完了後に backlog を確認して planned タスクが 0 件であることを確認する。
-3. 全体整合チェック（consistency/state/docs）を実行して最終報告する。
+1. 新規要望受領時は `docs/operations/high-priority-backlog.md` と `work/*/state.json` を突合し、優先 task から再開する。
+2. 新規タスク着手前に `project.profile.yaml` と `depends_on` の gate 状態を確認する。
+3. コミット前は `consistency-check` / `state-validate` / `docs-indexer` の3点を再実行する。
 
 ## 7. 参照先
 
