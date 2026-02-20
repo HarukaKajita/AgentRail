@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__plan-runtime-package-distribution-migration
-- タイトル: package 配布移行条件・互換ポリシー・実施フェーズの先行定義
-- 状態: done
-- 最終更新日時: 2026-02-20T15:56:29+09:00
+- Task ID: 2026-02-20__redesign-human-centric-doc-bank-governance
+- タイトル: 人間理解中心の資料バンク方針へ再設計する計画起票
+- 状態: planned
+- 最終更新日時: 2026-02-20T16:22:12+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -38,6 +38,12 @@
 - `2026-02-20__plan-runtime-package-distribution-migration` を完了。
   - `docs/operations/runtime-package-distribution-migration-plan.md` を追加し、移行条件・互換ポリシー・実施フェーズ・ロールバックを定義。
   - task 側の `request/spec/plan/review/state` を完了状態へ更新。
+- `2026-02-20__redesign-human-centric-doc-bank-governance` を起票。
+  - 人間理解中心の資料バンク方針へ再設計する計画を定義。
+  - Task B（移行計画）を依存付きで分離する方針を確定。
+- `2026-02-20__plan-migration-to-human-centric-doc-bank` を起票。
+  - 既存 docs/仕組みを新設計へ移行する段階計画（Wave 0-3）を定義。
+  - depends_on を Task A に設定し、段階実行順序を固定。
 
 ## 4. 重要な意思決定
 
@@ -52,9 +58,9 @@
 
 ## 6. 次アクション
 
-1. package 配布 PoC 実装タスクを新規起票し、Phase 1（検証環境での package 配布評価）に着手する。
-2. `tools/runtime/install-runtime.ps1` の配布ソース抽象化（copy/package 切替）に向けた実装設計を作成する。
-3. release note 互換ポリシー（copy 廃止予告、schema_version 連動）のテンプレートを docs 化する。
+1. `2026-02-20__redesign-human-centric-doc-bank-governance` を実行し、方針再設計の docs 改訂案を確定する。
+2. Task A 完了後に `2026-02-20__plan-migration-to-human-centric-doc-bank` を実行し、Wave 単位の実行タスクを起票する。
+3. 移行計画に基づき、docs 品質ゲートと自動検証拡張タスクを優先度順に展開する。
 
 ## 7. 参照先
 
@@ -64,6 +70,8 @@
 - `work/2026-02-20__refactor-tools-to-profile-driven-runtime-paths/review.md`
 - `work/2026-02-20__split-framework-runtime-rules-from-agents/review.md`
 - `work/2026-02-20__plan-runtime-package-distribution-migration/review.md`
+- `work/2026-02-20__redesign-human-centric-doc-bank-governance/spec.md`
+- `work/2026-02-20__plan-migration-to-human-centric-doc-bank/spec.md`
 
 ## 8. 引き継ぎ時チェック
 

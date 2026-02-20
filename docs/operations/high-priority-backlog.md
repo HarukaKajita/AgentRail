@@ -15,7 +15,23 @@
 
 ## 優先タスク一覧
 
-- 現在、優先タスク一覧は空です。
+1. `2026-02-20__redesign-human-centric-doc-bank-governance`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: plan-ready
+- 依存: なし
+- 依存状態: なし
+- 目的: フレームワークの目的を「再現性 + 人間理解」へ拡張し、資料バンク運用の再設計計画を確定する
+- 参照: `work/2026-02-20__redesign-human-centric-doc-bank-governance/spec.md`
+
+2. `2026-02-20__plan-migration-to-human-centric-doc-bank`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: dependency-blocked
+- 依存: `2026-02-20__redesign-human-centric-doc-bank-governance`
+- 依存状態: 未解決（先行タスク完了待ち）
+- 目的: 既存 docs/運用仕組みを新設計へ移行する段階計画とタスク分割を定義する
+- 参照: `work/2026-02-20__plan-migration-to-human-centric-doc-bank/spec.md`
 
 ## Completed
 
