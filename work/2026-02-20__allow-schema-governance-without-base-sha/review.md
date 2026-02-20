@@ -16,31 +16,31 @@
 
 ## 2. 受入条件評価
 
-- AC-001: PENDING
-- AC-002: PENDING
-- AC-003: PENDING
+- AC-001: PASS（BaseSha 未取得時の `tools/profile-validate/check-schema-governance.ps1` が不要 FAIL せず、head 単体検証へフォールバックする）
+- AC-002: PASS（運用資料 `docs/operations/profile-validator-schema-version-policy.md` / `docs/operations/ci-failure-runbook.md` の挙動説明を更新）
+- AC-003: PASS（対象 task の consistency/state/docs 検証が成功）
 
 ## 3. テスト結果
 
 ### Unit Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `pwsh -NoProfile -File tools/profile-validate/check-schema-governance.ps1 -RepoRoot . -BaseSha 0000000000000000000000000000000000000000 -HeadSha HEAD`
+- 結果: PASS（BaseSha がゼロでも `SCHEMA_GOVERNANCE: PASS`）
 
 ### Integration Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: 一時 Git リポジトリで schema を含む初回コミットを作成し、`BaseSha=000...` で `tools/profile-validate/check-schema-governance.ps1` を実行
+- 結果: PASS（`schema-governance: BaseSha unavailable; skipping base/head schema diff checks for this run.` を出力し `SCHEMA_GOVERNANCE: PASS`）
 
 ### Regression Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__allow-schema-governance-without-base-sha`
+- 結果: PASS
 
 ### Manual Verification
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__allow-schema-governance-without-base-sha` と `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
+- 結果: PASS
 
 ## 4. 指摘事項
 
@@ -50,7 +50,7 @@
 
 ## 5. 結論
 
-- 実装後に最終判定する。
+- BaseSha 未取得の初回 push 系ケースでも schema governance を継続運用できる状態になった。
 
 ## 6. Process Findings
 
@@ -59,8 +59,8 @@
 - finding_id: F-001
 - category: ci
 - severity: low
-- summary: 起票時点では追加の process finding は未確定。
-- evidence: 実装前のため評価保留。
+- summary: BaseSha 不在時の処理方針（head 単体検証）を実装と運用資料で同時に固定しないと再発しやすい。
+- evidence: 実装前は初回コミット再現で不要 FAIL が発生していた。
 - action_required: no
 - linked_task_id: none
 
@@ -68,15 +68,15 @@
 
 ### 7.1 Kickoff Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: 9db70a5
+- scope_check: PASS
 
 ### 7.2 Implementation Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: 723053e
+- scope_check: PASS
 
 ### 7.3 Finalize Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: CURRENT_COMMIT
+- scope_check: PASS
