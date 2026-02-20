@@ -4,11 +4,12 @@
 
 - 参照資料:
   - `AGENTS.md`
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
-  - `docs/operations/high-priority-backlog.md`
+  - `docs/operations/wave2-doc-quality-warning-mode.md`
+  - `docs/operations/wave2-doc-quality-fail-mode.md`
+  - `docs/operations/ci-failure-runbook.md`
+  - `.github/workflows/ci-framework.yml`
 - 理解ポイント:
-  - Wave 2: CI runbook と docs品質ゲート整合 は wave 計画に基づく実行タスクである。
+  - fail mode を導入した CI 実装と運用 runbook の記述を一致させるタスクである。
 
 ## 要望の原文
 
@@ -18,41 +19,37 @@
 ## 要望分析
 
 - 直要求:
-  - Wave 2: CI runbook と docs品質ゲート整合 の成果物を定義し、task 一式へ反映する。
-  - depends_on と gate 状態を明確化する。
+  - CI 失敗時ランブックを warning/fail 二段ゲートへ更新する。
+  - 実装ガイドのチェック手順を `DocQualityMode` 運用に合わせる。
 - 潜在要求:
-  - `docs` / `work` の相互参照を維持し、後続 wave へ引き継げる情報を残す。
+  - runbook だけで復旧手順を追えるようにコマンド順序を明確化する。
+  - Wave 3 の KPI 管理へ引き継げる残課題（warning 21件）を明記する。
 - 非要求:
-  - 後続 wave の実装完了。
+  - warning 21 件をこのタスク内で解消すること。
 
 ## 提案オプション（3案）
 
-1. 最小実行:
-   - 最低限の成果物のみ作成する。
-2. 標準実行（採用）:
-   - 受入条件・テスト要件・依存整合まで同時に確定する。
-3. 拡張実行:
-   - 後続 wave の内容まで先行実装する。
+1. `ci-failure-runbook` のみ更新
+2. runbook + 実装ガイドの両方を更新（採用）
+3. docs 更新を後続 wave へ延期
 
 ## 推奨案
 
-- 採用: オプション2（標準実行）
+- 採用: オプション2
 - 採用理由:
-  - 依存順序を守りながら、完了判定に必要な品質証跡を残せる。
+  - 運用者向け runbook と実装者向けガイドの手順差分を同時に解消できるため。
 
 ## 依存関係整理
 
-- depends_on: 2026-02-20__wave2-enforce-doc-quality-fail-mode
-- 依存状態: 未解決（2026-02-20__wave2-enforce-doc-quality-fail-mode[planned]）
+- depends_on: `2026-02-20__wave2-enforce-doc-quality-fail-mode`
+- 依存状態: 解決済み（`2026-02-20__wave2-enforce-doc-quality-fail-mode[done]`）
 
 ## 成功条件（要望レベル）
 
-1. Wave 2: CI runbook と docs品質ゲート整合 の成果物が task 資料と関連 docs に明文化される。
-2. depends_on と gate 状態が backlog/state/plan で整合する。
-3. 後続 task が参照可能な形で引き継ぎ情報が記録される。
+1. CI runbook が `DocQualityMode warning/fail` の実運用順序を説明できる。
+2. 実装ガイドが state-validate + consistency-check の運用へ同期される。
+3. backlog/state/MEMORY が Wave 3 着手前状態へ更新される。
 
 ## blocked 判定
 
-- 依存未解決のため dependency-blocked を維持。
-
-
+- 依存解決済みのため plan-ready で進行する。

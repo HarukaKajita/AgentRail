@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates
-- タイトル: Wave 2: CI runbook と docs品質ゲート整合
+- Task ID: 2026-02-20__wave3-define-doc-quality-kpi-thresholds
+- タイトル: Wave 3: docs品質 KPI 閾値定義
 - 状態: planned
-- 最終更新日時: 2026-02-20T19:05:00+09:00
+- 最終更新日時: 2026-02-20T19:28:00+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -80,6 +80,11 @@
   - `docs/operations/wave2-doc-quality-fail-mode.md` を追加し、fail 適用条件と rollback 方針を定義。
   - `docs/operations/high-priority-backlog.md` で `wave2-align-ci-runbook` を plan-ready に更新。
   - `work/2026-02-20__wave2-enforce-doc-quality-fail-mode/{request,investigation,spec,plan,review,state.json}` を done 条件へ更新。
+- `2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates` を完了。
+  - `docs/operations/ci-failure-runbook.md` を CI の warning/fail 二段ゲート順序へ再構成。
+  - `docs/operations/framework-request-to-commit-visual-guide.md` のチェック手順を state-validate 併用へ更新。
+  - `docs/operations/high-priority-backlog.md` で `wave3-define-doc-quality-kpi-thresholds` を plan-ready に更新。
+  - `work/2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates/{request,investigation,spec,plan,review,state.json}` を done 条件へ更新。
 - Wave 実行タスク 12 件を起票。
   - Wave 0: `2026-02-20__wave0-inventory-human-centric-doc-coverage`, `2026-02-20__wave0-define-doc-ownership-and-update-matrix`
   - Wave 1: `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`, `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`, `2026-02-20__wave1-normalize-doc-work-cross-links`
@@ -101,9 +106,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates` を完了し、CI運用資料を整合する。
-2. `2026-02-20__wave3-define-doc-quality-kpi-thresholds` の前提を満たす。
-3. `2026-02-20__wave3-automate-doc-quality-metrics-report` の実施準備を進める。
+1. `2026-02-20__wave3-define-doc-quality-kpi-thresholds` を完了し、KPI 閾値を定義する。
+2. `2026-02-20__wave3-automate-doc-quality-metrics-report` を完了し、メトリクス集計を自動化する。
+3. `2026-02-20__wave3-connect-kpi-to-process-findings-loop` を完了し、改善ループへ接続する。
 
 ## 7. 参照先
 
@@ -143,6 +148,9 @@
 - `work/2026-02-20__wave2-enforce-doc-quality-fail-mode/spec.md`
 - `work/2026-02-20__wave2-enforce-doc-quality-fail-mode/review.md`
 - `docs/operations/wave2-doc-quality-fail-mode.md`
+- `work/2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates/spec.md`
+- `work/2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates/review.md`
+- `docs/operations/ci-failure-runbook.md`
 
 ## 8. 引き継ぎ時チェック
 

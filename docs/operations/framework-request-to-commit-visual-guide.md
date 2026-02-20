@@ -24,7 +24,7 @@
 2. 仕組み:
    - `plan-draft -> depends_on gate -> plan-final` の順序で進む。
 3. 実装:
-   - 実行時は `tools/commit-boundary/check-staged-files.ps1` と `tools/consistency-check/check.ps1` を併用する。
+   - 実行時は `tools/commit-boundary/check-staged-files.ps1`、`tools/state-validate/validate.ps1`、`tools/consistency-check/check.ps1` を併用する。
 4. 関連:
    - 詳細ルールは `AGENTS.md`、進行状況は `docs/operations/high-priority-backlog.md` を参照する。
 
@@ -147,7 +147,7 @@ AI:
 実装が完了しました。
 - 追加: docs/operations/framework-request-to-commit-visual-guide.md
 - 更新: docs/INDEX.md, work/<task-id>/review.md, work/<task-id>/state.json
-- テスト: docs-indexer PASS / consistency-check PASS
+- テスト: docs-indexer PASS / state-validate PASS / consistency-check PASS（必要に応じて `DocQualityMode fail`）
 - コミット: <commit-hash>
 次アクション: 資料レビュー後に最優先タスクへ着手します。
 ```
@@ -163,4 +163,4 @@ AI:
 - `spec.md` と `plan.md` を埋めてから実装する
 - テスト結果を `review.md` に残す
 - `docs/INDEX.md`, `MEMORY.md`, `state.json` を更新する
-- コミット前に境界チェック（`tools/commit-boundary/check-staged-files.ps1`）と consistency-check を通す
+- コミット前に境界チェック（`tools/commit-boundary/check-staged-files.ps1`）と state-validate / consistency-check を通す

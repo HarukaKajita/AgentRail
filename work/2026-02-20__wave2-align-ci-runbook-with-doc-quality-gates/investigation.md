@@ -4,73 +4,75 @@
 
 - 参照資料:
   - `AGENTS.md`
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
+  - `.github/workflows/ci-framework.yml`
+  - `docs/operations/ci-failure-runbook.md`
+  - `docs/operations/framework-request-to-commit-visual-guide.md`
   - `work/2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates/request.md`
 - 理解ポイント:
-  - Wave 2: CI runbook と docs品質ゲート整合 の実行順序は wave 計画と depends_on に従う。
+  - runbook の手順は CI 実装の step 順序と一致している必要がある。
 
 ## 1. 調査対象 [空欄禁止]
 
-- 課題: CI運用資料を docs 品質ゲートに合わせて更新し、運用手順を整合させる。
-- 目的: 実行対象、検証方法、ロールバック条件を明確化する。
-- 依存: 2026-02-20__wave2-enforce-doc-quality-fail-mode
+- 課題: fail mode 導入後の CI 実装と運用 docs の乖離を解消する。
+- 目的: 失敗時の切り分け手順を warning/fail 二段ゲートへ整合させる。
+- 依存: `2026-02-20__wave2-enforce-doc-quality-fail-mode`
 
 ## 2. 仮説 (Hypothesis / 仮説) [空欄禁止]
 
-- 入力・出力・ゲートを明示すれば、後続 wave への引き継ぎ精度を維持できる。
+- runbook と実装ガイドに `DocQualityMode` の役割と実行順序を明示すれば、復旧時間を短縮できる。
 
 ## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
-  - `docs/INDEX.md`
-  - `docs/operations/high-priority-backlog.md`
-  - tools/consistency-check/check.ps1
-  - tools/state-validate/validate.ps1
+  - `.github/workflows/ci-framework.yml`
+  - `docs/operations/ci-failure-runbook.md`
+  - `docs/operations/framework-request-to-commit-visual-guide.md`
+  - `docs/operations/wave2-doc-quality-warning-mode.md`
+  - `docs/operations/wave2-doc-quality-fail-mode.md`
 - 実施した確認:
-  - 依存タスクの完了状態を確認する。
-  - 本タスク成果物の配置先と参照更新箇所を確認する。
-  - 検証コマンドの実行可能性を確認する。
+  1. CI step の実行順序とモード指定（warning/fail）を抽出した。
+  2. runbook の失敗パターンが step 名と一致しているか比較した。
+  3. 実装ガイドに state-validate の運用が反映されているか確認した。
 
 ## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - 事実:
-  - Wave 2: CI runbook と docs品質ゲート整合 は wave 計画の分割単位として必要。
-  - depends_on は 未解決（2026-02-20__wave2-enforce-doc-quality-fail-mode[planned]）。
+  - CI は `-AllTasks -DocQualityMode warning` と `-TaskId -DocQualityMode fail` の二段構成で実行される。
+  - 既存 runbook では fail mode step（target task の state-validate/consistency-check）が明示されていなかった。
+  - 実装ガイドのチェックリストも consistency-check 中心で、state-validate 併用が弱かった。
 - 推測:
-  - task 完了時に docs 導線と review 証跡を残すことで回帰リスクを低減できる。
+  - step 名と対応コマンドを runbook へ追加すれば、運用者の再現精度が向上する。
 
 ## 5. 提案オプション [空欄禁止]
 
-1. 最短経路:
-   - 最低限の文書更新のみ実施。
-2. 標準経路（推奨）:
-   - 文書更新 + 検証 + state 更新まで実施。
-3. 先行拡張:
-   - 後続タスク範囲まで同時に拡張。
+1. runbook のみ更新
+2. runbook + 実装ガイドを同時更新（推奨）
+3. docs 更新を Wave 3 へ延期
 
 ## 6. 推奨案 [空欄禁止]
 
-- 推奨: 2. 標準経路
+- 推奨: 2. runbook + 実装ガイドを同時更新
 - 理由:
-  - 品質ゲートを満たしつつ、過剰実装を避けられる。
+  - 運用手順と実装手順の差分を同時に埋められるため。
 
 ## 7. 結論 (Conclusion / 結論) [空欄禁止]
 
-- Wave 2: CI runbook と docs品質ゲート整合 を単独タスクとして起票し、wave 依存順序を維持して進行する。
+- `ci-failure-runbook` と `framework-request-to-commit-visual-guide` を fail/warning 二段ゲートに同期する。
 
 ## 8. 未解決事項 [空欄禁止]
 
-- 実行時に追加で判明する運用制約は review で Process Findings へ記録する。
+- warning 21 件の優先解消順（Wave 3 KPI タスクで管理）。
 
 ## 9. 次アクション [空欄禁止]
 
-1. spec で受入条件とテスト要件を確定する。
-2. plan で depends_on gate と検証順序を確定する。
-3. backlog/state と同期する。
+1. runbook を CI step 順序に合わせて再構成する。
+2. 実装ガイドのチェックリストを state-validate 含めて更新する。
+3. backlog/state/MEMORY を Wave 3 着手前へ同期する。
 
 ## 10. 関連リンク [空欄禁止]
 
 - request: `work/2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates/request.md`
 - spec: `work/2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates/spec.md`
-
+- docs:
+  - `docs/operations/ci-failure-runbook.md`
+  - `docs/operations/framework-request-to-commit-visual-guide.md`

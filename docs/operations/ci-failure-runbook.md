@@ -1,28 +1,31 @@
-# CI 失敗時ランブック
+# CI 失敗時ランブック
 
 ## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
 
 - 参照資料:
   - `AGENTS.md`
   - `docs/INDEX.md`
+  - `docs/operations/wave2-doc-quality-warning-mode.md`
+  - `docs/operations/wave2-doc-quality-fail-mode.md`
+  - `.github/workflows/ci-framework.yml`
+  - `work/2026-02-20__wave2-enforce-doc-quality-fail-mode/spec.md`
 - 理解ポイント:
-  - 本資料に入る前に、目的・受入条件・依存関係を把握する。
-
+  - docs品質ゲートは「全体=warning / 変更対象task=fail」の二段運用で実行される。
 
 ## 目的
 
-`Framework CI` が失敗したときに、原因を短時間で切り分けて復旧するための手順。
+`Framework CI` が失敗したときに、原因を短時間で切り分けて復旧する。
 
 ## Human-Centric 利用ガイド
 
 1. 使い方:
-   - まず失敗した step 名を特定し、本資料の該当パターンへ移動する。
+   - 失敗した step 名を特定し、本資料の該当セクションへ移動する。
 2. 仕組み:
-   - CI は `docs-indexer -> profile schema governance -> task-id resolve -> consistency-check` の順で判定する。
+   - CI は `docs-indexer -> profile schema governance -> profile validate -> state-validate(all/warning) -> resolve-task-id -> improvement scan -> state-validate(task/fail) -> consistency-check(task/fail)` の順で判定する。
 3. 実装:
-   - 復旧コマンドは `tools/*` のスクリプトをそのまま使い、ローカル再現してから修正する。
+   - 復旧コマンドは `tools/*` をそのままローカル実行し、`rule_id/file/reason` で修正箇所を確定する。
 4. 関連:
-   - task 側の `review.md` と `docs/operations/high-priority-backlog.md` を見て再発防止タスクを紐づける。
+   - 運用仕様は `docs/operations/wave2-doc-quality-warning-mode.md` / `docs/operations/wave2-doc-quality-fail-mode.md` を参照する。
 
 ## 対象ワークフロー
 
@@ -32,78 +35,88 @@
 
 ### 1. `docs-indexer` 失敗
 
-- 症状: `tools/docs-indexer/index.ps1` step が失敗
+- 症状: `tools/docs-indexer/index.ps1 -Mode check` が FAIL
 - 確認:
-  1. `docs/INDEX.md` の見出し (`## 2`〜`## 6`) が存在するか
-  2. `docs/*` の Markdown に `#` 見出しがあるか
-  3. ファイル名重複がないか
+  1. `docs/INDEX.md` の managed section が壊れていないか
+  2. 新規 docs が `#` 見出しを持つか
+  3. 同名 Markdown が重複していないか
 - 対処:
-  1. ローカルで `pwsh -NoProfile -File tools/docs-indexer/index.ps1` 実行
-  2. 失敗メッセージのファイルを修正
+  1. `pwsh -NoProfile -File tools/docs-indexer/index.ps1`
+  2. `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
 
 ### 2. `profile schema governance` 失敗
 
-- 症状: `tools/profile-validate/check-schema-governance.ps1` step が失敗
+- 症状: `tools/profile-validate/check-schema-governance.ps1` が FAIL
 - 確認:
-  1. `tools/profile-validate/profile-schema.json` を変更した場合に `schema_version` を更新したか
-  2. `schema_version` が SemVer 形式（`major.minor.patch`）か
-  3. `schema_version` が `supported_profile_schema_versions` に含まれているか
-  4. `required_keys` / `forbidden_top_level_keys` / `schema_id` 変更、または supported versions の削除がある場合に major を増分したか
-  5. 初回 push などで `BaseSha` が空の場合は、head 単体検証のみになることを認識しているか
+  1. `profile-schema.json` 変更時に `schema_version` を更新したか
+  2. major/minor/patch の増分ルールに違反していないか
 - 対処:
-  1. ローカルで `pwsh -NoProfile -File tools/profile-validate/check-schema-governance.ps1 -RepoRoot . -BaseSha <base-sha> -HeadSha <head-sha>` を実行
-  2. 失敗した `rule_id`（R-001〜R-005）に対応する schema version 更新を実施
-  3. 再実行して `SCHEMA_GOVERNANCE: PASS` を確認
+  1. `pwsh -NoProfile -File tools/profile-validate/check-schema-governance.ps1 -RepoRoot . -BaseSha <base-sha> -HeadSha <head-sha>`
+  2. 失敗 rule に対応して schema を更新
 
-### 3. `docs/INDEX.md` 差分検出失敗
+### 3. `Validate task states` 失敗（all tasks / warning mode）
 
-- 症状: `git diff --exit-code -- docs/INDEX.md` で失敗
+- 症状: `tools/state-validate/validate.ps1 -AllTasks -DocQualityMode warning` が FAIL
 - 確認:
-  1. docs の追加/更新後に INDEX を再生成したか
+  1. task の `state.json` 必須キー
+  2. `state=done` の review pending 行
+  3. `depends_on` の循環や未解決依存
 - 対処:
-  1. `pwsh -NoProfile -File tools/docs-indexer/index.ps1` を実行
-  2. `docs/INDEX.md` をコミット対象へ含める
+  1. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks -DocQualityMode warning`
+  2. 失敗 task の `state.json` / `review.md` を修正
 
 ### 4. `Resolve task ID` 失敗
 
-- 症状: `tools/ci/resolve-task-id.ps1` が失敗
+- 症状: `tools/ci/resolve-task-id.ps1` が FAIL
 - 確認:
-  1. `workflow_dispatch` 実行時に `task_id` が正しいか
-  2. 差分で `work/<task-id>/` が複数にまたがっていないか
-  3. `work/` が空でないか
+  1. `workflow_dispatch` の `task_id` が正しいか
+  2. `work/<task-id>/` の差分が単一 task に閉じているか
 - 対処:
-  1. 必要なら `workflow_dispatch` の `task_id` を明示指定
-  2. 複数 task 変更を分割して PR を作成
+  1. 必要なら `workflow_dispatch` で `task_id` を明示
+  2. 複数 task 変更を分割して再実行
 
-### 5. `consistency-check` 失敗
-
-- 症状: `tools/consistency-check/check.ps1` が FAIL
-- 確認:
-  1. 対象 task の必須6ファイル
-  2. `spec.md` の空欄禁止項目
-  3. `docs/INDEX.md` 導線
-  4. `review.md` の `## 6. Process Findings`
-- 対処:
-  1. ローカルで同コマンドを再実行
-  2. failure の `rule_id/file/reason` を順に修正
-
-### 6. `improvement-harvest scan` 失敗
+### 5. `improvement-harvest scan` 失敗
 
 - 症状: `tools/improvement-harvest/scan.ps1` が FAIL
 - 確認:
   1. `review.md` に `## 6. Process Findings` があるか
-  2. 各 finding が必須キーを持つか
-  3. `must/high` finding で `action_required: yes` になっているか
-  4. `linked_task_id` が `work/` 配下に存在するか
+  2. `must/high` finding の `action_required` と `linked_task_id`
 - 対処:
-  1. `review.md` の finding をテンプレート形式へ修正
-  2. 必要なら `tools/improvement-harvest/create-task.ps1` で follow-up task を起票
-  3. 再度 scan と consistency-check を実行
+  1. `review.md` の finding を修正
+  2. 必要に応じて `tools/improvement-harvest/create-task.ps1` で follow-up task を作成
+
+### 6. `state-validate` 失敗（target task / fail mode）
+
+- 症状: `tools/state-validate/validate.ps1 -TaskId <task-id> -DocQualityMode fail` が FAIL
+- 確認:
+  1. `rule_id=DQ-*` が出ているか
+  2. 対象 docs の前提知識・導線・depends_on 整合
+- 対処:
+  1. `reason` のファイルを修正
+  2. 再実行して `error_count=0` を確認
+
+### 7. `consistency-check` 失敗（target task / fail mode）
+
+- 症状: `tools/consistency-check/check.ps1 -TaskId <task-id> -DocQualityMode fail` が FAIL
+- 確認:
+  1. task 必須6ファイル
+  2. `spec.md` のテスト要件・関連 docs リンク
+  3. DQ issue（`rule_id=DQ-*`）
+- 対処:
+  1. `rule_id/file/reason` を順に解消
+  2. `DocQualityMode fail` で再確認
 
 ## 復旧後チェック
 
-1. `pwsh -NoProfile -File tools/docs-indexer/index.ps1`
+1. `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
 2. `pwsh -NoProfile -File tools/profile-validate/check-schema-governance.ps1 -RepoRoot . -BaseSha <base-sha> -HeadSha <head-sha>`
-3. `pwsh -NoProfile -File tools/improvement-harvest/scan.ps1 -TaskId <task-id>`
-4. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId <task-id>`
-5. `git diff --exit-code -- docs/INDEX.md`
+3. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks -DocQualityMode warning`
+4. `pwsh -NoProfile -File tools/improvement-harvest/scan.ps1 -TaskId <task-id>`
+5. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId <task-id> -DocQualityMode fail`
+6. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId <task-id> -DocQualityMode fail`
+
+## 関連タスク
+
+- `work/2026-02-20__wave2-implement-doc-quality-warning-mode/spec.md`
+- `work/2026-02-20__wave2-enforce-doc-quality-fail-mode/spec.md`
+- `work/2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates/spec.md`

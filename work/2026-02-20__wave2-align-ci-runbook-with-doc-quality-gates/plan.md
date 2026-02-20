@@ -4,11 +4,11 @@
 
 - 参照資料:
   - `AGENTS.md`
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
+  - `docs/operations/ci-failure-runbook.md`
+  - `docs/operations/framework-request-to-commit-visual-guide.md`
   - `work/2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates/spec.md`
 - 理解ポイント:
-  - Wave 2: CI runbook と docs品質ゲート整合 は wave 計画に従う実行タスクである。
+  - runbook は CI 実装の順序と一致しなければ復旧速度が低下する。
 
 ## 1. 対象仕様
 
@@ -16,45 +16,54 @@
 
 ## 2. plan-draft
 
-- 目的: CI運用資料を docs 品質ゲートに合わせて更新し、運用手順を整合させる。
+- 目的: CI 運用 docs を warning/fail 二段ゲートへ同期する。
 - 実施項目:
-  1. 対象成果物と更新責務を確定する。
-  2. depends_on gate と検証順序を確定する。
-  3. review/state/backlog 連携を確定する。
+  1. runbook を CI 実行順序に合わせて再構成
+  2. 実装ガイドのチェック手順を state-validate 併用へ更新
+  3. backlog/state/MEMORY を Wave 3 着手状態へ同期
 - 成果物:
-  - task 成果物 6 ファイル
-  - 必要な docs 導線更新
-  - 検証結果記録
+  - `docs/operations/ci-failure-runbook.md`
+  - `docs/operations/framework-request-to-commit-visual-guide.md`
+  - task 文書一式
 
 ## 3. depends_on gate
 
-- 依存: 2026-02-20__wave2-enforce-doc-quality-fail-mode
-- 判定方針: depends_on が全て done になるまで dependency-blocked を維持する。
-- 判定結果: pending（依存タスク完了後に pass へ更新）
+- 依存: `2026-02-20__wave2-enforce-doc-quality-fail-mode`
+- 判定方針: 依存 task が done の場合のみ runbook 整合を実施する。
+- 判定結果: pass（`2026-02-20__wave2-enforce-doc-quality-fail-mode[done]`）
 
 ## 4. plan-final
 
 - 実行フェーズ:
-  1. 準備: 対象と責務の確認
-  2. 実施: 文書更新と整合反映
-  3. 検証: consistency/state/docs-indexer 実行
-  4. 確定: review/state/backlog/MEMORY 更新
+  1. docs 更新: runbook + 実装ガイドの整合更新
+  2. task 更新: request/investigation/spec/plan/review/state を確定
+  3. 検証: unit/integration/regression/manual を実行
+  4. 同期: backlog/MEMORY を Wave 3 着手状態へ反映
 - 検証順序:
-  1. pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-20__wave2-enforce-doc-quality-fail-mode,2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates
-  2. pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates
-  3. pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates
-  4. pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check
-- ロールバック: 依存や導線に不整合が出た場合は state を blocked/planned に戻して再計画する。
+  1. `rg -n "DocQualityMode|state-validate|consistency-check" docs/operations/ci-failure-runbook.md`
+  2. `rg -n "state-validate|consistency-check" docs/operations/framework-request-to-commit-visual-guide.md`
+  3. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-20__wave2-enforce-doc-quality-fail-mode,2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates -DocQualityMode warning`
+  4. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates -DocQualityMode warning`
+  5. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates -DocQualityMode warning`
+  6. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks -DocQualityMode warning`
+  7. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning`
+  8. `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
+- ロールバック:
+  - 運用混乱が発生した場合は runbook 変更を巻き戻し、`docs/operations/wave2-doc-quality-fail-mode.md` を正本として暫定運用する。
 
 ## 5. Execution Commands
 
-- pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-20__wave2-enforce-doc-quality-fail-mode,2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates
-- pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates
-- pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates
-- pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check
+- `rg -n "DocQualityMode|state-validate|consistency-check" docs/operations/ci-failure-runbook.md`
+- `rg -n "state-validate|consistency-check" docs/operations/framework-request-to-commit-visual-guide.md`
+- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-20__wave2-enforce-doc-quality-fail-mode,2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
 
 ## 6. 完了判定
 
-- AC-001/AC-002 の判定結果を `work/2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates/review.md` に記録する。
-- depends_on と backlog/state/plan の整合が維持される。
-
+- AC-001〜AC-004 が review で PASS。
+- `state.json` は done、`high-priority-backlog` で Wave 3 KPI task が plan-ready になる。
+- `MEMORY.md` の次アクションが Wave 3 着手へ更新される。
