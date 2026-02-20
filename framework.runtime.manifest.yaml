@@ -1,0 +1,32 @@
+schema_version: "1.0.0"
+output_root: "dist/runtime"
+
+include_paths:
+  - "AGENTS.md"
+  - "CLAUDE.md"
+  - "project.profile.yaml"
+  - ".github/workflows/ci-framework.yml"
+  - ".agents/skills"
+  - "agents/skills"
+  - "tools"
+  - "docs/templates"
+  - "docs/operations/framework-request-to-commit-visual-guide.md"
+  - "docs/operations/skills-framework-flow-guide.md"
+  - "docs/operations/stage-terminology.md"
+  - "docs/operations/runtime-distribution-export-guide.md"
+  - "docs/operations/runtime-installation-runbook.md"
+
+seed_files:
+  - "runtime/seed/README.md => README.md"
+  - "runtime/seed/MEMORY.md => MEMORY.md"
+  - "runtime/seed/docs/INDEX.md => docs/INDEX.md"
+  - "runtime/seed/docs/README.md => docs/README.md"
+  - "runtime/seed/docs/operations/high-priority-backlog.md => docs/operations/high-priority-backlog.md"
+
+exclude_paths:
+  - "dist/runtime"
+
+exclude_globs:
+  - "**/.DS_Store"
+  - "**/Thumbs.db"
+  - "**/*.tmp"

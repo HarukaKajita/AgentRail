@@ -1,0 +1,9 @@
+{
+  "state": "in_progress",
+  "owner": "codex",
+  "updated_at": "2026-02-20T15:29:30+09:00",
+  "blocking_issues": [],
+  "depends_on": [
+    "2026-02-20__add-runtime-installer-with-agentrail-work-layout"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "state": "done",
+  "owner": "codex",
+  "updated_at": "2026-02-20T15:24:42+09:00",
+  "blocking_issues": [],
+  "depends_on": [
+    "2026-02-20__define-runtime-manifest-and-export-flow"
+  ]
+}

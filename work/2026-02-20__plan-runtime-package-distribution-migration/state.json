@@ -1,0 +1,10 @@
+{
+  "state": "planned",
+  "owner": "codex",
+  "updated_at": "2026-02-20T14:53:38+09:00",
+  "blocking_issues": [],
+  "depends_on": [
+    "2026-02-20__refactor-tools-to-profile-driven-runtime-paths",
+    "2026-02-20__split-framework-runtime-rules-from-agents"
+  ]
+}

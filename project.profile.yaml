@@ -38,6 +38,12 @@ commands:
   create_improvement_task:
     description: "Create a follow-up task from process finding"
     command: "pwsh -NoProfile -File tools/improvement-harvest/create-task.ps1 -SourceTaskId <task-id> -FindingId <finding-id> -Title <title> -Severity <severity> -Category <category>"
+  export_runtime:
+    description: "Export runtime-only framework distribution from manifest"
+    command: "pwsh -NoProfile -File tools/runtime/export-runtime.ps1 -Mode apply"
+  install_runtime:
+    description: "Install runtime distribution into target repository with .agentrail/work layout"
+    command: "pwsh -NoProfile -File tools/runtime/install-runtime.ps1 -TargetRoot <target-root>"
 
 paths:
   source_roots:
