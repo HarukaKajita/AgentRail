@@ -76,11 +76,11 @@ $originalIndexContent = $indexContent
 $newline = if ($indexContent.Contains("`r`n")) { "`r`n" } else { "`n" }
 
 $targets = @(
-  @{ Heading = "## 2. テンプレート"; RelativeDir = "templates" },
-  @{ Heading = "## 3. 仕様"; RelativeDir = "specs" },
-  @{ Heading = "## 4. 意思決定"; RelativeDir = "decisions" },
-  @{ Heading = "## 5. 調査"; RelativeDir = "investigations" },
-  @{ Heading = "## 6. 運用"; RelativeDir = "operations" }
+  @{ Heading = "## 3. テンプレート (Templates)"; RelativeDir = "templates" },
+  @{ Heading = "## 4. 仕様書 (Specifications)"; RelativeDir = "specs" },
+  @{ Heading = "## 5. 意思決定記録 (Decisions)"; RelativeDir = "decisions" },
+  @{ Heading = "## 6. 調査記録 (Investigations)"; RelativeDir = "investigations" },
+  @{ Heading = "## 7. 運用手順・管理 (Operations)"; RelativeDir = "operations" }
 )
 
 $parseErrors = New-Object System.Collections.Generic.List[string]

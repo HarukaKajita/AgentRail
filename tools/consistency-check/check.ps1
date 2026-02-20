@@ -187,9 +187,9 @@ function Validate-PrerequisitesSection {
     [string]$FilePath
   )
 
-  $sectionBlock = Get-HeadingBlock -Content $Content -HeadingRegex "(?m)^##\s+前提知識(?:\s*\(Prerequisites.*?\))?(?:\s*\[空欄禁止\])?\s*$" -EndRegex "(?m)^##\s+"
+  $sectionBlock = Get-HeadingBlock -Content $Content -HeadingRegex "(?m)^##\s+0\.\s+前提知識.*" -EndRegex "(?m)^##\s+1\."
   if (-not $sectionBlock) {
-    Add-Failure -RuleId "prerequisites_section_present" -File $FilePath -Reason "Missing '## 前提知識' section."
+    Add-Failure -RuleId "prerequisites_section_present" -File $FilePath -Reason "Missing '## 0. 前提知識' section."
     return
   }
 
@@ -466,9 +466,9 @@ function Validate-ProcessFindings {
   $requiredActionSeverities = @("must", "high")
   $requiredKeys = @("finding_id", "category", "severity", "summary", "evidence", "action_required")
 
-  $processBlock = Get-HeadingBlock -Content $ReviewContent -HeadingRegex "(?m)^##\s+6\.\s+Process Findings" -EndRegex "(?m)^##\s+\d+\."
+  $processBlock = Get-HeadingBlock -Content $ReviewContent -HeadingRegex "(?m)^##\s+6\.\s+.*Process Findings.*" -EndRegex "(?m)^##\s+7\."
   if (-not $processBlock) {
-    Add-Failure -RuleId "improvement_findings_present" -File $ReviewPath -Reason "Review must include '## 6. Process Findings'."
+    Add-Failure -RuleId "improvement_findings_present" -File $ReviewPath -Reason "Review must include '## 6. Process Findings' section."
     return
   }
 
@@ -548,25 +548,25 @@ function Validate-CommitBoundaries {
     [string]$ReviewPath
   )
 
-  $commitBoundaryBlock = Get-HeadingBlock -Content $ReviewContent -HeadingRegex "(?m)^##\s+7\.\s+Commit Boundaries" -EndRegex "(?m)^##\s+\d+\."
+  $commitBoundaryBlock = Get-HeadingBlock -Content $ReviewContent -HeadingRegex "(?m)^##\s+7\.\s+.*Commit Boundaries.*" -EndRegex "(?m)^##\s+\d+\."
   if (-not $commitBoundaryBlock) {
-    Add-Failure -RuleId "commit_boundaries_tracked" -File $ReviewPath -Reason "state=done task requires '## 7. Commit Boundaries' in review.md."
+    Add-Failure -RuleId "commit_boundaries_tracked" -File $ReviewPath -Reason "state=done task requires '## 7. Commit Boundaries' section in review.md."
     return
   }
 
   $phaseChecks = @(
     @{
-      HeadingRegex = "(?m)^###\s+7\.1\s+Kickoff Commit"
-      EndRegex     = "(?m)^###\s+7\.2\s+Implementation Commit|^##\s+"
+      HeadingRegex = "(?m)^###\s+7\.1\s+.*Kickoff Commit.*"
+      EndRegex     = "(?m)^###\s+7\.2\s+"
       PhaseName    = "Kickoff"
     },
     @{
-      HeadingRegex = "(?m)^###\s+7\.2\s+Implementation Commit"
-      EndRegex     = "(?m)^###\s+7\.3\s+Finalize Commit|^##\s+"
+      HeadingRegex = "(?m)^###\s+7\.2\s+.*Implementation Commit.*"
+      EndRegex     = "(?m)^###\s+7\.3\s+"
       PhaseName    = "Implementation"
     },
     @{
-      HeadingRegex = "(?m)^###\s+7\.3\s+Finalize Commit"
+      HeadingRegex = "(?m)^###\s+7\.3\s+.*Finalize Commit.*"
       EndRegex     = "(?m)^##\s+"
       PhaseName    = "Finalize"
     }
@@ -839,24 +839,24 @@ function Invoke-SingleTaskCheck {
 
     $sectionChecks = @(
       @{
-        HeadingRegex = "(?m)^###\s+5\.1\s+Unit Test"
-        EndRegex = "(?m)^###\s+5\.2\s+Integration Test|^##\s+6\."
-        Labels = @("対象", "観点", "合格条件")
+        HeadingRegex = "(?m)^###\s+5\.1\s+.*Unit Test.*"
+        EndRegex = "(?m)^###\s+5\.2\s+"
+        Labels = @("対象", "検証項目", "合格基準")
       },
       @{
-        HeadingRegex = "(?m)^###\s+5\.2\s+Integration Test"
-        EndRegex = "(?m)^###\s+5\.3\s+Regression Test|^##\s+6\."
-        Labels = @("対象", "観点", "合格条件")
+        HeadingRegex = "(?m)^###\s+5\.2\s+.*Integration Test.*"
+        EndRegex = "(?m)^###\s+5\.3\s+"
+        Labels = @("対象", "検証項目", "合格基準")
       },
       @{
-        HeadingRegex = "(?m)^###\s+5\.3\s+Regression Test"
-        EndRegex = "(?m)^###\s+5\.4\s+Manual Verification|^##\s+6\."
-        Labels = @("対象", "観点", "合格条件")
+        HeadingRegex = "(?m)^###\s+5\.3\s+.*Regression Test.*"
+        EndRegex = "(?m)^###\s+5\.4\s+"
+        Labels = @("対象", "検証項目", "合格基準")
       },
       @{
-        HeadingRegex = "(?m)^###\s+5\.4\s+Manual Verification"
+        HeadingRegex = "(?m)^###\s+5\.4\s+.*Manual Verification.*"
         EndRegex = "(?m)^##\s+6\."
-        Labels = @("手順", "期待結果")
+        Labels = @("検証手順", "期待される結果")
       }
     )
 
@@ -868,7 +868,7 @@ function Invoke-SingleTaskCheck {
       }
 
       foreach ($label in $check.Labels) {
-        $pattern = "(?m)^\s*-\s*" + [Regex]::Escape($label) + ":\s*\S.+$"
+        $pattern = "(?m)^\s*-\s*\*\*?" + [Regex]::Escape($label) + "\*\*?:\s*\S.+$"
         if (-not ([Regex]::IsMatch($block, $pattern))) {
           Add-Failure -RuleId "test_requirements_defined" -File $specPath -Reason "Missing or blank label in test section: $label"
         }
@@ -883,23 +883,19 @@ function Invoke-SingleTaskCheck {
   }
 
   if ($specContent) {
-    $requiresTwoStagePlan = [Regex]::IsMatch($specContent, "(?i)plan-draft|plan-final")
-    if ($requiresTwoStagePlan) {
-      if (-not $planContent) {
-        Add-Failure -RuleId "plan_two_stage_defined" -File $planPath -Reason "Two-stage planning is required but plan.md is missing."
-      } else {
-        if (-not ([Regex]::IsMatch($planContent, "(?i)plan-draft"))) {
-          Add-Failure -RuleId "plan_two_stage_defined" -File $planPath -Reason "plan.md must define plan-draft when spec requires two-stage planning."
-        }
-        if (-not ([Regex]::IsMatch($planContent, "(?i)plan-final"))) {
-          Add-Failure -RuleId "plan_two_stage_defined" -File $planPath -Reason "plan.md must define plan-final when spec requires two-stage planning."
-        }
+    # Two-stage planning is now standard in AGENTS.md, so we enforce it if plan.md exists.
+    if ($planContent) {
+      if (-not ([Regex]::IsMatch($planContent, "(?m)^##\s+\d+\.\s+.*(Plan Draft|実装計画ドラフト).*"))) {
+        Add-Failure -RuleId "plan_two_stage_defined" -File $planPath -Reason "plan.md must define 'Plan Draft' section."
+      }
+      if (-not ([Regex]::IsMatch($planContent, "(?m)^##\s+\d+\.\s+.*(Plan Final|確定実装計画).*"))) {
+        Add-Failure -RuleId "plan_two_stage_defined" -File $planPath -Reason "plan.md must define 'Plan Final' section."
       }
     }
   }
 
   if ($specContent -and $indexContent) {
-    $relatedLinksBlock = Get-HeadingBlock -Content $specContent -HeadingRegex "(?m)^##\s+9\.\s+関連資料リンク" -EndRegex "(?m)^##\s+"
+    $relatedLinksBlock = Get-HeadingBlock -Content $specContent -HeadingRegex "(?m)^##\s+9\.\s+.*関連資料リンク.*" -EndRegex "(?m)^##\s+"
     $docPathMatches = @()
     if ($relatedLinksBlock) {
       $docsPathPattern = '(?m)^\s*-\s+`(' + [Regex]::Escape($script:docsRootLabel) + '/[^`]+)`'

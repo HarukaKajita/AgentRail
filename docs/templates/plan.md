@@ -1,51 +1,64 @@
-# 計画テンプレート
+# 実装計画書 (Implementation Plan)
 
-このテンプレートは `work/<task-id>/plan.md` で利用します。
+本ファイルは、`spec.md` で定義された要件を実現するための具体的な手順とスケジュールを定義する。`work/<task-id>/plan.md` として利用すること。
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+---
 
-- 参照資料:
-  - `AGENTS.md`
-  - `docs/INDEX.md`
-- 理解ポイント:
-  - 実装着手前に確認すべき前提・依存関係・制約を記載する。
+## 0. 前提知識 (Prerequisites) (必須)
 
-## 1. 対象仕様
+*実装に着手する前に、確認しておくべき前提条件や依存関係、制約を明記する。*
 
-- `work/<task-id>/spec.md`
+- **参照資料**:
+  - `AGENTS.md` (フレームワーク基本ルール)
+  - `docs/INDEX.md` (ドキュメントインデックス)
+- **理解ポイント**:
+  - [例: 既存の XX API のエンドポイント仕様を確認済みであること]
+  - [例: 依存する Task-001 が完了していること]
 
-## 2. plan-draft
+## 1. 対象仕様 (Target Specification)
 
-- 目的:
-- 実施項目:
-  1. 
+- `work/<task-id>/spec.md` (本計画の基準となる仕様書)
+
+## 2. 実装計画ドラフト (Plan Draft)
+
+*仕様確定後、詳細な依存関係の解決前に策定する大まかな計画。*
+
+- **目的**: [本タスクで達成すべき主要なゴール]
+- **主な実施項目**:
+  1. [例: XX モジュールのリファクタリング]
+  2. [例: YY 機能の新規実装]
+  3. [例: ZZ テストケースের作成と実行]
+- **成果物**: [ソースコード、ドキュメント、設定ファイル等の具体的な成果物]
+
+## 3. 依存関係ゲート (Depends-on Gate)
+
+*実装をブロックする外部要因（他タスクの完了など）を確認する。*
+
+- **依存タスク/要件**: [依存しているタスク ID や要件を記載]
+- **判定基準**: [「XX タスクが master にマージされていること」などの具体的条件]
+
+## 4. 確定実装計画 (Plan Final)
+
+*依存関係が解消され、実作業を開始する準備が整った時点での詳細な計画。*
+
+- **実装順序**:
+  1. [具体的かつアトミックな作業ステップを記述]
   2. 
   3. 
-- 成果物:
-
-## 3. depends_on gate
-
-- 依存:
-- 判定方針:
-
-## 4. plan-final
-
-- 実装順序:
-  1. 
+- **検証順序**:
+  1. [実装した機能をどの順番で検証・テストするかを記述]
   2. 
-  3. 
-- 検証順序:
-  1. 
-  2. 
-- ロールバック:
+- **ロールバック方針**: [問題が発生した際の切り戻し手順や暫定対応策]
 
-## 5. Execution Commands
+## 5. 実行コマンド (Execution Commands)
 
-- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId <task-id>`
-- `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId <task-id>`
-- `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
+*作業中に利用する主要な検証・管理コマンド。*
+
+- **整合性チェック**: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId <task-id>`
+- **状態検証**: `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId <task-id>`
+- **インデックス確認**: `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
 
 ## 6. 完了判定
 
-- 受入条件の判定結果を `work/<task-id>/review.md` に記録する。
-- 対象 task の検証コマンドが成功する。
+- 各受入条件の達成状況を `work/<task-id>/review.md` に詳細に記録すること。
+- 上記「整合性チェック」コマンドがエラーなく完了すること。

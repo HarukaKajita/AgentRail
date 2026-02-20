@@ -81,7 +81,7 @@ if (-not (Test-Path -LiteralPath $reviewPath -PathType Leaf)) {
 }
 
 $reviewContent = Get-Content -LiteralPath $reviewPath -Raw
-$processBlock = Get-HeadingBlock -Content $reviewContent -HeadingRegex "(?m)^##\s+6\.\s+Process Findings" -EndRegex "(?m)^##\s+\d+\."
+$processBlock = Get-HeadingBlock -Content $reviewContent -HeadingRegex "(?m)^##\s+6\.\s+.*Process Findings.*" -EndRegex "(?m)^##\s+7\."
 if (-not $processBlock) {
   Fail("Missing '## 6. Process Findings' section in review.md")
 }

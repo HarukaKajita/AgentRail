@@ -1,157 +1,143 @@
-# AgentRail Agent Rules
+# AgentRail エージェント行動規範 (Agent Rules)
 
-このファイルは AgentRail リポジトリにおけるエージェント作業の正本ルールです。  
-Claude 互換の補助は `CLAUDE.md` に記載しますが、矛盾時はこのファイルを優先します。
+本ファイルは、AgentRail リポジトリにおけるエージェント作業の正本ルールを定義する。  
+Claude 互換のための補助ルールは `CLAUDE.md` に記載するが、内容に矛盾がある場合は本ファイルを優先する。
 
 ## 1. 目的
 
-- 要望から資料更新までの工程を固定し、再現可能かつ人間が追従可能な開発を行う。
-- SSOT (Single Source of Truth / 単一の正) として `docs/` と `work/` を維持する。
-- docs を人間理解の資料バンクとして運用し、目的・使い方・仕組み・実装・関連情報を辿れる状態を維持する。
-- 長時間作業でも引き継げるように `MEMORY.md` を更新する。
+- 要望から資料更新に至る全工程を標準化し、再現性と透明性の高い開発プロセスを実現する。
+- `docs/`（永続ドキュメント）と `work/`（作業記録）を SSOT (Single Source of Truth / 信頼できる唯一の情報源) として維持する。
+- `docs/` を「人間が最短で理解できる資料バンク」として運用し、目的・使用方法・構造・実装・関連情報の導線を常に最新に保つ。
+- 作業コンテキストを `MEMORY.md` に継続的に記録し、セッションの中断や引き継ぎを容易にする。
 
-### 1.1 Human-Centric Reading Path
+### 1.1 人間中心の閲覧パス (Human-Centric Reading Path)
 
-core docs を読む順序は次の 5 観点を基準にする。
+プロジェクトの全体像を把握する際は、以下の 5 観点を基準に資料を閲覧する。
 
-1. 目的:
-   - まず `AGENTS.md` の目的と完了条件を確認する。
-2. 使い方:
-   - `README.md` の実行フローと基本コマンドを確認する。
-3. 仕組み:
-   - `work/<task-id>/` と `docs/` の関係を把握する。
-4. 実装:
-   - `tools/*` と `project.profile.yaml` の実行契約を参照する。
-5. 関連:
-   - `docs/INDEX.md` と `docs/operations/high-priority-backlog.md` から関連資料へ辿る。
+1. **目的**: `AGENTS.md` の「目的」と「完了条件」を確認する。
+2. **使用方法**: `README.md` の実行フローと基本コマンドを確認する。
+3. **構造**: `work/<task-id>/` と `docs/` の役割分担と関係性を把握する。
+4. **実装**: `tools/` および `project.profile.yaml` の実行定義を参照する。
+5. **関連情報**: `docs/INDEX.md` および `docs/operations/high-priority-backlog.md` から周辺資料を辿る。
 
-## 2. 実行前チェック (空欄禁止)
+## 2. 実行前チェック事項 (必須)
 
-以下を満たさない場合は実装に着手しない。
+以下の条件を満たさない限り、実装作業に着手してはならない。
 
-1. `project.profile.yaml` が存在し、必須キーが埋まっている。
-2. 対象タスクの `work/<task-id>/` が存在する。
-3. `work/<task-id>/request.md` が作成済み。
-4. `work/<task-id>/spec.md` の空欄禁止セクションが埋まっている。
-5. `work/<task-id>/plan.md` が作成済み。
-6. `work/<task-id>/state.json` が最新状態を示している。
-7. `work/<task-id>/state.json` の `depends_on` が最新で、未解決依存を把握できている。
-8. `request/investigation/spec/plan/review` に `前提知識` セクションがあり、参照先が解決できる。
+1. `project.profile.yaml` が存在し、必須項目がすべて定義されている。
+2. 作業対象となるタスクディレクトリ `work/<task-id>/` が存在する。
+3. `work/<task-id>/request.md`（要望整理）が作成されている。
+4. `work/<task-id>/spec.md`（要件仕様）の必須セクションがすべて記入されている。
+5. `work/<task-id>/plan.md`（実装計画）が作成されている。
+6. `work/<task-id>/state.json` が最新の状態を反映している。
+7. `state.json` の `depends_on`（依存関係）が定義され、未解決の依存がないことを確認している。
+8. 各資料に「前提知識」セクションがあり、必要な参照先が明記されている。
 
-## 3. 固定ワークフロー
+## 3. 標準ワークフロー
 
-必ず以下の順序で進行する。
+すべてのタスクは、例外なく以下の順序で進行する。
 
 1. 要望整理 (`request.md`)
-2. 調査 (`investigation.md`)
+2. 調査・分析 (`investigation.md`)
 3. 要件確定 (`spec.md`)
-4. 実装計画ドラフト (`plan.md` の `plan-draft`)
-5. 依存解決確認（depends_on gate）
-6. 実装計画確定 (`plan-final`)
-7. 実装
-8. テスト
-9. レビュー (`review.md`)
-10. 資料更新 (`docs/INDEX.md` と関連資料)
-11. 記憶更新 (`MEMORY.md` と `state.json`)
+4. 実装計画ドラフト作成 (`plan.md` 内の `plan-draft`)
+5. 依存関係の解決確認 (Depends-on Gate)
+6. 実装計画の確定 (`plan-final`)
+7. 実装作業
+8. テスト・検証
+9. 自己レビューと記録 (`review.md`)
+10. ドキュメント更新 (`docs/` 配下および `docs/INDEX.md`)
+11. 進捗・記憶の更新 (`MEMORY.md` および `state.json`)
 
 ### 3.1 コミット境界 (Commit Boundary)
 
-差分混在を防ぐため、次の境界でコミットを行う。
+作業の独立性と追跡可能性を確保するため、以下の境界でコミットを行う。
 
-1. 起票境界コミット:
-   - `request.md` / `investigation.md` / `spec.md` / `plan-draft` の要件確定と backlog 登録が完了した時点
-2. 実装境界コミット:
-   - `depends_on gate` 通過後の `plan-final` 確定、実装とテストが完了し、レビュー前に差分が安定した時点
-3. 完了境界コミット:
-   - `review.md` / docs / `MEMORY.md` / `state.json` 更新まで完了した時点
+1. **起票境界 (Kickoff Commit)**:
+   - 要件確定 (`spec.md`)、計画ドラフト (`plan-draft`)、バックログ登録が完了した時点。
+2. **実装境界 (Implementation Commit)**:
+   - 実装計画の確定、コードの実装、およびテストが完了し、レビュー前の状態が安定した時点。
+3. **完了境界 (Finalize Commit)**:
+   - レビュー記録 (`review.md`)、関連ドキュメント (`docs/`)、状態管理 (`state.json`, `MEMORY.md`) の更新がすべて完了した時点。
 
-コミット前には、stage された差分が単一 task に閉じていることを確認する。
+コミット前には、ステージングされた差分が対象タスクの範囲内に収まっていることを必ず確認する。
 
-推奨コマンド:
+#### 推奨検証コマンド:
 - `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase kickoff`
 - `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase implementation`
 - `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId <task-id> -Phase finalize -AllowCommonSharedPaths`
 
-### 3.2 Subagent Delegation Governance
+### 3.2 サブエージェント委譲ガバナンス (Subagent Delegation Governance)
 
-品質維持のため、subagent / multi_agent 委譲は次の契約で運用する。
+品質維持のため、サブエージェント（またはマルチエージェント）への委譲は以下の制約下で運用する。
 
-1. 委譲対象は `request` / `investigation` / `spec` / `plan-draft` に限定する。
-2. 4工程は単一 `delegated_agent_id` で連続実行する。
-3. 一次成果物は `request.md` / `investigation.md` / `spec.md` / `plan.md`（`plan-draft` 節）へ直接反映する。
-4. 委譲実行ごとに sidecar 監査ログ（`work/<task-id>/agent-logs/...`）を残す。
-5. 親エージェントは `plan-draft` 完了後に `gate_result=pass|fail` を記録する。
-6. `gate_result=pass` まで kickoff commit / depends_on gate / `plan-final` / commit を禁止する。
-7. `gate_result=fail` は差し戻しとし、状態は `blocked` または `in_progress` で維持する。
-8. `depends_on gate` / `plan-final` / 実装 / テスト / レビュー / docs 更新 / commit は親固定とする。
+1. 委譲対象工程は `request`, `investigation`, `spec`, `plan-draft` に限定する。
+2. これら 4 工程は、単一の `delegated_agent_id` で連続して実行する。
+3. 成果物は各 Markdown ファイルへ直接反映する。
+4. 実行ごとに監査ログ (`work/<task-id>/agent-logs/`) を記録する。
+5. 親エージェントは、計画ドラフト完了後に内容を精査し `gate_result=pass|fail` を記録する。
+6. `gate_result=pass` が記録されるまで、以降の工程（コミット、実装等）へ進むことを禁止する。
+7. `gate_result=fail` の場合は差し戻しとし、状態を `blocked` または `in_progress` で維持する。
+8. 重要な判断を伴う工程（実装、テスト、レビュー、ドキュメント更新、最終コミット）は親エージェントが自ら実行する。
 
-## 4. 厳格ブロック条件
+## 4. 厳格なブロック条件 (Blocking Conditions)
 
-以下のいずれかに該当した場合は、状態を `blocked` にして先に是正する。
+以下の項目に抵触する場合、タスク状態を `blocked` とし、作業を中断して反映を最優先する。
 
-- `spec.md` の空欄禁止項目が未記入。
-- `spec.md` の `テスト要件` が抽象的で検証条件になっていない。
-- `plan.md` が `spec.md` を参照していない。
-- `gate_result=pass` 前に kickoff commit / depends_on gate / `plan-final` / commit へ進もうとしている。
-- `plan-final` 確定前に実装へ進もうとしている。
-- 着手対象 task の `depends_on` に未完了依存がある。
-- active task の資料に `前提知識` セクションがない、または参照先が解決できない。
-- レビュー後に `docs/INDEX.md` が未更新。
-- `project.profile.yaml` の必須キー不足。
-- stage 差分に対象 task 以外の `work/<task-id>/` 変更が混在している。
+- `spec.md` の必須項目が未記入、または内容が不十分である。
+- `spec.md` の「テスト要件」が具体的でなく、客観的な検証が不可能である。
+- `plan.md` が `spec.md` の要件を適切に参照していない。
+- `gate_result=pass` の承認前に次の工程に進もうとしている。
+- `plan-final`（確定計画）の作成前に実装を開始している。
+- 依存する未完了タスクが存在する。
+- 資料に「前提知識」セクションが欠落している、または参照先が不明である。
+- レビュー完了後に `docs/INDEX.md` が更新されていない。
+- `project.profile.yaml` に必要な設定が不足している。
+- ステージングされた差分に対象外のタスクの変更が含まれている。
 
-## 5. タスク成果物の必須セット
+## 5. タスク成果物の構成
 
-各タスクは `work/<task-id>/` に次を揃える。
+各タスクディレクトリ `work/<task-id>/` には、以下のファイルを完備しなければならない。
 
-- `request.md`
-- `investigation.md`
-- `spec.md`
-- `plan.md`
-- `review.md`
-- `state.json`
+- `request.md` (要望整理)
+- `investigation.md` (調査・分析)
+- `spec.md` (要件仕様)
+- `plan.md` (実装計画)
+- `review.md` (レビュー・検証結果)
+- `state.json` (状態管理データ)
 
-`state.json` 必須キー:
+### `state.json` の必須キー:
+- `state`, `owner`, `updated_at`, `blocking_issues`, `depends_on`
 
-- `state`
-- `owner`
-- `updated_at`
-- `blocking_issues`
-- `depends_on`
+## 6. 実行プロファイル (`project.profile.yaml`) の運用
 
-## 6. `project.profile.yaml` の扱い
+- ビルド、テスト、フォーマット、静的解析等の具体的コマンドは、すべて本プロファイルから取得する。
+- プロファイルに未定義のコマンドを推測で実行してはならない。不明な場合はユーザーに確認する。
+- 本フレームワーク自体は特定の技術スタックを強制しない。
+- 実行環境のルール詳細は `docs/operations/runtime-framework-rules.md` を参照すること。
 
-- ビルド・テスト・フォーマット・Lint の具体コマンドは profile から読む。
-- profile 未設定時は推測実行しない。質問を生成して停止する。
-- フレームワーク本体は特定技術スタックに依存しない。
-- runtime 必須ルールの詳細は `docs/operations/runtime-framework-rules.md` を参照する。
-- runtime 要旨:
-  - 配布境界の SSOT は `framework.runtime.manifest.yaml`。
-  - 導入先 task root の標準は `.agentrail/work`。
-  - runtime 関連ツールのパス解決は `workflow.task_root/docs_root/runtime_root` 起点で統一する。
+## 7. 完了条件 (Done Criteria)
 
-## 7. 完了条件
+以下のすべての条件を満たした場合に限り、タスクを `done` 状態とする。
 
-以下を満たしたときのみ `done` とする。
-
-1. `spec.md` の受入条件をすべて満たした。
-2. `テスト要件` の実施結果が `review.md` に記録された。
-3. 変更点に対応する docs が更新された。
-4. `docs/INDEX.md` に新規・更新資料への導線が追加された。
-5. `MEMORY.md` が最新状態に更新された。
+1. `spec.md` に定義された「受入条件」をすべて達成した。
+2. 「テスト要件」に基づく検証結果が `review.md` にすべて記録された。
+3. 変更内容を反映したドキュメント (`docs/`) が適切に更新された。
+4. `docs/INDEX.md` に新しい資料への導線が追加された。
+5. `MEMORY.md` および `state.json` が最新の状態に更新された。
 
 ## 8. 安全規則
 
-- 明示依頼がない破壊的操作（例: `git reset --hard`, `rm -rf`）は禁止。
-- 既存の未関連変更は勝手に取り消さない。
-- リスクの高い操作は理由と影響を先に記録する。
+- 破壊的な操作（`git reset --hard`, `rm -rf` 等）は、ユーザーの明示的な指示がない限り禁止する。
+- 進行中のタスクに関係のない既存の変更を独断で修正・削除してはならない。
+- リスクを伴う操作を実行する場合は、事前にその理由と影響範囲を記録・報告する。
 
-## 9. 出力フォーマット
+## 9. 出力フォーマット (Reporting Format)
 
-最終報告は最低限次を含む。
+最終報告には、最低限以下の内容を含めること。
 
 1. 実施内容の要約
 2. 受入条件の達成状況
-3. テスト結果
-4. 更新した資料一覧
-5. 次アクション
+3. テスト・検証結果
+4. 更新したドキュメントの一覧
+5. 次に推奨されるアクション
