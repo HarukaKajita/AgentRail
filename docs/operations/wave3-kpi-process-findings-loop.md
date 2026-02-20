@@ -21,7 +21,7 @@
 ## 2. 入出力
 
 - 入力:
-  - `.tmp/wave3-metrics-report.json`（`generate-kpi-report.ps1` 出力）
+  - `<report-json-path>`（`generate-kpi-report.ps1 -OutputJsonFile` の出力）
   - source task の `work/<task-id>/review.md`
 - 出力:
   - Process Findings 追記テンプレート
@@ -41,8 +41,8 @@
 
 ```powershell
 pwsh -NoProfile -File tools/doc-quality/generate-kpi-report.ps1 \
-  -OutputJsonFile .tmp/wave3-metrics-report.json \
-  -OutputMarkdownFile .tmp/wave3-metrics-report.md
+  -OutputJsonFile <report-json-path> \
+  -OutputMarkdownFile <report-markdown-path>
 ```
 
 2. Finding テンプレート生成
@@ -50,7 +50,7 @@ pwsh -NoProfile -File tools/doc-quality/generate-kpi-report.ps1 \
 ```powershell
 pwsh -NoProfile -File tools/doc-quality/generate-finding-template.ps1 \
   -SourceTaskId <task-id> \
-  -ReportJsonPath .tmp/wave3-metrics-report.json
+  -ReportJsonPath <report-json-path>
 ```
 
 3. `work/<task-id>/review.md` の `## 6. Process Findings` へ貼り付け
@@ -67,6 +67,7 @@ pwsh -NoProfile -File tools/improvement-harvest/create-task.ps1 \
 ```
 
 5. `docs/operations/high-priority-backlog.md` と `MEMORY.md` を同一変更で同期
+6. task の `investigation.md` / `review.md` では固定 `.tmp/*` を参照資料に書かず、実行引数として `<report-json-path>` を記録する
 
 ## 5. review.md 記載テンプレート
 
@@ -76,7 +77,7 @@ pwsh -NoProfile -File tools/improvement-harvest/create-task.ps1 \
 - category: quality
 - severity: medium
 - summary: Doc quality KPI report status is yellow.
-- evidence: report=.tmp/wave3-metrics-report.json; generated_at=2026-02-20T18:55:24+09:00; kpis=...
+- evidence: report=<report-json-path>; generated_at=2026-02-20T18:55:24+09:00; kpis=...
 - action_required: yes
 - linked_task_id: 2026-02-20__<new-task-id>
 ```

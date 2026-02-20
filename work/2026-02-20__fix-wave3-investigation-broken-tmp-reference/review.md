@@ -8,38 +8,49 @@
   - `work/2026-02-20__fix-wave3-investigation-broken-tmp-reference/spec.md`
   - `work/2026-02-20__fix-wave3-investigation-broken-tmp-reference/plan.md`
 - 理解ポイント:
-  - 起票段階は PENDING 管理とし、実装時に AC 判定を更新する。
+  - 本レビューは `.tmp` 固定参照による `link_targets_exist` fail の是正結果を対象にする。
 
 ## 1. レビュー対象
 
-- 起票後に更新する。
+- `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/investigation.md`
+- `docs/operations/wave3-kpi-process-findings-loop.md`
+- `docs/operations/high-priority-backlog.md`
+- `MEMORY.md`
+- `work/2026-02-20__fix-wave3-investigation-broken-tmp-reference/plan.md`
+- `work/2026-02-20__fix-wave3-investigation-broken-tmp-reference/state.json`
 
 ## 2. 受入条件評価
 
-- AC-001: PENDING
-- AC-002: PENDING
+- AC-001: PASS（task12 investigation の固定 `.tmp` 参照を実行引数ベースへ置換し、参照切れ要因を除去）
+- AC-002: PASS（`-AllTasks -DocQualityMode warning` が PASS し、DQ-002 warning 21件のみを確認）
 
 ## 3. テスト結果
 
 ### Unit Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容:
+  1. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop -DocQualityMode warning`
+- 結果: PASS
 
 ### Integration Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容:
+  1. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning`
+- 結果: PASS（全 task PASS、Doc Quality warning は DQ-002 の 21件のみ）
 
 ### Regression Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容:
+  1. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop -DocQualityMode warning`
+  2. `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
+- 結果: PASS
 
 ### Manual Verification
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容:
+  1. `rg -n "\\.tmp|report-json-path" work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/investigation.md docs/operations/wave3-kpi-process-findings-loop.md`
+  2. task12 investigation の参照資料欄に固定 `.tmp` 参照がないことを確認
+- 結果: PASS
 
 ## 4. 指摘事項
 
@@ -49,7 +60,7 @@
 
 ## 5. 結論
 
-- 起票後に最終判定する。
+- 本タスクは完了。DQ-002 以外の checker fail（`link_targets_exist`）を解消し、再発防止ルールも運用 docs に反映した。
 
 ## 6. Process Findings
 
@@ -58,8 +69,8 @@
 - finding_id: F-001
 - category: quality
 - severity: low
-- summary: Follow-up task was created to eliminate non-DQ checker failure.
-- evidence: `tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning` failure record.
+- summary: Fixed broken `.tmp` reference in wave3 investigation and stabilized all-tasks consistency check.
+- evidence: `tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning` が PASS（DQ-002 warning 21件のみ）。
 - action_required: no
 - linked_task_id: none
 
@@ -67,15 +78,15 @@
 
 ### 7.1 Kickoff Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: N/A
+- scope_check: PASS
 
 ### 7.2 Implementation Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: N/A
+- scope_check: PASS
 
 ### 7.3 Finalize Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: N/A
+- scope_check: WAIVED（`work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/investigation.md` 同時修正をユーザー承認済み）

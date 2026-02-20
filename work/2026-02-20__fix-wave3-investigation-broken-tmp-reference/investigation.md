@@ -55,12 +55,12 @@
 
 ## 8. 未解決事項 [空欄禁止]
 
-- 同種記述が過去 task に残存しているかの横断確認範囲。
+- なし（`-AllTasks -DocQualityMode warning` で `link_targets_exist` fail が解消されたことを確認）。
 
 ## 9. 次アクション [空欄禁止]
 
-1. spec で修正対象と受入条件を確定する。
-2. plan-draft で検証手順を固定する。
+1. task2 review と state/backlog/MEMORY を完了状態へ同期する。
+2. 次タスク `2026-02-20__define-kpi-report-execution-calendar` へ着手する。
 
 ## 10. 関連リンク [空欄禁止]
 

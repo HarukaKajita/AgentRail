@@ -106,3 +106,4 @@
 - review: `work/2026-02-20__fix-wave3-investigation-broken-tmp-reference/review.md`
 - docs:
   - `docs/operations/high-priority-backlog.md`
+  - `docs/operations/wave3-kpi-process-findings-loop.md`

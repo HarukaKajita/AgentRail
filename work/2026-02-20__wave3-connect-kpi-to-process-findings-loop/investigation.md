@@ -26,7 +26,7 @@
 - 参照資料:
   - `tools/improvement-harvest/scan.ps1`
   - `tools/improvement-harvest/create-task.ps1`
-  - `.tmp/wave3-metrics-report.json`
+  - `tools/doc-quality/generate-kpi-report.ps1`（`-OutputJsonFile` で出力先を指定）
 - 実施した確認:
   1. review finding の必須キーと許容 category/severity を確認。
   2. KPI report 出力から severity/action_required を導出可能か確認。

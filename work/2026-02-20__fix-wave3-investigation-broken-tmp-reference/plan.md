@@ -7,7 +7,7 @@
   - `docs/INDEX.md`
   - `work/2026-02-20__fix-wave3-investigation-broken-tmp-reference/spec.md`
 - 理解ポイント:
-  - 起票段階では plan-draft までを確定し、実装順序の最終化は depends_on gate 後に行う。
+  - 本タスクは依存なしのため、plan-ready から plan-final を確定して実施する。
 
 ## 1. 対象仕様
 
@@ -34,20 +34,29 @@
 ## 4. plan-final
 
 - 実装順序:
-  - kickoff 段階のため未確定。depends_on gate 後に確定する。
+  1. `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/investigation.md` の固定 `.tmp` 参照を実行引数ベースの記述へ置換する。
+  2. `docs/operations/wave3-kpi-process-findings-loop.md` のサンプルパスを `<report-json-path>` / `<report-markdown-path>` に置換し、再発防止ルールを追加する。
+  3. task2 の計画・レビュー・状態ファイルを実績化し、backlog と MEMORY を次タスク着手状態へ同期する。
 - 検証順序:
-  - kickoff 段階のため未確定。depends_on gate 後に確定する。
+  1. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop -DocQualityMode warning`
+  2. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop -DocQualityMode warning`
+  3. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning`
+  4. `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
 - ロールバック:
-  - fail が残る場合は修正差分を戻し、参照表現を再設計する。
+  - fail が残る場合は `.tmp` 固定参照へ戻さず、既存 checker 仕様を優先して参照表現を再設計する。
 
 ## 5. Execution Commands
 
 - `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__fix-wave3-investigation-broken-tmp-reference -DocQualityMode warning`
 - `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__fix-wave3-investigation-broken-tmp-reference -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
 - `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId 2026-02-20__fix-wave3-investigation-broken-tmp-reference -Phase kickoff -AllowCommonSharedPaths`
 
 ## 6. 完了判定
 
-- plan-draft が spec を参照している。
-- backlog/state の planned 記述が整合している。
-- kickoff 境界コミットの scope check が PASS。
+- AC-001 と AC-002 が review で PASS。
+- `state.json` は `done`。
+- backlog の次着手候補が `2026-02-20__define-kpi-report-execution-calendar` へ遷移している。
