@@ -86,6 +86,7 @@
   - Wave 2 までの適用結果
 - 出力:
   - 運用メトリクス定義（更新遅延/導線整合/網羅率）
+  - KPI 閾値定義 docs（`docs/operations/wave3-doc-quality-kpi-thresholds.md`）
   - 継続改善タスクの優先度基準
 - ゲート:
   - KPI 閾値の暫定版が合意される

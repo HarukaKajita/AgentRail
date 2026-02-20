@@ -6,9 +6,11 @@
   - `AGENTS.md`
   - `docs/operations/human-centric-doc-bank-governance.md`
   - `docs/operations/human-centric-doc-bank-migration-plan.md`
+  - `docs/operations/wave2-doc-quality-warning-mode.md`
+  - `docs/operations/wave2-doc-quality-fail-mode.md`
   - `docs/operations/high-priority-backlog.md`
 - 理解ポイント:
-  - Wave 3: docs品質KPI閾値定義 は wave 計画に基づく実行タスクである。
+  - Wave 3 先頭タスクとして、docs品質KPIの定義と暫定閾値を先に固定する。
 
 ## 要望の原文
 
@@ -18,41 +20,37 @@
 ## 要望分析
 
 - 直要求:
-  - Wave 3: docs品質KPI閾値定義 の成果物を定義し、task 一式へ反映する。
-  - depends_on と gate 状態を明確化する。
+  - Wave 3 KPI 定義文書を追加し、算出式・閾値・guardrail を明文化する。
+  - backlog/state/MEMORY を次タスク（metrics automation）へ同期する。
 - 潜在要求:
-  - `docs` / `work` の相互参照を維持し、後続 wave へ引き継げる情報を残す。
+  - Wave 2 warning/fail 運用を前提とした測定可能なKPI設計にする。
+  - 後続 task が再利用できる baseline 値を残す。
 - 非要求:
-  - 後続 wave の実装完了。
+  - KPI 自動集計の実装（task11で実施）。
 
 ## 提案オプション（3案）
 
-1. 最小実行:
-   - 最低限の成果物のみ作成する。
-2. 標準実行（採用）:
-   - 受入条件・テスト要件・依存整合まで同時に確定する。
-3. 拡張実行:
-   - 後続 wave の内容まで先行実装する。
+1. KPI 名称のみ定義し、閾値は後回しにする。
+2. KPI + 暫定閾値 + baseline を文書化する（採用）。
+3. KPI 定義と自動集計実装を同時に実施する。
 
 ## 推奨案
 
-- 採用: オプション2（標準実行）
+- 採用: オプション2
 - 採用理由:
-  - 依存順序を守りながら、完了判定に必要な品質証跡を残せる。
+  - task11 の実装要件をブレなく固定でき、段階実行（Wave 3 2段階起票）に適合するため。
 
 ## 依存関係整理
 
-- depends_on: 2026-02-20__wave2-enforce-doc-quality-fail-mode, 2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates
-- 依存状態: 未解決（2026-02-20__wave2-enforce-doc-quality-fail-mode[planned], 2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates[planned]）
+- depends_on: `2026-02-20__wave2-enforce-doc-quality-fail-mode`, `2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates`
+- 依存状態: 解決済み（両タスクとも `done`）
 
 ## 成功条件（要望レベル）
 
-1. Wave 3: docs品質KPI閾値定義 の成果物が task 資料と関連 docs に明文化される。
-2. depends_on と gate 状態が backlog/state/plan で整合する。
-3. 後続 task が参照可能な形で引き継ぎ情報が記録される。
+1. `docs/operations/wave3-doc-quality-kpi-thresholds.md` に 3 KPI（更新遅延/導線整合/網羅率）と閾値が定義される。
+2. baseline 観測値（task_count / warning_count / warning_free_ratio）が記録される。
+3. backlog/state/MEMORY が task11 着手状態へ同期される。
 
 ## blocked 判定
 
-- 依存未解決のため dependency-blocked を維持。
-
-
+- depends_on 解決済みのため plan-ready で進行する。

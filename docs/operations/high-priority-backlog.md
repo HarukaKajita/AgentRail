@@ -26,25 +26,16 @@
 
 ## 優先タスク一覧
 
-7. `2026-02-20__wave3-define-doc-quality-kpi-thresholds`
+7. `2026-02-20__wave3-automate-doc-quality-metrics-report`
 - 状態: planned
 - 計画段階: plan-draft
 - ゲート状態: plan-ready
-- 依存: `2026-02-20__wave2-enforce-doc-quality-fail-mode`, `2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates`
-- 依存状態: 解決済み
-- 目的: 更新遅延 / 導線整合 / 網羅率の KPI 指標と暫定閾値を定義する
-- 参照: `work/2026-02-20__wave3-define-doc-quality-kpi-thresholds/spec.md`
-
-8. `2026-02-20__wave3-automate-doc-quality-metrics-report`
-- 状態: planned
-- 計画段階: plan-draft
-- ゲート状態: dependency-blocked
 - 依存: `2026-02-20__wave3-define-doc-quality-kpi-thresholds`
-- 依存状態: 未解決（先行タスク完了待ち）
+- 依存状態: 解決済み
 - 目的: docs 品質 KPI の自動集計と可視化レポートを設計・実装する
 - 参照: `work/2026-02-20__wave3-automate-doc-quality-metrics-report/spec.md`
 
-9. `2026-02-20__wave3-connect-kpi-to-process-findings-loop`
+8. `2026-02-20__wave3-connect-kpi-to-process-findings-loop`
 - 状態: planned
 - 計画段階: plan-draft
 - ゲート状態: dependency-blocked
@@ -364,6 +355,13 @@
 - 依存状態: 解決済み
 - 目的: CI運用資料を docs 品質ゲートに合わせて更新し、運用手順を整合させる
 - 参照: `work/2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates/spec.md`
+
+50. `2026-02-20__wave3-define-doc-quality-kpi-thresholds`
+- 状態: done
+- 依存: `2026-02-20__wave2-enforce-doc-quality-fail-mode`, `2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates`
+- 依存状態: 解決済み
+- 目的: 更新遅延 / 導線整合 / 網羅率の KPI 指標と暫定閾値を定義する
+- 参照: `work/2026-02-20__wave3-define-doc-quality-kpi-thresholds/spec.md`
 
 ## 更新ルール
 
