@@ -1,6 +1,6 @@
 # Wave 1: Doc-Work Cross-Link Normalization
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `docs/operations/wave1-core-docs-human-centric-migration.md`

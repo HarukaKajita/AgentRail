@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__bootstrap-onboarding-doc-tasks-for-existing-repo
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -14,7 +14,7 @@
 
 - `work/2026-02-20__bootstrap-onboarding-doc-tasks-for-existing-repo/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的:
   - 既存リポジトリ導入直後に、資料作成・整備のタスク化へ安全に接続できるブートストラップ機能を追加する。
@@ -33,7 +33,7 @@
 - 判定方針: 依存なしのため `plan-ready`
 - 判定結果: pass（起票時点）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実装順序:
   1. `tools/onboarding/collect-existing-repo-context.ps1` を新規追加する。

@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__subagent-multi-agent-delegation-governance
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -15,7 +15,19 @@
 
 - `work/2026-02-20__subagent-multi-agent-delegation-governance/spec.md`
 
-## 2. Execution Commands
+
+## 2. 実装計画ドラフト (Plan Draft)
+
+- 目的: 既存資料の移行と整合性確保
+- 実施項目:
+  1. 既存ドキュメントの構造修正
+- 成果物: 更新済み Markdown ファイル
+
+## 3. 依存関係ゲート (Depends-on Gate)
+
+- 依存: なし
+- 判定方針: 直接移行
+## 5. 実行コマンド (Execution Commands)
 
 - task consistency:
   - `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__subagent-multi-agent-delegation-governance`
@@ -28,7 +40,7 @@
 - planned task list:
   - `pwsh -NoProfile -File .agents/skills/Rail10-list-planned-tasks-by-backlog-priority/scripts/list_planned_tasks.ps1 -RepoRoot .`
 
-## 3. 実施ステップ
+## 4. 確定実装計画 (Plan Final)
 
 1. request / investigation / spec / plan-draft を同一 `delegated_agent_id` で処理する実行契約を定義する。
 2. 委譲必須コンテキストと一次成果物更新先（4ファイル）を定義する。

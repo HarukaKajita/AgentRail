@@ -1,6 +1,6 @@
 # Request: 2026-02-20__dq002-wave-c-fix-remaining-doc-links
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`

@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__wave0-inventory-human-centric-doc-coverage
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -14,7 +14,7 @@
 
 - `work/2026-02-20__wave0-inventory-human-centric-doc-coverage/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的: must対象資料の棚卸しと欠落カテゴリ（目的/使い方/仕組み/実装/関連）の可視化を行う。
 - 実施項目:
@@ -32,7 +32,7 @@
 - 判定方針: depends_on が全て done になるまで dependency-blocked を維持する。
 - 判定結果: pass（依存タスクが done）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実行フェーズ:
   1. 準備: wave 計画の must 対象と分類軸（目的/使い方/仕組み/実装/関連）を固定する。

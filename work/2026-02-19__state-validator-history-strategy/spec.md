@@ -1,6 +1,6 @@
 # 仕様書: 2026-02-19__state-validator-history-strategy
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -9,7 +9,7 @@
   - 本資料に入る前に、目的・受入条件・依存関係を把握する。
 
 
-## 1. メタ情報 [空欄禁止]
+## 1. メタ情報 (Metadata) (必須)
 
 - Task ID: `2026-02-19__state-validator-history-strategy`
 - タイトル: State Validator History Strategy
@@ -18,61 +18,61 @@
 - 作成者: codex
 - 関連要望: `work/2026-02-19__state-validator-history-strategy/request.md`
 
-## 2. 背景と目的 [空欄禁止]
+## 2. 背景と目的 (Background & Objectives) (必須)
 
 - 背景: state history の保存場所が未定義で、将来 `state.json` へ履歴を積むか外部化するかの方針が曖昧だった。
 - 目的: state history 管理方式を決定し、validator で方針逸脱を検知できる状態にする。
 
-## 3. スコープ [空欄禁止]
+## 3. スコープ (Scope) (必須)
 
-### 3.1 In Scope [空欄禁止]
+### 3.1 In Scope (必須)
 
 - state history 方式を「外部化（Git 履歴）」に決定する。
 - `tools/state-validate/validate.ps1` へ `history`/`state_history` キー禁止チェックを追加する。
 - 運用 docs に履歴参照手順を記録し、backlog 状態を更新する。
 
-### 3.2 Out of Scope [空欄禁止]
+### 3.2 Out of Scope (必須)
 
 - 専用 state history ストアの新規実装。
 - 既存 task 履歴の再構築。
 
-## 4. 受入条件 (Acceptance Criteria / 受入条件) [空欄禁止]
+## 4. 受入条件 (Acceptance Criteria) (必須)
 
 - AC-001: state history 方針が docs で「Git 履歴外部化」に決定されている。
 - AC-002: `tools/state-validate/validate.ps1` が `history` または `state_history` キーを含む `state.json` を FAIL する。
 - AC-003: 現在のリポジトリで `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks` が PASS する。
 - AC-004: high-priority / validator backlog と task 記録が更新される。
 
-## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
+## 5. テスト要件 (Test Requirements) (必須)
 
-### 5.1 Unit Test (Unit Test / 単体テスト) [空欄禁止]
+### 5.1 単体テスト (Unit Test) (必須)
 
-- 対象: `tools/state-validate/validate.ps1`
-- 観点: `state.json` の禁止キー検知（`history` / `state_history`）が機能する。
-- 合格条件: 禁止キーありで FAIL、禁止キーなしで PASS。
+- **対象**: `tools/state-validate/validate.ps1`
+- **検証項目**: `state.json` の禁止キー検知（`history` / `state_history`）が機能する。
+- **合格基準**: 禁止キーありで FAIL、禁止キーなしで PASS。
 
-### 5.2 Integration Test (Integration Test / 結合テスト) [空欄禁止]
+### 5.2 結合テスト (Integration Test) (必須)
 
-- 対象: `tools/state-validate/validate.ps1 -AllTasks`
-- 観点: 全 task 検証で既存運用が維持される。
-- 合格条件: `STATE_VALIDATE: PASS` が出力される。
+- **対象**: `tools/state-validate/validate.ps1 -AllTasks`
+- **検証項目**: 全 task 検証で既存運用が維持される。
+- **合格基準**: `STATE_VALIDATE: PASS` が出力される。
 
-### 5.3 Regression Test (Regression Test / 回帰テスト) [空欄禁止]
+### 5.3 回帰テスト (Regression Test) (必須)
 
-- 対象: `tools/consistency-check/check.ps1` と `tools/docs-indexer/index.ps1`
-- 観点: task 文書/docs 更新後の既存品質ゲートが PASS する。
-- 合格条件: consistency-check と docs-indexer check が PASS。
+- **対象**: `tools/consistency-check/check.ps1` と `tools/docs-indexer/index.ps1`
+- **検証項目**: task 文書/docs 更新後の既存品質ゲートが PASS する。
+- **合格基準**: consistency-check と docs-indexer check が PASS。
 
-### 5.4 Manual Verification (Manual Verification / 手動検証) [空欄禁止]
+### 5.4 手動検証 (Manual Verification) (必須)
 
-- 手順:
+- **検証手順**:
   1. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks` を実行する。
   2. 一時 `state.json` に `history` キーを追加した task を作成し、`tools/state-validate/validate.ps1 -TaskId <task> -WorkRoot <temp-work>` を実行する。
   3. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-19__state-validator-history-strategy` を実行する。
   4. `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check` を実行する。
-- 期待結果: 手順1/3/4は PASS、手順2は `state history must be externalized` を含んで FAIL。
+- **期待される結果**: 手順1/3/4は PASS、手順2は `state history must be externalized` を含んで FAIL。
 
-## 6. 影響範囲 [空欄禁止]
+## 6. 影響範囲 (Impact Assessment) (必須)
 
 - 影響ファイル/モジュール:
   - `tools/state-validate/validate.ps1`
@@ -85,17 +85,17 @@
 - 非機能影響:
   - state.json の肥大化抑制と履歴運用の一貫性向上。
 
-## 7. 制約とリスク [空欄禁止]
+## 7. 制約とリスク (Constraints & Risks) (必須)
 
 - 制約: 既存 `state.json` 最小キー運用を維持する。
 - 想定リスク: 履歴を state.json に持ちたいケースとの方針衝突。
 - 回避策: history 要求が出た場合は専用 artifact 方針を別タスクで設計し、本ルールを更新する。
 
-## 8. 未確定事項 [空欄禁止]
+## 8. 未確定事項 (Open Issues) (必須)
 
 - Git 以外の履歴ストア採用基準。
 
-## 9. 関連資料リンク [空欄禁止]
+## 9. 関連資料リンク (Reference Links) (必須)
 
 - request: `work/2026-02-19__state-validator-history-strategy/request.md`
 - investigation: `work/2026-02-19__state-validator-history-strategy/investigation.md`

@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__wave3-define-doc-quality-kpi-thresholds
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -14,7 +14,7 @@
 
 - `work/2026-02-20__wave3-define-doc-quality-kpi-thresholds/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的: docs品質KPIの算出式と暫定閾値を定義する。
 - 実施項目:
@@ -34,7 +34,7 @@
 - 判定方針: 依存タスクが `done` の場合のみ本タスクを `done` 化する。
 - 判定結果: pass（両タスクとも done）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実行フェーズ:
   1. baseline 取得: all tasks warning JSON を取得して基準値を記録

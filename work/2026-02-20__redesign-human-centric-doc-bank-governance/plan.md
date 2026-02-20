@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__redesign-human-centric-doc-bank-governance
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -14,7 +14,7 @@
 
 - `work/2026-02-20__redesign-human-centric-doc-bank-governance/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的: 人間理解中心の資料バンク方針へ再設計するための計画を確定する。
 - 実施項目:
@@ -32,7 +32,7 @@
 - 判定方針: 依存なしのため plan-ready を採用する。
 - 判定結果: pass（依存なし）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実行フェーズ設計:
   1. Phase A: 方針再設計

@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__plan-migration-to-human-centric-doc-bank
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -14,7 +14,7 @@
 
 - `work/2026-02-20__plan-migration-to-human-centric-doc-bank/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的: 既存資料/仕組みを人間理解中心の資料バンク設計へ移行する段階計画を作る。
 - 実施項目:
@@ -32,7 +32,7 @@
 - 判定方針: 依存タスクが `done` になるまで `dependency-blocked` を維持する。
 - 判定結果: pass（依存タスク `2026-02-20__redesign-human-centric-doc-bank-governance` が `done`）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - フェーズ構成:
   1. Wave 0: Inventory

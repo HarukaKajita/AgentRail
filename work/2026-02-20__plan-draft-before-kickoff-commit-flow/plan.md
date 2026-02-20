@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__plan-draft-before-kickoff-commit-flow
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -14,7 +14,7 @@
 
 - `work/2026-02-20__plan-draft-before-kickoff-commit-flow/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的:
   - 可視化ガイドと skills flow guide の順序不整合を解消する実装方針を確定する。
@@ -34,7 +34,7 @@
 - 判定:
   - 依存先はすべて `done` のため `plan-ready`。
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実装順序:
   1. docs 修正を実施する。

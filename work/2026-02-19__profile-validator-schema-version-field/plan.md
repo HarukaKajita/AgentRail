@@ -1,6 +1,6 @@
 # Plan: 2026-02-19__profile-validator-schema-version-field
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -13,7 +13,19 @@
 
 - `work/2026-02-19__profile-validator-schema-version-field/spec.md`
 
-## 2. Execution Commands
+
+## 2. 実装計画ドラフト (Plan Draft)
+
+- 目的: 既存資料の移行と整合性確保
+- 実施項目:
+  1. 既存ドキュメントの構造修正
+- 成果物: 更新済み Markdown ファイル
+
+## 3. 依存関係ゲート (Depends-on Gate)
+
+- 依存: なし
+- 判定方針: 直接移行
+## 5. 実行コマンド (Execution Commands)
 
 - profile validate(pass): `pwsh -NoProfile -File tools/profile-validate/validate.ps1 -ProfilePath project.profile.yaml`
 - profile validate(fail): `pwsh -NoProfile -Command '$tmp = Join-Path $env:TEMP ("profile-unsupported-schema-version-" + [Guid]::NewGuid().ToString("N") + ".yaml"); $content = Get-Content -Raw project.profile.yaml; $updated = [Regex]::Replace($content, "(?m)^schema_version:\s*.*$", "schema_version: ""9.9.9"""); Set-Content -LiteralPath $tmp -Value $updated; & pwsh -NoProfile -File tools/profile-validate/validate.ps1 -ProfilePath $tmp; $exit = $LASTEXITCODE; Remove-Item -LiteralPath $tmp -Force; exit $exit'`
@@ -21,7 +33,7 @@
 - index update: `pwsh -NoProfile -File tools/docs-indexer/index.ps1`
 - index check: `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
 
-## 3. 実施ステップ
+## 4. 確定実装計画 (Plan Final)
 
 1. source finding の根拠を確認し、`schema_version` 導入の互換方針を確定する。
 2. `project.profile.yaml` / `tools/profile-validate/profile-schema.json` / `tools/profile-validate/validate.ps1` を更新する。

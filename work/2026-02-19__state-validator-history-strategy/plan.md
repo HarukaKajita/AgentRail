@@ -1,6 +1,6 @@
 # Plan: 2026-02-19__state-validator-history-strategy
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -13,7 +13,19 @@
 
 - `work/2026-02-19__state-validator-history-strategy/spec.md`
 
-## 2. Execution Commands
+
+## 2. 実装計画ドラフト (Plan Draft)
+
+- 目的: 既存資料の移行と整合性確保
+- 実施項目:
+  1. 既存ドキュメントの構造修正
+- 成果物: 更新済み Markdown ファイル
+
+## 3. 依存関係ゲート (Depends-on Gate)
+
+- 依存: なし
+- 判定方針: 直接移行
+## 5. 実行コマンド (Execution Commands)
 
 - state validate(all): `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks`
 - state validate(fail): `pwsh -NoProfile -Command '$tempRoot = Join-Path $env:TEMP ("state-history-strategy-" + [Guid]::NewGuid().ToString("N")); $tempWork = Join-Path $tempRoot "work"; New-Item -ItemType Directory -Path $tempWork -Force | Out-Null; $taskId = "2026-02-19__profile-validator-required-checks-source-of-truth"; Copy-Item -Path ("work/" + $taskId) -Destination (Join-Path $tempWork $taskId) -Recurse; $statePath = Join-Path $tempWork ($taskId + "/state.json"); $stateObj = Get-Content -Raw $statePath | ConvertFrom-Json; $historyEntry = [PSCustomObject]@{ state = "planned"; changed_at = "2026-02-19T00:00:00+09:00" }; Add-Member -InputObject $stateObj -NotePropertyName history -NotePropertyValue @($historyEntry) -Force; $stateObj | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $statePath; & pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId $taskId -WorkRoot $tempWork; $exit = $LASTEXITCODE; Remove-Item -LiteralPath $tempRoot -Recurse -Force; exit $exit'`
@@ -21,7 +33,7 @@
 - index update: `pwsh -NoProfile -File tools/docs-indexer/index.ps1`
 - index check: `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
 
-## 3. 実施ステップ
+## 4. 確定実装計画 (Plan Final)
 
 1. state history 管理方式を外部化（Git 履歴）で確定する。
 2. `tools/state-validate/validate.ps1` に `history` / `state_history` 禁止チェックを追加する。

@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__add-runtime-installer-with-agentrail-work-layout
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -13,7 +13,7 @@
 
 - `work/2026-02-20__add-runtime-installer-with-agentrail-work-layout/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的: 外部利用時の成果物を .agentrail/work に統一し、導入をスクリプト化する。
 - 実施項目:
@@ -30,7 +30,7 @@
 - 依存: `2026-02-20__define-runtime-manifest-and-export-flow`
 - 判定方針: 依存タスクがすべて done になるまで dependency-blocked を維持する。
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実装順序:
   1. installer を追加し、runtime source から導入先へコピーする処理を実装する。

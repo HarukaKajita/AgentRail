@@ -1,6 +1,6 @@
 # Review: 2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -61,7 +61,7 @@
 
 - 本タスクは完了。Wave A の対象 warning を解消し、Wave B を着手可能状態に更新した。
 
-## 6. Process Findings
+## 6. プロセス改善案 (Process Findings) (必須)
 
 ### 6.1 Finding F-001
 
@@ -73,19 +73,19 @@
 - action_required: no
 - linked_task_id: none
 
-## 7. Commit Boundaries
+## 7. コミット境界の確認 (Commit Boundaries) (必須)
 
-### 7.1 Kickoff Commit
+### 7.1 起票境界 (Kickoff Commit)
 
 - commit: `1c04b38`
 - scope_check: PASS
 
-### 7.2 Implementation Commit
+### 7.2 実装境界 (Implementation Commit)
 
 - commit: N/A（本タスクは finalize 一体コミット）
 - scope_check: PASS
 
-### 7.3 Finalize Commit
+### 7.3 完了境界 (Finalize Commit)
 
 - commit: N/A（完了コミットは Git 履歴を正本とする）
 - scope_check: PASS

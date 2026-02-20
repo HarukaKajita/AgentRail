@@ -1,6 +1,6 @@
 # 仕様書: 2026-02-20__dependency-gate-before-plan-flow
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -11,7 +11,7 @@
 - 理解ポイント:
   - 依存解決前に確定計画へ進まないため、`plan-draft` と `plan-final` を分離する。
 
-## 1. メタ情報 [空欄禁止]
+## 1. メタ情報 (Metadata) (必須)
 
 - Task ID: `2026-02-20__dependency-gate-before-plan-flow`
 - タイトル: Dependency Gate Before Plan Flow
@@ -23,14 +23,14 @@
   - `2026-02-19__task-dependency-aware-prioritization-flow`
   - `2026-02-19__task-commit-boundary-automation-flow`
 
-## 2. 背景と目的 [空欄禁止]
+## 2. 背景と目的 (Background & Objectives) (必須)
 
 - 背景: 依存未解決のまま詳細計画を確定すると、依存完了後に計画が破綻して再作成になるケースがある。
 - 目的: `plan` を2段階化し、`plan-draft` は早期作成可能、`plan-final` は depends_on gate pass 後のみ確定できる運用へ変更する。
 
-## 3. スコープ [空欄禁止]
+## 3. スコープ (Scope) (必須)
 
-### 3.1 In Scope [空欄禁止]
+### 3.1 In Scope (必須)
 
 - 固定フロー順序を以下に更新する。
   - `request -> investigation -> spec -> plan-draft -> depends_on gate -> plan-final -> implementation -> test -> review -> docs -> memory`
@@ -42,13 +42,13 @@
 - backlog と Rail10 表示に `plan-draft`, `plan-ready`, `dependency-blocked` を追加する要件を定義する。
 - docs/skills/checker へ反映すべき更新範囲を定義する。
 
-### 3.2 Out of Scope [空欄禁止]
+### 3.2 Out of Scope (必須)
 
 - 依存グラフの可視化 UI 開発。
 - 外部 issue tracker 連携。
 - archive/legacy タスクの全面補正。
 
-## 4. 受入条件 (Acceptance Criteria / 受入条件) [空欄禁止]
+## 4. 受入条件 (Acceptance Criteria) (必須)
 
 - AC-001: 新フロー順序に `plan-draft -> depends_on gate -> plan-final` が定義される。
 - AC-002: `plan-draft` の目的・禁止事項（確定計画/実装着手/コミット判断に使わない）が定義される。
@@ -59,48 +59,48 @@
 - AC-007: docs/skills/checker の更新範囲と実装順序が定義される。
 - AC-008: 実装完了時の検証手順（state/consistency/docs-indexer）が定義される。
 
-## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
+## 5. テスト要件 (Test Requirements) (必須)
 
-### 5.1 Unit Test (Unit Test / 単体テスト) [空欄禁止]
+### 5.1 単体テスト (Unit Test) (必須)
 
-- 対象: 2段階計画と depends_on gate 判定ロジック
-- 観点:
+- **対象**: 2段階計画と depends_on gate 判定ロジック
+- **検証項目**:
   - `plan-draft` の制約（確定計画として扱わない）が明示される。
   - 依存先が全て `done` の場合のみ gate pass となる。
   - 未解決依存が1件でもあれば gate fail となる。
   - gate fail の場合 `plan-final` 確定不可となる。
-- 合格条件: 正常系1件、異常系3件以上が期待どおり判定される。
+- **合格基準**: 正常系1件、異常系3件以上が期待どおり判定される。
 
-### 5.2 Integration Test (Integration Test / 結合テスト) [空欄禁止]
+### 5.2 結合テスト (Integration Test) (必須)
 
-- 対象: フロー順序・状態遷移・表示
-- 観点:
+- **対象**: フロー順序・状態遷移・表示
+- **検証項目**:
   - `spec` 後に `plan-draft` が作成される。
   - `plan-draft` 後に gate 判定が走る。
   - gate fail 時は `dependency-blocked` を表示し、`plan-final` へ進まない。
   - gate pass 後に `plan-final` 確定へ遷移できる。
-- 合格条件: 代表タスクで順序と遷移が仕様どおりに確認できる。
+- **合格基準**: 代表タスクで順序と遷移が仕様どおりに確認できる。
 
-### 5.3 Regression Test (Regression Test / 回帰テスト) [空欄禁止]
+### 5.3 回帰テスト (Regression Test) (必須)
 
-- 対象: framework 全体整合
-- 観点:
+- **対象**: framework 全体整合
+- **検証項目**:
   - `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks`
   - `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks`
   - `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
-- 合格条件: 上記3コマンドがすべて PASS。
+- **合格基準**: 上記3コマンドがすべて PASS。
 
-### 5.4 Manual Verification (Manual Verification / 手動検証) [空欄禁止]
+### 5.4 手動検証 (Manual Verification) (必須)
 
-- 手順:
+- **検証手順**:
   1. `spec` 後に `plan-draft` を作成し、draft 制約が適用されることを確認する。
   2. 依存未解決 task で gate 判定を実行し、`plan-final` 確定が止まることを確認する。
   3. 依存先を `done` に更新して再判定し、`plan-final` 確定へ進めることを確認する。
   4. backlog と Rail10 に `plan-draft` / `dependency-blocked` / `plan-ready` が表示されることを確認する。
-- 期待結果:
+- **期待される結果**:
   - 依存解決前は draft まで、依存解決後のみ final 計画へ進める。
 
-### 5.5 AC-テスト要件対応表 [空欄禁止]
+### 5.5 AC-テスト要件対応表 (必須)
 
 - AC-001: Integration Test
 - AC-002: Unit Test + Manual Verification-1
@@ -111,7 +111,7 @@
 - AC-007: Integration Test
 - AC-008: Regression Test
 
-## 6. 影響範囲 [空欄禁止]
+## 6. 影響範囲 (Impact Assessment) (必須)
 
 - 影響ファイル/モジュール:
   - `AGENTS.md`
@@ -130,7 +130,7 @@
   - `plan-final` 再作成の頻度低下
   - 依存待ちタスクの理由可視化向上
 
-## 7. 制約とリスク [空欄禁止]
+## 7. 制約とリスク (Constraints & Risks) (必須)
 
 - 制約:
   - depends_on 判定は `work/*/state.json` の `state` を正として判断する。
@@ -142,11 +142,11 @@
   - `plan-draft` の禁止事項を docs/skills へ明記する。
   - backlog/Rail10/checker を同一変更単位で更新する。
 
-## 8. 未確定事項 [空欄禁止]
+## 8. 未確定事項 (Open Issues) (必須)
 
 - なし。
 
-## 9. 関連資料リンク [空欄禁止]
+## 9. 関連資料リンク (Reference Links) (必須)
 
 - request: `work/2026-02-20__dependency-gate-before-plan-flow/request.md`
 - investigation: `work/2026-02-20__dependency-gate-before-plan-flow/investigation.md`

@@ -1,6 +1,6 @@
 # Review: 2026-02-20__fix-improvement-create-task-parser-errors
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -52,7 +52,7 @@
 
 - parser blocker は解消済み。次に `2026-02-20__align-workflow-dispatch-task-id-contract` へ着手可能。
 
-## 6. Process Findings
+## 6. プロセス改善案 (Process Findings) (必須)
 
 ### 6.1 Finding F-001
 
@@ -64,19 +64,19 @@
 - action_required: no
 - linked_task_id: none
 
-## 7. Commit Boundaries
+## 7. コミット境界の確認 (Commit Boundaries) (必須)
 
-### 7.1 Kickoff Commit
-
-- commit: 9db70a5
-- scope_check: PASS
-
-### 7.2 Implementation Commit
+### 7.1 起票境界 (Kickoff Commit)
 
 - commit: 9db70a5
 - scope_check: PASS
 
-### 7.3 Finalize Commit
+### 7.2 実装境界 (Implementation Commit)
+
+- commit: 9db70a5
+- scope_check: PASS
+
+### 7.3 完了境界 (Finalize Commit)
 
 - commit: CURRENT_COMMIT
 - scope_check: PASS

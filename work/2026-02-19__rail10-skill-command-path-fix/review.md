@@ -1,6 +1,6 @@
 # Review: 2026-02-19__rail10-skill-command-path-fix
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -68,7 +68,7 @@
 - Rail10 のコマンド案内をスキル同梱 script 実行へ統一し、受入条件を満たした。
 - 本タスクは `done` 判定で問題ない。
 
-## 6. Process Findings
+## 6. プロセス改善案 (Process Findings) (必須)
 
 ### 6.1 Finding F-001
 

@@ -1,6 +1,6 @@
 # 仕様書: 2026-02-20__subagent-multi-agent-delegation-governance
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -12,7 +12,7 @@
 - 理解ポイント:
   - 品質優先のため、委譲範囲を request / investigation / spec / plan-draft に限定する。
 
-## 1. メタ情報 [空欄禁止]
+## 1. メタ情報 (Metadata) (必須)
 
 - Task ID: `2026-02-20__subagent-multi-agent-delegation-governance`
 - タイトル: Subagent Multi-Agent Delegation Governance
@@ -25,14 +25,14 @@
   - `2026-02-19__task-commit-boundary-automation-flow`
   - `2026-02-19__task-doc-prerequisite-knowledge-section`
 
-## 2. 背景と目的 [空欄禁止]
+## 2. 背景と目的 (Background & Objectives) (必須)
 
 - 背景: subagent / multi_agent の全面委譲は速度面の利点がある一方で、品質ばらつきの懸念がある。
 - 目的: request / investigation / spec / plan-draft を単一の委譲エージェントに限定して実行し、親エージェントが再検討して問題ない場合のみ kickoff と次工程およびコミットを許可する運用を確立する。
 
-## 3. スコープ [空欄禁止]
+## 3. スコープ (Scope) (必須)
 
-### 3.1 In Scope [空欄禁止]
+### 3.1 In Scope (必須)
 
 - 委譲対象を `request / investigation / spec / plan-draft` の4工程に限定する。
 - 4工程を同一 `delegated_agent_id` で処理する契約を定義する。
@@ -42,14 +42,14 @@
 - 親再検討ゲート（`gate_result=pass|fail`）と進行可否を定義する。
 - 親ゲート `pass` 前は kickoff と `depends_on gate` / `plan-final` 着手およびコミットを禁止するルールを定義する。
 
-### 3.2 Out of Scope [空欄禁止]
+### 3.2 Out of Scope (必須)
 
 - `depends_on gate / plan-final / test / review / docs_update` の委譲標準化。
 - 複数サブエージェントの並列分担運用。
 - CI への新規自動検査導入。
 - subagent 実行インフラそのものの改修。
 
-## 4. 受入条件 (Acceptance Criteria / 受入条件) [空欄禁止]
+## 4. 受入条件 (Acceptance Criteria) (必須)
 
 - AC-001: 委譲範囲が `request / investigation / spec / plan-draft` のみに限定されている。
 - AC-002: 4工程を同一 `delegated_agent_id` で処理する実行契約が定義されている。
@@ -60,46 +60,46 @@
 - AC-007: 親固定工程（`depends_on gate / plan-final / test / review / docs_update / commit`）が定義されている。
 - AC-008: 実装時に更新すべき docs と skill ファイル範囲が明示されている。
 
-## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
+## 5. テスト要件 (Test Requirements) (必須)
 
-### 5.1 Unit Test (Unit Test / 単体テスト) [空欄禁止]
+### 5.1 単体テスト (Unit Test) (必須)
 
-- 対象: 委譲仕様（範囲、単一エージェント契約、ゲート契約）
-- 観点:
+- **対象**: 委譲仕様（範囲、単一エージェント契約、ゲート契約）
+- **検証項目**:
   - 委譲対象が 4工程に限定されている。
   - 単一 `delegated_agent_id` 契約が定義されている。
   - 必須コンテキスト項目が欠落なく列挙されている。
   - `gate_result=pass` 前の kickoff / depends_on gate / plan-final 進行禁止が明示されている。
-- 合格条件: 仕様文書中に各定義が欠落なく存在する。
+- **合格基準**: 仕様文書中に各定義が欠落なく存在する。
 
-### 5.2 Integration Test (Integration Test / 結合テスト) [空欄禁止]
+### 5.2 結合テスト (Integration Test) (必須)
 
-- 対象: task 文書間の整合
-- 観点:
+- **対象**: task 文書間の整合
+- **検証項目**:
   - request / investigation / spec / plan-draft の用語が「4工程限定委譲 + 親再検討」で整合する。
   - 親固定工程の定義が plan-final 以降と矛盾しない。
-- 合格条件: 整合チェックで矛盾が検出されない。
+- **合格基準**: 整合チェックで矛盾が検出されない。
 
-### 5.3 Regression Test (Regression Test / 回帰テスト) [空欄禁止]
+### 5.3 回帰テスト (Regression Test) (必須)
 
-- 対象: framework 全体整合
-- 観点:
+- **対象**: framework 全体整合
+- **検証項目**:
   - `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks`
   - `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks`
   - `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
-- 合格条件: 上記3コマンドがすべて PASS。
+- **合格基準**: 上記3コマンドがすべて PASS。
 
-### 5.4 Manual Verification (Manual Verification / 手動検証) [空欄禁止]
+### 5.4 手動検証 (Manual Verification) (必須)
 
-- 手順:
+- **検証手順**:
   1. 単一 `delegated_agent_id` で request -> investigation -> spec -> plan-draft を連続実行する。
   2. `request.md / investigation.md / spec.md / plan.md(plan-draft)` が更新され、sidecar 監査ログが残ることを確認する。
   3. 親再検討で `gate_result=fail` を記録し、kickoff / depends_on gate / plan-final とコミットが禁止されることを確認する。
   4. 親再検討で `gate_result=pass` を記録し、kickoff / depends_on gate / plan-final とコミットが許可されることを確認する。
-- 期待結果:
+- **期待される結果**:
   - 品質ゲート結果に応じて遷移可否が一意に決まる。
 
-### 5.5 AC-テスト要件対応表 [空欄禁止]
+### 5.5 AC-テスト要件対応表 (必須)
 
 - AC-001: Unit Test
 - AC-002: Unit Test + Manual Verification-1
@@ -110,7 +110,7 @@
 - AC-007: Unit Test + Integration Test
 - AC-008: Integration Test + Regression Test
 
-## 6. 影響範囲 [空欄禁止]
+## 6. 影響範囲 (Impact Assessment) (必須)
 
 - 影響ファイル/モジュール:
   - `docs/operations/skills-framework-flow-guide.md`
@@ -127,7 +127,7 @@
   - 品質確認強化によりスループットは一部低下する可能性がある。
   - 4工程の草案生成は委譲により初動速度を維持できる。
 
-## 7. 制約とリスク [空欄禁止]
+## 7. 制約とリスク (Constraints & Risks) (必須)
 
 - 制約:
   - 委譲対象は request / investigation / spec / plan-draft のみ。
@@ -140,9 +140,9 @@
   - 親の再検討チェックリストを固定化する。
   - `gate_result=fail` で即時差し戻しし、次工程とコミットを停止する。
 
-## 8. 委譲実行契約 [空欄禁止]
+## 8. 委譲実行契約 (必須)
 
-### 8.1 工程別オーナー契約 (Phase Ownership Matrix) [空欄禁止]
+### 8.1 工程別オーナー契約 (Phase Ownership Matrix) (必須)
 
 | phase | owner | rule |
 | --- | --- | --- |
@@ -157,7 +157,7 @@
 | docs_update | parent agent | 委譲禁止（親固定） |
 | commit | parent agent | 委譲禁止（親固定） |
 
-### 8.2 委譲入力コンテキスト契約 [空欄禁止]
+### 8.2 委譲入力コンテキスト契約 (必須)
 
 - 必須キー:
   - `task_id`
@@ -170,7 +170,7 @@
   - `expected_output`
   - `editable_sections`
 
-### 8.3 一次成果物と sidecar 監査ログ契約 [空欄禁止]
+### 8.3 一次成果物と sidecar 監査ログ契約 (必須)
 
 - 一次成果物:
   - `work/<task-id>/request.md`
@@ -189,7 +189,7 @@
   - `changed_files`
   - `open_risks`
 
-### 8.4 親返却フォーマットと再検討契約 [空欄禁止]
+### 8.4 親返却フォーマットと再検討契約 (必須)
 
 - 必須キー:
   - `phase`
@@ -206,7 +206,7 @@
   - `evidence_commands` の再実行または同等検証
   - 要件逸脱有無の確認
 
-### 8.5 ゲート・遷移・コミット契約 [空欄禁止]
+### 8.5 ゲート・遷移・コミット契約 (必須)
 
 - 親は `plan-draft` 確定後に `gate_result`（`pass` or `fail`）を記録する。
 - `gate_result=pass` まで kickoff commit を禁止する。
@@ -214,7 +214,7 @@
 - `gate_result=pass` まで `git commit` を禁止する。
 - `gate_result=fail` は差し戻しとし、`state.json` の `state` は `blocked` または `in_progress` の範囲で維持する。
 
-## 9. 関連資料リンク [空欄禁止]
+## 9. 関連資料リンク (Reference Links) (必須)
 
 - request: `work/2026-02-20__subagent-multi-agent-delegation-governance/request.md`
 - investigation: `work/2026-02-20__subagent-multi-agent-delegation-governance/investigation.md`
@@ -225,6 +225,6 @@
   - `docs/operations/skills-framework-flow-guide.md`
   - `docs/operations/framework-request-to-commit-visual-guide.md`
 
-## 10. 未確定事項 [空欄禁止]
+## 10. 未確定事項 (必須)
 
 - なし。

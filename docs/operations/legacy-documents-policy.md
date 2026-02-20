@@ -1,6 +1,6 @@
 # 旧資料の隔離運用ポリシー
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`

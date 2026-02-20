@@ -1,6 +1,6 @@
 # Review: 2026-02-20__refactor-tools-to-profile-driven-runtime-paths
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -66,7 +66,7 @@
 
 - 本タスクの受入条件はすべて満たした。tools のパス解決は profile 起点へ統一され、`.agentrail/work` レイアウトでの動作を確認済み。
 
-## 6. Process Findings
+## 6. プロセス改善案 (Process Findings) (必須)
 
 ### 6.1 Finding F-001
 
@@ -78,19 +78,19 @@
 - action_required: no
 - linked_task_id: none
 
-## 7. Commit Boundaries
+## 7. コミット境界の確認 (Commit Boundaries) (必須)
 
-### 7.1 Kickoff Commit
-
-- commit: N/A
-- scope_check: PASS
-
-### 7.2 Implementation Commit
+### 7.1 起票境界 (Kickoff Commit)
 
 - commit: N/A
 - scope_check: PASS
 
-### 7.3 Finalize Commit
+### 7.2 実装境界 (Implementation Commit)
+
+- commit: N/A
+- scope_check: PASS
+
+### 7.3 完了境界 (Finalize Commit)
 
 - commit: N/A
 - scope_check: PASS

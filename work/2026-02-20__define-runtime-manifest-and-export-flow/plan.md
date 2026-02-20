@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__define-runtime-manifest-and-export-flow
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -13,7 +13,7 @@
 
 - `work/2026-02-20__define-runtime-manifest-and-export-flow/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的: 配布対象を allowlist 化し、外部利用時に不要な開発用ファイル混入を防止する。
 - 実施項目:
@@ -31,7 +31,7 @@
 - 依存: なし
 - 判定方針: 依存なしのため plan-ready 判定を採用する。
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実装順序:
   1. `framework.runtime.manifest.yaml` と `runtime/seed/*` を作成し、runtime 出力の骨格を固定する。

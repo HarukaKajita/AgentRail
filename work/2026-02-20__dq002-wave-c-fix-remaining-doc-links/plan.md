@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__dq002-wave-c-fix-remaining-doc-links
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -13,7 +13,7 @@
 
 - `work/2026-02-20__dq002-wave-c-fix-remaining-doc-links/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的:
   - 残存 6 件を解消し、全体 `dq002_count=0` を達成する。
@@ -31,7 +31,7 @@
 - 判定方針: 依存 task が done なら `plan-ready`、未完了なら `dependency-blocked`
 - 判定結果: pass（Wave B 完了を確認）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実装順序:
   1. Wave C 対象 6 ファイルに `関連資料リンク` セクションを追加し、`docs/*` と `work/*` を明示する。

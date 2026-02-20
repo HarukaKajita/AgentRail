@@ -1,6 +1,6 @@
 # Review: 2026-02-20__fix-wave3-investigation-broken-tmp-reference
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -62,7 +62,7 @@
 
 - 本タスクは完了。DQ-002 以外の checker fail（`link_targets_exist`）を解消し、再発防止ルールも運用 docs に反映した。
 
-## 6. Process Findings
+## 6. プロセス改善案 (Process Findings) (必須)
 
 ### 6.1 Finding F-001
 
@@ -74,19 +74,19 @@
 - action_required: no
 - linked_task_id: none
 
-## 7. Commit Boundaries
+## 7. コミット境界の確認 (Commit Boundaries) (必須)
 
-### 7.1 Kickoff Commit
-
-- commit: N/A
-- scope_check: PASS
-
-### 7.2 Implementation Commit
+### 7.1 起票境界 (Kickoff Commit)
 
 - commit: N/A
 - scope_check: PASS
 
-### 7.3 Finalize Commit
+### 7.2 実装境界 (Implementation Commit)
+
+- commit: N/A
+- scope_check: PASS
+
+### 7.3 完了境界 (Finalize Commit)
 
 - commit: N/A
 - scope_check: WAIVED（`work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/investigation.md` 同時修正をユーザー承認済み）

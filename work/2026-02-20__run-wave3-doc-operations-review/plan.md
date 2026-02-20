@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__run-wave3-doc-operations-review
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -13,7 +13,7 @@
 
 - `work/2026-02-20__run-wave3-doc-operations-review/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的:
   - wave3 docs 3資料の運用レビュー観点と記録形式を確定する。
@@ -32,7 +32,7 @@
 - 判定方針: 依存 task が done なら `plan-ready`、未完了なら `dependency-blocked`。
 - 判定結果: pass（依存 task は done）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実装順序:
   1. `docs/operations/wave3-doc-operations-review.md` を新規作成し、レビュー周期・チェックリスト・記録テンプレートを定義する。

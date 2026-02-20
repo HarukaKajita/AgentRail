@@ -1,6 +1,6 @@
 # Review: 2026-02-19__task-dependency-aware-prioritization-flow
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -78,7 +78,7 @@
 - 依存関係を起票時・着手時・表示時に一貫管理するフローを実装し、受入条件を満たした。
 - 本タスクは `done` 判定で問題ない。
 
-## 6. Process Findings
+## 6. プロセス改善案 (Process Findings) (必須)
 
 ### 6.1 Finding F-001
 

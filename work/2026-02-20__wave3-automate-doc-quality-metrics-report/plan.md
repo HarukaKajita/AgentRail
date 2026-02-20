@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__wave3-automate-doc-quality-metrics-report
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -13,7 +13,7 @@
 
 - `work/2026-02-20__wave3-automate-doc-quality-metrics-report/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的: KPI 指標を自動算出して JSON/Markdown レポートを生成する。
 - 実施項目:
@@ -31,7 +31,7 @@
 - 判定方針: task10 が done の場合のみ task11 を実装する。
 - 判定結果: pass（task10 done）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実行フェーズ:
   1. script 実装: consistency JSON + state.json から KPI を算出

@@ -1,6 +1,6 @@
 # Plan: 2026-02-19__state-validator-done-docs-index-consistency
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -13,7 +13,19 @@
 
 - `work/2026-02-19__state-validator-done-docs-index-consistency/spec.md`
 
-## 2. Execution Commands
+
+## 2. 実装計画ドラフト (Plan Draft)
+
+- 目的: 既存資料の移行と整合性確保
+- 実施項目:
+  1. 既存ドキュメントの構造修正
+- 成果物: 更新済み Markdown ファイル
+
+## 3. 依存関係ゲート (Depends-on Gate)
+
+- 依存: なし
+- 判定方針: 直接移行
+## 5. 実行コマンド (Execution Commands)
 
 - state validate(all): `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks`
 - state validate(fail): `pwsh -NoProfile -Command '$tempRoot = Join-Path $env:TEMP ("state-done-docs-index-" + [Guid]::NewGuid().ToString("N")); $tempWork = Join-Path $tempRoot "work"; $tempDocs = Join-Path $tempRoot "docs"; New-Item -ItemType Directory -Path $tempWork,$tempDocs -Force | Out-Null; $taskId = "2026-02-19__profile-validator-required-checks-source-of-truth"; Copy-Item -Path ("work/" + $taskId) -Destination (Join-Path $tempWork $taskId) -Recurse; Copy-Item -Path "docs/INDEX.md" -Destination (Join-Path $tempDocs "INDEX.md"); $indexPath = Join-Path $tempDocs "INDEX.md"; $indexContent = Get-Content -Raw $indexPath; $indexContent = $indexContent -replace "(?m)^.*profile-validator-required-checks-source-of-truth\.md.*\r?\n?", ""; Set-Content -LiteralPath $indexPath -Value $indexContent; & pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId $taskId -WorkRoot $tempWork -DocsIndexPath $indexPath; $exit = $LASTEXITCODE; Remove-Item -LiteralPath $tempRoot -Recurse -Force; exit $exit'`
@@ -21,7 +33,7 @@
 - index update: `pwsh -NoProfile -File tools/docs-indexer/index.ps1`
 - index check: `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
 
-## 3. 実施ステップ
+## 4. 確定実装計画 (Plan Final)
 
 1. source finding の evidence を基に、done 判定に不足している docs/INDEX 整合条件を特定する。
 2. `tools/state-validate/validate.ps1` へ docs path 抽出 + index 収録確認ロジックを追加する。

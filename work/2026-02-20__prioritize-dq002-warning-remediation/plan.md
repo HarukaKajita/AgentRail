@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__prioritize-dq002-warning-remediation
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -13,7 +13,7 @@
 
 - `work/2026-02-20__prioritize-dq002-warning-remediation/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的:
   - DQ-002 warning 21件の解消優先順と分割起票方針を確定する。
@@ -32,7 +32,7 @@
 - 判定方針: 依存なしのため `plan-ready`。
 - 判定結果: pass（起票時点）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実装順序:
   1. `-AllTasks -DocQualityMode warning -OutputFormat json` で DQ-002 発生分布を再集計する。

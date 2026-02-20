@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__define-kpi-report-execution-calendar
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -13,7 +13,7 @@
 
 - `work/2026-02-20__define-kpi-report-execution-calendar/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的:
   - KPI レポート実行タイミングを運用カレンダーとして確定する。
@@ -31,7 +31,7 @@
 - 判定方針: 依存 task が done なら `plan-ready`。
 - 判定結果: pass（依存解決済み）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実装順序:
   1. `docs/operations/wave3-kpi-report-execution-calendar.md` を新規作成し、週次/リリース前/臨時の実行契約を定義する。

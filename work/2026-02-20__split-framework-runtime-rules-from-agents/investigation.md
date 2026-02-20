@@ -1,6 +1,6 @@
 # Investigation: 2026-02-20__split-framework-runtime-rules-from-agents
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -9,17 +9,17 @@
 - 理解ポイント:
   - 調査では再現条件と設計方針を分離して記録する。
 
-## 1. 調査対象 [空欄禁止]
+## 1. 調査対象 (Investigation Target) (必須)
 
 - 課題: AGENTS.md から runtime 必須記述を分離して要旨リンク化
 - 目的: フレームワーク動作必須ルールを専用ファイルへ分離し、AGENTS.md は要旨と参照導線に整理する。
 - 依存: `2026-02-20__add-runtime-installer-with-agentrail-work-layout`
 
-## 2. 仮説 (Hypothesis / 仮説) [空欄禁止]
+## 2. 仮説 (Hypothesis) (必須)
 
 - 境界（runtime/development）を明文化し、実装導線を統一すれば混在を抑止できる。
 
-## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
+## 3. 調査・観測方法 (Investigation Method) (必須)
 
 - 参照資料:
   - README.md
@@ -30,7 +30,7 @@
   - 2026-02-20__split-framework-runtime-rules-from-agents の実装対象と非対象を切り分ける。
   - 依存タスクの完了条件とゲート条件を確認する。
 
-## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査・観測結果 (Observations) (必須)
 
 - 事実:
   - 外部利用時に不要な開発資産が混在する余地がある。
@@ -38,7 +38,7 @@
 - 推測:
   - 段階分割で実装すれば後方互換を維持しながら移行可能。
 
-## 5. 提案オプション [空欄禁止]
+## 5. 提案オプション (必須)
 
 1. 最小変更:
    - ドキュメント修正のみ実施する。
@@ -47,27 +47,27 @@
 3. 強化:
    - package 化まで一括実装する。
 
-## 6. 推奨案 [空欄禁止]
+## 6. 推奨案 (必須)
 
 - 推奨: 2. バランス
 - 理由:
   - 現実的な実装負荷で分離品質を改善できる。
 
-## 7. 結論 (Conclusion / 結論) [空欄禁止]
+## 7. 結論 (Conclusion / 結論) (必須)
 
 - 本タスクは単一リポジトリ前提の分離強化を進める実装単位として妥当である。
 
-## 8. 未解決事項 [空欄禁止]
+## 8. 未解決事項 (必須)
 
 - package 配布の最終方式は将来タスクで確定する。
 
-## 9. 次アクション [空欄禁止]
+## 9. 次アクション (必須)
 
 1. spec.md で受入条件とテスト要件を確定する。
 2. plan.md で plan-draft -> depends_on gate -> plan-final を確定する。
 3. 実装後に eview.md で検証結果を記録する。
 
-## 10. 関連リンク [空欄禁止]
+## 10. 関連リンク (必須)
 
 - request: work/2026-02-20__split-framework-runtime-rules-from-agents/request.md
 - spec: work/2026-02-20__split-framework-runtime-rules-from-agents/spec.md
@@ -85,11 +85,11 @@
 
 ## 記入ルール
 
-- [空欄禁止] セクションは必ず記入する。
+- (必須) セクションは必ず記入する。
 - N/A を使う場合は理由を明記する。
 - 受入条件とテスト要件は 1 対 1 で対応付ける。
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -99,7 +99,7 @@
 - 理解ポイント:
   - 単一リポジトリ方針を維持し、外部利用への分離強化を優先する。
 
-## 1. メタ情報 [空欄禁止]
+## 1. メタ情報 (Metadata) (必須)
 
 - Task ID: 2026-02-20__split-framework-runtime-rules-from-agents
 - タイトル: AGENTS.md から runtime 必須記述を分離して要旨リンク化
@@ -108,69 +108,69 @@
 - 作成者: codex
 - 関連要望: work/2026-02-20__split-framework-runtime-rules-from-agents/request.md
 
-## 2. 背景と目的 [空欄禁止]
+## 2. 背景と目的 (Background & Objectives) (必須)
 
 - 背景: 外部利用時に framework 開発資産と runtime 必要資産が混在する。
 - 目的: フレームワーク動作必須ルールを専用ファイルへ分離し、AGENTS.md は要旨と参照導線に整理する。
 
-## 3. スコープ [空欄禁止]
+## 3. スコープ (Scope) (必須)
 
-### 3.1 In Scope [空欄禁止]
-
-
-
-### 3.2 Out of Scope [空欄禁止]
+### 3.1 In Scope (必須)
 
 
 
-## 4. 受入条件 (Acceptance Criteria / 受入条件) [空欄禁止]
+### 3.2 Out of Scope (必須)
+
+
+
+## 4. 受入条件 (Acceptance Criteria) (必須)
 
 - AC-001: タスク目的に対する仕様と実装方針が docs/work に反映される。
 - AC-002: 依存関係とゲート条件が backlog/state/plan で整合する。
 
-## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
+## 5. テスト要件 (Test Requirements) (必須)
 
-### 5.1 Unit Test (Unit Test / 単体テスト) [空欄禁止]
+### 5.1 単体テスト (Unit Test) (必須)
 
-- 対象: 変更対象 PowerShell スクリプトまたはドキュメント生成ロジック
-- 観点: 入力条件に対して期待出力が得られる
-- 合格条件: 想定ケースで PASS、異常系で適切に FAIL
+- **対象**: 変更対象 PowerShell スクリプトまたはドキュメント生成ロジック
+- **検証項目**: 入力条件に対して期待出力が得られる
+- **合格基準**: 想定ケースで PASS、異常系で適切に FAIL
 
-### 5.2 Integration Test (Integration Test / 結合テスト) [空欄禁止]
+### 5.2 結合テスト (Integration Test) (必須)
 
-- 対象: 	ools/* と project.profile.yaml の連携
-- 観点: .agentrail/work 前提でも一貫した動作となる
-- 合格条件: 導入～検証の主要コマンドが成功する
+- **対象**: 	ools/* と project.profile.yaml の連携
+- **検証項目**: .agentrail/work 前提でも一貫した動作となる
+- **合格基準**: 導入～検証の主要コマンドが成功する
 
-### 5.3 Regression Test (Regression Test / 回帰テスト) [空欄禁止]
+### 5.3 回帰テスト (Regression Test) (必須)
 
-- 対象: 既存の work/* / docs/* 運用フロー
-- 観点: 従来の task チェック・CI チェックを壊さない
-- 合格条件: 既存検証手順が継続して PASS
+- **対象**: 既存の work/* / docs/* 運用フロー
+- **検証項目**: 従来の task チェック・CI チェックを壊さない
+- **合格基準**: 既存検証手順が継続して PASS
 
-### 5.4 Manual Verification (Manual Verification / 手動検証) [空欄禁止]
+### 5.4 手動検証 (Manual Verification) (必須)
 
-- 手順: spec/plan に定義したコマンドを順次実行して結果を確認する
-- 期待結果: AC-001 と AC-002 を満たす
+- **検証手順**: spec/plan に定義したコマンドを順次実行して結果を確認する
+- **期待される結果**: AC-001 と AC-002 を満たす
 
-## 6. 影響範囲 [空欄禁止]
+## 6. 影響範囲 (Impact Assessment) (必須)
 
 - 影響ファイル/モジュール: task 目的に関係する 	ools/, README.md, AGENTS.md, docs/operations/*
 - 影響する仕様: 分離運用、導入手順、パス解決規約
 - 非機能影響: 外部導入の再現性と保守性が向上する
 
-## 7. 制約とリスク [空欄禁止]
+## 7. 制約とリスク (Constraints & Risks) (必須)
 
 - 制約: 単一リポジトリ構成を維持する
 - 想定リスク:
 
 - 回避策: 段階タスク化と depends_on gate により変更影響を局所化する
 
-## 8. 未確定事項 [空欄禁止]
+## 8. 未確定事項 (Open Issues) (必須)
 
 - package 化の実施タイミングは未定。移行は別 task で判断する。
 
-## 9. 関連資料リンク [空欄禁止]
+## 9. 関連資料リンク (Reference Links) (必須)
 
 - request: work/2026-02-20__split-framework-runtime-rules-from-agents/request.md
 - investigation: work/2026-02-20__split-framework-runtime-rules-from-agents/investigation.md
@@ -186,7 +186,7 @@
    = @"
 # Plan: 2026-02-20__split-framework-runtime-rules-from-agents
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -199,7 +199,7 @@
 
 - work/2026-02-20__split-framework-runtime-rules-from-agents/spec.md
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的: フレームワーク動作必須ルールを専用ファイルへ分離し、AGENTS.md は要旨と参照導線に整理する。
 - 実施項目:
@@ -213,7 +213,7 @@
 - 依存: 
 - 判定方針: 
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実装順序:
   1. 仕様・ルールの更新

@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -14,7 +14,7 @@
 
 - `work/2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的: CI 運用 docs を warning/fail 二段ゲートへ同期する。
 - 実施項目:
@@ -32,7 +32,7 @@
 - 判定方針: 依存 task が done の場合のみ runbook 整合を実施する。
 - 判定結果: pass（`2026-02-20__wave2-enforce-doc-quality-fail-mode[done]`）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実行フェーズ:
   1. docs 更新: runbook + 実装ガイドの整合更新

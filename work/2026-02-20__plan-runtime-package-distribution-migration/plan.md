@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__plan-runtime-package-distribution-migration
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -13,7 +13,7 @@
 
 - `work/2026-02-20__plan-runtime-package-distribution-migration/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的: 実施時期未定の package 化に備え、移行条件・互換ポリシー・実装ステップを先行定義する。
 - 実施項目:
@@ -28,7 +28,7 @@
 - 判定方針: 依存タスクがすべて done になるまで dependency-blocked を維持する。
 - 判定結果: pass（依存 2 件とも `done` を確認）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実装順序:
   1. 仕様・ルールの更新

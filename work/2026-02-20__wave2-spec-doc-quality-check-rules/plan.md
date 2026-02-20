@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__wave2-spec-doc-quality-check-rules
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `docs/operations/wave1-doc-work-cross-link-normalization.md`
@@ -12,7 +12,7 @@
 
 - `work/2026-02-20__wave2-spec-doc-quality-check-rules/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的: consistency-check / state-validate へ追加する docs 品質チェック仕様を設計する。
 - 実施項目:
@@ -29,7 +29,7 @@
 - 判定方針: depends_on が全て done になるまで dependency-blocked を維持する。
 - 判定結果: pass（依存タスクが done）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実行フェーズ:
   1. 準備: Wave 1 の正規化ルールを入力に品質判定観点を定義する。

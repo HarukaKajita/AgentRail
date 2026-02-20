@@ -1,6 +1,6 @@
 # Review: 2026-02-19__existing-docs-prerequisites-retrofit
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -79,7 +79,7 @@
 - 既存資料への前提知識セクション遡及適用を完了し、受入条件 AC-001〜AC-006 を満たした。
 - 本タスクは `done` 判定で問題ない。
 
-## 6. Process Findings
+## 6. プロセス改善案 (Process Findings) (必須)
 
 ### 6.1 Finding F-001
 

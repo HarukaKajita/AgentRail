@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__refactor-tools-to-profile-driven-runtime-paths
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -13,7 +13,7 @@
 
 - `work/2026-02-20__refactor-tools-to-profile-driven-runtime-paths/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的: work/docs 直書きを廃止し、.agentrail/work レイアウトでも同一挙動にする。
 - 実施項目:
@@ -27,7 +27,7 @@
 - 依存: `2026-02-20__add-runtime-installer-with-agentrail-work-layout`
 - 判定方針: 依存タスクがすべて done になるまで dependency-blocked を維持する。
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実装順序:
   1. 仕様・ルールの更新

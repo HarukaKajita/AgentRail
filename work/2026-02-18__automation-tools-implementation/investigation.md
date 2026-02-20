@@ -1,6 +1,6 @@
 # Investigation: 2026-02-18__automation-tools-implementation
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -9,16 +9,16 @@
   - 本資料に入る前に、目的・受入条件・依存関係を把握する。
 
 
-## 1. 調査対象 [空欄禁止]
+## 1. 調査対象 (Investigation Target) (必須)
 
 - 自動化基盤段階の設計を実装へ落とす際の最小構成と失敗条件の具体化。
 
-## 2. 仮説 (Hypothesis / 仮説) [空欄禁止]
+## 2. 仮説 (Hypothesis) (必須)
 
 - PowerShell 単体で docs 走査・Markdown解析・整合チェックが実装できる。
 - `docs/INDEX.md` は見出し単位で部分更新すれば手動記述を保護できる。
 
-## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
+## 3. 調査・観測方法 (Investigation Method) (必須)
 
 - 参照資料:
   - `docs/specs/automation-tools-design-spec.md`
@@ -29,30 +29,30 @@
   - task ドキュメントの形式
   - profile コマンド体系
 
-## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査・観測結果 (Observations) (必須)
 
 - docs の管理対象カテゴリは見出し `## 2`〜`## 5` で固定されている。
 - task 情報は `work/<task-id>/` の6ファイルで完結している。
 - profile には build/test/format/lint しかなく、自動化コマンドは未登録。
 
-## 5. 結論 (Conclusion / 結論) [空欄禁止]
+## 5. 結論 (Conclusion) (必須)
 
 - `tools/docs-indexer/index.ps1` と `tools/consistency-check/check.ps1` の2本立てで実装する。
 - `project.profile.yaml` へ `index_docs` と `check_consistency` を追加する。
 - CI 連携は仕様上の確定までに留め、実装は後続へ分離する。
 
-## 6. 未解決事項 [空欄禁止]
+## 6. 未解決事項 (Open Issues) (必須)
 
 - CI 実行時の task ID 自動解決方式。
 
-## 7. 次アクション [空欄禁止]
+## 7. 次のアクション (Next Action) (必須)
 
 1. docs-indexer を実装する。
 2. consistency-check を実装する。
 3. 自動化コマンドを profile に反映する。
 4. docs と review を更新して完了判定を行う。
 
-## 8. 関連リンク [空欄禁止]
+## 8. 関連資料リンク (Reference Links) (必須)
 
 - request: `work/2026-02-18__automation-tools-implementation/request.md`
 - spec: `work/2026-02-18__automation-tools-implementation/spec.md`

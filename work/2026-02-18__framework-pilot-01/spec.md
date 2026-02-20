@@ -1,6 +1,6 @@
 # 仕様書: 2026-02-18__framework-pilot-01
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -9,7 +9,7 @@
   - 本資料に入る前に、目的・受入条件・依存関係を把握する。
 
 
-## 1. メタ情報 [空欄禁止]
+## 1. メタ情報 (Metadata) (必須)
 
 - Task ID: `2026-02-18__framework-pilot-01`
 - タイトル: 手動運用開始パイロット
@@ -18,14 +18,14 @@
 - 作成者: Codex
 - 関連要望: `work/2026-02-18__framework-pilot-01/request.md`
 
-## 2. 背景と目的 [空欄禁止]
+## 2. 背景と目的 (Background & Objectives) (必須)
 
 - 背景: 手動運用骨格は導入済みだが、実タスク未実施のため運用妥当性が未検証。
 - 目的: profile 未設定を解消し、実タスク 1 件を完了させて運用成立を証明する。
 
-## 3. スコープ [空欄禁止]
+## 3. スコープ (Scope) (必須)
 
-### 3.1 In Scope [空欄禁止]
+### 3.1 In Scope (必須)
 
 - `project.profile.yaml` の必須項目実値化
 - `work/2026-02-18__framework-pilot-01/` の成果物 6 ファイル作成
@@ -33,13 +33,13 @@
 - `docs/INDEX.md` 更新
 - 自動化基盤仕様の文書化（実装なし）
 
-### 3.2 Out of Scope [空欄禁止]
+### 3.2 Out of Scope (必須)
 
 - `docs-indexer` 実装
 - `consistency-check` 実装
 - CI パイプライン構築
 
-## 4. 受入条件 (Acceptance Criteria / 受入条件) [空欄禁止]
+## 4. 受入条件 (Acceptance Criteria) (必須)
 
 - AC-001: `project.profile.yaml` に `TODO_SET_ME` が残っていない。
 - AC-002: `work/2026-02-18__framework-pilot-01/` に必須 6 ファイルが存在し、空欄禁止項目が記入済み。
@@ -47,36 +47,36 @@
 - AC-004: `docs/specs/automation-tools-design-spec.md` が作成され、I/O と失敗条件と受入基準が記載されている。
 - AC-005: `docs/INDEX.md` が新規資料を参照している。
 
-## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
+## 5. テスト要件 (Test Requirements) (必須)
 
-### 5.1 Unit Test (Unit Test / 単体テスト) [空欄禁止]
+### 5.1 単体テスト (Unit Test) (必須)
 
-- 対象: 必須ファイル存在チェック
-- 観点: 新規追加・更新対象ファイルの漏れ
-- 合格条件: 仕様対象ファイルがすべて存在する
+- **対象**: 必須ファイル存在チェック
+- **検証項目**: 新規追加・更新対象ファイルの漏れ
+- **合格基準**: 仕様対象ファイルがすべて存在する
 
-### 5.2 Integration Test (Integration Test / 結合テスト) [空欄禁止]
+### 5.2 結合テスト (Integration Test) (必須)
 
-- 対象: `work/`, `docs/`, `MEMORY.md` の相互参照
-- 観点: request/investigation/spec/plan/review のリンク整合
-- 合格条件: 参照パスが実在し、破綻していない
+- **対象**: `work/`, `docs/`, `MEMORY.md` の相互参照
+- **検証項目**: request/investigation/spec/plan/review のリンク整合
+- **合格基準**: 参照パスが実在し、破綻していない
 
-### 5.3 Regression Test (Regression Test / 回帰テスト) [空欄禁止]
+### 5.3 回帰テスト (Regression Test) (必須)
 
-- 対象: 既存の手動運用関連ファイル
-- 観点: 既存ルールの欠損が発生していないか
-- 合格条件: `AGENTS.md`, `CLAUDE.md`, `docs/templates/*` の必須方針が維持されている
+- **対象**: 既存の手動運用関連ファイル
+- **検証項目**: 既存ルールの欠損が発生していないか
+- **合格基準**: `AGENTS.md`, `CLAUDE.md`, `docs/templates/*` の必須方針が維持されている
 
-### 5.4 Manual Verification (Manual Verification / 手動検証) [空欄禁止]
+### 5.4 手動検証 (Manual Verification) (必須)
 
-- 手順:
+- **検証手順**:
   1. `project.profile.yaml` を確認して必須キー値があることを確認
   2. `work/2026-02-18__framework-pilot-01/` の 6 ファイルを確認
   3. `docs/INDEX.md` に新規資料導線が追加されていることを確認
   4. `docs/specs/automation-tools-design-spec.md` の必須項目を確認
-- 期待結果: AC-001〜AC-005 がすべて満たされる
+- **期待される結果**: AC-001〜AC-005 がすべて満たされる
 
-## 6. 影響範囲 [空欄禁止]
+## 6. 影響範囲 (Impact Assessment) (必須)
 
 - 影響ファイル/モジュール:
   - `project.profile.yaml`
@@ -90,18 +90,18 @@
 - 非機能影響:
   - ドキュメント量が増えるが、追跡可能性が向上する
 
-## 7. 制約とリスク [空欄禁止]
+## 7. 制約とリスク (Constraints & Risks) (必須)
 
 - 制約: 自動化実装は行わず、仕様定義までに限定する
 - 想定リスク: profile コマンドが将来の実行環境に合わない可能性
 - 回避策: 自動化基盤実装前に profile 再評価タスクを必須化する
 
-## 8. 未確定事項 [空欄禁止]
+## 8. 未確定事項 (Open Issues) (必須)
 
 - 自動化基盤の実装言語（PowerShell/Python/Node）の最終決定
 - CI 実行基盤（GitHub Actions など）の採用可否
 
-## 9. 関連資料リンク [空欄禁止]
+## 9. 関連資料リンク (Reference Links) (必須)
 
 - request: `work/2026-02-18__framework-pilot-01/request.md`
 - investigation: `work/2026-02-18__framework-pilot-01/investigation.md`

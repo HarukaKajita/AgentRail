@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -13,7 +13,7 @@
 
 - `work/2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的:
   - Wave A 対象ファイルの DQ-002 warning 12 件を 0 件にする。
@@ -31,7 +31,7 @@
 - 判定方針: 依存なしのため `plan-ready`
 - 判定結果: pass（起票時点）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実装順序:
   1. `docs/specs/automation-tools-design-spec.md` に `関連資料リンク` セクションを追加し、`docs/*` と `work/*` の導線を明示する。

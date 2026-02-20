@@ -1,6 +1,6 @@
 # Plan: 2026-02-18__consistency-check-multi-task-mode
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -13,13 +13,25 @@
 
 - `work/2026-02-18__consistency-check-multi-task-mode/spec.md`
 
-## 2. Execution Commands
+
+## 2. 実装計画ドラフト (Plan Draft)
+
+- 目的: 既存資料の移行と整合性確保
+- 実施項目:
+  1. 既存ドキュメントの構造修正
+- 成果物: 更新済み Markdown ファイル
+
+## 3. 依存関係ゲート (Depends-on Gate)
+
+- 依存: なし
+- 判定方針: 直接移行
+## 5. 実行コマンド (Execution Commands)
 
 - single: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-18__framework-pilot-01`
 - multi: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-18__framework-pilot-01,2026-02-18__automation-tools-implementation`
 - all: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks`
 
-## 3. 実施ステップ
+## 4. 確定実装計画 (Plan Final)
 
 1. `tools/consistency-check/check.ps1` に parameter set を追加する。
 2. task 単位の結果集計データ構造を実装する。

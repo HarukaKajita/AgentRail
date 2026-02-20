@@ -1,6 +1,6 @@
 # Request: 2026-02-19__task-doc-prerequisite-knowledge-section
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`

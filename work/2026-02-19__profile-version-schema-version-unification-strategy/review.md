@@ -1,6 +1,6 @@
 # Review: 2026-02-19__profile-version-schema-version-unification-strategy
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -76,7 +76,7 @@
 
 - 本タスクは `done` 判定とする。
 
-## 6. Process Findings
+## 6. プロセス改善案 (Process Findings) (必須)
 
 ### 6.1 Finding F-001
 

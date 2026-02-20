@@ -1,6 +1,6 @@
 # Review: 2026-02-20__subagent-multi-agent-delegation-governance
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -82,7 +82,7 @@
 - 要件どおり、委譲範囲を plan-draft まで拡張したガバナンスへ更新し、関連 docs/skills へ実装反映した。
 - 本 task は `done` 判定で問題ない。
 
-## 6. Process Findings
+## 6. プロセス改善案 (Process Findings) (必須)
 
 ### 6.1 Finding F-001
 
@@ -94,21 +94,21 @@
 - action_required: no
 - linked_task_id: none
 
-## 7. Commit Boundaries
+## 7. コミット境界の確認 (Commit Boundaries) (必須)
 
-### 7.1 Kickoff Commit
+### 7.1 起票境界 (Kickoff Commit)
 
 - commit: 92ca745
 - scope_check: PASS
 - note: タスク起票と初期要件定義を確定。
 
-### 7.2 Implementation Commit
+### 7.2 実装境界 (Implementation Commit)
 
 - commit: bce8914
 - scope_check: PASS
 - note: plan-draft 委譲拡張の docs/skills/task 実装反映を実施。
 
-### 7.3 Finalize Commit
+### 7.3 完了境界 (Finalize Commit)
 
 - commit: CURRENT_COMMIT
 - scope_check: PASS

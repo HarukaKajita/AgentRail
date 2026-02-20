@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__wave1-migrate-core-docs-to-human-centric-model
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -15,7 +15,7 @@
 
 - `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的: `AGENTS.md`、`README.md`、`docs/INDEX.md` を人間理解中心の情報モデルへ適合させる。
 - 実施項目:
@@ -33,7 +33,7 @@
 - 判定方針: depends_on が全て done になるまで dependency-blocked を維持する。
 - 判定結果: pass（依存タスクが done）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実行フェーズ:
   1. 準備: Wave 0 inventory の不足カテゴリを core docs 対応項目へ割り当てる。

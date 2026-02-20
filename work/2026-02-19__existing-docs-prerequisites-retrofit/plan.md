@@ -1,6 +1,6 @@
 # Plan: 2026-02-19__existing-docs-prerequisites-retrofit
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -14,7 +14,19 @@
 
 - `work/2026-02-19__existing-docs-prerequisites-retrofit/spec.md`
 
-## 2. Execution Commands
+
+## 2. 実装計画ドラフト (Plan Draft)
+
+- 目的: 既存資料の移行と整合性確保
+- 実施項目:
+  1. 既存ドキュメントの構造修正
+- 成果物: 更新済み Markdown ファイル
+
+## 3. 依存関係ゲート (Depends-on Gate)
+
+- 依存: なし
+- 判定方針: 直接移行
+## 5. 実行コマンド (Execution Commands)
 
 - 棚卸し:
   - `pwsh -NoProfile -Command '<inventory-command>'`
@@ -27,7 +39,7 @@
 - docs index check:
   - `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
 
-## 3. 実施ステップ
+## 4. 確定実装計画 (Plan Final)
 
 1. P1（`docs/operations`、`docs/INDEX.md`、active task）を更新し、task consistency を実行する。
 2. P2（`docs/specs`、`docs/investigations`、`docs/decisions`、`docs/README.md`）を更新し、all tasks consistency を実行する。

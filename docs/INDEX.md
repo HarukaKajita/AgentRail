@@ -31,38 +31,35 @@
 - `project.profile.yaml` - 実行コマンド定義プロファイル
 
 ## 3. テンプレート (Templates)
-- `docs/templates/adr.md` - ADR (意思決定記録) テンプレート
-- `docs/templates/investigation.md` - 調査報告書テンプレート
-- `docs/templates/plan.md` - 実装計画書テンプレート
-- `docs/templates/project-profile.md` - `project.profile.yaml` 記述ガイド
-- `docs/templates/review.md` - レビュー・検証報告書テンプレート
-- `docs/templates/spec.md` - 要件仕様書テンプレート
+- `docs/templates/adr.md` - ADR テンプレート
+- `docs/templates/investigation.md` - 調査報告書 (Investigation Report)
+- `docs/templates/plan.md` - 実装計画書 (Implementation Plan)
+- `docs/templates/project-profile.md` - project.profile.yaml 記入ガイド
+- `docs/templates/review.md` - レビュー・検証報告書 (Review & Verification Report)
+- `docs/templates/spec.md` - 要件仕様書 (Requirements Specification)
 
 ## 4. 仕様書 (Specifications)
 - `docs/specs/automation-tools-ci-integration-spec.md` - 自動化基盤 CI 連携仕様
-- `docs/specs/automation-tools-design-spec.md` - 自動化基盤 設計仕様
+- `docs/specs/automation-tools-design-spec.md` - 自動化基盤仕様（設計）
 - `docs/specs/automation-tools-implementation-spec.md` - 自動化基盤 実装仕様
-- `docs/specs/framework-pilot-01-spec.md` - フレームワーク・パイロット 01 仕様
+- `docs/specs/framework-pilot-01-spec.md` - Framework Pilot 01 仕様
 - `docs/specs/self-improvement-loop-spec.md` - 自己改善ループ仕様
 
 ## 5. 意思決定記録 (Decisions)
-- `docs/decisions/20260218-ci-governance-and-task-resolution.md` - CI ガバナンスとタスク解決戦略
-- `docs/decisions/20260218-self-improvement-loop-enforcement.md` - 自己改善ループの強制適用方針
+- `docs/decisions/20260218-ci-governance-and-task-resolution.md` - CI ガバナンスと task-id 解決戦略
+- `docs/decisions/20260218-self-improvement-loop-enforcement.md` - 自己改善ループ強制方針
 
 ## 6. 調査記録 (Investigations)
-- `docs/investigations/automation-tools-ci-integration-investigation.md` - 自動化基盤 CI 連携調査
-- `docs/investigations/automation-tools-implementation-investigation.md` - 自動化基盤 実装調査
-- `docs/investigations/framework-pilot-01-investigation.md` - フレームワーク・パイロット 01 調査
+- `docs/investigations/automation-tools-ci-integration-investigation.md` - 自動化基盤 CI 連携調査記録
+- `docs/investigations/automation-tools-implementation-investigation.md` - 自動化基盤 実装調査記録
+- `docs/investigations/framework-pilot-01-investigation.md` - Framework Pilot 01 調査記録
 - `docs/investigations/self-improvement-loop-investigation.md` - 自己改善ループ導入調査
 
 ## 7. 運用手順・管理 (Operations)
-- `docs/operations/high-priority-backlog.md` - 高優先バックログ
-- `docs/operations/framework-request-to-commit-visual-guide.md` - 要望からコミットまでのフロー可視化ガイド
-- `docs/operations/ci-failure-runbook.md` - CI 失敗時の対応ランブック
-- `docs/operations/runtime-framework-rules.md` - ランタイム・フレームワーク運用ルール
-- `docs/operations/runtime-installation-runbook.md` - ランタイム導入ランブック
-- `docs/operations/stage-terminology.md` - 開発段階の用語定義集
+- `docs/operations/ci-failure-runbook.md` - CI 失敗時ランブック
 - `docs/operations/dq002-warning-remediation-priority-plan.md` - DQ-002 Warning Remediation Priority Plan
+- `docs/operations/framework-request-to-commit-visual-guide.md` - ユーザー要望から実装・コミットまでのフロー可視化ガイド
+- `docs/operations/high-priority-backlog.md` - 高優先バックログ
 - `docs/operations/human-centric-doc-bank-governance.md` - Human-Centric Doc Bank Governance
 - `docs/operations/human-centric-doc-bank-migration-plan.md` - Human-Centric Doc Bank Migration Plan
 - `docs/operations/legacy-documents-policy.md` - 旧資料の隔離運用ポリシー
@@ -71,9 +68,12 @@
 - `docs/operations/profile-validator-required-checks-source-of-truth.md` - Profile Validator Required Checks Source Of Truth
 - `docs/operations/profile-validator-schema-version-policy.md` - Profile Validator Schema Version Policy
 - `docs/operations/runtime-distribution-export-guide.md` - Runtime Distribution Export Guide
+- `docs/operations/runtime-framework-rules.md` - Runtime Framework Rules
+- `docs/operations/runtime-installation-runbook.md` - Runtime Installation Runbook
 - `docs/operations/runtime-package-distribution-migration-plan.md` - Runtime Package Distribution Migration Plan
 - `docs/operations/skills-framework-flow-guide.md` - Skills Framework Flow Guide
 - `docs/operations/skills-sync-runbook.md` - Skills Sync Runbook
+- `docs/operations/stage-terminology.md` - 開発段階用語集
 - `docs/operations/state-history-strategy.md` - State History Strategy
 - `docs/operations/state-validator-done-docs-index-consistency.md` - State Validator Done Docs Index Consistency
 - `docs/operations/validator-enhancement-backlog.md` - Validator Enhancement Backlog

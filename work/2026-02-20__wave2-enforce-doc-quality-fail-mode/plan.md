@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__wave2-enforce-doc-quality-fail-mode
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -13,7 +13,7 @@
 
 - `work/2026-02-20__wave2-enforce-doc-quality-fail-mode/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的: docs品質 issue を CI fail として扱う運用へ昇格する。
 - 実施項目:
@@ -31,7 +31,7 @@
 - 判定方針: 依存 task が done の場合のみ fail 昇格へ進む。
 - 判定結果: pass（`2026-02-20__wave2-implement-doc-quality-warning-mode[done]`）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実行フェーズ:
   1. 実装: CI で対象 task の `state-validate`/`consistency-check` に fail mode を指定

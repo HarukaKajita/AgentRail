@@ -1,6 +1,6 @@
 # Investigation: 2026-02-19__profile-version-schema-version-unification-strategy
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -9,16 +9,16 @@
   - 本資料に入る前に、目的・受入条件・依存関係を把握する。
 
 
-## 1. 調査対象 [空欄禁止]
+## 1. 調査対象 (Investigation Target) (必須)
 
 - `project.profile.yaml` で `version` と `schema_version` を一本化する最短変更。
 - `version` 依存箇所の実コードと docs 反映範囲。
 
-## 2. 仮説 (Hypothesis / 仮説) [空欄禁止]
+## 2. 仮説 (Hypothesis) (必須)
 
 - `schema_version` を唯一の正本に固定し、`version` の存在自体を validator で禁止すると、運用判断の分岐を最小化できる。
 
-## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
+## 3. 調査・観測方法 (Investigation Method) (必須)
 
 - 参照資料:
   - `project.profile.yaml`
@@ -32,14 +32,14 @@
   - `version` が required key として残存していること。
   - `version` 参照が profile/policy/backlog/task 文書に分散していること。
 
-## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査・観測結果 (Observations) (必須)
 
 - validator の互換判定は `schema_version` を使用している。
 - `version` は `tools/profile-validate/profile-schema.json` の required key に残っており、共存を許容している。
 - 現行 policy は `version` を互換目的で維持する記述のまま。
 - 未着手の planned タスクが本件 1 件で、統合完了後は backlog を done へ反映できる。
 
-## 5. 結論 (Conclusion / 結論) [空欄禁止]
+## 5. 結論 (Conclusion) (必須)
 
 - 本タスクでは互換モードを廃止し、`schema_version` 単一運用へ即時移行する。
 - 実装上の確定事項:
@@ -49,17 +49,17 @@
   4. `schema_version` を `2.0.0` に更新し、許容バージョンを `2.0.0` のみにする。
   5. policy/backlog/index/memory/task 文書を done 状態へ更新する。
 
-## 6. 未解決事項 [空欄禁止]
+## 6. 未解決事項 (Open Issues) (必須)
 
 - なし（破壊的変更許容は要望で明示済み）。
 
-## 7. 次アクション [空欄禁止]
+## 7. 次のアクション (Next Action) (必須)
 
 1. `spec.md` で AC とテスト要件を破壊的変更前提へ更新する。
 2. `plan.md` で docs 更新範囲と実行コマンドを確定する。
 3. 実装・テスト・review・docs・memory を一気通貫で完了する。
 
-## 8. 関連リンク [空欄禁止]
+## 8. 関連資料リンク (Reference Links) (必須)
 
 - request: `work/2026-02-19__profile-version-schema-version-unification-strategy/request.md`
 - spec: `work/2026-02-19__profile-version-schema-version-unification-strategy/spec.md`

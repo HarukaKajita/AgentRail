@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__add-plan-template-and-index-link
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -14,7 +14,7 @@
 
 - `work/2026-02-20__add-plan-template-and-index-link/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的:
   - "plan.md は必須成果物だが docs/templates に plan テンプレート導線がない。" を最小差分で解消する手順を確定する。
@@ -31,7 +31,7 @@
 - 判定方針:
   - 依存 task がある場合は state=done を確認してから plan-final に進む。
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実装順序:
   1. 変更を実装する。

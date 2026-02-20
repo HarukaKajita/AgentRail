@@ -1,6 +1,6 @@
 # Review: 2026-02-20__dependency-gate-before-plan-flow
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -79,7 +79,7 @@
 - 2段階計画フローの実装と関連資料・スキル・検証ロジックの同期更新を完了した。
 - 本 task は `done` 判定で問題ない。
 
-## 6. Process Findings
+## 6. プロセス改善案 (Process Findings) (必須)
 
 ### 6.1 Finding F-001
 
@@ -91,21 +91,21 @@
 - action_required: no
 - linked_task_id: none
 
-## 7. Commit Boundaries
+## 7. コミット境界の確認 (Commit Boundaries) (必須)
 
-### 7.1 Kickoff Commit
+### 7.1 起票境界 (Kickoff Commit)
 
 - commit: 8b013d5
 - scope_check: PASS
 - note: 起票境界（request/investigation/spec/plan と backlog/memory 更新）を確定。
 
-### 7.2 Implementation Commit
+### 7.2 実装境界 (Implementation Commit)
 
 - commit: b25276a
 - scope_check: PASS
 - note: フロー・スキル・スクリプト・checker/state-validator 実装を反映。
 
-### 7.3 Finalize Commit
+### 7.3 完了境界 (Finalize Commit)
 
 - commit: CURRENT_COMMIT
 - scope_check: PASS

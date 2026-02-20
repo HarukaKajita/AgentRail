@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__wave1-normalize-doc-work-cross-links
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `docs/operations/wave1-core-docs-human-centric-migration.md`
@@ -13,7 +13,7 @@
 
 - `work/2026-02-20__wave1-normalize-doc-work-cross-links/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的: docs と work の相互参照を統一し、参照切れを解消する。
 - 実施項目:
@@ -31,7 +31,7 @@
 - 判定方針: depends_on が全て done になるまで dependency-blocked を維持する。
 - 判定結果: pass（依存タスクが done）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実行フェーズ:
   1. 準備: 正規化対象 docs と標準記法を定義する。

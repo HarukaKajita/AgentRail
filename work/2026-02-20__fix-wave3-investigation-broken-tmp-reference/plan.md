@@ -1,6 +1,6 @@
 # Plan: 2026-02-20__fix-wave3-investigation-broken-tmp-reference
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -13,7 +13,7 @@
 
 - `work/2026-02-20__fix-wave3-investigation-broken-tmp-reference/spec.md`
 
-## 2. plan-draft
+## 2. 実装計画ドラフト (Plan Draft)
 
 - 目的:
   - task12 investigation の参照切れを解消し、再発防止ルールを確定する。
@@ -31,7 +31,7 @@
 - 判定方針: 依存なしのため `plan-ready`。
 - 判定結果: pass（起票時点）
 
-## 4. plan-final
+## 4. 確定実装計画 (Plan Final)
 
 - 実装順序:
   1. `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/investigation.md` の固定 `.tmp` 参照を実行引数ベースの記述へ置換する。

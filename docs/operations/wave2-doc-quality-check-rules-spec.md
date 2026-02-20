@@ -1,6 +1,6 @@
 # Wave 2 Spec: Doc Quality Check Rules
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `docs/operations/wave1-doc-work-cross-link-normalization.md`

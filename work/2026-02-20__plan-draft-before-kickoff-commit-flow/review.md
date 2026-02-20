@@ -1,6 +1,6 @@
 # Review: 2026-02-20__plan-draft-before-kickoff-commit-flow
 
-## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
+## 0. 前提知識 (Prerequisites) (必須)
 
 - 参照資料:
   - `AGENTS.md`
@@ -69,7 +69,7 @@
 - 要件どおり、`plan-draft` を起票境界コミット前に統一する修正を完了した。
 - 本 task は `done` 判定で問題ない。
 
-## 6. Process Findings
+## 6. プロセス改善案 (Process Findings) (必須)
 
 ### 6.1 Finding F-001
 
@@ -81,21 +81,21 @@
 - action_required: no
 - linked_task_id: none
 
-## 7. Commit Boundaries
+## 7. コミット境界の確認 (Commit Boundaries) (必須)
 
-### 7.1 Kickoff Commit
+### 7.1 起票境界 (Kickoff Commit)
 
 - commit: ddcc295
 - scope_check: PASS
 - note: request/investigation/spec/plan と backlog/memory の起票一式を確定。
 
-### 7.2 Implementation Commit
+### 7.2 実装境界 (Implementation Commit)
 
 - commit: c05c809
 - scope_check: PASS
 - note: フロー資料を `plan-draft` 先行へ修正。
 
-### 7.3 Finalize Commit
+### 7.3 完了境界 (Finalize Commit)
 
 - commit: CURRENT_COMMIT
 - scope_check: PASS
