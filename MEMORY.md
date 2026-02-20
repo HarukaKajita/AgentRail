@@ -5,16 +5,16 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__wave0-inventory-human-centric-doc-coverage
-- タイトル: Wave 0: must対象の資料棚卸しと欠落マップ作成
+- Task ID: 2026-02-20__wave0-define-doc-ownership-and-update-matrix
+- タイトル: Wave 0: docs更新責務マトリクス定義
 - 状態: planned
-- 最終更新日時: 2026-02-20T17:02:00+09:00
+- 最終更新日時: 2026-02-20T17:30:43+09:00
 - 担当: codex
 
 ## 2. 今回の目的
 
-- human-centric doc bank の Wave 0-3 実行タスクを依存付きで起票する。
-- backlog と state の依存順序を同期し、次の着手順を明確化する。
+- human-centric doc bank の Wave 0-3 実行タスクを依存順で完了させる。
+- 各タスクを完了ごとにコミットし、backlog/state/docs/メモの整合を維持する。
 
 ## 3. 完了済み
 
@@ -45,6 +45,10 @@
 - `2026-02-20__plan-migration-to-human-centric-doc-bank` を完了。
   - `docs/operations/human-centric-doc-bank-migration-plan.md` を追加し、Wave 0-3 の移行計画を定義。
   - Task A 依存ゲートを pass 化し、Task B の `review/state/backlog` を完了状態へ更新。
+- `2026-02-20__wave0-inventory-human-centric-doc-coverage` を完了。
+  - `docs/operations/wave0-inventory-human-centric-doc-coverage.md` を追加し、must対象資料の棚卸し結果と欠落カテゴリマップを確定。
+  - `docs/operations/high-priority-backlog.md` で Wave 1 先行タスクの依存状態を解決済みに更新。
+  - `work/2026-02-20__wave0-inventory-human-centric-doc-coverage/{plan,spec,review,state.json}` を done 条件へ更新。
 - Wave 実行タスク 12 件を起票。
   - Wave 0: `2026-02-20__wave0-inventory-human-centric-doc-coverage`, `2026-02-20__wave0-define-doc-ownership-and-update-matrix`
   - Wave 1: `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`, `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`, `2026-02-20__wave1-normalize-doc-work-cross-links`
@@ -66,9 +70,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__wave0-inventory-human-centric-doc-coverage` を実行し、must 対象棚卸しと欠落マップを確定する。
-2. `2026-02-20__wave0-define-doc-ownership-and-update-matrix` を実行し、更新責務マトリクスを確定する。
-3. Wave 1 以降は depends_on 解決順に着手し、各 wave 完了時に backlog/MEMORY を同期する。
+1. `2026-02-20__wave0-define-doc-ownership-and-update-matrix` を完了し、更新責務マトリクスを docs 化する。
+2. `2026-02-20__wave1-migrate-core-docs-to-human-centric-model` を完了し、core docs の不足カテゴリを補完する。
+3. `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model` を完了し、operations docs の不足カテゴリを補完する。
 
 ## 7. 参照先
 
@@ -85,6 +89,8 @@
 - `work/2026-02-20__plan-migration-to-human-centric-doc-bank/review.md`
 - `work/2026-02-20__plan-migration-to-human-centric-doc-bank/spec.md`
 - `work/2026-02-20__wave0-inventory-human-centric-doc-coverage/spec.md`
+- `work/2026-02-20__wave0-inventory-human-centric-doc-coverage/review.md`
+- `docs/operations/wave0-inventory-human-centric-doc-coverage.md`
 
 ## 8. 引き継ぎ時チェック
 

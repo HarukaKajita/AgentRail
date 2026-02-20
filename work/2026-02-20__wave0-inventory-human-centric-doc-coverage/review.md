@@ -8,38 +8,46 @@
   - `work/2026-02-20__wave0-inventory-human-centric-doc-coverage/spec.md`
   - `work/2026-02-20__wave0-inventory-human-centric-doc-coverage/plan.md`
 - 理解ポイント:
-  - AC 判定と depends_on 整合を検証する。
+  - Wave 0 成果物（対象棚卸し・欠落マップ）と依存整合の完了判定を検証する。
 
 ## 1. レビュー対象
 
-- 起票後に更新する。
+- `docs/operations/wave0-inventory-human-centric-doc-coverage.md`
+- `docs/operations/high-priority-backlog.md`
+- `docs/INDEX.md`
+- `MEMORY.md`
+- `work/2026-02-20__wave0-inventory-human-centric-doc-coverage/spec.md`
+- `work/2026-02-20__wave0-inventory-human-centric-doc-coverage/plan.md`
+- `work/2026-02-20__wave0-inventory-human-centric-doc-coverage/state.json`
 
 ## 2. 受入条件評価
 
-- AC-001: PENDING
-- AC-002: PENDING
+- AC-001: PASS（must対象資料一覧と欠落カテゴリを `docs/operations/wave0-inventory-human-centric-doc-coverage.md` に記録した）
+- AC-002: PASS（depends_on と backlog/state/plan の整合を確認し、Wave 1 先行タスクの依存状態を更新した）
 
 ## 3. テスト結果
 
 ### Unit Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__wave0-inventory-human-centric-doc-coverage`
+- 結果: PASS
 
 ### Integration Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-20__plan-migration-to-human-centric-doc-bank,2026-02-20__wave0-inventory-human-centric-doc-coverage`
+- 結果: PASS
 
 ### Regression Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks`
+- 実施内容: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks`
+- 実施内容: `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
+- 結果: PASS
 
 ### Manual Verification
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `rg -n "wave0-inventory-human-centric-doc-coverage|欠落カテゴリ|plan-ready|dependency-blocked" docs/operations/wave0-inventory-human-centric-doc-coverage.md docs/operations/high-priority-backlog.md MEMORY.md`
+- 結果: PASS
 
 ## 4. 指摘事項
 
@@ -49,17 +57,17 @@
 
 ## 5. 結論
 
-- 起票後に最終判定する。
+- 受入条件 AC-001 / AC-002 を満たし、Wave 1 へ進行可能な inventory/gap マップを確定した。
 
 ## 6. Process Findings
 
 ### 6.1 Finding F-001
 
 - finding_id: F-001
-- category: flow
+- category: docs
 - severity: low
-- summary: Wave 0: must対象の資料棚卸しと欠落マップ作成 task was created from human-centric migration wave plan.
-- evidence: Derived from `docs/operations/human-centric-doc-bank-migration-plan.md` wave execution policy.
+- summary: Wave 0 inventory clarified missing categories across must docs and enabled deterministic Wave 1 sequencing.
+- evidence: Added dedicated inventory doc and updated backlog dependency readiness for downstream tasks.
 - action_required: no
 - linked_task_id: none
 
@@ -67,16 +75,15 @@
 
 ### 7.1 Kickoff Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: N/A
+- scope_check: PASS
 
 ### 7.2 Implementation Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: N/A
+- scope_check: PASS
 
 ### 7.3 Finalize Commit
 
-- commit: PENDING
-- scope_check: PENDING
-
+- commit: N/A
+- scope_check: PASS

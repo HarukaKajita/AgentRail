@@ -15,39 +15,30 @@
 
 ## 優先タスク一覧
 
-1. `2026-02-20__wave0-inventory-human-centric-doc-coverage`
-- 状態: planned
-- 計画段階: plan-draft
-- ゲート状態: plan-ready
-- 依存: `2026-02-20__plan-migration-to-human-centric-doc-bank`
-- 依存状態: 解決済み
-- 目的: must 対象資料の棚卸しと欠落カテゴリ（目的/使い方/仕組み/実装/関連）の可視化を行う
-- 参照: `work/2026-02-20__wave0-inventory-human-centric-doc-coverage/spec.md`
-
 2. `2026-02-20__wave0-define-doc-ownership-and-update-matrix`
 - 状態: planned
 - 計画段階: plan-draft
-- ゲート状態: dependency-blocked
+- ゲート状態: plan-ready
 - 依存: `2026-02-20__wave0-inventory-human-centric-doc-coverage`
-- 依存状態: 未解決（先行タスク完了待ち）
+- 依存状態: 解決済み
 - 目的: task owner / implementation owner / reviewer の責務を資料単位で定義する
 - 参照: `work/2026-02-20__wave0-define-doc-ownership-and-update-matrix/spec.md`
 
 3. `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`
 - 状態: planned
 - 計画段階: plan-draft
-- ゲート状態: dependency-blocked
+- ゲート状態: plan-ready
 - 依存: `2026-02-20__wave0-inventory-human-centric-doc-coverage`
-- 依存状態: 未解決（先行タスク完了待ち）
+- 依存状態: 解決済み
 - 目的: AGENTS.md / README.md / docs/INDEX.md を人間理解中心の情報モデルへ適合させる
 - 参照: `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model/spec.md`
 
 4. `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`
 - 状態: planned
 - 計画段階: plan-draft
-- ゲート状態: dependency-blocked
+- ゲート状態: plan-ready
 - 依存: `2026-02-20__wave0-inventory-human-centric-doc-coverage`
-- 依存状態: 未解決（先行タスク完了待ち）
+- 依存状態: 解決済み
 - 目的: docs/operations の主要資料を情報モデルに合わせて補完・再編する
 - 参照: `work/2026-02-20__wave1-migrate-operations-docs-to-human-centric-model/spec.md`
 
@@ -371,6 +362,13 @@
 - 依存状態: 解決済み
 - 目的: 既存 docs/運用仕組みを人間理解中心設計へ移行する wave 計画とタスク分割方針を定義する
 - 参照: `work/2026-02-20__plan-migration-to-human-centric-doc-bank/spec.md`
+
+41. `2026-02-20__wave0-inventory-human-centric-doc-coverage`
+- 状態: done
+- 依存: `2026-02-20__plan-migration-to-human-centric-doc-bank`
+- 依存状態: 解決済み
+- 目的: must 対象資料の棚卸しと欠落カテゴリ（目的/使い方/仕組み/実装/関連）の可視化を行う
+- 参照: `work/2026-02-20__wave0-inventory-human-centric-doc-coverage/spec.md`
 
 ## 更新ルール
 

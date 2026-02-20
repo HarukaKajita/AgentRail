@@ -43,7 +43,7 @@
 ## 依存関係整理
 
 - depends_on: 2026-02-20__plan-migration-to-human-centric-doc-bank
-- 依存状態: 解決済み
+- 依存状態: 解決済み（depends_on が done）
 
 ## 成功条件（要望レベル）
 
@@ -54,5 +54,3 @@
 ## blocked 判定
 
 - 依存解決済みのため plan-ready。
-
-

@@ -35,8 +35,9 @@
 
 ### 3.1 In Scope [空欄禁止]
 
-- 本タスク対象の成果物定義と実施方針の確定。
-- depends_on / gate / rollback の明文化。
+- must 対象資料の一覧化と分類軸ベースの棚卸し。
+- 欠落カテゴリ（目的/使い方/仕組み/実装/関連）の明文化。
+- Wave 1 へ引き継ぐ優先補完対象の提示。
 - review と検証結果の記録。
 
 ### 3.2 Out of Scope [空欄禁止]
@@ -46,8 +47,8 @@
 
 ## 4. 受入条件 (Acceptance Criteria / 受入条件) [空欄禁止]
 
-- AC-001: Wave 0: must対象の資料棚卸しと欠落マップ作成 の成果物・手順・ゲート・ロールバックが task 資料に明記される。
-- AC-002: depends_on と backlog/state/plan の整合が維持される。
+- AC-001: Wave 0 成果物として must対象資料一覧と欠落マップが `docs/operations/wave0-inventory-human-centric-doc-coverage.md` に記録される。
+- AC-002: depends_on と backlog/state/plan の整合が維持され、Wave 1 先行タスクの依存状態が更新される。
 
 ## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
 
@@ -71,12 +72,12 @@
 
 ### 5.4 Manual Verification (Manual Verification / 手動検証) [空欄禁止]
 
-- 手順: backlog と MEMORY を確認し、依存順序と次アクションが明示されることを確認
+- 手順: 作成した inventory/gap マップと backlog/MEMORY を確認し、次の着手順が明示されることを確認
 - 期待結果: AC-001 と AC-002 を満たす
 
 ## 6. 影響範囲 [空欄禁止]
 
-- 影響ファイル/モジュール: `work/2026-02-20__wave0-inventory-human-centric-doc-coverage`/*, `docs/operations/high-priority-backlog.md`, `MEMORY.md`
+- 影響ファイル/モジュール: `work/2026-02-20__wave0-inventory-human-centric-doc-coverage`/*, `docs/operations/wave0-inventory-human-centric-doc-coverage.md`, `docs/operations/high-priority-backlog.md`, `docs/INDEX.md`, `MEMORY.md`
 - 影響する仕様: human-centric docs migration wave 計画
 - 非機能影響: docs 更新の追跡性とレビュー可能性が向上する
 
@@ -84,13 +85,13 @@
 
 - 制約: depends_on 未解決時は dependency-blocked を維持する。
 - 想定リスク:
-  - 依存順序を崩した前倒し実装
+  - 分類粒度が粗く、Wave 1 の補完指示が曖昧になる
   - docs 導線更新漏れ
-- 回避策: gate 判定と docs-indexer check を完了条件へ含める。
+- 回避策: 欠落カテゴリを資料単位で明示し、docs-indexer check を完了条件へ含める。
 
 ## 8. 未確定事項 [空欄禁止]
 
-- 実施時に発生する追加改善点は review の Process Findings で管理する。
+- Wave 1 実装時に追加で発見される補完カテゴリは review の Process Findings で管理する。
 
 ## 9. 関連資料リンク [空欄禁止]
 
@@ -98,7 +99,7 @@
 - investigation: `work/2026-02-20__wave0-inventory-human-centric-doc-coverage/investigation.md`
 - plan: `work/2026-02-20__wave0-inventory-human-centric-doc-coverage/plan.md`
 - review: `work/2026-02-20__wave0-inventory-human-centric-doc-coverage/review.md`
-- docs:
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
-
+- `docs/operations/wave0-inventory-human-centric-doc-coverage.md`
+- `docs/operations/human-centric-doc-bank-governance.md`
+- `docs/operations/human-centric-doc-bank-migration-plan.md`
+- `docs/operations/high-priority-backlog.md`
