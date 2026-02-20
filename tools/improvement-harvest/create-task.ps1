@@ -172,7 +172,7 @@ $investigationContent = @(
   "## 1. 調査対象 [空欄禁止]",
   "",
   "- Source task $SourceTaskId の finding $FindingId の根本原因分析。",
-  "- 依存タスク (`$depends_on`) の妥当性確認。",
+  "- 依存タスク（$dependencyLabel）の妥当性確認。",
   "",
   "## 2. 仮説 (Hypothesis / 仮説) [空欄禁止]",
   "",
