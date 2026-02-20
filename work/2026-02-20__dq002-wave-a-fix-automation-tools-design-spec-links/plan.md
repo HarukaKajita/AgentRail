@@ -34,11 +34,16 @@
 ## 4. plan-final
 
 - 実装順序:
-  - 起票段階のため未確定。実装着手時に詳細化する。
+  1. `docs/specs/automation-tools-design-spec.md` に `関連資料リンク` セクションを追加し、`docs/*` と `work/*` の導線を明示する。
+  2. Wave A task の `plan.md` / `review.md` / `state.json` を実績ベースへ更新する。
+  3. backlog と MEMORY を Wave B 着手可能な状態へ同期する。
 - 検証順序:
-  - 起票段階のため未確定。実装着手時に詳細化する。
+  1. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links -DocQualityMode warning`
+  2. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links -DocQualityMode warning`
+  3. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning -OutputFormat json`（`dq002_count=9` を確認）
+  4. `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
 - ロールバック:
-  - 変更差分を戻してリンク配置を再設計する。
+  - DQ-002 が残る場合は追加したリンク構成を見直し、`work/*` 参照を不足なく補完して再検証する。
 
 ## 5. Execution Commands
 
@@ -49,6 +54,7 @@
 
 ## 6. 完了判定
 
-- plan-draft が spec を参照している
-- `state.json` が `planned` かつ `depends_on=[]` である
-- backlog で Wave A が `plan-ready` として登録される
+- AC-001（Wave A 12件 -> 0件）が review で PASS
+- AC-002（全体 21件 -> 9件）が review で PASS
+- `state.json` が `done` である
+- backlog で Wave B が `plan-ready` へ遷移している

@@ -26,21 +26,12 @@
 
 ## 優先タスク一覧
 
-- `2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links`
-- 状態: planned
-- 計画段階: plan-draft
-- ゲート状態: plan-ready
-- 依存: なし
-- 依存状態: なし
-- 目的: Wave A として `docs/specs/automation-tools-design-spec.md` の DQ-002 warning 12件を解消する
-- 参照: `work/2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links/spec.md`
-
 - `2026-02-20__dq002-wave-b-fix-profile-validator-schema-policy-links`
 - 状態: planned
 - 計画段階: plan-draft
-- ゲート状態: dependency-blocked
+- ゲート状態: plan-ready
 - 依存: `2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links`
-- 依存状態: 未解決
+- 依存状態: 解決済み
 - 目的: Wave B として `docs/operations/profile-validator-schema-version-policy.md` の DQ-002 warning 3件を解消する
 - 参照: `work/2026-02-20__dq002-wave-b-fix-profile-validator-schema-policy-links/spec.md`
 
@@ -54,6 +45,13 @@
 - 参照: `work/2026-02-20__dq002-wave-c-fix-remaining-doc-links/spec.md`
 
 ## Completed
+
+- `2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links`
+- 状態: done
+- 依存: なし
+- 依存状態: なし
+- 目的: Wave A として `docs/specs/automation-tools-design-spec.md` の DQ-002 warning 12件を解消する
+- 参照: `work/2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links/spec.md`
 
 1. `2026-02-20__redesign-human-centric-doc-bank-governance`
 - 状態: done

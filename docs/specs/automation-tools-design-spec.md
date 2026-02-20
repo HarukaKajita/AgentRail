@@ -146,3 +146,23 @@
 
 1. 自己改善起票の運用結果を踏まえて閾値（must/high固定）を見直すかどうか
 
+## 8. 関連資料リンク
+
+- docs:
+  - `docs/specs/automation-tools-implementation-spec.md`
+  - `docs/operations/ci-failure-runbook.md`
+  - `docs/operations/high-priority-backlog.md`
+- work:
+  - `work/2026-02-18__automation-tools-implementation/spec.md`
+  - `work/2026-02-18__automation-tools-ci-integration/spec.md`
+  - `work/2026-02-18__docs-indexer-check-mode/spec.md`
+  - `work/2026-02-18__consistency-check-multi-task-mode/spec.md`
+  - `work/2026-02-18__consistency-check-json-output/spec.md`
+  - `work/2026-02-18__consistency-check-json-schema-version-policy/spec.md`
+  - `work/2026-02-18__consistency-check-all-tasks-exclusion-rules/spec.md`
+  - `work/2026-02-18__state-transition-validation/spec.md`
+  - `work/2026-02-18__project-profile-schema-validation/spec.md`
+  - `work/2026-02-18__ci-task-resolution-no-fallback/spec.md`
+  - `work/2026-02-18__ci-task-resolution-determinism/spec.md`
+  - `work/2026-02-18__framework-pilot-01/spec.md`
+
