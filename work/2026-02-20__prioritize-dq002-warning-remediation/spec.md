@@ -48,7 +48,7 @@
 ## 4. 受入条件 (Acceptance Criteria / 受入条件) [空欄禁止]
 
 - AC-001: DQ-002 warning 21件を優先度基準付きで分類できる。
-- AC-002: 分割起票順と依存方針を docs/work に記録できる。
+- AC-002: 分割起票順と依存方針を `docs/operations/dq002-warning-remediation-priority-plan.md` と docs/work に記録できる。
 
 ## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
 
@@ -108,3 +108,4 @@
 - docs:
   - `docs/operations/high-priority-backlog.md`
   - `docs/operations/wave2-doc-quality-warning-mode.md`
+  - `docs/operations/dq002-warning-remediation-priority-plan.md`

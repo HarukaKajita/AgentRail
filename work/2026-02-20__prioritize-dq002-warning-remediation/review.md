@@ -12,44 +12,59 @@
 
 ## 1. レビュー対象
 
-- 起票後に更新する。
+- `docs/operations/dq002-warning-remediation-priority-plan.md`
+- `docs/operations/wave2-doc-quality-warning-mode.md`
+- `docs/operations/high-priority-backlog.md`
+- `MEMORY.md`
+- `work/2026-02-20__prioritize-dq002-warning-remediation/request.md`
+- `work/2026-02-20__prioritize-dq002-warning-remediation/investigation.md`
+- `work/2026-02-20__prioritize-dq002-warning-remediation/spec.md`
+- `work/2026-02-20__prioritize-dq002-warning-remediation/plan.md`
+- `work/2026-02-20__prioritize-dq002-warning-remediation/state.json`
 
 ## 2. 受入条件評価
 
-- AC-001: PENDING
-- AC-002: PENDING
+- AC-001: PASS（DQ-002 warning 21件を 8ファイル・Wave A/B/C 優先順で分類した）
+- AC-002: PASS（分割起票順と依存方針を `docs/operations/dq002-warning-remediation-priority-plan.md` に定義した）
 
 ## 3. テスト結果
 
 ### Unit Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容:
+  1. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__prioritize-dq002-warning-remediation -DocQualityMode warning`
+- 結果: PASS
 
 ### Integration Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容:
+  1. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning -OutputFormat json`
+  2. 集計結果から `DQ-002` 件数と対象ファイル分布を確認
+- 結果: PASS（`dq002_count=21`, `automation-tools-design-spec.md=12`, `profile-validator-schema-version-policy.md=3`）
 
 ### Regression Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容:
+  1. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__prioritize-dq002-warning-remediation -DocQualityMode warning`
+  2. `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
+- 結果: PASS
 
 ### Manual Verification
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容:
+  1. `rg -n "prioritize-dq002-warning-remediation|fix-wave3-investigation-broken-tmp-reference" docs/operations/high-priority-backlog.md`
+  2. `rg -n "dq002-warning-remediation-priority-plan\\.md" docs/operations/wave2-doc-quality-warning-mode.md docs/INDEX.md`
+- 結果: PASS
 
 ## 4. 指摘事項
 
 - 重大: なし
 - 改善提案:
-  - なし
+  - task2 で `link_targets_exist` fail を解消して全体 check の非 DQ-002 失敗を除去する。
 
 ## 5. 結論
 
-- 起票後に最終判定する。
+- 本タスクは完了。DQ-002 warning 解消の優先順が確定し、次タスクへ進行可能。
 
 ## 6. Process Findings
 
@@ -58,8 +73,8 @@
 - finding_id: F-001
 - category: quality
 - severity: low
-- summary: DQ-002 warning remediation prioritization task was created.
-- evidence: Derived from `MEMORY.md` next actions and warning baseline.
+- summary: DQ-002 warning remediation prioritization was defined as Wave A/B/C.
+- evidence: `tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning -OutputFormat json` の分布結果。
 - action_required: no
 - linked_task_id: none
 
@@ -67,15 +82,15 @@
 
 ### 7.1 Kickoff Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: N/A
+- scope_check: PASS
 
 ### 7.2 Implementation Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: N/A
+- scope_check: PASS
 
 ### 7.3 Finalize Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: N/A
+- scope_check: PASS

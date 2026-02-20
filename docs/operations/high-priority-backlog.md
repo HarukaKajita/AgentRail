@@ -26,15 +26,6 @@
 
 ## 優先タスク一覧
 
-- `2026-02-20__prioritize-dq002-warning-remediation`
-- 状態: planned
-- 計画段階: plan-draft
-- ゲート状態: plan-ready
-- 依存: なし
-- 依存状態: なし
-- 目的: DQ-002 warning 21件の解消優先順と分割起票方針を策定する
-- 参照: `work/2026-02-20__prioritize-dq002-warning-remediation/spec.md`
-
 - `2026-02-20__fix-wave3-investigation-broken-tmp-reference`
 - 状態: planned
 - 計画段階: plan-draft
@@ -394,6 +385,13 @@
 - 依存状態: 解決済み
 - 目的: KPI悪化時に Process Findings から改善タスクへ接続する運用を定義する
 - 参照: `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/spec.md`
+
+53. `2026-02-20__prioritize-dq002-warning-remediation`
+- 状態: done
+- 依存: なし
+- 依存状態: なし
+- 目的: DQ-002 warning 21件の解消優先順と分割起票方針を策定する
+- 参照: `work/2026-02-20__prioritize-dq002-warning-remediation/spec.md`
 
 ## 更新ルール
 

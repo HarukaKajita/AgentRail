@@ -35,9 +35,15 @@
 ## 4. plan-final
 
 - 実装順序:
-  - kickoff 段階のため未確定。depends_on gate 後に確定する。
+  1. `-AllTasks -DocQualityMode warning -OutputFormat json` で DQ-002 発生分布を再集計する。
+  2. `docs/operations/dq002-warning-remediation-priority-plan.md` を作成し、Wave A/B/C の優先順を定義する。
+  3. `docs/operations/wave2-doc-quality-warning-mode.md` に優先順資料への導線を追記する。
+  4. task1 の request/investigation/spec/plan/review/state を実績化する。
+  5. backlog と MEMORY を次タスク着手状態へ同期する。
 - 検証順序:
-  - kickoff 段階のため未確定。depends_on gate 後に確定する。
+  1. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__prioritize-dq002-warning-remediation -DocQualityMode warning`
+  2. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__prioritize-dq002-warning-remediation -DocQualityMode warning`
+  3. `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
 - ロールバック:
   - 優先度基準が不適切な場合は分類軸を再定義して plan-draft を改訂する。
 
@@ -45,10 +51,12 @@
 
 - `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__prioritize-dq002-warning-remediation -DocQualityMode warning`
 - `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__prioritize-dq002-warning-remediation -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning -OutputFormat json`
+- `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
 - `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId 2026-02-20__prioritize-dq002-warning-remediation -Phase kickoff -AllowCommonSharedPaths`
 
 ## 6. 完了判定
 
-- plan-draft が spec を参照して確定している。
-- backlog と state の planned 整合が取れている。
-- 起票境界コミットの scope check が PASS。
+- AC-001 と AC-002 が review で PASS。
+- `state.json` は `done`。
+- backlog の次着手候補が `2026-02-20__fix-wave3-investigation-broken-tmp-reference` へ遷移している。

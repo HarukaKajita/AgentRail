@@ -64,6 +64,8 @@
   - warning 21 件の扱い（解消 or 許容）を明文化し、fail 昇格基準を定義する。
 - `work/2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates/spec.md`
   - CI runbook に `DocQualityMode` の運用切替手順を反映する。
+- `docs/operations/dq002-warning-remediation-priority-plan.md`
+  - DQ-002 warning 21 件の解消優先順（Wave A/B/C）を定義する。
 
 ## 7. ロールバック
 

@@ -34,7 +34,16 @@
 ## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - 事実:
-  - DQ-002 warning は 21件で継続し、主に `docs/specs/automation-tools-design-spec.md` と運用 docs に集中している。
+  - DQ-002 warning は 21件で継続している。
+  - 集中先は以下の8ファイルである。
+    - `docs/specs/automation-tools-design-spec.md`（12件）
+    - `docs/operations/profile-validator-schema-version-policy.md`（3件）
+    - `docs/investigations/self-improvement-loop-investigation.md`（1件）
+    - `docs/operations/profile-validator-required-checks-source-of-truth.md`（1件）
+    - `docs/operations/runtime-distribution-export-guide.md`（1件）
+    - `docs/operations/runtime-installation-runbook.md`（1件）
+    - `docs/operations/state-history-strategy.md`（1件）
+    - `docs/operations/state-validator-done-docs-index-consistency.md`（1件）
   - 現行 backlog には DQ-002 解消専用の分割計画がない。
 - 推測:
   - 影響範囲の大きい共通 docs から着手する順序が最短。
@@ -53,7 +62,7 @@
 
 ## 7. 結論 (Conclusion / 結論) [空欄禁止]
 
-- DQ-002 warning を「共通仕様 docs 優先 -> 運用 docs -> 個別補完」の3段に分けて起票する。
+- DQ-002 warning を「Wave A（共通仕様）-> Wave B（運用ポリシー）-> Wave C（個別補完）」で分割して起票する。
 
 ## 8. 未解決事項 [空欄禁止]
 
@@ -61,8 +70,8 @@
 
 ## 9. 次アクション [空欄禁止]
 
-1. 優先度基準を spec に固定する。
-2. plan-draft に分割起票順と検証順を定義する。
+1. 優先度基準を `docs/operations/dq002-warning-remediation-priority-plan.md` に反映する。
+2. plan-final と review を更新して task を done 化する。
 
 ## 10. 関連リンク [空欄禁止]
 
@@ -71,3 +80,4 @@
 - docs:
   - `docs/operations/wave2-doc-quality-warning-mode.md`
   - `docs/operations/wave3-doc-quality-kpi-thresholds.md`
+  - `docs/operations/dq002-warning-remediation-priority-plan.md`

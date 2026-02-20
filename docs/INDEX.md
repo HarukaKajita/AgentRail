@@ -60,6 +60,7 @@
 
 ## 6. 運用
 - `docs/operations/ci-failure-runbook.md` - CI 失敗時ランブック
+- `docs/operations/dq002-warning-remediation-priority-plan.md` - DQ-002 Warning Remediation Priority Plan
 - `docs/operations/framework-request-to-commit-visual-guide.md` - ユーザー要望から実装・コミットまでのフロー可視化ガイド
 - `docs/operations/high-priority-backlog.md` - 高優先バックログ
 - `docs/operations/human-centric-doc-bank-governance.md` - Human-Centric Doc Bank Governance

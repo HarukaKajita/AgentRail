@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__run-wave3-doc-operations-review
-- タイトル: Wave3 Docs 運用レビュー（起票）
+- Task ID: 2026-02-20__fix-wave3-investigation-broken-tmp-reference
+- タイトル: Wave3 investigation 破損リンク修正
 - 状態: planned
-- 最終更新日時: 2026-02-20T20:14:00+09:00
+- 最終更新日時: 2026-02-20T20:01:00+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -104,6 +104,11 @@
   - Wave 1: `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`, `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`, `2026-02-20__wave1-normalize-doc-work-cross-links`
   - Wave 2: `2026-02-20__wave2-spec-doc-quality-check-rules`, `2026-02-20__wave2-implement-doc-quality-warning-mode`, `2026-02-20__wave2-enforce-doc-quality-fail-mode`, `2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates`
   - Wave 3: `2026-02-20__wave3-define-doc-quality-kpi-thresholds`, `2026-02-20__wave3-automate-doc-quality-metrics-report`, `2026-02-20__wave3-connect-kpi-to-process-findings-loop`
+- `2026-02-20__prioritize-dq002-warning-remediation` を完了。
+  - `docs/operations/dq002-warning-remediation-priority-plan.md` を追加し、DQ-002 warning 21件の優先度を Wave A/B/C で確定。
+  - `docs/operations/wave2-doc-quality-warning-mode.md` に remediation 優先度資料の導線を追記。
+  - `docs/operations/high-priority-backlog.md` で同 task を Completed へ移動し、残り3タスクの依存順を維持。
+  - `work/2026-02-20__prioritize-dq002-warning-remediation/{investigation,spec,plan,review,state.json}` を done 条件へ更新。
 
 ## 4. 重要な意思決定
 
@@ -120,15 +125,18 @@
 
 ## 6. 次アクション
 
-1. 起票済み4タスクの依存順で実装着手候補を確定する。
-2. `2026-02-20__prioritize-dq002-warning-remediation` の実装着手に進む。
-3. `2026-02-20__run-wave3-doc-operations-review` の depends_on 解決後に gate 判定を更新する。
+1. `2026-02-20__fix-wave3-investigation-broken-tmp-reference` を完了し、AllTasks の `link_targets_exist` fail を解消する。
+2. `2026-02-20__define-kpi-report-execution-calendar` を完了し、運用カレンダーを docs へ反映する。
+3. `2026-02-20__run-wave3-doc-operations-review` の depends_on 解決後に gate を `plan-ready` へ更新して完了させる。
 
 ## 7. 参照先
 
 - `docs/operations/high-priority-backlog.md`
+- `docs/operations/dq002-warning-remediation-priority-plan.md`
 - `docs/operations/human-centric-doc-bank-governance.md`
 - `docs/operations/human-centric-doc-bank-migration-plan.md`
+- `work/2026-02-20__prioritize-dq002-warning-remediation/spec.md`
+- `work/2026-02-20__prioritize-dq002-warning-remediation/review.md`
 - `work/2026-02-20__define-runtime-manifest-and-export-flow/review.md`
 - `work/2026-02-20__add-runtime-installer-with-agentrail-work-layout/review.md`
 - `work/2026-02-20__refactor-tools-to-profile-driven-runtime-paths/review.md`
