@@ -93,7 +93,7 @@ elseif ($EventName -eq "push") {
   }
 }
 elseif ($EventName -eq "workflow_dispatch") {
-  Fail("workflow_dispatch event requires ManualTaskId.")
+  Fail("workflow_dispatch event requires non-empty task_id input (ManualTaskId).")
 }
 else {
   Fail("Unsupported event name: $EventName")

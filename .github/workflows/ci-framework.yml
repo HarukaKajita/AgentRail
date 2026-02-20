@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
     inputs:
       task_id:
-        description: "Optional task ID to force consistency-check target"
-        required: false
+        description: "Task ID to force consistency-check target"
+        required: true
         type: string
 
 jobs:
