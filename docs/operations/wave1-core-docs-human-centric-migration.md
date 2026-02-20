@@ -45,3 +45,9 @@
 
 - 可読性低下が発生した場合は、core docs の追加文を最小化し、詳細説明を本資料へ集約する。
 - 導線の重複が発生した場合は `docs/INDEX.md` を正本として参照先を一本化する。
+
+## 6. 関連 task
+
+- `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model/spec.md`
+- `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model/review.md`
+- `work/2026-02-20__wave1-normalize-doc-work-cross-links/spec.md`

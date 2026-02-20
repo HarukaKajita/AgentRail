@@ -43,7 +43,7 @@
 ## 依存関係整理
 
 - depends_on: 2026-02-20__wave1-migrate-core-docs-to-human-centric-model, 2026-02-20__wave1-migrate-operations-docs-to-human-centric-model
-- 依存状態: 未解決（2026-02-20__wave1-migrate-core-docs-to-human-centric-model[planned], 2026-02-20__wave1-migrate-operations-docs-to-human-centric-model[planned]）
+- 依存状態: 解決済み（2026-02-20__wave1-migrate-core-docs-to-human-centric-model[done], 2026-02-20__wave1-migrate-operations-docs-to-human-centric-model[done]）
 
 ## 成功条件（要望レベル）
 
@@ -53,6 +53,6 @@
 
 ## blocked 判定
 
-- 依存未解決のため dependency-blocked を維持。
+- 依存解決済みのため plan-ready。
 
 

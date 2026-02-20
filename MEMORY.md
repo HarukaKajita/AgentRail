@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__wave1-normalize-doc-work-cross-links
-- タイトル: Wave 1: docs/work 相互参照の正規化
+- Task ID: 2026-02-20__wave2-spec-doc-quality-check-rules
+- タイトル: Wave 2: docs品質チェックルール設計
 - 状態: planned
-- 最終更新日時: 2026-02-20T17:46:15+09:00
+- 最終更新日時: 2026-02-20T17:51:01+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -61,6 +61,10 @@
   - `docs/operations/ci-failure-runbook.md` / `framework-request-to-commit-visual-guide.md` / `runtime-framework-rules.md` / `high-priority-backlog.md` へ導線補完を追加。
   - `docs/operations/wave1-operations-docs-human-centric-migration.md` を追加し、operations docs 移行結果を記録。
   - `work/2026-02-20__wave1-migrate-operations-docs-to-human-centric-model/{plan,spec,review,state.json}` を done 条件へ更新。
+- `2026-02-20__wave1-normalize-doc-work-cross-links` を完了。
+  - `docs/operations/wave1-doc-work-cross-link-normalization.md` を追加し、相互リンク標準ルールを定義。
+  - `docs/operations/wave1-core-docs-human-centric-migration.md` / `wave1-operations-docs-human-centric-migration.md` に関連 task リンクを統一形式で追記。
+  - `work/2026-02-20__wave1-normalize-doc-work-cross-links/{plan,spec,review,state.json}` を done 条件へ更新。
 - Wave 実行タスク 12 件を起票。
   - Wave 0: `2026-02-20__wave0-inventory-human-centric-doc-coverage`, `2026-02-20__wave0-define-doc-ownership-and-update-matrix`
   - Wave 1: `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`, `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`, `2026-02-20__wave1-normalize-doc-work-cross-links`
@@ -82,9 +86,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__wave1-normalize-doc-work-cross-links` を完了し、docs/work 相互参照を正規化する。
-2. `2026-02-20__wave2-spec-doc-quality-check-rules` を完了し、docs品質チェック仕様を確定する。
-3. `2026-02-20__wave2-implement-doc-quality-warning-mode` を完了し、段階導入を実装する。
+1. `2026-02-20__wave2-spec-doc-quality-check-rules` を完了し、docs品質チェック仕様を確定する。
+2. `2026-02-20__wave2-implement-doc-quality-warning-mode` を完了し、段階導入を実装する。
+3. `2026-02-20__wave2-enforce-doc-quality-fail-mode` を完了し、fail モードへ昇格する。
 
 ## 7. 参照先
 
@@ -112,6 +116,9 @@
 - `work/2026-02-20__wave1-migrate-operations-docs-to-human-centric-model/spec.md`
 - `work/2026-02-20__wave1-migrate-operations-docs-to-human-centric-model/review.md`
 - `docs/operations/wave1-operations-docs-human-centric-migration.md`
+- `work/2026-02-20__wave1-normalize-doc-work-cross-links/spec.md`
+- `work/2026-02-20__wave1-normalize-doc-work-cross-links/review.md`
+- `docs/operations/wave1-doc-work-cross-link-normalization.md`
 
 ## 8. 引き継ぎ時チェック
 

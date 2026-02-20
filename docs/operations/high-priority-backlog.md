@@ -26,21 +26,12 @@
 
 ## 優先タスク一覧
 
-5. `2026-02-20__wave1-normalize-doc-work-cross-links`
-- 状態: planned
-- 計画段階: plan-draft
-- ゲート状態: plan-ready
-- 依存: `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`, `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`
-- 依存状態: 解決済み
-- 目的: docs と work の相互参照を統一し、参照切れを解消する
-- 参照: `work/2026-02-20__wave1-normalize-doc-work-cross-links/spec.md`
-
 6. `2026-02-20__wave2-spec-doc-quality-check-rules`
 - 状態: planned
 - 計画段階: plan-draft
-- ゲート状態: dependency-blocked
+- ゲート状態: plan-ready
 - 依存: `2026-02-20__wave1-normalize-doc-work-cross-links`
-- 依存状態: 未解決（先行タスク完了待ち）
+- 依存状態: 解決済み
 - 目的: consistency-check / state-validate へ追加する docs 品質チェック仕様を設計する
 - 参照: `work/2026-02-20__wave2-spec-doc-quality-check-rules/spec.md`
 
@@ -374,6 +365,13 @@
 - 依存状態: 解決済み
 - 目的: docs/operations の主要資料を情報モデルに合わせて補完・再編する
 - 参照: `work/2026-02-20__wave1-migrate-operations-docs-to-human-centric-model/spec.md`
+
+45. `2026-02-20__wave1-normalize-doc-work-cross-links`
+- 状態: done
+- 依存: `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`, `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`
+- 依存状態: 解決済み
+- 目的: docs と work の相互参照を統一し、参照切れを解消する
+- 参照: `work/2026-02-20__wave1-normalize-doc-work-cross-links/spec.md`
 
 ## 更新ルール
 

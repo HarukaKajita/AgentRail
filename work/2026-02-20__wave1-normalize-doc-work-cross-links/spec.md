@@ -9,13 +9,13 @@
 ## 前提知識 (Prerequisites / 前提知識) [空欄禁止]
 
 - 参照資料:
-  - `AGENTS.md`
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
+  - `docs/operations/wave1-core-docs-human-centric-migration.md`
+  - `docs/operations/wave1-operations-docs-human-centric-migration.md`
+  - `docs/operations/high-priority-backlog.md`
   - `work/2026-02-20__wave1-normalize-doc-work-cross-links/request.md`
   - `work/2026-02-20__wave1-normalize-doc-work-cross-links/investigation.md`
 - 理解ポイント:
-  - Wave 1: docs-work 相互リンク正規化 は wave 計画を実行するための分割タスクである。
+  - Wave 1 normalize は docs/work 双方向リンクの表記ゆれ解消を担当する。
 
 ## 1. メタ情報 [空欄禁止]
 
@@ -28,26 +28,27 @@
 
 ## 2. 背景と目的 [空欄禁止]
 
-- 背景: wave 計画を実行可能な粒度へ分割する必要がある。
+- 背景: Wave 1 core/operations 移行で docs が増え、相互参照の表記ゆれが発生しやすくなっている。
 - 目的: docs と work の相互参照を統一し、参照切れを解消する。
 
 ## 3. スコープ [空欄禁止]
 
 ### 3.1 In Scope [空欄禁止]
 
-- 本タスク対象の成果物定義と実施方針の確定。
-- depends_on / gate / rollback の明文化。
+- docs/work 相互リンクの表記ルールを明文化する。
+- 主要 migration docs へ統一表記を適用する。
+- 正規化結果 docs を追加し、後続 Wave 2 へ引き継ぐ。
 - review と検証結果の記録。
 
 ### 3.2 Out of Scope [空欄禁止]
 
-- 依存していない後続 wave タスクの完了。
-- 全 docs の一括改修。
+- validator 実装変更（Wave 2 で対応）。
+- KPI 自動集計（Wave 3 で対応）。
 
 ## 4. 受入条件 (Acceptance Criteria / 受入条件) [空欄禁止]
 
-- AC-001: Wave 1: docs-work 相互リンク正規化 の成果物・手順・ゲート・ロールバックが task 資料に明記される。
-- AC-002: depends_on と backlog/state/plan の整合が維持される。
+- AC-001: docs/work 相互リンクの表記ルールと正規化結果が `docs/operations/wave1-doc-work-cross-link-normalization.md` に記録される。
+- AC-002: depends_on と backlog/state/plan の整合が維持され、Wave 2 仕様タスクを plan-ready に更新できる。
 
 ## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
 
@@ -71,26 +72,26 @@
 
 ### 5.4 Manual Verification (Manual Verification / 手動検証) [空欄禁止]
 
-- 手順: backlog と MEMORY を確認し、依存順序と次アクションが明示されることを確認
+- 手順: 正規化対象 docs の links 表記が統一されていることを目視確認する
 - 期待結果: AC-001 と AC-002 を満たす
 
 ## 6. 影響範囲 [空欄禁止]
 
-- 影響ファイル/モジュール: `work/2026-02-20__wave1-normalize-doc-work-cross-links`/*, `docs/operations/high-priority-backlog.md`, `MEMORY.md`
+- 影響ファイル/モジュール: `docs/operations/wave1-core-docs-human-centric-migration.md`, `docs/operations/wave1-operations-docs-human-centric-migration.md`, `docs/operations/wave1-doc-work-cross-link-normalization.md`, `docs/operations/high-priority-backlog.md`, `work/2026-02-20__wave1-normalize-doc-work-cross-links/*`, `docs/INDEX.md`, `MEMORY.md`
 - 影響する仕様: human-centric docs migration wave 計画
-- 非機能影響: docs 更新の追跡性とレビュー可能性が向上する
+- 非機能影響: 参照追跡の一貫性向上、レビュー効率向上
 
 ## 7. 制約とリスク [空欄禁止]
 
 - 制約: depends_on 未解決時は dependency-blocked を維持する。
 - 想定リスク:
-  - 依存順序を崩した前倒し実装
+  - 表記統一ルールが曖昧で再び揺れが発生する
   - docs 導線更新漏れ
-- 回避策: gate 判定と docs-indexer check を完了条件へ含める。
+- 回避策: ルールと具体例を同一 docs に記録し、対象ファイルへ反映する。
 
 ## 8. 未確定事項 [空欄禁止]
 
-- 実施時に発生する追加改善点は review の Process Findings で管理する。
+- Wave 2 で追加される品質チェック項目と cross-link ルールの結合方式。
 
 ## 9. 関連資料リンク [空欄禁止]
 
@@ -98,7 +99,7 @@
 - investigation: `work/2026-02-20__wave1-normalize-doc-work-cross-links/investigation.md`
 - plan: `work/2026-02-20__wave1-normalize-doc-work-cross-links/plan.md`
 - review: `work/2026-02-20__wave1-normalize-doc-work-cross-links/review.md`
-- docs:
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
-
+- `docs/operations/wave1-doc-work-cross-link-normalization.md`
+- `docs/operations/wave1-core-docs-human-centric-migration.md`
+- `docs/operations/wave1-operations-docs-human-centric-migration.md`
+- `docs/operations/high-priority-backlog.md`

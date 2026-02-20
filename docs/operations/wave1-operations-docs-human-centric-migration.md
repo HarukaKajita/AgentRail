@@ -42,3 +42,9 @@
 
 - 追記により可読性が低下した場合は、導線説明を簡略化し詳細を本資料に集約する。
 - 関連リンクの整合崩れがあれば `docs/INDEX.md` と `high-priority-backlog.md` を先に復旧する。
+
+## 6. 関連 task
+
+- `work/2026-02-20__wave1-migrate-operations-docs-to-human-centric-model/spec.md`
+- `work/2026-02-20__wave1-migrate-operations-docs-to-human-centric-model/review.md`
+- `work/2026-02-20__wave1-normalize-doc-work-cross-links/spec.md`
