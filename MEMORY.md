@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__align-workflow-dispatch-task-id-contract
-- タイトル: Align workflow_dispatch task_id contract
+- Task ID: 2026-02-20__allow-schema-governance-without-base-sha
+- タイトル: Allow schema governance without base sha
 - 状態: planned
-- 最終更新日時: 2026-02-20T12:46:37+09:00
+- 最終更新日時: 2026-02-20T12:50:12+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -19,6 +19,7 @@
 
 ## 3. 完了済み
 
+- `2026-02-20__align-workflow-dispatch-task-id-contract` を完了。
 - `2026-02-20__fix-improvement-create-task-parser-errors` を完了。
 - `2026-02-19__existing-docs-prerequisites-retrofit` を完了。
 - `2026-02-19__ci-profile-schema-version-governance-gate` を完了。
@@ -56,15 +57,15 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__align-workflow-dispatch-task-id-contract` を実装して CI 手動実行契約を整合させる。
-2. `2026-02-20__allow-schema-governance-without-base-sha` を実装して初回 push 系のガバナンス判定を安定化する。
+1. `2026-02-20__allow-schema-governance-without-base-sha` を実装して初回 push 系のガバナンス判定を安定化する。
+2. `2026-02-20__fix-improvement-create-task-dependency-placeholder` を実装して create-task テンプレート残留を解消する。
 3. 残りの medium/low 優先タスクを backlog 順で順次処理する。
 
 ## 7. 参照先
 
 - `docs/operations/high-priority-backlog.md`
-- `work/2026-02-20__align-workflow-dispatch-task-id-contract/spec.md`
 - `work/2026-02-20__allow-schema-governance-without-base-sha/spec.md`
+- `work/2026-02-20__fix-improvement-create-task-dependency-placeholder/spec.md`
 
 ## 8. 引き継ぎ時チェック
 
