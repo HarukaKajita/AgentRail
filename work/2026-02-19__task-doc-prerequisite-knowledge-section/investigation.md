@@ -19,7 +19,7 @@
 
 - 前提知識セクションの書式を標準化し、起票時の自動生成と整合チェックを組み合わせれば、どの資料からでも遡及可能な理解導線を運用で維持できる。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - `docs/templates/spec.md`
@@ -33,7 +33,7 @@
   - `tools/improvement-harvest/create-task.ps1` の生成文面に前提知識セクションが未定義であることを確認。
   - `tools/consistency-check/check.ps1` は必須ファイルや空欄禁止を検査するが、前提知識セクションの存在は検査していないことを確認。
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - 事実:
   - spec/investigation/review テンプレートに前提知識セクションがない。

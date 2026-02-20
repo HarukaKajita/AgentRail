@@ -18,7 +18,7 @@
 
 - `$HOME` 依存の案内を除去し、スキル同梱 scripts ディレクトリへ到達する案内へ統一すれば、実行再現性が向上する。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - `.agents/skills/Rail10-list-planned-tasks-by-backlog-priority/SKILL.md`
@@ -28,7 +28,7 @@
   - スクリプト本体が `.agents/skills/Rail10-list-planned-tasks-by-backlog-priority/scripts/list_planned_tasks.ps1` に存在することを確認。
   - `.agents/skills/Rail10-list-planned-tasks-by-backlog-priority/SKILL.md` と `agents/skills/Rail10-list-planned-tasks-by-backlog-priority/SKILL.md` が現時点で内容一致していることを確認。
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - `.agents/skills/Rail10-list-planned-tasks-by-backlog-priority/SKILL.md` には実行パス方針が2種類混在している。
 - "$HOME/.agents/..." は利用者環境の配置前提を含み、リポジトリ内の実行導線としては冗長。

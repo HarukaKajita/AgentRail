@@ -18,7 +18,7 @@
 
 - profile schema 変更時の versioning 判定を専用スクリプトで機械化し、CI で実行すれば、`schema_version` 更新漏れと不整合を確実に防止できる。
 
-## 3. 観測方法 [空欄禁止]
+## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
   - `.github/workflows/ci-framework.yml`
@@ -32,7 +32,7 @@
   - `tools/profile-validate/profile-schema.json` は `schema_version` / `supported_profile_schema_versions` / `forbidden_top_level_keys` を保持する。
   - policy docs は更新ルールを文章で示しているが、CI 強制が未定義。
 
-## 4. 観測結果 (Observations / 観測結果) [空欄禁止]
+## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - 事実:
   - CI は `docs-indexer -> profile-validate -> state-validate -> resolve-task -> consistency-check` の順で動作している。
