@@ -4,73 +4,73 @@
 
 - 参照資料:
   - `AGENTS.md`
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
+  - `docs/operations/wave3-doc-quality-kpi-thresholds.md`
+  - `tools/consistency-check/check.ps1`
   - `work/2026-02-20__wave3-automate-doc-quality-metrics-report/request.md`
 - 理解ポイント:
-  - Wave 3: docs品質メトリクス自動集計 の実行順序は wave 計画と depends_on に従う。
+  - task11 は KPI 指標定義を破壊せずに自動算出へ置換するタスク。
 
 ## 1. 調査対象 [空欄禁止]
 
-- 課題: docs 品質KPIの自動集計と可視化レポートを設計・実装する。
-- 目的: 実行対象、検証方法、ロールバック条件を明確化する。
-- 依存: 2026-02-20__wave3-define-doc-quality-kpi-thresholds
+- 課題: KPI を手動観測から自動集計へ移行する。
+- 目的: 集計スクリプトと可視化レポートの最小実装を確定する。
+- 依存: `2026-02-20__wave3-define-doc-quality-kpi-thresholds`
 
 ## 2. 仮説 (Hypothesis / 仮説) [空欄禁止]
 
-- 入力・出力・ゲートを明示すれば、後続 wave への引き継ぎ精度を維持できる。
+- consistency-check JSON と state.json だけで task10 定義の KPI を再現できる。
 
 ## 3. 調査方法 (Observation Method / 観測方法) [空欄禁止]
 
 - 参照資料:
-  - `docs/INDEX.md`
-  - `docs/operations/high-priority-backlog.md`
-  - tools/consistency-check/check.ps1
-  - tools/state-validate/validate.ps1
+  - `tools/consistency-check/check.ps1`
+  - `tools/common/profile-paths.ps1`
+  - `docs/operations/wave3-doc-quality-kpi-thresholds.md`
 - 実施した確認:
-  - 依存タスクの完了状態を確認する。
-  - 本タスク成果物の配置先と参照更新箇所を確認する。
-  - 検証コマンドの実行可能性を確認する。
+  1. consistency JSON の `task_count`、`doc_quality_issues`、`results` を確認。
+  2. `work/*/state.json` から stale task 件数を算出可能か確認。
+  3. 出力形式を JSON + Markdown の2系統にする設計を確認。
 
 ## 4. 調査結果 (Observations / 観測結果) [空欄禁止]
 
 - 事実:
-  - Wave 3: docs品質メトリクス自動集計 は wave 計画の分割単位として必要。
-  - depends_on は 未解決（2026-02-20__wave3-define-doc-quality-kpi-thresholds[planned]）。
+  - consistency JSON から `task_count`、`doc_quality_issues`、`results` を取得できる。
+  - `DQ-002 count` と `warning_free_task_ratio` を算出可能。
+  - state.json から active task の更新遅延（14日超）を算出可能。
+  - depends_on は解決済み（task10 done）。
 - 推測:
-  - task 完了時に docs 導線と review 証跡を残すことで回帰リスクを低減できる。
+  - report schema を固定すれば task12 で Process Findings 連携が容易になる。
 
 ## 5. 提案オプション [空欄禁止]
 
-1. 最短経路:
-   - 最低限の文書更新のみ実施。
-2. 標準経路（推奨）:
-   - 文書更新 + 検証 + state 更新まで実施。
-3. 先行拡張:
-   - 後続タスク範囲まで同時に拡張。
+1. JSON のみ出力する。
+2. JSON + Markdown を同時出力する（推奨）。
+3. 既存スクリプトへ集計処理を直接統合する。
 
 ## 6. 推奨案 [空欄禁止]
 
-- 推奨: 2. 標準経路
+- 推奨: 2. JSON + Markdown 同時出力
 - 理由:
-  - 品質ゲートを満たしつつ、過剰実装を避けられる。
+  - 機械処理（JSON）と人間レビュー（Markdown）を同時に満たせるため。
 
 ## 7. 結論 (Conclusion / 結論) [空欄禁止]
 
-- Wave 3: docs品質メトリクス自動集計 を単独タスクとして起票し、wave 依存順序を維持して進行する。
+- `tools/doc-quality/generate-kpi-report.ps1` を追加し、task10定義KPIを自動算出する。
 
 ## 8. 未解決事項 [空欄禁止]
 
-- 実行時に追加で判明する運用制約は review で Process Findings へ記録する。
+- task12 での KPI 悪化条件に対する起票ポリシー（次タスクで確定）。
 
 ## 9. 次アクション [空欄禁止]
 
-1. spec で受入条件とテスト要件を確定する。
-2. plan で depends_on gate と検証順序を確定する。
-3. backlog/state と同期する。
+1. script と運用 docs を実装する。
+2. task11 review/state/backlog/MEMORY を同期する。
+3. validator を実行して done 判定を確定する。
 
 ## 10. 関連リンク [空欄禁止]
 
 - request: `work/2026-02-20__wave3-automate-doc-quality-metrics-report/request.md`
 - spec: `work/2026-02-20__wave3-automate-doc-quality-metrics-report/spec.md`
-
+- docs:
+  - `docs/operations/wave3-doc-quality-kpi-thresholds.md`
+  - `docs/operations/wave3-doc-quality-metrics-report-automation.md`

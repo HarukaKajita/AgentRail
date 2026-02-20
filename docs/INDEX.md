@@ -86,6 +86,7 @@
 - `docs/operations/wave2-doc-quality-fail-mode.md` - Wave 2: Doc Quality Fail Mode
 - `docs/operations/wave2-doc-quality-warning-mode.md` - Wave 2: Doc Quality Warning Mode
 - `docs/operations/wave3-doc-quality-kpi-thresholds.md` - Wave 3: Doc Quality KPI Thresholds
+- `docs/operations/wave3-doc-quality-metrics-report-automation.md` - Wave 3: Doc Quality Metrics Report Automation
 
 ## 7. 更新手順
 

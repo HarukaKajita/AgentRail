@@ -4,11 +4,11 @@
 
 - 参照資料:
   - `AGENTS.md`
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
+  - `docs/operations/wave3-doc-quality-kpi-thresholds.md`
+  - `docs/operations/wave2-doc-quality-warning-mode.md`
   - `docs/operations/high-priority-backlog.md`
 - 理解ポイント:
-  - Wave 3: docs品質メトリクス自動集計 は wave 計画に基づく実行タスクである。
+  - task11 は task10 で定義した KPI を機械集計へ落とし込む実装タスク。
 
 ## 要望の原文
 
@@ -18,41 +18,37 @@
 ## 要望分析
 
 - 直要求:
-  - Wave 3: docs品質メトリクス自動集計 の成果物を定義し、task 一式へ反映する。
-  - depends_on と gate 状態を明確化する。
+  - KPI 集計スクリプトを追加し、JSON/Markdown レポートを生成可能にする。
+  - 運用ドキュメントを追加し、実行手順と判定ルールを明文化する。
 - 潜在要求:
-  - `docs` / `work` の相互参照を維持し、後続 wave へ引き継げる情報を残す。
+  - task12 で Process Findings 連携しやすい出力形式にする。
+  - 既存 warning/fail 運用と競合しないことを担保する。
 - 非要求:
-  - 後続 wave の実装完了。
+  - KPI 悪化時の自動起票（task12 で実施）。
 
 ## 提案オプション（3案）
 
-1. 最小実行:
-   - 最低限の成果物のみ作成する。
-2. 標準実行（採用）:
-   - 受入条件・テスト要件・依存整合まで同時に確定する。
-3. 拡張実行:
-   - 後続 wave の内容まで先行実装する。
+1. docs のみ更新し、集計は手動のままにする。
+2. スクリプト + docs を同時実装する（採用）。
+3. CI 組み込みまで同時実装する。
 
 ## 推奨案
 
-- 採用: オプション2（標準実行）
+- 採用: オプション2
 - 採用理由:
-  - 依存順序を守りながら、完了判定に必要な品質証跡を残せる。
+  - Wave 3 の段階実行を維持しつつ、task12 の入力を先に安定化できるため。
 
 ## 依存関係整理
 
-- depends_on: 2026-02-20__wave3-define-doc-quality-kpi-thresholds
-- 依存状態: 未解決（2026-02-20__wave3-define-doc-quality-kpi-thresholds[planned]）
+- depends_on: `2026-02-20__wave3-define-doc-quality-kpi-thresholds`
+- 依存状態: 解決済み（task10 は `done`）
 
 ## 成功条件（要望レベル）
 
-1. Wave 3: docs品質メトリクス自動集計 の成果物が task 資料と関連 docs に明文化される。
-2. depends_on と gate 状態が backlog/state/plan で整合する。
-3. 後続 task が参照可能な形で引き継ぎ情報が記録される。
+1. `tools/doc-quality/generate-kpi-report.ps1` で KPI レポートを生成できる。
+2. `docs/operations/wave3-doc-quality-metrics-report-automation.md` で運用手順を参照できる。
+3. backlog/state/MEMORY が task12 着手状態へ同期される。
 
 ## blocked 判定
 
-- 依存未解決のため dependency-blocked を維持。
-
-
+- depends_on 解決済みのため plan-ready で進行する。
