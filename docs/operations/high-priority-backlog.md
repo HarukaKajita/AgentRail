@@ -44,6 +44,15 @@
 - 目的: wave3 investigation の一時参照切れを修正し、checker fail を解消する
 - 参照: `work/2026-02-20__fix-wave3-investigation-broken-tmp-reference/spec.md`
 
+- `2026-02-20__define-kpi-report-execution-calendar`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: plan-ready
+- 依存: `2026-02-20__wave3-connect-kpi-to-process-findings-loop`
+- 依存状態: 解決済み
+- 目的: KPI レポートの週次/リリース前実行タイミングを運用カレンダーへ反映する
+- 参照: `work/2026-02-20__define-kpi-report-execution-calendar/spec.md`
+
 ## Completed
 
 1. `2026-02-20__redesign-human-centric-doc-bank-governance`
