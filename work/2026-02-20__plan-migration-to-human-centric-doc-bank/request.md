@@ -48,7 +48,7 @@
 ## 依存関係整理
 
 - depends_on: `2026-02-20__redesign-human-centric-doc-bank-governance`
-- 依存状態: 未解決（先行タスク完了待ち）
+- 依存状態: 解決済み（先行タスク `2026-02-20__redesign-human-centric-doc-bank-governance` が done）
 
 ## 成功条件（要望レベル）
 
@@ -58,4 +58,4 @@
 
 ## blocked 判定
 
-- 先行タスク完了前は `dependency-blocked` を維持し、完了後に `plan-ready` へ遷移する。
+- 先行タスク完了前は `dependency-blocked` を維持し、完了後は `plan-ready` を経て実行計画を確定した。

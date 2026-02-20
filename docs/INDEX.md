@@ -50,6 +50,7 @@
 - `docs/operations/framework-request-to-commit-visual-guide.md` - ユーザー要望から実装・コミットまでのフロー可視化ガイド
 - `docs/operations/high-priority-backlog.md` - 高優先バックログ
 - `docs/operations/human-centric-doc-bank-governance.md` - Human-Centric Doc Bank Governance
+- `docs/operations/human-centric-doc-bank-migration-plan.md` - Human-Centric Doc Bank Migration Plan
 - `docs/operations/legacy-documents-policy.md` - 旧資料の隔離運用ポリシー
 - `docs/operations/profile-validator-required-checks-source-of-truth.md` - Profile Validator Required Checks Source Of Truth
 - `docs/operations/profile-validator-schema-version-policy.md` - Profile Validator Schema Version Policy

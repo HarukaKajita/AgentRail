@@ -48,7 +48,7 @@
 
 ## 4. 受入条件 (Acceptance Criteria / 受入条件) [空欄禁止]
 
-- AC-001: 既存資産を新設計へ移行する段階計画（フェーズ、成果物、ゲート、ロールバック）が task 資料に明記される。
+- AC-001: 既存資産を新設計へ移行する段階計画（フェーズ、成果物、ゲート、ロールバック）が task 資料と `docs/operations/human-centric-doc-bank-migration-plan.md` に明記される。
 - AC-002: depends_on と backlog/state/plan の整合が維持され、Task A 完了後に着手できる状態になる。
 
 ## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
@@ -78,7 +78,7 @@
 
 ## 6. 影響範囲 [空欄禁止]
 
-- 影響ファイル/モジュール: `work/2026-02-20__plan-migration-to-human-centric-doc-bank/*`, `docs/operations/high-priority-backlog.md`, `MEMORY.md`
+- 影響ファイル/モジュール: `work/2026-02-20__plan-migration-to-human-centric-doc-bank/*`, `docs/operations/human-centric-doc-bank-migration-plan.md`, `docs/operations/high-priority-backlog.md`, `MEMORY.md`
 - 影響する仕様: docs 移行計画、タスク依存ルール、段階ゲート運用
 - 非機能影響: 移行時の可視性、監査性、合意形成速度が向上する
 
@@ -101,4 +101,5 @@
 - plan: `work/2026-02-20__plan-migration-to-human-centric-doc-bank/plan.md`
 - review: `work/2026-02-20__plan-migration-to-human-centric-doc-bank/review.md`
 - docs:
+  - `docs/operations/human-centric-doc-bank-migration-plan.md`
   - `docs/operations/high-priority-backlog.md`

@@ -7,14 +7,14 @@
 
 - Task ID: 2026-02-20__plan-migration-to-human-centric-doc-bank
 - タイトル: 人間理解中心資料バンクへの既存資産移行計画を起票
-- 状態: planned
-- 最終更新日時: 2026-02-20T16:43:28+09:00
+- 状態: done
+- 最終更新日時: 2026-02-20T16:52:26+09:00
 - 担当: codex
 
 ## 2. 今回の目的
 
-- フレームワーク目的を「再現性 + 人間理解」へ拡張し、資料バンク運用ガバナンスを確定する。
-- 既存 docs/運用仕組みを段階移行する Task B の着手準備を整える。
+- フレームワーク目的を「再現性 + 人間理解」へ拡張したうえで、既存資産の段階移行計画を確定する。
+- Wave 0-3 の実行順序と検証/ロールバック方針を次段タスクへ受け渡せる状態にする。
 
 ## 3. 完了済み
 
@@ -42,9 +42,9 @@
   - `docs/operations/human-centric-doc-bank-governance.md` を追加し、運用原則・情報モデル・品質ゲートを定義。
   - `AGENTS.md` と `README.md` の目的記述を「再現性 + 人間理解」へ更新。
   - backlog と task state の依存整合を更新し、Task B を plan-ready に切り替え。
-- `2026-02-20__plan-migration-to-human-centric-doc-bank` を起票。
-  - 既存 docs/仕組みを新設計へ移行する段階計画（Wave 0-3）を定義。
-  - depends_on を Task A に設定し、段階実行順序を固定。
+- `2026-02-20__plan-migration-to-human-centric-doc-bank` を完了。
+  - `docs/operations/human-centric-doc-bank-migration-plan.md` を追加し、Wave 0-3 の移行計画を定義。
+  - Task A 依存ゲートを pass 化し、Task B の `review/state/backlog` を完了状態へ更新。
 
 ## 4. 重要な意思決定
 
@@ -53,6 +53,7 @@
 - 導入先の task root は `.agentrail/work` に統一する。
 - package 化は別タスク（`2026-02-20__plan-runtime-package-distribution-migration`）で計画先行する。
 - 人間理解中心 docs ガバナンスの正本は `docs/operations/human-centric-doc-bank-governance.md` とする。
+- 既存資産移行の正本計画は `docs/operations/human-centric-doc-bank-migration-plan.md` とする。
 
 ## 5. 未解決・ブロッカー
 
@@ -60,14 +61,15 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__plan-migration-to-human-centric-doc-bank` を実行し、Wave 単位の実行タスク分割を起票する。
-2. 移行計画に基づき、docs 品質ゲートと自動検証拡張タスクを優先度順に展開する。
-3. docs 品質ゲートのしきい値（更新遅延・網羅率）を Task B で定量化する。
+1. Wave 0（Inventory）実行タスクを起票し、対象棚卸しを開始する。
+2. Wave 1（Core Docs Migration）準備として must 領域 docs の不足カテゴリを確定する。
+3. docs 品質ゲートのしきい値（更新遅延・網羅率）を Wave 3 で確定する。
 
 ## 7. 参照先
 
 - `docs/operations/high-priority-backlog.md`
 - `docs/operations/human-centric-doc-bank-governance.md`
+- `docs/operations/human-centric-doc-bank-migration-plan.md`
 - `work/2026-02-20__define-runtime-manifest-and-export-flow/review.md`
 - `work/2026-02-20__add-runtime-installer-with-agentrail-work-layout/review.md`
 - `work/2026-02-20__refactor-tools-to-profile-driven-runtime-paths/review.md`
@@ -75,6 +77,7 @@
 - `work/2026-02-20__plan-runtime-package-distribution-migration/review.md`
 - `work/2026-02-20__redesign-human-centric-doc-bank-governance/review.md`
 - `work/2026-02-20__redesign-human-centric-doc-bank-governance/spec.md`
+- `work/2026-02-20__plan-migration-to-human-centric-doc-bank/review.md`
 - `work/2026-02-20__plan-migration-to-human-centric-doc-bank/spec.md`
 
 ## 8. 引き継ぎ時チェック

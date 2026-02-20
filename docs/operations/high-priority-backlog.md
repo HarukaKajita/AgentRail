@@ -15,14 +15,7 @@
 
 ## 優先タスク一覧
 
-1. `2026-02-20__plan-migration-to-human-centric-doc-bank`
-- 状態: planned
-- 計画段階: plan-draft
-- ゲート状態: plan-ready
-- 依存: `2026-02-20__redesign-human-centric-doc-bank-governance`
-- 依存状態: 解決済み
-- 目的: 既存 docs/運用仕組みを新設計へ移行する段階計画とタスク分割を定義する
-- 参照: `work/2026-02-20__plan-migration-to-human-centric-doc-bank/spec.md`
+- なし
 
 ## Completed
 
@@ -265,6 +258,13 @@
 - 依存状態: 解決済み
 - 目的: `dist/runtime` コピー配布から package 配布へ移行する条件・互換ポリシー・実施手順を定義する
 - 参照: `work/2026-02-20__plan-runtime-package-distribution-migration/spec.md`
+
+40. `2026-02-20__plan-migration-to-human-centric-doc-bank`
+- 状態: done
+- 依存: `2026-02-20__redesign-human-centric-doc-bank-governance`
+- 依存状態: 解決済み
+- 目的: 既存 docs/運用仕組みを人間理解中心設計へ移行する wave 計画とタスク分割方針を定義する
+- 参照: `work/2026-02-20__plan-migration-to-human-centric-doc-bank/spec.md`
 
 ## 更新ルール
 

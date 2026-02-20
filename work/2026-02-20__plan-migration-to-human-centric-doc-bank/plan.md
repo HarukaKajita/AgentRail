@@ -30,7 +30,7 @@
 
 - 依存: `2026-02-20__redesign-human-centric-doc-bank-governance`
 - 判定方針: 依存タスクが `done` になるまで `dependency-blocked` を維持する。
-- 判定結果: pending（依存タスク完了後に pass へ更新）
+- 判定結果: pass（依存タスク `2026-02-20__redesign-human-centric-doc-bank-governance` が `done`）
 
 ## 4. plan-final
 
@@ -46,6 +46,10 @@
      - CI 運用への段階導入手順を定義
   4. Wave 3: Stabilization
      - 運用メトリクスを観測し改善タスクへ接続
+- 成果物:
+  - `docs/operations/human-centric-doc-bank-migration-plan.md`
+  - Wave 0-3 の入力/出力/ゲート/rollback 定義
+  - 派生タスク分割方針
 - 検証順序:
   1. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-20__redesign-human-centric-doc-bank-governance,2026-02-20__plan-migration-to-human-centric-doc-bank`
   2. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__plan-migration-to-human-centric-doc-bank`
