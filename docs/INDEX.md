@@ -89,6 +89,7 @@
 - `docs/operations/wave3-doc-quality-kpi-thresholds.md` - Wave 3: Doc Quality KPI Thresholds
 - `docs/operations/wave3-doc-quality-metrics-report-automation.md` - Wave 3: Doc Quality Metrics Report Automation
 - `docs/operations/wave3-kpi-process-findings-loop.md` - Wave 3: KPI Process Findings Loop
+- `docs/operations/wave3-kpi-report-execution-calendar.md` - Wave 3: KPI Report Execution Calendar
 
 ## 7. 更新手順
 

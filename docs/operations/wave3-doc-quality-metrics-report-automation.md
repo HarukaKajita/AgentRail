@@ -5,6 +5,7 @@
 - 参照資料:
   - `AGENTS.md`
   - `docs/operations/wave3-doc-quality-kpi-thresholds.md`
+  - `docs/operations/wave3-kpi-report-execution-calendar.md`
   - `docs/operations/wave2-doc-quality-warning-mode.md`
   - `tools/doc-quality/generate-kpi-report.ps1`
   - `work/2026-02-20__wave3-automate-doc-quality-metrics-report/spec.md`
@@ -80,7 +81,7 @@ pwsh -NoProfile -File tools/doc-quality/generate-kpi-report.ps1 \
 
 ## 7. 運用手順
 
-1. 週次または release 前にスクリプトを実行する。
+1. 週次または release 前にスクリプトを実行する（時刻/責務は `docs/operations/wave3-kpi-report-execution-calendar.md` を参照）。
 2. `summary.overall_status` が `yellow/red` の場合は `review.md` に Process Finding を記録する。
 3. `linked_task_id` を付与して follow-up task を backlog へ登録する。
 
@@ -93,6 +94,7 @@ pwsh -NoProfile -File tools/doc-quality/generate-kpi-report.ps1 \
 
 - docs:
   - `docs/operations/wave3-doc-quality-kpi-thresholds.md`
+  - `docs/operations/wave3-kpi-report-execution-calendar.md`
   - `docs/operations/wave2-doc-quality-warning-mode.md`
   - `docs/operations/wave2-doc-quality-fail-mode.md`
 - work:

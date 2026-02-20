@@ -99,7 +99,7 @@
 
 ## 8. 未確定事項 [空欄禁止]
 
-- 週次実行の曜日・時刻の最終決定。
+- なし（毎週月曜 10:00 JST を標準時刻として確定）。
 
 ## 9. 関連資料リンク [空欄禁止]
 
@@ -109,3 +109,4 @@
 - review: `work/2026-02-20__define-kpi-report-execution-calendar/review.md`
 - docs:
   - `docs/operations/high-priority-backlog.md`
+  - `docs/operations/wave3-kpi-report-execution-calendar.md`

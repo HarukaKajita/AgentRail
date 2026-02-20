@@ -6,6 +6,7 @@
   - `AGENTS.md`
   - `docs/operations/human-centric-doc-bank-governance.md`
   - `docs/operations/human-centric-doc-bank-migration-plan.md`
+  - `docs/operations/wave3-kpi-report-execution-calendar.md`
   - `docs/operations/wave2-doc-quality-warning-mode.md`
   - `docs/operations/wave2-doc-quality-fail-mode.md`
   - `work/2026-02-20__wave3-define-doc-quality-kpi-thresholds/spec.md`
@@ -70,6 +71,7 @@
 1. 週次で KPI を更新し、最新値をレポートへ記録する。
 2. Red が 1 つでも発生した場合は、`review.md` の Process Findings で `action_required=yes` を設定して follow-up task を起票する。
 3. 2 週連続で Yellow が継続した場合は、閾値見直しではなく原因修正を優先する。
+4. 実行タイミングと担当は `docs/operations/wave3-kpi-report-execution-calendar.md` の契約に従う。
 
 ## 7. 後続タスクへの引き継ぎ
 
@@ -88,6 +90,7 @@
 - docs:
   - `docs/operations/human-centric-doc-bank-governance.md`
   - `docs/operations/human-centric-doc-bank-migration-plan.md`
+  - `docs/operations/wave3-kpi-report-execution-calendar.md`
   - `docs/operations/wave2-doc-quality-warning-mode.md`
   - `docs/operations/wave2-doc-quality-fail-mode.md`
 - work:

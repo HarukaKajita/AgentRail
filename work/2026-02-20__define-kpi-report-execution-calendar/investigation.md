@@ -57,12 +57,12 @@
 
 ## 8. 未解決事項 [空欄禁止]
 
-- 実行担当者のロール命名（owner/reviewer/backup）の最終語彙。
+- なし（Execution Owner / Review Owner / Backup Owner で統一する）。
 
 ## 9. 次アクション [空欄禁止]
 
-1. spec で実行条件と運用責務を AC 化する。
-2. plan-draft で docs 反映順と検証順を固定する。
+1. task3 review/state/backlog/MEMORY を完了状態へ同期する。
+2. 次タスク `2026-02-20__run-wave3-doc-operations-review` へ着手する。
 
 ## 10. 関連リンク [空欄禁止]
 

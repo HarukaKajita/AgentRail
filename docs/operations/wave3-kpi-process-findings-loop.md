@@ -6,6 +6,7 @@
   - `AGENTS.md`
   - `docs/operations/wave3-doc-quality-kpi-thresholds.md`
   - `docs/operations/wave3-doc-quality-metrics-report-automation.md`
+  - `docs/operations/wave3-kpi-report-execution-calendar.md`
   - `tools/doc-quality/generate-kpi-report.ps1`
   - `tools/doc-quality/generate-finding-template.ps1`
   - `tools/improvement-harvest/create-task.ps1`
@@ -99,6 +100,7 @@ pwsh -NoProfile -File tools/improvement-harvest/create-task.ps1 \
 - docs:
   - `docs/operations/wave3-doc-quality-kpi-thresholds.md`
   - `docs/operations/wave3-doc-quality-metrics-report-automation.md`
+  - `docs/operations/wave3-kpi-report-execution-calendar.md`
 - work:
   - `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/spec.md`
   - `work/2026-02-20__wave3-automate-doc-quality-metrics-report/spec.md`

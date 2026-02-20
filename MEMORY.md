@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__define-kpi-report-execution-calendar
-- タイトル: KPI レポート実行カレンダー定義
+- Task ID: 2026-02-20__run-wave3-doc-operations-review
+- タイトル: Wave3 Docs 運用レビュー起票
 - 状態: planned
-- 最終更新日時: 2026-02-20T20:12:00+09:00
+- 最終更新日時: 2026-02-20T20:21:00+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -114,6 +114,11 @@
   - `docs/operations/wave3-kpi-process-findings-loop.md` の path 記述を `<report-json-path>` 形式へ統一し、再発防止ルールを追記。
   - `tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning` を PASS 化（DQ-002 warning 21件のみ）。
   - `docs/operations/high-priority-backlog.md` で同 task を Completed へ移動。
+- `2026-02-20__define-kpi-report-execution-calendar` を完了。
+  - `docs/operations/wave3-kpi-report-execution-calendar.md` を追加し、週次/リリース前/臨時の実行契約を定義。
+  - `docs/operations/wave3-doc-quality-kpi-thresholds.md` / `wave3-doc-quality-metrics-report-automation.md` / `wave3-kpi-process-findings-loop.md` に導線を追加。
+  - `docs/operations/high-priority-backlog.md` で同 task を Completed へ移動し、`run-wave3-doc-operations-review` を `plan-ready` に更新。
+  - `work/2026-02-20__define-kpi-report-execution-calendar/{investigation,spec,plan,review,state.json}` を done 条件へ更新。
 
 ## 4. 重要な意思決定
 
@@ -130,14 +135,15 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__define-kpi-report-execution-calendar` を完了し、KPI 実行タイミングを運用 docs に反映する。
-2. `2026-02-20__run-wave3-doc-operations-review` の depends_on を解決し、運用レビュー起票を完了する。
-3. backlog の planned タスクが空になったことを確認し、最終同期（docs/INDEX/MEMORY/state）を確定する。
+1. `2026-02-20__run-wave3-doc-operations-review` を完了し、backlog の planned タスクを解消する。
+2. backlog の planned タスクが空になったことを確認し、最終同期（docs/INDEX/MEMORY/state）を確定する。
+3. 全タスク完了後の最終検証（consistency/state/docs-indexer）結果を整理する。
 
 ## 7. 参照先
 
 - `docs/operations/high-priority-backlog.md`
 - `docs/operations/dq002-warning-remediation-priority-plan.md`
+- `docs/operations/wave3-kpi-report-execution-calendar.md`
 - `docs/operations/wave3-kpi-process-findings-loop.md`
 - `docs/operations/human-centric-doc-bank-governance.md`
 - `docs/operations/human-centric-doc-bank-migration-plan.md`
@@ -145,6 +151,8 @@
 - `work/2026-02-20__prioritize-dq002-warning-remediation/review.md`
 - `work/2026-02-20__fix-wave3-investigation-broken-tmp-reference/spec.md`
 - `work/2026-02-20__fix-wave3-investigation-broken-tmp-reference/review.md`
+- `work/2026-02-20__define-kpi-report-execution-calendar/spec.md`
+- `work/2026-02-20__define-kpi-report-execution-calendar/review.md`
 - `work/2026-02-20__define-runtime-manifest-and-export-flow/review.md`
 - `work/2026-02-20__add-runtime-installer-with-agentrail-work-layout/review.md`
 - `work/2026-02-20__refactor-tools-to-profile-driven-runtime-paths/review.md`
