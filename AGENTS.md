@@ -10,6 +10,21 @@ Claude 互換の補助は `CLAUDE.md` に記載しますが、矛盾時はこの
 - docs を人間理解の資料バンクとして運用し、目的・使い方・仕組み・実装・関連情報を辿れる状態を維持する。
 - 長時間作業でも引き継げるように `MEMORY.md` を更新する。
 
+### 1.1 Human-Centric Reading Path
+
+core docs を読む順序は次の 5 観点を基準にする。
+
+1. 目的:
+   - まず `AGENTS.md` の目的と完了条件を確認する。
+2. 使い方:
+   - `README.md` の実行フローと基本コマンドを確認する。
+3. 仕組み:
+   - `work/<task-id>/` と `docs/` の関係を把握する。
+4. 実装:
+   - `tools/*` と `project.profile.yaml` の実行契約を参照する。
+5. 関連:
+   - `docs/INDEX.md` と `docs/operations/high-priority-backlog.md` から関連資料へ辿る。
+
 ## 2. 実行前チェック (空欄禁止)
 
 以下を満たさない場合は実装に着手しない。

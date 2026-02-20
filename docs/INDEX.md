@@ -12,6 +12,19 @@
 このファイルは手動管理版のインデックスです。  
 将来は自動生成に置き換える予定ですが、現時点では更新を必須とします。
 
+## 0. 利用ガイド（Human-Centric）
+
+1. 目的:
+   - まず `AGENTS.md` と対象 task の `spec.md` を読む。
+2. 使い方:
+   - 実行手順は `README.md` と `docs/operations/*` runbook を参照する。
+3. 仕組み:
+   - `work/<task-id>/` と `docs/` の往復導線を確認する。
+4. 実装:
+   - `tools/*` と `project.profile.yaml` の実行契約を確認する。
+5. 関連:
+   - `docs/operations/high-priority-backlog.md` と `MEMORY.md` で進行中タスクを辿る。
+
 ## 1. 運用資料
 
 - `docs/README.md` - docs 運用ルール
@@ -66,6 +79,7 @@
 - `docs/operations/validator-enhancement-backlog.md` - Validator Enhancement Backlog
 - `docs/operations/wave0-doc-ownership-and-update-matrix.md` - Wave 0: Doc Ownership And Update Matrix
 - `docs/operations/wave0-inventory-human-centric-doc-coverage.md` - Wave 0 Inventory: Human-Centric Doc Coverage
+- `docs/operations/wave1-core-docs-human-centric-migration.md` - Wave 1 Core Docs: Human-Centric Migration
 
 ## 7. 更新手順
 

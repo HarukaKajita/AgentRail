@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__wave1-migrate-core-docs-to-human-centric-model
-- タイトル: Wave 1: AGENTS/README/INDEX を情報モデルへ移行
+- Task ID: 2026-02-20__wave1-migrate-operations-docs-to-human-centric-model
+- タイトル: Wave 1: operations docs を情報モデルへ移行
 - 状態: planned
-- 最終更新日時: 2026-02-20T17:36:21+09:00
+- 最終更新日時: 2026-02-20T17:41:05+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -53,6 +53,10 @@
   - `docs/operations/wave0-doc-ownership-and-update-matrix.md` を追加し、資料単位の責務マトリクスを定義。
   - `docs/operations/high-priority-backlog.md` で該当タスクを Completed へ移動。
   - `work/2026-02-20__wave0-define-doc-ownership-and-update-matrix/{plan,spec,review,state.json}` を done 条件へ更新。
+- `2026-02-20__wave1-migrate-core-docs-to-human-centric-model` を完了。
+  - `AGENTS.md` / `README.md` / `docs/INDEX.md` に人間理解導線セクションを追加。
+  - `docs/operations/wave1-core-docs-human-centric-migration.md` を追加し、core docs 移行結果を記録。
+  - `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model/{plan,spec,review,state.json}` を done 条件へ更新。
 - Wave 実行タスク 12 件を起票。
   - Wave 0: `2026-02-20__wave0-inventory-human-centric-doc-coverage`, `2026-02-20__wave0-define-doc-ownership-and-update-matrix`
   - Wave 1: `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`, `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`, `2026-02-20__wave1-normalize-doc-work-cross-links`
@@ -74,9 +78,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__wave1-migrate-core-docs-to-human-centric-model` を完了し、core docs の不足カテゴリを補完する。
-2. `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model` を完了し、operations docs の不足カテゴリを補完する。
-3. `2026-02-20__wave1-normalize-doc-work-cross-links` を完了し、docs/work 相互参照を正規化する。
+1. `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model` を完了し、operations docs の不足カテゴリを補完する。
+2. `2026-02-20__wave1-normalize-doc-work-cross-links` を完了し、docs/work 相互参照を正規化する。
+3. `2026-02-20__wave2-spec-doc-quality-check-rules` を完了し、docs品質チェック仕様を確定する。
 
 ## 7. 参照先
 
@@ -98,6 +102,9 @@
 - `work/2026-02-20__wave0-define-doc-ownership-and-update-matrix/spec.md`
 - `work/2026-02-20__wave0-define-doc-ownership-and-update-matrix/review.md`
 - `docs/operations/wave0-doc-ownership-and-update-matrix.md`
+- `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model/spec.md`
+- `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model/review.md`
+- `docs/operations/wave1-core-docs-human-centric-migration.md`
 
 ## 8. 引き継ぎ時チェック
 

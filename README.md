@@ -19,6 +19,21 @@ AgentRail は次の問題を解決することを目的にしています。
 - `work/<task-id>/`: 個別タスクの作業正本
 - `docs/`: プロジェクト横断の資料バンク（目的/使い方/仕組み/実装/関連情報の導線を維持）
 
+### 1.1 Human-Centric クイック導線
+
+最短で全体像を掴む場合は、次の順に確認します。
+
+1. 目的:
+   - `AGENTS.md` の「1. 目的」「7. 完了条件」
+2. 使い方:
+   - `README.md` の「6. 導入手順」「7. 使用方法」
+3. 仕組み:
+   - `README.md` の「2. 何で構成されるか」「3. どう動作するか」
+4. 実装:
+   - `tools/` と `project.profile.yaml`
+5. 関連:
+   - `docs/INDEX.md` と `docs/operations/high-priority-backlog.md`
+
 ---
 
 ## 2. 何で構成されるか（全体構成）

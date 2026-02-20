@@ -15,15 +15,6 @@
 
 ## 優先タスク一覧
 
-3. `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`
-- 状態: planned
-- 計画段階: plan-draft
-- ゲート状態: plan-ready
-- 依存: `2026-02-20__wave0-inventory-human-centric-doc-coverage`
-- 依存状態: 解決済み
-- 目的: AGENTS.md / README.md / docs/INDEX.md を人間理解中心の情報モデルへ適合させる
-- 参照: `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model/spec.md`
-
 4. `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`
 - 状態: planned
 - 計画段階: plan-draft
@@ -367,6 +358,13 @@
 - 依存状態: 解決済み
 - 目的: task owner / implementation owner / reviewer の責務を資料単位で定義する
 - 参照: `work/2026-02-20__wave0-define-doc-ownership-and-update-matrix/spec.md`
+
+43. `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`
+- 状態: done
+- 依存: `2026-02-20__wave0-inventory-human-centric-doc-coverage`
+- 依存状態: 解決済み
+- 目的: AGENTS.md / README.md / docs/INDEX.md を人間理解中心の情報モデルへ適合させる
+- 参照: `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model/spec.md`
 
 ## 更新ルール
 

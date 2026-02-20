@@ -10,12 +10,14 @@
 
 - 参照資料:
   - `AGENTS.md`
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
+  - `README.md`
+  - `docs/INDEX.md`
+  - `docs/operations/wave0-inventory-human-centric-doc-coverage.md`
+  - `docs/operations/wave0-doc-ownership-and-update-matrix.md`
   - `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model/request.md`
   - `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model/investigation.md`
 - 理解ポイント:
-  - Wave 1: AGENTS/README/INDEX を情報モデルへ移行 は wave 計画を実行するための分割タスクである。
+  - Wave 1 core docs 移行は、must 資料の「目的/使い方/仕組み/実装/関連」導線を先に整えるタスクである。
 
 ## 1. メタ情報 [空欄禁止]
 
@@ -28,26 +30,28 @@
 
 ## 2. 背景と目的 [空欄禁止]
 
-- 背景: wave 計画を実行可能な粒度へ分割する必要がある。
-- 目的: `AGENTS.md`、`README.md`、`docs/INDEX.md` を人間理解中心の情報モデルへ適合させる。
+- 背景: Wave 0 で core docs のカテゴリ不足が明確になったため、Wave 1 で first-class docs を補完する必要がある。
+- 目的: `AGENTS.md`、`README.md`、`docs/INDEX.md` に人間理解中心の導線（目的/使い方/仕組み/実装/関連）を追加する。
 
 ## 3. スコープ [空欄禁止]
 
 ### 3.1 In Scope [空欄禁止]
 
-- 本タスク対象の成果物定義と実施方針の確定。
-- depends_on / gate / rollback の明文化。
+- `AGENTS.md` の運用理解導線を補強する。
+- `README.md` の onboarding 導線を補強する。
+- `docs/INDEX.md` の利用ガイド導線を補強する。
+- core docs 移行結果を docs に記録する。
 - review と検証結果の記録。
 
 ### 3.2 Out of Scope [空欄禁止]
 
-- 依存していない後続 wave タスクの完了。
-- 全 docs の一括改修。
+- `docs/operations/*` 全体の補完（Wave 1 operations で実施）。
+- validator 実装変更（Wave 2 で実施）。
 
 ## 4. 受入条件 (Acceptance Criteria / 受入条件) [空欄禁止]
 
-- AC-001: Wave 1: AGENTS/README/INDEX を情報モデルへ移行 の成果物・手順・ゲート・ロールバックが task 資料に明記される。
-- AC-002: depends_on と backlog/state/plan の整合が維持される。
+- AC-001: `AGENTS.md`、`README.md`、`docs/INDEX.md` に人間理解中心の導線（目的/使い方/仕組み/実装/関連）が追記される。
+- AC-002: core docs 移行結果が `docs/operations/wave1-core-docs-human-centric-migration.md` と task 資料に記録され、depends_on/backlog/state/plan が整合する。
 
 ## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
 
@@ -71,26 +75,26 @@
 
 ### 5.4 Manual Verification (Manual Verification / 手動検証) [空欄禁止]
 
-- 手順: backlog と MEMORY を確認し、依存順序と次アクションが明示されることを確認
+- 手順: `AGENTS.md` / `README.md` / `docs/INDEX.md` の導線見出しと関連リンクを確認する
 - 期待結果: AC-001 と AC-002 を満たす
 
 ## 6. 影響範囲 [空欄禁止]
 
-- 影響ファイル/モジュール: `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model`/*, `docs/operations/high-priority-backlog.md`, `MEMORY.md`
+- 影響ファイル/モジュール: `AGENTS.md`, `README.md`, `docs/INDEX.md`, `docs/operations/wave1-core-docs-human-centric-migration.md`, `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model/*`, `docs/operations/high-priority-backlog.md`, `MEMORY.md`
 - 影響する仕様: human-centric docs migration wave 計画
-- 非機能影響: docs 更新の追跡性とレビュー可能性が向上する
+- 非機能影響: 新規参加者の理解時間短縮、導線探索コスト低減
 
 ## 7. 制約とリスク [空欄禁止]
 
 - 制約: depends_on 未解決時は dependency-blocked を維持する。
 - 想定リスク:
-  - 依存順序を崩した前倒し実装
+  - core docs への追記が分散し過ぎて可読性が下がる
   - docs 導線更新漏れ
-- 回避策: gate 判定と docs-indexer check を完了条件へ含める。
+- 回避策: 追記は「導線強化」に限定し、詳細は operations doc へ集約する。
 
 ## 8. 未確定事項 [空欄禁止]
 
-- 実施時に発生する追加改善点は review の Process Findings で管理する。
+- operations docs への適用粒度は Wave 1 operations task で確定する。
 
 ## 9. 関連資料リンク [空欄禁止]
 
@@ -98,7 +102,7 @@
 - investigation: `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model/investigation.md`
 - plan: `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model/plan.md`
 - review: `work/2026-02-20__wave1-migrate-core-docs-to-human-centric-model/review.md`
-- docs:
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
-
+- `docs/operations/wave1-core-docs-human-centric-migration.md`
+- `docs/operations/wave0-inventory-human-centric-doc-coverage.md`
+- `docs/operations/wave0-doc-ownership-and-update-matrix.md`
+- `docs/operations/high-priority-backlog.md`

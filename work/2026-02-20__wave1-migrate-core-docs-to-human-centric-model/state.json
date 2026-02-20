@@ -1,7 +1,7 @@
 {
-  "state": "planned",
+  "state": "done",
   "owner": "codex",
-  "updated_at": "2026-02-20T17:09:20+09:00",
+  "updated_at": "2026-02-20T17:41:05+09:00",
   "blocking_issues": [],
   "depends_on": [
     "2026-02-20__wave0-inventory-human-centric-doc-coverage"
