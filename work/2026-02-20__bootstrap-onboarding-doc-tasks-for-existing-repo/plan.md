@@ -36,11 +36,20 @@
 ## 4. plan-final
 
 - 実装順序:
-  - 起票段階のため未確定。実装着手時に詳細化する。
+  1. `tools/onboarding/collect-existing-repo-context.ps1` を新規追加する。
+  2. `tools/onboarding/apply-task-proposals.ps1` を新規追加する（Pattern B を解釈し、work/backlog/MEMORY を生成）。
+  3. 運用資料 `docs/operations/onboarding-existing-repo-document-inventory-runbook.md` を新規追加する。
+  4. runtime 配布へ含めるため `framework.runtime.manifest.yaml` を更新する（docs + tools）。
+  5. 導入直後に `docs/INDEX.md` 参照整合が取れるよう、seed の `runtime/seed/docs/INDEX.md` を更新する。
+  6. `tools/docs-indexer/index.ps1 -Mode apply` を実行し、`docs/INDEX.md` の導線を整合させる。
 - 検証順序:
-  - 起票段階のため未確定。実装着手時に詳細化する。
+  1. `tools/onboarding/collect-existing-repo-context.ps1` をローカルの本リポジトリ（`D:\dev\AgentRail`）に対して `-DryRun` / 通常実行し、artifacts/onboarding/* が生成されることを確認する。
+  2. 最小の artifacts/onboarding/task-proposals.json（Pattern B / task_id 固定）を用意し、`tools/onboarding/apply-task-proposals.ps1` の `-DryRun` が PLAN を出力することを確認する。
+  3. `tools/onboarding/apply-task-proposals.ps1` を実行し、生成されたタスクが `consistency-check` / `state-validate` を PASS できることを確認する。
+  4. 回帰として `docs-indexer` / `consistency-check -AllTasks` を PASS させる。
 - ロールバック:
-  - `tools/onboarding/*` と運用 docs を取り下げ、仕様（提案 JSON スキーマ）を見直す。
+  - `tools/onboarding/*`、運用 docs、runtime seed/manifest 更新を取り下げる（導入先に不要な機能が混入するため）。
+  - そのうえで `docs/operations/onboarding-task-proposals-json-format.md`（入力SSOT）を見直す。
 
 ## 5. Execution Commands
 

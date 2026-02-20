@@ -15,6 +15,8 @@ include_paths:
   - "docs/operations/stage-terminology.md"
   - "docs/operations/runtime-distribution-export-guide.md"
   - "docs/operations/runtime-installation-runbook.md"
+  - "docs/operations/onboarding-task-proposals-json-format.md"
+  - "docs/operations/onboarding-existing-repo-document-inventory-runbook.md"
 
 seed_files:
   - "runtime/seed/README.md => README.md"

@@ -21,7 +21,12 @@
 - `project.profile.yaml` - 実行環境プロファイル
 
 ## 2. テンプレート
-- （未登録）
+- `docs/templates/adr.md` - ADR テンプレート
+- `docs/templates/investigation.md` - 調査テンプレート
+- `docs/templates/plan.md` - 計画テンプレート
+- `docs/templates/project-profile.md` - project.profile.yaml 記入ガイド
+- `docs/templates/review.md` - Review テンプレート
+- `docs/templates/spec.md` - 仕様書テンプレート
 
 ## 3. 仕様
 - （未登録）
@@ -33,7 +38,14 @@
 - （未登録）
 
 ## 6. 運用
-- （未登録）
+- `docs/operations/framework-request-to-commit-visual-guide.md` - ユーザー要望から実装・コミットまでのフロー可視化ガイド
+- `docs/operations/high-priority-backlog.md` - 高優先バックログ
+- `docs/operations/onboarding-existing-repo-document-inventory-runbook.md` - Existing Repo Onboarding: Document Inventory Runbook
+- `docs/operations/onboarding-task-proposals-json-format.md` - Onboarding Task Proposals JSON Format
+- `docs/operations/runtime-distribution-export-guide.md` - Runtime Distribution Export Guide
+- `docs/operations/runtime-installation-runbook.md` - Runtime Installation Runbook
+- `docs/operations/skills-framework-flow-guide.md` - Skills Framework Flow Guide
+- `docs/operations/stage-terminology.md` - 開発段階用語集
 
 ## 7. 更新手順
 
