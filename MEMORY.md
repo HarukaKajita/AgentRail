@@ -5,16 +5,16 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__redesign-human-centric-doc-bank-governance
-- タイトル: 人間理解中心の資料バンク方針へ再設計する計画起票
+- Task ID: 2026-02-20__plan-migration-to-human-centric-doc-bank
+- タイトル: 人間理解中心資料バンクへの既存資産移行計画を起票
 - 状態: planned
-- 最終更新日時: 2026-02-20T16:22:12+09:00
+- 最終更新日時: 2026-02-20T16:43:28+09:00
 - 担当: codex
 
 ## 2. 今回の目的
 
-- 外部利用向け runtime 配布と導入の基盤を、単一リポジトリ運用のまま整備する。
-- 作業成果物を .agentrail/work へ寄せる導入導線を作る。
+- フレームワーク目的を「再現性 + 人間理解」へ拡張し、資料バンク運用ガバナンスを確定する。
+- 既存 docs/運用仕組みを段階移行する Task B の着手準備を整える。
 
 ## 3. 完了済み
 
@@ -38,9 +38,10 @@
 - `2026-02-20__plan-runtime-package-distribution-migration` を完了。
   - `docs/operations/runtime-package-distribution-migration-plan.md` を追加し、移行条件・互換ポリシー・実施フェーズ・ロールバックを定義。
   - task 側の `request/spec/plan/review/state` を完了状態へ更新。
-- `2026-02-20__redesign-human-centric-doc-bank-governance` を起票。
-  - 人間理解中心の資料バンク方針へ再設計する計画を定義。
-  - Task B（移行計画）を依存付きで分離する方針を確定。
+- `2026-02-20__redesign-human-centric-doc-bank-governance` を完了。
+  - `docs/operations/human-centric-doc-bank-governance.md` を追加し、運用原則・情報モデル・品質ゲートを定義。
+  - `AGENTS.md` と `README.md` の目的記述を「再現性 + 人間理解」へ更新。
+  - backlog と task state の依存整合を更新し、Task B を plan-ready に切り替え。
 - `2026-02-20__plan-migration-to-human-centric-doc-bank` を起票。
   - 既存 docs/仕組みを新設計へ移行する段階計画（Wave 0-3）を定義。
   - depends_on を Task A に設定し、段階実行順序を固定。
@@ -51,6 +52,7 @@
 - runtime 配布物の初期ファイルは `runtime/seed/*` で上書きする。
 - 導入先の task root は `.agentrail/work` に統一する。
 - package 化は別タスク（`2026-02-20__plan-runtime-package-distribution-migration`）で計画先行する。
+- 人間理解中心 docs ガバナンスの正本は `docs/operations/human-centric-doc-bank-governance.md` とする。
 
 ## 5. 未解決・ブロッカー
 
@@ -58,18 +60,20 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__redesign-human-centric-doc-bank-governance` を実行し、方針再設計の docs 改訂案を確定する。
-2. Task A 完了後に `2026-02-20__plan-migration-to-human-centric-doc-bank` を実行し、Wave 単位の実行タスクを起票する。
-3. 移行計画に基づき、docs 品質ゲートと自動検証拡張タスクを優先度順に展開する。
+1. `2026-02-20__plan-migration-to-human-centric-doc-bank` を実行し、Wave 単位の実行タスク分割を起票する。
+2. 移行計画に基づき、docs 品質ゲートと自動検証拡張タスクを優先度順に展開する。
+3. docs 品質ゲートのしきい値（更新遅延・網羅率）を Task B で定量化する。
 
 ## 7. 参照先
 
 - `docs/operations/high-priority-backlog.md`
+- `docs/operations/human-centric-doc-bank-governance.md`
 - `work/2026-02-20__define-runtime-manifest-and-export-flow/review.md`
 - `work/2026-02-20__add-runtime-installer-with-agentrail-work-layout/review.md`
 - `work/2026-02-20__refactor-tools-to-profile-driven-runtime-paths/review.md`
 - `work/2026-02-20__split-framework-runtime-rules-from-agents/review.md`
 - `work/2026-02-20__plan-runtime-package-distribution-migration/review.md`
+- `work/2026-02-20__redesign-human-centric-doc-bank-governance/review.md`
 - `work/2026-02-20__redesign-human-centric-doc-bank-governance/spec.md`
 - `work/2026-02-20__plan-migration-to-human-centric-doc-bank/spec.md`
 

@@ -47,7 +47,7 @@
 
 ## 4. 受入条件 (Acceptance Criteria / 受入条件) [空欄禁止]
 
-- AC-001: 方針再設計の計画（目的、情報モデル、更新責務、品質ゲート、段階分割）が task 資料へ明文化される。
+- AC-001: 方針再設計の計画（目的、情報モデル、更新責務、品質ゲート、段階分割）が task 資料と `docs/operations/human-centric-doc-bank-governance.md` に明文化される。
 - AC-002: 移行計画タスク `2026-02-20__plan-migration-to-human-centric-doc-bank` が起票され、依存関係が backlog/state/plan で整合する。
 
 ## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
@@ -77,7 +77,7 @@
 
 ## 6. 影響範囲 [空欄禁止]
 
-- 影響ファイル/モジュール: `work/2026-02-20__redesign-human-centric-doc-bank-governance/*`, `work/2026-02-20__plan-migration-to-human-centric-doc-bank/*`, `docs/operations/high-priority-backlog.md`, `MEMORY.md`
+- 影響ファイル/モジュール: `work/2026-02-20__redesign-human-centric-doc-bank-governance/*`, `work/2026-02-20__plan-migration-to-human-centric-doc-bank/*`, `docs/operations/human-centric-doc-bank-governance.md`, `docs/operations/high-priority-backlog.md`, `MEMORY.md`
 - 影響する仕様: フレームワーク目的定義、資料バンク運用方針、タスク分割方針
 - 非機能影響: 人間による理解速度、引き継ぎ容易性、変更追跡性が向上する
 
@@ -100,4 +100,5 @@
 - plan: `work/2026-02-20__redesign-human-centric-doc-bank-governance/plan.md`
 - review: `work/2026-02-20__redesign-human-centric-doc-bank-governance/review.md`
 - docs:
+  - `docs/operations/human-centric-doc-bank-governance.md`
   - `docs/operations/high-priority-backlog.md`

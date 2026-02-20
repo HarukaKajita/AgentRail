@@ -1,7 +1,7 @@
 {
-  "state": "planned",
+  "state": "done",
   "owner": "codex",
-  "updated_at": "2026-02-20T16:00:00+09:00",
+  "updated_at": "2026-02-20T16:43:28+09:00",
   "blocking_issues": [],
   "depends_on": []
 }

@@ -36,14 +36,14 @@
 
 - 実行フェーズ設計:
   1. Phase A: 方針再設計
-     - 目的文と運用原則の再定義
-     - 資料バンク情報モデル（目的/使い方/仕組み/実装/関連）の定義
-  2. Phase B: 移行計画設計
-     - 既存 docs/tools の移行波（inventory -> gap -> rollout）を定義
-     - Task B へ依存付きで受け渡し
-  3. Phase C: 実行準備
-     - backlog/MEMORY/検証コマンドを同期
-     - 進行順序を明示（Task A 完了後に Task B 実施）
+     - 目的文を「再現性 + 人間理解」へ拡張する。
+     - 運用原則（網羅性/鮮度/追跡性/可読性）を明文化する。
+  2. Phase B: ガバナンス文書化
+     - `docs/operations/human-centric-doc-bank-governance.md` を作成し、情報モデルと品質ゲートを定義する。
+     - 更新責務（task owner / implementation owner / reviewer）を定義する。
+  3. Phase C: 依存連携と実行準備
+     - Task B への依存順序（Task A -> Task B）を維持し、backlog へ反映する。
+     - backlog / MEMORY / state / docs index を同期する。
 - タスク分割:
   1. `2026-02-20__redesign-human-centric-doc-bank-governance`（本タスク）
   2. `2026-02-20__plan-migration-to-human-centric-doc-bank`（Task B, depends_on: Task A）
