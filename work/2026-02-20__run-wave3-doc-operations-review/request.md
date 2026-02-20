@@ -51,4 +51,4 @@
 
 ## blocked 判定
 
-- depends_on 未完了のため、現時点では `dependency-blocked` 想定。
+- depends_on 解決後に `plan-ready` へ遷移し、実施可能。

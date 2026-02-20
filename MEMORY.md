@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__run-wave3-doc-operations-review
-- タイトル: Wave3 Docs 運用レビュー起票
-- 状態: planned
-- 最終更新日時: 2026-02-20T20:21:00+09:00
+- Task ID: none
+- タイトル: planned backlog 完了後の最終同期
+- 状態: done
+- 最終更新日時: 2026-02-20T20:25:00+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -119,6 +119,11 @@
   - `docs/operations/wave3-doc-quality-kpi-thresholds.md` / `wave3-doc-quality-metrics-report-automation.md` / `wave3-kpi-process-findings-loop.md` に導線を追加。
   - `docs/operations/high-priority-backlog.md` で同 task を Completed へ移動し、`run-wave3-doc-operations-review` を `plan-ready` に更新。
   - `work/2026-02-20__define-kpi-report-execution-calendar/{investigation,spec,plan,review,state.json}` を done 条件へ更新。
+- `2026-02-20__run-wave3-doc-operations-review` を完了。
+  - `docs/operations/wave3-doc-operations-review.md` を追加し、OR-001..OR-005 の横断チェックリストと記録テンプレートを定義。
+  - `wave3` 系運用 docs（thresholds/metrics/loop/calendar）へ運用レビュー導線を追加。
+  - `docs/operations/high-priority-backlog.md` の planned タスクを 0 件化。
+  - `work/2026-02-20__run-wave3-doc-operations-review/{request,investigation,spec,plan,review,state.json}` を done 条件へ更新。
 
 ## 4. 重要な意思決定
 
@@ -135,15 +140,16 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__run-wave3-doc-operations-review` を完了し、backlog の planned タスクを解消する。
-2. backlog の planned タスクが空になったことを確認し、最終同期（docs/INDEX/MEMORY/state）を確定する。
-3. 全タスク完了後の最終検証（consistency/state/docs-indexer）結果を整理する。
+1. 新規要望に応じて `docs/operations/high-priority-backlog.md` に次タスクを起票する。
+2. follow-up が必要な `must/high` finding が出た場合は同一PR内で task を追加する。
+3. 次セッション開始時に `MEMORY.md` と backlog の差分を再確認する。
 
 ## 7. 参照先
 
 - `docs/operations/high-priority-backlog.md`
 - `docs/operations/dq002-warning-remediation-priority-plan.md`
 - `docs/operations/wave3-kpi-report-execution-calendar.md`
+- `docs/operations/wave3-doc-operations-review.md`
 - `docs/operations/wave3-kpi-process-findings-loop.md`
 - `docs/operations/human-centric-doc-bank-governance.md`
 - `docs/operations/human-centric-doc-bank-migration-plan.md`
@@ -153,6 +159,8 @@
 - `work/2026-02-20__fix-wave3-investigation-broken-tmp-reference/review.md`
 - `work/2026-02-20__define-kpi-report-execution-calendar/spec.md`
 - `work/2026-02-20__define-kpi-report-execution-calendar/review.md`
+- `work/2026-02-20__run-wave3-doc-operations-review/spec.md`
+- `work/2026-02-20__run-wave3-doc-operations-review/review.md`
 - `work/2026-02-20__define-runtime-manifest-and-export-flow/review.md`
 - `work/2026-02-20__add-runtime-installer-with-agentrail-work-layout/review.md`
 - `work/2026-02-20__refactor-tools-to-profile-driven-runtime-paths/review.md`

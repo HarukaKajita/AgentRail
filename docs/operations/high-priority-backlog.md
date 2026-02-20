@@ -26,14 +26,7 @@
 
 ## 優先タスク一覧
 
-- `2026-02-20__run-wave3-doc-operations-review`
-- 状態: planned
-- 計画段階: plan-draft
-- ゲート状態: plan-ready
-- 依存: `2026-02-20__define-kpi-report-execution-calendar`
-- 依存状態: 解決済み
-- 目的: wave3 docs 3資料の運用レビュー観点を定義し改善起票へ接続する
-- 参照: `work/2026-02-20__run-wave3-doc-operations-review/spec.md`
+- なし（planned タスクはすべて完了）
 
 ## Completed
 
@@ -388,6 +381,13 @@
 - 依存状態: 解決済み
 - 目的: KPI レポートの週次/リリース前実行タイミングを運用カレンダーへ反映する
 - 参照: `work/2026-02-20__define-kpi-report-execution-calendar/spec.md`
+
+56. `2026-02-20__run-wave3-doc-operations-review`
+- 状態: done
+- 依存: `2026-02-20__define-kpi-report-execution-calendar`
+- 依存状態: 解決済み
+- 目的: wave3 docs 3資料の運用レビュー観点を定義し改善起票へ接続する
+- 参照: `work/2026-02-20__run-wave3-doc-operations-review/spec.md`
 
 ## 更新ルール
 

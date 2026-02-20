@@ -98,6 +98,7 @@ pwsh -NoProfile -File tools/improvement-harvest/create-task.ps1 \
 ## 8. 関連リンク
 
 - docs:
+  - `docs/operations/wave3-doc-operations-review.md`
   - `docs/operations/wave3-doc-quality-kpi-thresholds.md`
   - `docs/operations/wave3-doc-quality-metrics-report-automation.md`
   - `docs/operations/wave3-kpi-report-execution-calendar.md`

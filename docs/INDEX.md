@@ -86,6 +86,7 @@
 - `docs/operations/wave2-doc-quality-check-rules-spec.md` - Wave 2 Spec: Doc Quality Check Rules
 - `docs/operations/wave2-doc-quality-fail-mode.md` - Wave 2: Doc Quality Fail Mode
 - `docs/operations/wave2-doc-quality-warning-mode.md` - Wave 2: Doc Quality Warning Mode
+- `docs/operations/wave3-doc-operations-review.md` - Wave 3: Doc Operations Review
 - `docs/operations/wave3-doc-quality-kpi-thresholds.md` - Wave 3: Doc Quality KPI Thresholds
 - `docs/operations/wave3-doc-quality-metrics-report-automation.md` - Wave 3: Doc Quality Metrics Report Automation
 - `docs/operations/wave3-kpi-process-findings-loop.md` - Wave 3: KPI Process Findings Loop

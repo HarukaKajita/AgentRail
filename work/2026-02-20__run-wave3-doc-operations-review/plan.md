@@ -7,7 +7,7 @@
   - `docs/INDEX.md`
   - `work/2026-02-20__run-wave3-doc-operations-review/spec.md`
 - 理解ポイント:
-  - kickoff 段階では plan-draft を定義し、depends_on 未解決時は gate を blocked とする。
+  - depends_on は解決済みのため、plan-ready で plan-final を確定して実運用レビューを完了させる。
 
 ## 1. 対象仕様
 
@@ -30,25 +30,32 @@
 
 - 依存: `2026-02-20__define-kpi-report-execution-calendar`
 - 判定方針: 依存 task が done なら `plan-ready`、未完了なら `dependency-blocked`。
-- 判定結果: pending（起票時点）
+- 判定結果: pass（依存 task は done）
 
 ## 4. plan-final
 
 - 実装順序:
-  - kickoff 段階のため未確定。depends_on gate pass 後に確定する。
+  1. `docs/operations/wave3-doc-operations-review.md` を新規作成し、レビュー周期・チェックリスト・記録テンプレートを定義する。
+  2. wave3 関連 docs（thresholds/metrics/loop/calendar）へレビュー資料への導線を追加する。
+  3. task4 の調査・仕様・計画・レビュー・状態ファイルを実績化し、backlog/MEMORY を最終完了状態へ更新する。
 - 検証順序:
-  - kickoff 段階のため未確定。depends_on gate pass 後に確定する。
+  1. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__run-wave3-doc-operations-review -DocQualityMode warning`
+  2. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__run-wave3-doc-operations-review -DocQualityMode warning`
+  3. `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
+  4. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning`
 - ロールバック:
-  - 観点不足が判明した場合はチェックリスト項目を増補して再計画する。
+  - 観点不足が判明した場合はチェックリスト項目を増補し、優先度表を改訂する。
 
 ## 5. Execution Commands
 
 - `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__run-wave3-doc-operations-review -DocQualityMode warning`
 - `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__run-wave3-doc-operations-review -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
+- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning`
 - `pwsh -NoProfile -File tools/commit-boundary/check-staged-files.ps1 -TaskId 2026-02-20__run-wave3-doc-operations-review -Phase kickoff -AllowCommonSharedPaths`
 
 ## 6. 完了判定
 
-- plan-draft が spec を参照し、depends_on gate が定義されている。
-- backlog/state の planned 情報が整合している。
-- kickoff 境界コミットの scope check が PASS。
+- AC-001 と AC-002 が review で PASS。
+- `state.json` は `done`。
+- backlog の planned タスクが 0 件である。

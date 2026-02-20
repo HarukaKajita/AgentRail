@@ -88,6 +88,7 @@
   - `docs/operations/wave3-doc-quality-kpi-thresholds.md`
   - `docs/operations/wave3-doc-quality-metrics-report-automation.md`
   - `docs/operations/wave3-kpi-process-findings-loop.md`
+  - `docs/operations/wave3-kpi-report-execution-calendar.md`
 - 非機能影響:
   - docs 運用レビューの再現性が向上する。
 
@@ -99,7 +100,7 @@
 
 ## 8. 未確定事項 [空欄禁止]
 
-- レビュー周期の最終決定。
+- なし（四半期定例 + `overall_status=red` 発生時の臨時レビューで確定）。
 
 ## 9. 関連資料リンク [空欄禁止]
 
@@ -109,3 +110,4 @@
 - review: `work/2026-02-20__run-wave3-doc-operations-review/review.md`
 - docs:
   - `docs/operations/high-priority-backlog.md`
+  - `docs/operations/wave3-doc-operations-review.md`
