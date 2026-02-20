@@ -6,9 +6,9 @@
 ## 1. 現在のタスク
 
 - Task ID: 2026-02-20__bootstrap-onboarding-doc-tasks-for-existing-repo
-- タイトル: 既存リポジトリ導入時の資料棚卸し・タスク起票ブートストラップ（起票）
-- 状態: planned
-- 最終更新日時: 2026-02-20T23:10:00+09:00
+- タイトル: 既存リポジトリ導入時の資料棚卸し・タスク起票ブートストラップ（完了）
+- 状態: done
+- 最終更新日時: 2026-02-21T00:46:27+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -18,6 +18,10 @@
 
 ## 3. 完了済み
 
+- `2026-02-20__bootstrap-onboarding-doc-tasks-for-existing-repo` を完了。
+  - `tools/onboarding/collect-existing-repo-context.ps1` / `tools/onboarding/apply-task-proposals.ps1` を追加。
+  - `docs/operations/onboarding-existing-repo-document-inventory-runbook.md` を追加。
+  - runtime 配布へ onboarding 関連 docs を追加（manifest/seed index 更新）。
 - `2026-02-20__define-runtime-manifest-and-export-flow` を完了。
   - `framework.runtime.manifest.yaml` を追加。
   - `runtime/seed/*` を追加。
