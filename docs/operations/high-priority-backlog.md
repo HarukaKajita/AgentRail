@@ -35,6 +35,15 @@
 - 目的: DQ-002 warning 21件の解消優先順と分割起票方針を策定する
 - 参照: `work/2026-02-20__prioritize-dq002-warning-remediation/spec.md`
 
+- `2026-02-20__fix-wave3-investigation-broken-tmp-reference`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: plan-ready
+- 依存: なし
+- 依存状態: なし
+- 目的: wave3 investigation の一時参照切れを修正し、checker fail を解消する
+- 参照: `work/2026-02-20__fix-wave3-investigation-broken-tmp-reference/spec.md`
+
 ## Completed
 
 1. `2026-02-20__redesign-human-centric-doc-bank-governance`
