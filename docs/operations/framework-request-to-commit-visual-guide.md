@@ -57,7 +57,7 @@ flowchart TD
 4. 調査: `investigation.md` で現状確認と仮説を整理する。
 5. 要件確定: `spec.md` に受入条件とテスト要件を定義する。
 6. 実装計画ドラフト: `plan-draft` を作成し、探索用の実施方針を記録する。
-7. 親再検討ゲート: subagent / multi_agent を使う場合は `gate_result=pass|fail` を親が記録する。
+7. 親再検討ゲート: subagent / multi_agent を使う場合は委譲実行ごとに sidecar 監査ログを残し、`gate_result=pass|fail` を親が記録する。
 8. 起票境界コミット: `request.md` / `investigation.md` / `spec.md` / `plan-draft` の確定内容をコミットする（`gate_result=pass` の場合のみ）。
 9. 依存解決確認: `state.json` の `depends_on` を確認し、未解決依存があれば先行タスクへ切り替える。
 10. 実装計画確定: gate pass 後に `plan-final` を確定する。
@@ -82,9 +82,10 @@ subagent / multi_agent を使う場合の標準契約は次のとおりです。
 
 1. 委譲対象は `request` / `investigation` / `spec` / `plan-draft` の4工程。
 2. 4工程は単一 `delegated_agent_id` で連続実行。
-3. 親は `plan-draft` 完了後に `gate_result` を判定し、`pass` のときのみ kickoff 可能。
-4. `gate_result=fail` の場合は差し戻しし、kickoff / depends_on gate / `plan-final` / commit を禁止。
-5. `depends_on gate` 以降（`plan-final` / 実装 / テスト / レビュー / docs 更新 / commit）は親固定。
+3. 委譲実行ごとに sidecar 監査ログ（`work/<task-id>/agent-logs/...`）を残す。
+4. 親は `plan-draft` 完了後に `gate_result` を判定し、`pass` のときのみ kickoff 可能。
+5. `gate_result=fail` の場合は差し戻しし、kickoff / depends_on gate / `plan-final` / commit を禁止。
+6. `depends_on gate` 以降（`plan-final` / 実装 / テスト / レビュー / docs 更新 / commit）は親固定。
 
 境界コミット前の推奨確認:
 
