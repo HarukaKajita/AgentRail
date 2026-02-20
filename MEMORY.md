@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__add-sidecar-log-rule-to-visual-guide
-- タイトル: Add sidecar log rule to visual guide
+- Task ID: 2026-02-20__fix-invalid-docs-path-in-self-improvement-spec
+- タイトル: Fix invalid docs path in self-improvement spec
 - 状態: planned
-- 最終更新日時: 2026-02-20T12:58:09+09:00
+- 最終更新日時: 2026-02-20T13:01:23+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -19,6 +19,7 @@
 
 ## 3. 完了済み
 
+- `2026-02-20__add-sidecar-log-rule-to-visual-guide` を完了。
 - `2026-02-20__fix-improvement-create-task-dependency-placeholder` を完了。
 - `2026-02-20__allow-schema-governance-without-base-sha` を完了。
 - `2026-02-20__align-workflow-dispatch-task-id-contract` を完了。
@@ -59,15 +60,15 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__add-sidecar-log-rule-to-visual-guide` を実装して可視化ガイドへ sidecar 監査ログ要件を反映する。
-2. `2026-02-20__fix-invalid-docs-path-in-self-improvement-spec` を実装して docs 参照切れを解消する。
-3. 残りの medium/low 優先タスクを backlog 順で順次処理する。
+1. `2026-02-20__fix-invalid-docs-path-in-self-improvement-spec` を実装して docs 参照切れを解消する。
+2. `2026-02-20__add-plan-template-and-index-link` を実装して plan テンプレート導線を整備する。
+3. 残りの low 優先タスクを backlog 順で順次処理する。
 
 ## 7. 参照先
 
 - `docs/operations/high-priority-backlog.md`
-- `work/2026-02-20__add-sidecar-log-rule-to-visual-guide/spec.md`
 - `work/2026-02-20__fix-invalid-docs-path-in-self-improvement-spec/spec.md`
+- `work/2026-02-20__add-plan-template-and-index-link/spec.md`
 
 ## 8. 引き継ぎ時チェック
 
