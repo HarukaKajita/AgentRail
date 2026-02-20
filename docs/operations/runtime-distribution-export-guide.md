@@ -67,3 +67,12 @@ pwsh -NoProfile -File tools/runtime/export-runtime.ps1 -Mode apply -DryRun
 ## 6. 次工程
 
 - runtime 導入は `docs/operations/runtime-installation-runbook.md` を参照する。
+
+## 7. 関連資料リンク
+
+- docs:
+  - `docs/operations/runtime-installation-runbook.md`
+  - `docs/operations/high-priority-backlog.md`
+- work:
+  - `work/2026-02-20__define-runtime-manifest-and-export-flow/spec.md`
+  - `work/2026-02-20__define-runtime-manifest-and-export-flow/review.md`

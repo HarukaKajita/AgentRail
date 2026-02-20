@@ -37,3 +37,12 @@
 
 - `tools/consistency-check/check.ps1` の profile required key 判定は別実装であり、本資料の source of truth 統合対象外。
 - schema の `value_type` は validator の判定ロジックと対で運用するため、未定義値を使わない。
+
+## 関連資料リンク
+
+- docs:
+  - `docs/operations/profile-validator-schema-version-policy.md`
+  - `docs/operations/high-priority-backlog.md`
+- work:
+  - `work/2026-02-19__profile-validator-required-checks-source-of-truth/spec.md`
+  - `work/2026-02-19__profile-validator-required-checks-source-of-truth/review.md`

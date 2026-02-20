@@ -59,3 +59,12 @@ pwsh -NoProfile -File tools/runtime/install-runtime.ps1 `
    - Dry-Run の出力を確認し、上書き可能なら `-Force` を付与する。
 2. `project.profile.yaml not found` が出る場合:
    - 先に `tools/runtime/export-runtime.ps1 -Mode apply` で runtime 配布物を再生成してから再実行する。
+
+## 6. 関連資料リンク
+
+- docs:
+  - `docs/operations/runtime-distribution-export-guide.md`
+  - `docs/operations/high-priority-backlog.md`
+- work:
+  - `work/2026-02-20__add-runtime-installer-with-agentrail-work-layout/spec.md`
+  - `work/2026-02-20__add-runtime-installer-with-agentrail-work-layout/review.md`

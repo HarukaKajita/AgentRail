@@ -73,3 +73,12 @@
   - `work/2026-02-20__dq002-wave-a-fix-automation-tools-design-spec-links/spec.md`
   - `work/2026-02-20__dq002-wave-b-fix-profile-validator-schema-policy-links/spec.md`
   - `work/2026-02-20__dq002-wave-c-fix-remaining-doc-links/spec.md`
+
+## 8. 実施結果（2026-02-20）
+
+- Wave A: 完了（`dq002_count` 21 -> 9）
+- Wave B: 完了（`dq002_count` 9 -> 6）
+- Wave C: 完了（`dq002_count` 6 -> 0）
+- 最終結果:
+  - `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning -OutputFormat json`
+  - `doc_quality.warning_count=0`

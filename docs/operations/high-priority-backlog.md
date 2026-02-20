@@ -26,16 +26,16 @@
 
 ## 優先タスク一覧
 
+- なし
+
+## Completed
+
 - `2026-02-20__dq002-wave-c-fix-remaining-doc-links`
-- 状態: planned
-- 計画段階: plan-draft
-- ゲート状態: plan-ready
+- 状態: done
 - 依存: `2026-02-20__dq002-wave-b-fix-profile-validator-schema-policy-links`
 - 依存状態: 解決済み
 - 目的: Wave C として残存 6 ファイルの DQ-002 warning を最終解消する
 - 参照: `work/2026-02-20__dq002-wave-c-fix-remaining-doc-links/spec.md`
-
-## Completed
 
 - `2026-02-20__dq002-wave-b-fix-profile-validator-schema-policy-links`
 - 状態: done

@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__dq002-wave-c-fix-remaining-doc-links
-- タイトル: DQ-002 Wave C remediation（実装着手前）
-- 状態: planned
-- 最終更新日時: 2026-02-20T22:15:00+09:00
+- Task ID: なし（DQ-002 remediation 完了）
+- タイトル: DQ-002 warning remediation クローズ
+- 状態: done
+- 最終更新日時: 2026-02-20T22:25:00+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -137,6 +137,10 @@
   - `docs/operations/profile-validator-schema-version-policy.md` に `関連資料リンク` を追加し、`docs/*` + `work/*` 導線を補完。
   - `tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning -OutputFormat json` で `dq002_count=6` を確認。
   - `docs/operations/high-priority-backlog.md` で Wave C を `plan-ready` へ更新。
+- `2026-02-20__dq002-wave-c-fix-remaining-doc-links` を完了。
+  - Wave C 対象 6 docs に `関連資料リンク` を追加し、`docs/*` + `work/*` 導線を補完。
+  - `tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning -OutputFormat json` で `dq002_count=0` を確認。
+  - `docs/operations/high-priority-backlog.md` の planned 項目を解消し、DQ-002 remediation をクローズ。
 
 ## 4. 重要な意思決定
 
@@ -153,9 +157,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__dq002-wave-c-fix-remaining-doc-links` を実装完了し、`dq002_count` を 6 -> 0 へ削減する。
-2. Wave C 完了後に `tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning -OutputFormat json` で `dq002_count=0` を確認する。
-3. DQ-002 remediation クローズ後に backlog/MEMORY の planned 項目を完了状態へ同期する。
+1. DQ-002 remediation 完了状態を維持するため、変更タスクで `DocQualityMode warning` を継続実行する。
+2. 新規 warning 発生時は `docs/operations/high-priority-backlog.md` と `MEMORY.md` に即時反映する。
+3. 必要に応じて KPI 系資料（`docs/operations/wave3-doc-quality-kpi-thresholds.md`）の基準値を再評価する。
 
 ## 7. 参照先
 

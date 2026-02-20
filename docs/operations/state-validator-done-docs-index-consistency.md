@@ -32,3 +32,12 @@
 - この検証は `state=done` のときのみ適用される。
 - docs path の抽出対象は backtick で記述された `docs/...` リンク。
 - `docs/INDEX.md` の同期は `tools/docs-indexer/index.ps1` を正とする。
+
+## 関連資料リンク
+
+- docs:
+  - `docs/operations/state-history-strategy.md`
+  - `docs/operations/high-priority-backlog.md`
+- work:
+  - `work/2026-02-19__state-validator-done-docs-index-consistency/spec.md`
+  - `work/2026-02-19__state-validator-done-docs-index-consistency/review.md`

@@ -31,3 +31,12 @@ state history は `state.json` に保持せず、Git 履歴へ外部化する。
 ## 例外運用
 
 - 将来、専用 history artifact を導入する場合は別 task で仕様を追加し、本資料を更新する。
+
+## 関連資料リンク
+
+- docs:
+  - `docs/operations/state-validator-done-docs-index-consistency.md`
+  - `docs/operations/high-priority-backlog.md`
+- work:
+  - `work/2026-02-19__state-validator-history-strategy/spec.md`
+  - `work/2026-02-19__state-validator-history-strategy/review.md`

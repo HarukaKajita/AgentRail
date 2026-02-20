@@ -37,3 +37,12 @@
 - `docs/specs/self-improvement-loop-spec.md`
 - `docs/operations/ci-failure-runbook.md`
 - `tools/consistency-check/check.ps1`
+
+## 6. 関連資料リンク
+
+- docs:
+  - `docs/specs/self-improvement-loop-spec.md`
+  - `docs/operations/high-priority-backlog.md`
+- work:
+  - `work/2026-02-18__self-improvement-loop-enforcement/spec.md`
+  - `work/2026-02-18__self-improvement-loop-enforcement/review.md`
