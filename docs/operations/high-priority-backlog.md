@@ -26,7 +26,14 @@
 
 ## 優先タスク一覧
 
-- （該当なし）
+- `2026-02-20__prioritize-dq002-warning-remediation`
+- 状態: planned
+- 計画段階: plan-draft
+- ゲート状態: plan-ready
+- 依存: なし
+- 依存状態: なし
+- 目的: DQ-002 warning 21件の解消優先順と分割起票方針を策定する
+- 参照: `work/2026-02-20__prioritize-dq002-warning-remediation/spec.md`
 
 ## Completed
 

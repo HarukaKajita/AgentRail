@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: none
-- タイトル: Wave 3 完了後の次タスク選定
+- Task ID: 2026-02-20__prioritize-dq002-warning-remediation
+- タイトル: DQ-002 Warning 解消優先順策定（起票）
 - 状態: planned
-- 最終更新日時: 2026-02-20T18:55:24+09:00
+- 最終更新日時: 2026-02-20T20:01:00+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -120,9 +120,9 @@
 
 ## 6. 次アクション
 
-1. DQ-002 warning 21 件の解消優先順を新規タスクとして起票する。
-2. KPI レポートの定期実行タイミング（週次/リリース前）を運用カレンダーへ反映する。
-3. Wave 3 docs（thresholds / metrics / loop）の運用レビューを実施する。
+1. `2026-02-20__fix-wave3-investigation-broken-tmp-reference` を起票する。
+2. `2026-02-20__define-kpi-report-execution-calendar` を起票する。
+3. `2026-02-20__run-wave3-doc-operations-review` を起票する。
 
 ## 7. 参照先
 
