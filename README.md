@@ -292,7 +292,8 @@ pwsh -NoProfile -File tools/improvement-harvest/create-task.ps1 `
 2. `project.profile.yaml`
 3. `docs/README.md`
 4. `docs/INDEX.md`
-5. 対象タスクの `work/<task-id>/spec.md`
+5. `docs/operations/runtime-framework-rules.md`
+6. 対象タスクの `work/<task-id>/spec.md`
 
 ---
 

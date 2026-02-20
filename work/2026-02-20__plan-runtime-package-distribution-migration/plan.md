@@ -26,6 +26,7 @@
 
 - 依存: `2026-02-20__refactor-tools-to-profile-driven-runtime-paths`, `2026-02-20__split-framework-runtime-rules-from-agents`
 - 判定方針: 依存タスクがすべて done になるまで dependency-blocked を維持する。
+- 判定結果: pass（依存 2 件とも `done` を確認）
 
 ## 4. plan-final
 

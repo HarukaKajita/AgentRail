@@ -12,34 +12,37 @@
 
 ## 1. レビュー対象
 
-- 実装後に更新する。
+- `docs/operations/runtime-framework-rules.md`
+- `AGENTS.md`
+- `README.md`
+- `docs/INDEX.md`
 
 ## 2. 受入条件評価
 
-- AC-001: PENDING
-- AC-002: PENDING
+- AC-001: PASS（runtime 必須ルールを専用ドキュメントへ分離し、AGENTS は要旨リンク化した）
+- AC-002: PASS（depends_on 解決状態と backlog/state/plan の整合を維持した）
 
 ## 3. テスト結果
 
 ### Unit Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `rg -n "runtime-framework-rules\\.md" AGENTS.md README.md docs/INDEX.md`
+- 結果: PASS（参照導線が 3 ファイルに反映）
 
 ### Integration Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
+- 結果: PASS
 
 ### Regression Test
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__split-framework-runtime-rules-from-agents`
+- 結果: PASS
 
 ### Manual Verification
 
-- 実施内容: PENDING
-- 結果: PENDING
+- 実施内容: `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__split-framework-runtime-rules-from-agents`
+- 結果: PASS
 
 ## 4. 指摘事項
 
@@ -49,7 +52,7 @@
 
 ## 5. 結論
 
-- 実装後に最終判定する。
+- 本タスクの受入条件はすべて満たした。runtime 必須ルールの正本を docs へ分離し、AGENTS は要旨リンクを保持する構成へ移行した。
 
 ## 6. Process Findings
 
@@ -67,15 +70,15 @@
 
 ### 7.1 Kickoff Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: N/A
+- scope_check: PASS
 
 ### 7.2 Implementation Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: N/A
+- scope_check: PASS
 
 ### 7.3 Finalize Commit
 
-- commit: PENDING
-- scope_check: PENDING
+- commit: N/A
+- scope_check: PASS

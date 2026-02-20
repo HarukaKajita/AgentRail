@@ -5,11 +5,13 @@ param(
   [string]$Phase = "implementation",
   [string[]]$StagedFiles = @(),
   [string[]]$AdditionalAllowedPaths = @(),
-  [switch]$AllowCommonSharedPaths
+  [switch]$AllowCommonSharedPaths,
+  [string]$ProfilePath = "project.profile.yaml"
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+. (Join-Path -Path $PSScriptRoot -ChildPath "../common/profile-paths.ps1")
 
 function Normalize-RepoPath {
   param([string]$PathValue)
@@ -22,16 +24,22 @@ function Normalize-RepoPath {
 function Is-UnderTaskDirectory {
   param(
     [string]$PathValue,
-    [string]$ExpectedTaskId
+    [string]$ExpectedTaskId,
+    [string]$TaskRoot
   )
 
-  $prefix = "work/$ExpectedTaskId/"
+  $prefix = "$TaskRoot/$ExpectedTaskId/"
   return $PathValue.StartsWith($prefix, [System.StringComparison]::OrdinalIgnoreCase)
 }
 
 function Get-TaskIdFromPath {
-  param([string]$PathValue)
-  if ($PathValue -notmatch '^work/([^/]+)/') {
+  param(
+    [string]$PathValue,
+    [string]$TaskRoot
+  )
+
+  $escapedTaskRoot = [Regex]::Escape($TaskRoot)
+  if ($PathValue -notmatch ('^' + $escapedTaskRoot + '/([^/]+)/')) {
     return ""
   }
   return $Matches[1]
@@ -44,23 +52,28 @@ if ([string]::IsNullOrWhiteSpace($TaskId)) {
 }
 
 $normalizedTaskId = $TaskId.Trim()
+$workflowPaths = Resolve-WorkflowPaths -ProfilePath $ProfilePath -DefaultTaskRoot "work" -DefaultDocsRoot "docs"
+$taskRoot = ConvertTo-NormalizedRepoPath -PathValue $workflowPaths.task_root
+$docsRoot = ConvertTo-NormalizedRepoPath -PathValue $workflowPaths.docs_root
+$docsIndexPath = Join-NormalizedRepoPath -BasePath $docsRoot -ChildPath "INDEX.md"
+$backlogPath = Join-NormalizedRepoPath -BasePath $docsRoot -ChildPath "operations/high-priority-backlog.md"
 
 $baseAllowed = @(
-  "docs/operations/high-priority-backlog.md",
+  $backlogPath,
   "MEMORY.md",
-  "docs/INDEX.md"
+  $docsIndexPath
 )
 
 if ($Phase -eq "kickoff") {
   $baseAllowed += @(
-    "docs/operations/high-priority-backlog.md",
+    $backlogPath,
     "MEMORY.md"
   )
 }
 
 if ($Phase -eq "finalize") {
   $baseAllowed += @(
-    "docs/INDEX.md"
+    $docsIndexPath
   )
 }
 
@@ -137,11 +150,11 @@ $foreignTaskIds = New-Object System.Collections.Generic.HashSet[string]([System.
 $nonTaskFiles = New-Object System.Collections.Generic.List[string]
 
 foreach ($path in $normalizedFiles) {
-  if (Is-UnderTaskDirectory -PathValue $path -ExpectedTaskId $normalizedTaskId) {
+  if (Is-UnderTaskDirectory -PathValue $path -ExpectedTaskId $normalizedTaskId -TaskRoot $taskRoot) {
     continue
   }
 
-  $taskFromPath = Get-TaskIdFromPath -PathValue $path
+  $taskFromPath = Get-TaskIdFromPath -PathValue $path -TaskRoot $taskRoot
   if (-not [string]::IsNullOrWhiteSpace($taskFromPath)) {
     $crossTaskFiles.Add($path) | Out-Null
     [void]$foreignTaskIds.Add($taskFromPath)

@@ -26,6 +26,7 @@
 
 - 依存: `2026-02-20__add-runtime-installer-with-agentrail-work-layout`
 - 判定方針: 依存タスクがすべて done になるまで dependency-blocked を維持する。
+- 判定結果: pass（依存タスクが `done` であることを確認）
 
 ## 4. plan-final
 

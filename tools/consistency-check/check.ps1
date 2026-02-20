@@ -15,6 +15,7 @@ param(
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+. (Join-Path -Path $PSScriptRoot -ChildPath "../common/profile-paths.ps1")
 $jsonSchemaVersion = "1.0.0"
 $allTasksExclusionPattern = "^(archive|legacy)(-|$)"
 $prerequisiteRequiredStates = @("planned", "in_progress", "blocked")
@@ -23,6 +24,26 @@ $prerequisiteRequiredTaskFiles = @("request.md", "investigation.md", "spec.md", 
 $failures = New-Object System.Collections.Generic.List[object]
 $script:taskStateSnapshot = $null
 $script:backlogDependencyMetadata = $null
+$script:taskRootLabel = ""
+$script:docsRootLabel = ""
+$script:backlogPath = ""
+
+$workflowPaths = Resolve-WorkflowPaths -ProfilePath $ProfilePath -DefaultTaskRoot "work" -DefaultDocsRoot "docs"
+if (-not $PSBoundParameters.ContainsKey("WorkRoot")) {
+  $WorkRoot = $workflowPaths.task_root
+}
+if (-not $PSBoundParameters.ContainsKey("DocsIndexPath")) {
+  $DocsIndexPath = $workflowPaths.docs_index_path
+}
+
+$WorkRoot = ConvertTo-NormalizedRepoPath -PathValue $WorkRoot
+$DocsIndexPath = ConvertTo-NormalizedRepoPath -PathValue $DocsIndexPath
+$script:taskRootLabel = $WorkRoot
+$script:docsRootLabel = ConvertTo-NormalizedRepoPath -PathValue $workflowPaths.docs_root
+if ([string]::IsNullOrWhiteSpace($script:docsRootLabel)) {
+  $script:docsRootLabel = "docs"
+}
+$script:backlogPath = Join-NormalizedRepoPath -BasePath $script:docsRootLabel -ChildPath "operations/high-priority-backlog.md"
 
 function Add-Failure {
   param(
@@ -320,12 +341,12 @@ function Get-BacklogDependencyMetadata {
     has_line     = @{}
   }
 
-  if (-not (Test-Path -LiteralPath "docs/operations/high-priority-backlog.md" -PathType Leaf)) {
+  if (-not (Test-Path -LiteralPath $script:backlogPath -PathType Leaf)) {
     $script:backlogDependencyMetadata = $metadata
     return $metadata
   }
 
-  $lines = Get-Content -LiteralPath "docs/operations/high-priority-backlog.md"
+  $lines = Get-Content -LiteralPath $script:backlogPath
   $inPrioritySection = $false
   $currentTaskId = ""
 
@@ -512,7 +533,7 @@ function Validate-ProcessFindings {
 
       $linkedTaskPath = Join-Path -Path $WorkRootPath -ChildPath $linkedTaskId
       if (-not (Test-Path -LiteralPath $linkedTaskPath -PathType Container)) {
-        Add-Failure -RuleId "improvement_task_linked" -File $ReviewPath -Reason "linked_task_id does not exist under work/: $linkedTaskId"
+        Add-Failure -RuleId "improvement_task_linked" -File $ReviewPath -Reason "linked_task_id does not exist under $script:taskRootLabel/: $linkedTaskId"
       }
     }
   }
@@ -601,7 +622,7 @@ function Invoke-SingleTaskCheck {
   }
 
   if (-not (Test-Path -LiteralPath $DocsIndexPath)) {
-    Add-Failure -RuleId "docs_index_exists" -File $DocsIndexPath -Reason "docs/INDEX.md is missing."
+    Add-Failure -RuleId "docs_index_exists" -File $DocsIndexPath -Reason "Docs index is missing: $DocsIndexPath"
   }
 
   if (-not (Test-Path -LiteralPath $ProfilePath)) {
@@ -706,7 +727,7 @@ function Invoke-SingleTaskCheck {
         $hasDependencyLine = [bool]$backlogDependencyMetadata.has_line[$TargetTaskId]
       }
       if (-not $hasDependencyLine) {
-        Add-Failure -RuleId "dependency_backlog_synced" -File "docs/operations/high-priority-backlog.md" -Reason "Backlog entry must include dependency line: $TargetTaskId"
+        Add-Failure -RuleId "dependency_backlog_synced" -File $script:backlogPath -Reason "Backlog entry must include dependency line: $TargetTaskId"
       } else {
         $backlogDependencies = @()
         if ($backlogDependencyMetadata.dependencies.ContainsKey($TargetTaskId)) {
@@ -718,7 +739,7 @@ function Invoke-SingleTaskCheck {
         $stateDependencyFingerprint = $normalizedStateDependencies -join ","
         $backlogDependencyFingerprint = $normalizedBacklogDependencies -join ","
         if ($stateDependencyFingerprint -ne $backlogDependencyFingerprint) {
-          Add-Failure -RuleId "dependency_backlog_synced" -File "docs/operations/high-priority-backlog.md" -Reason "Backlog dependencies do not match state.json for task: $TargetTaskId"
+          Add-Failure -RuleId "dependency_backlog_synced" -File $script:backlogPath -Reason "Backlog dependencies do not match state.json for task: $TargetTaskId"
         }
       }
     }
@@ -836,7 +857,8 @@ function Invoke-SingleTaskCheck {
     $relatedLinksBlock = Get-HeadingBlock -Content $specContent -HeadingRegex "(?m)^##\s+9\.\s+関連資料リンク" -EndRegex "(?m)^##\s+"
     $docPathMatches = @()
     if ($relatedLinksBlock) {
-      $docPathMatches = @([Regex]::Matches($relatedLinksBlock, '(?m)^\s*-\s+`(docs/[^`]+)`'))
+      $docsPathPattern = '(?m)^\s*-\s+`(' + [Regex]::Escape($script:docsRootLabel) + '/[^`]+)`'
+      $docPathMatches = @([Regex]::Matches($relatedLinksBlock, $docsPathPattern))
     }
 
     if ($docPathMatches.Count -eq 0) {
@@ -852,7 +874,7 @@ function Invoke-SingleTaskCheck {
           continue
         }
         if (-not $indexContent.Contains($docPath)) {
-          Add-Failure -RuleId "docs_index_updated" -File $DocsIndexPath -Reason "docs/INDEX.md does not include referenced docs path: $docPath"
+          Add-Failure -RuleId "docs_index_updated" -File $DocsIndexPath -Reason "Docs index does not include referenced docs path: $docPath"
         }
       }
     }

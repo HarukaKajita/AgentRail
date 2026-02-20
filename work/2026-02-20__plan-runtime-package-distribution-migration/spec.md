@@ -99,4 +99,5 @@
 - review: work/2026-02-20__plan-runtime-package-distribution-migration/review.md
 - docs:
   - `docs/operations/high-priority-backlog.md`
+  - `docs/operations/runtime-package-distribution-migration-plan.md`
 

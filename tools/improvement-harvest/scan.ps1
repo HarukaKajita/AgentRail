@@ -1,11 +1,13 @@
 param(
   [Parameter(Mandatory = $true)]
   [string]$TaskId,
-  [string]$WorkRoot = "work"
+  [string]$WorkRoot = "work",
+  [string]$ProfilePath = "project.profile.yaml"
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+. (Join-Path -Path $PSScriptRoot -ChildPath "../common/profile-paths.ps1")
 
 function Fail {
   param([string]$Message)
@@ -60,6 +62,12 @@ $allowedCategories = @("flow", "docs", "ci", "quality", "other")
 $allowedSeverities = @("must", "high", "medium", "low")
 $requiredActionSeverities = @("must", "high")
 $requiredKeys = @("finding_id", "category", "severity", "summary", "evidence", "action_required")
+
+$workflowPaths = Resolve-WorkflowPaths -ProfilePath $ProfilePath -DefaultTaskRoot "work" -DefaultDocsRoot "docs"
+if (-not $PSBoundParameters.ContainsKey("WorkRoot")) {
+  $WorkRoot = $workflowPaths.task_root
+}
+$taskRootLabel = ConvertTo-NormalizedRepoPath -PathValue $WorkRoot
 
 $taskDir = Join-Path -Path $WorkRoot -ChildPath $TaskId
 $reviewPath = Join-Path -Path $taskDir -ChildPath "review.md"
@@ -134,7 +142,7 @@ foreach ($findingBlock in $findingBlocks) {
 
     $linkedTaskPath = Join-Path -Path $WorkRoot -ChildPath $linkedTaskId
     if (-not (Test-Path -LiteralPath $linkedTaskPath -PathType Container)) {
-      Fail("linked_task_id does not exist under work/: $linkedTaskId")
+      Fail("linked_task_id does not exist under $taskRootLabel/: $linkedTaskId")
     }
   }
 

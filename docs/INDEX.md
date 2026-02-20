@@ -53,7 +53,9 @@
 - `docs/operations/profile-validator-required-checks-source-of-truth.md` - Profile Validator Required Checks Source Of Truth
 - `docs/operations/profile-validator-schema-version-policy.md` - Profile Validator Schema Version Policy
 - `docs/operations/runtime-distribution-export-guide.md` - Runtime Distribution Export Guide
+- `docs/operations/runtime-framework-rules.md` - Runtime Framework Rules
 - `docs/operations/runtime-installation-runbook.md` - Runtime Installation Runbook
+- `docs/operations/runtime-package-distribution-migration-plan.md` - Runtime Package Distribution Migration Plan
 - `docs/operations/skills-framework-flow-guide.md` - Skills Framework Flow Guide
 - `docs/operations/skills-sync-runbook.md` - Skills Sync Runbook
 - `docs/operations/stage-terminology.md` - 開発段階用語集

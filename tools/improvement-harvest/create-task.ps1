@@ -14,11 +14,13 @@ param(
   [string[]]$DependsOn = @(),
   [string]$TaskId = "",
   [string]$WorkRoot = "work",
+  [string]$ProfilePath = "project.profile.yaml",
   [string]$Author = "codex"
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+. (Join-Path -Path $PSScriptRoot -ChildPath "../common/profile-paths.ps1")
 
 function Fail {
   param([string]$Message)
@@ -77,8 +79,18 @@ function Resolve-DependencyTaskIds {
   return $resolved.ToArray()
 }
 
+$workflowPaths = Resolve-WorkflowPaths -ProfilePath $ProfilePath -DefaultTaskRoot "work" -DefaultDocsRoot "docs"
+if (-not $PSBoundParameters.ContainsKey("WorkRoot")) {
+  $WorkRoot = $workflowPaths.task_root
+}
+
+$taskRootLabel = ConvertTo-NormalizedRepoPath -PathValue $WorkRoot
+$docsRootLabel = ConvertTo-NormalizedRepoPath -PathValue $workflowPaths.docs_root
+$docsIndexPathLabel = Join-NormalizedRepoPath -BasePath $docsRootLabel -ChildPath "INDEX.md"
+$backlogPathLabel = Join-NormalizedRepoPath -BasePath $docsRootLabel -ChildPath "operations/high-priority-backlog.md"
+
 if (-not (Test-Path -LiteralPath $WorkRoot -PathType Container)) {
-  Fail("work root does not exist: $WorkRoot")
+  Fail("task root does not exist: $WorkRoot")
 }
 
 $sourceTaskPath = Join-Path -Path $WorkRoot -ChildPath $SourceTaskId
@@ -124,6 +136,14 @@ $dependencyLabel = if ($dependencyTaskIds.Count -eq 0) {
 
 New-Item -ItemType Directory -Path $newTaskPath -Force | Out-Null
 
+$sourceReviewPathLabel = Join-NormalizedRepoPath -BasePath (Join-NormalizedRepoPath -BasePath $taskRootLabel -ChildPath $SourceTaskId) -ChildPath "review.md"
+$newTaskRootPathLabel = Join-NormalizedRepoPath -BasePath $taskRootLabel -ChildPath $resolvedTaskId
+$requestPathLabel = Join-NormalizedRepoPath -BasePath $newTaskRootPathLabel -ChildPath "request.md"
+$investigationPathLabel = Join-NormalizedRepoPath -BasePath $newTaskRootPathLabel -ChildPath "investigation.md"
+$specPathLabel = Join-NormalizedRepoPath -BasePath $newTaskRootPathLabel -ChildPath "spec.md"
+$planPathLabel = Join-NormalizedRepoPath -BasePath $newTaskRootPathLabel -ChildPath "plan.md"
+$reviewPathLabel = Join-NormalizedRepoPath -BasePath $newTaskRootPathLabel -ChildPath "review.md"
+
 $requestContent = @(
   "# Request: $resolvedTaskId",
   "",
@@ -131,8 +151,8 @@ $requestContent = @(
   "",
   "- 参照資料:",
   "  - ${backtick}AGENTS.md${backtick}",
-  "  - ${backtick}docs/INDEX.md${backtick}",
-  "  - ${backtick}work/$SourceTaskId/review.md${backtick}",
+  "  - ${backtick}$docsIndexPathLabel${backtick}",
+  "  - ${backtick}$sourceReviewPathLabel${backtick}",
   "- 理解ポイント:",
   "  - source task の finding 文脈と依存関係を把握してから着手する。",
   "",
@@ -151,7 +171,7 @@ $requestContent = @(
   "",
   "## 成功条件（要望レベル）",
   "",
-  "1. work/$resolvedTaskId/ に必須6ファイルが作成される。",
+  "1. $newTaskRootPathLabel/ に必須6ファイルが作成される。",
   "2. 生成された spec.md が consistency-check の必須フォーマットを満たす。",
   "3. 元タスクと finding のトレーサビリティが残る。",
   "4. state.json に depends_on が定義される。"
@@ -164,8 +184,8 @@ $investigationContent = @(
   "",
   "- 参照資料:",
   "  - ${backtick}AGENTS.md${backtick}",
-  "  - ${backtick}docs/INDEX.md${backtick}",
-  "  - ${backtick}work/$SourceTaskId/review.md${backtick}",
+  "  - ${backtick}$docsIndexPathLabel${backtick}",
+  "  - ${backtick}$sourceReviewPathLabel${backtick}",
   "- 理解ポイント:",
   "  - source finding の再現条件と影響範囲を先に確認する。",
   "",
@@ -181,7 +201,7 @@ $investigationContent = @(
   "## 3. 観測方法 [空欄禁止]",
   "",
   "- 参照資料:",
-  "  - work/$SourceTaskId/review.md",
+  "  - $sourceReviewPathLabel",
   "- 実施した確認:",
   "  - finding の再現条件と影響範囲を確認する。",
   "  - depends_on に設定した task-id が着手前完了条件を満たすか確認する。",
@@ -205,8 +225,8 @@ $investigationContent = @(
   "",
   "## 8. 関連リンク [空欄禁止]",
   "",
-  "- request: work/$resolvedTaskId/request.md",
-  "- spec: work/$resolvedTaskId/spec.md"
+  "- request: $requestPathLabel",
+  "- spec: $specPathLabel"
 ) -join "`n"
 
 $specContent = @(
@@ -216,9 +236,9 @@ $specContent = @(
   "",
   "- 参照資料:",
   "  - ${backtick}AGENTS.md${backtick}",
-  "  - ${backtick}docs/INDEX.md${backtick}",
-  "  - ${backtick}work/$resolvedTaskId/request.md${backtick}",
-  "  - ${backtick}work/$resolvedTaskId/investigation.md${backtick}",
+  "  - ${backtick}$docsIndexPathLabel${backtick}",
+  "  - ${backtick}$requestPathLabel${backtick}",
+  "  - ${backtick}$investigationPathLabel${backtick}",
   "- 理解ポイント:",
   "  - 要望、調査結果、依存タスクを踏まえて受入条件を定義する。",
   "",
@@ -229,7 +249,7 @@ $specContent = @(
   "- 作成日: $today",
   "- 更新日: $today",
   "- 作成者: $Author",
-  "- 関連要望: work/$resolvedTaskId/request.md",
+  "- 関連要望: $requestPathLabel",
   "- 依存タスク: $dependencyLabel",
   "",
   "## 2. 背景と目的 [空欄禁止]",
@@ -296,12 +316,12 @@ $specContent = @(
   "",
   "## 9. 関連資料リンク [空欄禁止]",
   "",
-  "- request: work/$resolvedTaskId/request.md",
-  "- investigation: work/$resolvedTaskId/investigation.md",
-  "- plan: work/$resolvedTaskId/plan.md",
-  "- review: work/$resolvedTaskId/review.md",
+  "- request: $requestPathLabel",
+  "- investigation: $investigationPathLabel",
+  "- plan: $planPathLabel",
+  "- review: $reviewPathLabel",
   "- docs:",
-  "  - docs/operations/high-priority-backlog.md"
+  "  - ${backtick}$backlogPathLabel${backtick}"
 ) -join "`n"
 
 $planContent = @(
@@ -311,14 +331,14 @@ $planContent = @(
   "",
   "- 参照資料:",
   "  - ${backtick}AGENTS.md${backtick}",
-  "  - ${backtick}docs/INDEX.md${backtick}",
-  "  - ${backtick}work/$resolvedTaskId/spec.md${backtick}",
+  "  - ${backtick}$docsIndexPathLabel${backtick}",
+  "  - ${backtick}$specPathLabel${backtick}",
   "- 理解ポイント:",
   "  - spec の受入条件とテスト要件を基準に実装順序を決定する。",
   "",
   "## 1. 対象仕様",
   "",
-  "- work/$resolvedTaskId/spec.md",
+  "- $specPathLabel",
   "",
   "## 2. Execution Commands",
   "",
@@ -355,9 +375,9 @@ $reviewContent = @(
   "",
   "- 参照資料:",
   "  - ${backtick}AGENTS.md${backtick}",
-  "  - ${backtick}docs/INDEX.md${backtick}",
-  "  - ${backtick}work/$resolvedTaskId/spec.md${backtick}",
-  "  - ${backtick}work/$resolvedTaskId/plan.md${backtick}",
+  "  - ${backtick}$docsIndexPathLabel${backtick}",
+  "  - ${backtick}$specPathLabel${backtick}",
+  "  - ${backtick}$planPathLabel${backtick}",
   "- 理解ポイント:",
   "  - 受入条件とテスト要件に対して差分の妥当性を検証する。",
   "",

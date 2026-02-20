@@ -108,6 +108,11 @@ Claude 互換の補助は `CLAUDE.md` に記載しますが、矛盾時はこの
 - ビルド・テスト・フォーマット・Lint の具体コマンドは profile から読む。
 - profile 未設定時は推測実行しない。質問を生成して停止する。
 - フレームワーク本体は特定技術スタックに依存しない。
+- runtime 必須ルールの詳細は `docs/operations/runtime-framework-rules.md` を参照する。
+- runtime 要旨:
+  - 配布境界の SSOT は `framework.runtime.manifest.yaml`。
+  - 導入先 task root の標準は `.agentrail/work`。
+  - runtime 関連ツールのパス解決は `workflow.task_root/docs_root/runtime_root` 起点で統一する。
 
 ## 7. 完了条件
 

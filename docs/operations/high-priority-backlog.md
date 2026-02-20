@@ -15,32 +15,7 @@
 
 ## 優先タスク一覧
 
-1. `2026-02-20__refactor-tools-to-profile-driven-runtime-paths`
-- 状態: in_progress
-- 計画段階: plan-draft
-- ゲート状態: plan-ready
-- 依存: `2026-02-20__add-runtime-installer-with-agentrail-work-layout`
-- 依存状態: 解決済み
-- 目的: `tools/*` の固定パス参照を `project.profile.yaml` 起点へ統一し、`.agentrail/work` レイアウトを正式対応する
-- 参照: `work/2026-02-20__refactor-tools-to-profile-driven-runtime-paths/spec.md`
-
-2. `2026-02-20__split-framework-runtime-rules-from-agents`
-- 状態: planned
-- 計画段階: plan-draft
-- ゲート状態: plan-ready
-- 依存: `2026-02-20__add-runtime-installer-with-agentrail-work-layout`
-- 依存状態: 解決済み
-- 目的: フレームワーク動作に必須な記述を別ファイルへ分離し、`AGENTS.md` は要旨と参照リンク中心に整理する
-- 参照: `work/2026-02-20__split-framework-runtime-rules-from-agents/spec.md`
-
-3. `2026-02-20__plan-runtime-package-distribution-migration`
-- 状態: planned
-- 計画段階: plan-draft
-- ゲート状態: dependency-blocked
-- 依存: `2026-02-20__refactor-tools-to-profile-driven-runtime-paths`, `2026-02-20__split-framework-runtime-rules-from-agents`
-- 依存状態: 未解決（先行タスク完了待ち）
-- 目的: `dist/runtime` コピー配布から package 配布へ移行する条件・互換ポリシー・実施手順を定義する
-- 参照: `work/2026-02-20__plan-runtime-package-distribution-migration/spec.md`
+- 現在、優先タスク一覧は空です。
 
 ## Completed
 
@@ -255,6 +230,27 @@
 - 依存状態: 解決済み
 - 目的: subagent / multi_agent の委譲範囲を request / investigation / spec / plan-draft へ拡張し、親ゲート通過前の kickoff と次工程進行を抑止する運用を定義する
 - 参照: `work/2026-02-20__subagent-multi-agent-delegation-governance/spec.md`
+
+36. `2026-02-20__refactor-tools-to-profile-driven-runtime-paths`
+- 状態: done
+- 依存: `2026-02-20__add-runtime-installer-with-agentrail-work-layout`
+- 依存状態: 解決済み
+- 目的: `tools/*` の固定パス参照を `project.profile.yaml` 起点へ統一し、`.agentrail/work` レイアウトを正式対応する
+- 参照: `work/2026-02-20__refactor-tools-to-profile-driven-runtime-paths/spec.md`
+
+37. `2026-02-20__split-framework-runtime-rules-from-agents`
+- 状態: done
+- 依存: `2026-02-20__add-runtime-installer-with-agentrail-work-layout`
+- 依存状態: 解決済み
+- 目的: フレームワーク動作に必須な記述を別ファイルへ分離し、`AGENTS.md` は要旨と参照リンク中心に整理する
+- 参照: `work/2026-02-20__split-framework-runtime-rules-from-agents/spec.md`
+
+38. `2026-02-20__plan-runtime-package-distribution-migration`
+- 状態: done
+- 依存: `2026-02-20__refactor-tools-to-profile-driven-runtime-paths`, `2026-02-20__split-framework-runtime-rules-from-agents`
+- 依存状態: 解決済み
+- 目的: `dist/runtime` コピー配布から package 配布へ移行する条件・互換ポリシー・実施手順を定義する
+- 参照: `work/2026-02-20__plan-runtime-package-distribution-migration/spec.md`
 
 ## 更新ルール
 

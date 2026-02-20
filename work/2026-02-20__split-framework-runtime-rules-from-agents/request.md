@@ -47,7 +47,7 @@
 ## 依存関係整理
 
 - depends_on: `2026-02-20__add-runtime-installer-with-agentrail-work-layout`
-- 依存状態: 未解決（先行タスク完了待ち）
+- 依存状態: 解決済み
 
 ## 成功条件（要望レベル）
 

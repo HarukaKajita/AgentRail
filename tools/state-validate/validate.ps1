@@ -4,11 +4,13 @@ param(
   [Parameter(Mandatory = $true, ParameterSetName = "all")]
   [switch]$AllTasks,
   [string]$WorkRoot = "work",
-  [string]$DocsIndexPath = "docs/INDEX.md"
+  [string]$DocsIndexPath = "docs/INDEX.md",
+  [string]$ProfilePath = "project.profile.yaml"
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+. (Join-Path -Path $PSScriptRoot -ChildPath "../common/profile-paths.ps1")
 
 $failures = New-Object System.Collections.Generic.List[object]
 $successTasks = New-Object System.Collections.Generic.List[string]
@@ -18,6 +20,22 @@ $requiredTaskFiles = @("request.md", "investigation.md", "spec.md", "plan.md", "
 $forbiddenStateKeys = @("history", "state_history")
 $script:docsIndexContent = $null
 $script:normalizedDocsIndexPath = ""
+$script:docsRootLabel = ""
+
+$workflowPaths = Resolve-WorkflowPaths -ProfilePath $ProfilePath -DefaultTaskRoot "work" -DefaultDocsRoot "docs"
+if (-not $PSBoundParameters.ContainsKey("WorkRoot")) {
+  $WorkRoot = $workflowPaths.task_root
+}
+if (-not $PSBoundParameters.ContainsKey("DocsIndexPath")) {
+  $DocsIndexPath = $workflowPaths.docs_index_path
+}
+
+$WorkRoot = ConvertTo-NormalizedRepoPath -PathValue $WorkRoot
+$DocsIndexPath = ConvertTo-NormalizedRepoPath -PathValue $DocsIndexPath
+$script:docsRootLabel = ConvertTo-NormalizedRepoPath -PathValue $workflowPaths.docs_root
+if ([string]::IsNullOrWhiteSpace($script:docsRootLabel)) {
+  $script:docsRootLabel = "docs"
+}
 
 function Add-Failure {
   param(
@@ -388,7 +406,8 @@ function Validate-Task {
       if (-not $relatedLinksBlock) {
         Add-Failure -Task $TargetTaskId -File $specPath -Reason "state=done requires '## 9. 関連資料リンク' in spec.md."
       } else {
-        $docPathMatches = @([Regex]::Matches($relatedLinksBlock, '(?m)^\s*-\s+`(docs/[^`]+)`'))
+        $docsPathPattern = '(?m)^\s*-\s+`(' + [Regex]::Escape($script:docsRootLabel) + '/[^`]+)`'
+        $docPathMatches = @([Regex]::Matches($relatedLinksBlock, $docsPathPattern))
         if ($docPathMatches.Count -eq 0) {
           Add-Failure -Task $TargetTaskId -File $specPath -Reason "state=done requires at least one docs path under related links."
         } else {
@@ -404,7 +423,7 @@ function Validate-Task {
             }
 
             if (-not $script:docsIndexContent.Contains($docPath)) {
-              Add-Failure -Task $TargetTaskId -File $DocsIndexPath -Reason "state=done requires docs/INDEX.md to include docs path: $docPath"
+              Add-Failure -Task $TargetTaskId -File $DocsIndexPath -Reason "state=done requires docs index to include docs path: $docPath"
             }
           }
         }
