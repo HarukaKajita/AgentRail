@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__wave2-spec-doc-quality-check-rules
-- タイトル: Wave 2: docs品質チェックルール設計
+- Task ID: 2026-02-20__wave2-implement-doc-quality-warning-mode
+- タイトル: Wave 2: docs品質チェック warning 導入
 - 状態: planned
-- 最終更新日時: 2026-02-20T17:51:01+09:00
+- 最終更新日時: 2026-02-20T17:55:25+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -65,6 +65,10 @@
   - `docs/operations/wave1-doc-work-cross-link-normalization.md` を追加し、相互リンク標準ルールを定義。
   - `docs/operations/wave1-core-docs-human-centric-migration.md` / `wave1-operations-docs-human-centric-migration.md` に関連 task リンクを統一形式で追記。
   - `work/2026-02-20__wave1-normalize-doc-work-cross-links/{plan,spec,review,state.json}` を done 条件へ更新。
+- `2026-02-20__wave2-spec-doc-quality-check-rules` を完了。
+  - `docs/operations/wave2-doc-quality-check-rules-spec.md` を追加し、DQ-001〜DQ-004 と warning/fail 段階導入方針を定義。
+  - `docs/operations/high-priority-backlog.md` で warning 導入タスクを plan-ready に更新。
+  - `work/2026-02-20__wave2-spec-doc-quality-check-rules/{plan,spec,review,state.json}` を done 条件へ更新。
 - Wave 実行タスク 12 件を起票。
   - Wave 0: `2026-02-20__wave0-inventory-human-centric-doc-coverage`, `2026-02-20__wave0-define-doc-ownership-and-update-matrix`
   - Wave 1: `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`, `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`, `2026-02-20__wave1-normalize-doc-work-cross-links`
@@ -86,9 +90,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__wave2-spec-doc-quality-check-rules` を完了し、docs品質チェック仕様を確定する。
-2. `2026-02-20__wave2-implement-doc-quality-warning-mode` を完了し、段階導入を実装する。
-3. `2026-02-20__wave2-enforce-doc-quality-fail-mode` を完了し、fail モードへ昇格する。
+1. `2026-02-20__wave2-implement-doc-quality-warning-mode` を完了し、段階導入を実装する。
+2. `2026-02-20__wave2-enforce-doc-quality-fail-mode` を完了し、fail モードへ昇格する。
+3. `2026-02-20__wave2-align-ci-runbook-with-doc-quality-gates` を完了し、CI運用資料を整合する。
 
 ## 7. 参照先
 
@@ -119,6 +123,9 @@
 - `work/2026-02-20__wave1-normalize-doc-work-cross-links/spec.md`
 - `work/2026-02-20__wave1-normalize-doc-work-cross-links/review.md`
 - `docs/operations/wave1-doc-work-cross-link-normalization.md`
+- `work/2026-02-20__wave2-spec-doc-quality-check-rules/spec.md`
+- `work/2026-02-20__wave2-spec-doc-quality-check-rules/review.md`
+- `docs/operations/wave2-doc-quality-check-rules-spec.md`
 
 ## 8. 引き継ぎ時チェック
 

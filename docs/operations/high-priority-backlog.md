@@ -26,21 +26,12 @@
 
 ## 優先タスク一覧
 
-6. `2026-02-20__wave2-spec-doc-quality-check-rules`
-- 状態: planned
-- 計画段階: plan-draft
-- ゲート状態: plan-ready
-- 依存: `2026-02-20__wave1-normalize-doc-work-cross-links`
-- 依存状態: 解決済み
-- 目的: consistency-check / state-validate へ追加する docs 品質チェック仕様を設計する
-- 参照: `work/2026-02-20__wave2-spec-doc-quality-check-rules/spec.md`
-
 7. `2026-02-20__wave2-implement-doc-quality-warning-mode`
 - 状態: planned
 - 計画段階: plan-draft
-- ゲート状態: dependency-blocked
+- ゲート状態: plan-ready
 - 依存: `2026-02-20__wave2-spec-doc-quality-check-rules`
-- 依存状態: 未解決（先行タスク完了待ち）
+- 依存状態: 解決済み
 - 目的: docs 品質チェックを warning モードで段階導入する
 - 参照: `work/2026-02-20__wave2-implement-doc-quality-warning-mode/spec.md`
 
@@ -372,6 +363,13 @@
 - 依存状態: 解決済み
 - 目的: docs と work の相互参照を統一し、参照切れを解消する
 - 参照: `work/2026-02-20__wave1-normalize-doc-work-cross-links/spec.md`
+
+46. `2026-02-20__wave2-spec-doc-quality-check-rules`
+- 状態: done
+- 依存: `2026-02-20__wave1-normalize-doc-work-cross-links`
+- 依存状態: 解決済み
+- 目的: consistency-check / state-validate へ追加する docs 品質チェック仕様を設計する
+- 参照: `work/2026-02-20__wave2-spec-doc-quality-check-rules/spec.md`
 
 ## 更新ルール
 
