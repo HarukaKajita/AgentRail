@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__wave3-connect-kpi-to-process-findings-loop
-- タイトル: Wave 3: KPI と Process Findings 連携
+- Task ID: none
+- タイトル: Wave 3 完了後の次タスク選定
 - 状態: planned
-- 最終更新日時: 2026-02-20T18:53:23+09:00
+- 最終更新日時: 2026-02-20T18:55:24+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -94,6 +94,11 @@
   - `docs/operations/wave3-doc-quality-metrics-report-automation.md` を追加し、実行手順と出力仕様を定義。
   - `docs/operations/high-priority-backlog.md` で `wave3-connect-kpi-to-process-findings-loop` を plan-ready に更新。
   - `work/2026-02-20__wave3-automate-doc-quality-metrics-report/{request,investigation,spec,plan,review,state.json}` を done 条件へ更新。
+- `2026-02-20__wave3-connect-kpi-to-process-findings-loop` を完了。
+  - `tools/doc-quality/generate-finding-template.ps1` を追加し、KPI report から Process Finding テンプレートを生成可能化。
+  - `docs/operations/wave3-kpi-process-findings-loop.md` を追加し、decision table と create-task 接続手順を定義。
+  - `docs/operations/high-priority-backlog.md` で Wave 3 実行タスクをすべて Completed へ移動。
+  - `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/{request,investigation,spec,plan,review,state.json}` を done 条件へ更新。
 - Wave 実行タスク 12 件を起票。
   - Wave 0: `2026-02-20__wave0-inventory-human-centric-doc-coverage`, `2026-02-20__wave0-define-doc-ownership-and-update-matrix`
   - Wave 1: `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`, `2026-02-20__wave1-migrate-operations-docs-to-human-centric-model`, `2026-02-20__wave1-normalize-doc-work-cross-links`
@@ -115,9 +120,9 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__wave3-connect-kpi-to-process-findings-loop` を完了し、改善ループへ接続する。
-2. Wave 3 完了後に KPI 閾値を再評価し、必要なら基準を更新する。
-3. KPI レポートの定期実行タイミング（週次/リリース前）を運用へ組み込む。
+1. DQ-002 warning 21 件の解消優先順を新規タスクとして起票する。
+2. KPI レポートの定期実行タイミング（週次/リリース前）を運用カレンダーへ反映する。
+3. Wave 3 docs（thresholds / metrics / loop）の運用レビューを実施する。
 
 ## 7. 参照先
 
@@ -166,6 +171,9 @@
 - `work/2026-02-20__wave3-automate-doc-quality-metrics-report/spec.md`
 - `work/2026-02-20__wave3-automate-doc-quality-metrics-report/review.md`
 - `docs/operations/wave3-doc-quality-metrics-report-automation.md`
+- `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/spec.md`
+- `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/review.md`
+- `docs/operations/wave3-kpi-process-findings-loop.md`
 
 ## 8. 引き継ぎ時チェック
 

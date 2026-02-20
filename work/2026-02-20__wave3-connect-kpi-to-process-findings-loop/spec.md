@@ -10,12 +10,12 @@
 
 - 参照資料:
   - `AGENTS.md`
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
+  - `docs/operations/wave3-doc-quality-kpi-thresholds.md`
+  - `docs/operations/wave3-doc-quality-metrics-report-automation.md`
   - `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/request.md`
   - `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/investigation.md`
 - 理解ポイント:
-  - Wave 3: KPI と Process Findings 連携 は wave 計画を実行するための分割タスクである。
+  - task12 は KPI 観測と改善起票を実運用として閉じる Wave 3 最終工程。
 
 ## 1. メタ情報 [空欄禁止]
 
@@ -28,69 +28,94 @@
 
 ## 2. 背景と目的 [空欄禁止]
 
-- 背景: wave 計画を実行可能な粒度へ分割する必要がある。
-- 目的: KPI悪化時に Process Findings から改善タスクへ接続する運用を定義する。
+- 背景: task11 で KPI 自動集計は実装済みだが、悪化時の改善接続ルールが未固定。
+- 目的: KPI status を Process Findings と follow-up task 起票へ接続する運用を確立する。
 
 ## 3. スコープ [空欄禁止]
 
 ### 3.1 In Scope [空欄禁止]
 
-- 本タスク対象の成果物定義と実施方針の確定。
-- depends_on / gate / rollback の明文化。
-- review と検証結果の記録。
+- `docs/operations/wave3-kpi-process-findings-loop.md` の追加。
+- `tools/doc-quality/generate-finding-template.ps1` の追加。
+- backlog/state/MEMORY の Wave 3 完了同期。
 
 ### 3.2 Out of Scope [空欄禁止]
 
-- 依存していない後続 wave タスクの完了。
-- 全 docs の一括改修。
+- CI 上での自動起票実行。
+- DQ-002 既存 warning 21 件の一括修正。
 
 ## 4. 受入条件 (Acceptance Criteria / 受入条件) [空欄禁止]
 
-- AC-001: Wave 3: KPI と Process Findings 連携 の成果物・手順・ゲート・ロールバックが task 資料に明記される。
-- AC-002: depends_on と backlog/state/plan の整合が維持される。
+- AC-001: `docs/operations/wave3-kpi-process-findings-loop.md` に status別 decision table、標準フロー、review 記載テンプレート、create-task コマンドが明記される。
+- AC-002: `tools/doc-quality/generate-finding-template.ps1` が KPI report JSON から finding テンプレートを text/json で生成できる。
+- AC-003: backlog/state/MEMORY が Wave 3 完了状態へ同期され、優先タスク一覧に未完了が残らない。
 
 ## 5. テスト要件 (Test Requirements / テスト要件) [空欄禁止]
 
 ### 5.1 Unit Test (Unit Test / 単体テスト) [空欄禁止]
 
-- 対象: `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop` の request/investigation/spec/plan/review/state
-- 観点: 空欄禁止セクション、依存、成果物定義の整合
-- 合格条件: consistency-check -TaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop が PASS
+- 対象:
+  - `tools/doc-quality/generate-finding-template.ps1`
+  - `docs/operations/wave3-kpi-process-findings-loop.md`
+- 観点:
+  - text/json で required keys を生成できる。
+- 合格条件:
+  - `pwsh -NoProfile -File tools/doc-quality/generate-finding-template.ps1 -SourceTaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop -ReportJsonPath .tmp/wave3-metrics-report.json`
+  - `pwsh -NoProfile -File tools/doc-quality/generate-finding-template.ps1 -SourceTaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop -ReportJsonPath .tmp/wave3-metrics-report.json -OutputFormat json`
 
 ### 5.2 Integration Test (Integration Test / 結合テスト) [空欄禁止]
 
-- 対象: depends_on で接続される task 間の整合
-- 観点: depends_on 記述と backlog 表示が一致
-- 合格条件: 依存 task + 本 task の consistency-check が PASS
+- 対象: task11 report と task12 loop 接続。
+- 観点: report 生成と finding 生成の連携。
+- 合格条件:
+  - `pwsh -NoProfile -File tools/doc-quality/generate-kpi-report.ps1 -OutputJsonFile .tmp/wave3-metrics-report.json -OutputMarkdownFile .tmp/wave3-metrics-report.md`
+  - `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-20__wave3-automate-doc-quality-metrics-report,2026-02-20__wave3-connect-kpi-to-process-findings-loop -DocQualityMode warning`
+  - `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop -DocQualityMode warning`
 
 ### 5.3 Regression Test (Regression Test / 回帰テスト) [空欄禁止]
 
-- 対象: 全 task の state / consistency 運用
-- 観点: 既存完了タスクの PASS を維持
-- 合格条件: state-validate -AllTasks と consistency-check -AllTasks が PASS
+- 対象: 全 task の validator 運用。
+- 観点: Wave 3 完了後も PASS を維持する。
+- 合格条件:
+  - `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks -DocQualityMode warning`
+  - `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning`
+  - `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
 
 ### 5.4 Manual Verification (Manual Verification / 手動検証) [空欄禁止]
 
-- 手順: backlog と MEMORY を確認し、依存順序と次アクションが明示されることを確認
-- 期待結果: AC-001 と AC-002 を満たす
+- 手順:
+  1. backlog の `優先タスク一覧` が空で、task12 が Completed に移動していることを確認。
+  2. MEMORY が Wave 3 完了後の次アクションへ更新されていることを確認。
+  3. docs/INDEX に loop doc 導線が追加されていることを確認。
+- 期待結果: AC-001〜AC-003 を満たす。
 
 ## 6. 影響範囲 [空欄禁止]
 
-- 影響ファイル/モジュール: `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop`/*, `docs/operations/high-priority-backlog.md`, `MEMORY.md`
-- 影響する仕様: human-centric docs migration wave 計画
-- 非機能影響: docs 更新の追跡性とレビュー可能性が向上する
+- 影響ファイル/モジュール:
+  - `tools/doc-quality/generate-finding-template.ps1`
+  - `docs/operations/wave3-kpi-process-findings-loop.md`
+  - `docs/operations/high-priority-backlog.md`
+  - `docs/INDEX.md`
+  - `MEMORY.md`
+  - `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/*`
+- 影響する仕様:
+  - `docs/operations/wave3-doc-quality-kpi-thresholds.md`
+  - `docs/operations/wave3-doc-quality-metrics-report-automation.md`
+- 非機能影響:
+  - KPI 悪化時の対応遅延を防止し、改善ループの再現性が向上する。
 
 ## 7. 制約とリスク [空欄禁止]
 
-- 制約: depends_on 未解決時は dependency-blocked を維持する。
+- 制約: 新規処理は補助スクリプトに留め、自動起票は人間レビューを挟む。
 - 想定リスク:
-  - 依存順序を崩した前倒し実装
-  - docs 導線更新漏れ
-- 回避策: gate 判定と docs-indexer check を完了条件へ含める。
+  - report path 取り違えで誤った finding が生成される。
+  - linked_task_id 設定漏れで scan に失敗する。
+- 回避策:
+  - runbook に標準コマンドと記載テンプレートを明記する。
 
 ## 8. 未確定事項 [空欄禁止]
 
-- 実施時に発生する追加改善点は review の Process Findings で管理する。
+- 次 wave（または次施策）の優先タスク選定。
 
 ## 9. 関連資料リンク [空欄禁止]
 
@@ -99,6 +124,6 @@
 - plan: `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/plan.md`
 - review: `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/review.md`
 - docs:
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
-
+  - `docs/operations/wave3-kpi-process-findings-loop.md`
+  - `docs/operations/wave3-doc-quality-kpi-thresholds.md`
+  - `docs/operations/wave3-doc-quality-metrics-report-automation.md`

@@ -4,11 +4,11 @@
 
 - 参照資料:
   - `AGENTS.md`
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
+  - `docs/operations/wave3-doc-quality-kpi-thresholds.md`
+  - `docs/operations/wave3-doc-quality-metrics-report-automation.md`
   - `docs/operations/high-priority-backlog.md`
 - 理解ポイント:
-  - Wave 3: KPI と Process Findings 連携 は wave 計画に基づく実行タスクである。
+  - task12 は KPI 観測結果を Process Findings と起票フローへ接続する最終タスク。
 
 ## 要望の原文
 
@@ -18,41 +18,37 @@
 ## 要望分析
 
 - 直要求:
-  - Wave 3: KPI と Process Findings 連携 の成果物を定義し、task 一式へ反映する。
-  - depends_on と gate 状態を明確化する。
+  - KPI status（green/yellow/red）と finding severity/action_required を対応付ける。
+  - follow-up task 起票までの手順を標準化する。
 - 潜在要求:
-  - `docs` / `work` の相互参照を維持し、後続 wave へ引き継げる情報を残す。
+  - 手動運用でも再現可能なテンプレートを提供する。
+  - 既存 improvement-harvest ツールと整合する。
 - 非要求:
-  - 後続 wave の実装完了。
+  - 新規の CI 自動起票ジョブ追加。
 
 ## 提案オプション（3案）
 
-1. 最小実行:
-   - 最低限の成果物のみ作成する。
-2. 標準実行（採用）:
-   - 受入条件・テスト要件・依存整合まで同時に確定する。
-3. 拡張実行:
-   - 後続 wave の内容まで先行実装する。
+1. docs のみで運用定義する。
+2. docs + finding テンプレート生成スクリプトを追加する（採用）。
+3. create-task 自動実行まで含めて実装する。
 
 ## 推奨案
 
-- 採用: オプション2（標準実行）
+- 採用: オプション2
 - 採用理由:
-  - 依存順序を守りながら、完了判定に必要な品質証跡を残せる。
+  - 過剰自動化を避けつつ、起票品質を安定化できるため。
 
 ## 依存関係整理
 
-- depends_on: 2026-02-20__wave3-automate-doc-quality-metrics-report
-- 依存状態: 未解決（2026-02-20__wave3-automate-doc-quality-metrics-report[planned]）
+- depends_on: `2026-02-20__wave3-automate-doc-quality-metrics-report`
+- 依存状態: 解決済み（task11 は `done`）
 
 ## 成功条件（要望レベル）
 
-1. Wave 3: KPI と Process Findings 連携 の成果物が task 資料と関連 docs に明文化される。
-2. depends_on と gate 状態が backlog/state/plan で整合する。
-3. 後続 task が参照可能な形で引き継ぎ情報が記録される。
+1. KPI status ごとの finding 運用ルールが docs に定義される。
+2. `tools/doc-quality/generate-finding-template.ps1` で Process Finding テンプレートを生成できる。
+3. backlog/state/MEMORY が Wave 3 完了状態へ同期される。
 
 ## blocked 判定
 
-- 依存未解決のため dependency-blocked を維持。
-
-
+- depends_on 解決済みのため plan-ready で進行する。

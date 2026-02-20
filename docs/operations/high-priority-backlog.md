@@ -26,14 +26,7 @@
 
 ## 優先タスク一覧
 
-7. `2026-02-20__wave3-connect-kpi-to-process-findings-loop`
-- 状態: planned
-- 計画段階: plan-draft
-- ゲート状態: plan-ready
-- 依存: `2026-02-20__wave3-automate-doc-quality-metrics-report`
-- 依存状態: 解決済み
-- 目的: KPI悪化時に Process Findings から改善タスクへ接続する運用を定義する
-- 参照: `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/spec.md`
+- （該当なし）
 
 ## Completed
 
@@ -360,6 +353,13 @@
 - 依存状態: 解決済み
 - 目的: docs 品質 KPI の自動集計と可視化レポートを設計・実装する
 - 参照: `work/2026-02-20__wave3-automate-doc-quality-metrics-report/spec.md`
+
+52. `2026-02-20__wave3-connect-kpi-to-process-findings-loop`
+- 状態: done
+- 依存: `2026-02-20__wave3-automate-doc-quality-metrics-report`
+- 依存状態: 解決済み
+- 目的: KPI悪化時に Process Findings から改善タスクへ接続する運用を定義する
+- 参照: `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/spec.md`
 
 ## 更新ルール
 

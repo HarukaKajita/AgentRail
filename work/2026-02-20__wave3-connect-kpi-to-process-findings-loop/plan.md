@@ -4,11 +4,10 @@
 
 - 参照資料:
   - `AGENTS.md`
-  - `docs/operations/human-centric-doc-bank-governance.md`
-  - `docs/operations/human-centric-doc-bank-migration-plan.md`
+  - `docs/operations/wave3-doc-quality-metrics-report-automation.md`
   - `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/spec.md`
 - 理解ポイント:
-  - Wave 3: KPI と Process Findings 連携 は wave 計画に従う実行タスクである。
+  - task12 は Wave 3 の出口として、KPI 悪化時に改善起票が必ず走る運用を作る。
 
 ## 1. 対象仕様
 
@@ -16,45 +15,57 @@
 
 ## 2. plan-draft
 
-- 目的: KPI悪化時に Process Findings から改善タスクへ接続する運用を定義する。
+- 目的: KPI report と Process Findings / create-task を接続する。
 - 実施項目:
-  1. 対象成果物と更新責務を確定する。
-  2. depends_on gate と検証順序を確定する。
-  3. review/state/backlog 連携を確定する。
+  1. loop runbook を追加する。
+  2. finding テンプレート生成スクリプトを追加する。
+  3. Wave 3 完了状態へ backlog/MEMORY/state を同期する。
 - 成果物:
-  - task 成果物 6 ファイル
-  - 必要な docs 導線更新
-  - 検証結果記録
+  - `docs/operations/wave3-kpi-process-findings-loop.md`
+  - `tools/doc-quality/generate-finding-template.ps1`
+  - task12 成果物6ファイル
 
 ## 3. depends_on gate
 
-- 依存: 2026-02-20__wave3-automate-doc-quality-metrics-report
-- 判定方針: depends_on が全て done になるまで dependency-blocked を維持する。
-- 判定結果: pending（依存タスク完了後に pass へ更新）
+- 依存: `2026-02-20__wave3-automate-doc-quality-metrics-report`
+- 判定方針: task11 が done の場合のみ task12 を確定する。
+- 判定結果: pass（task11 done）
 
 ## 4. plan-final
 
 - 実行フェーズ:
-  1. 準備: 対象と責務の確認
-  2. 実施: 文書更新と整合反映
-  3. 検証: consistency/state/docs-indexer 実行
-  4. 確定: review/state/backlog/MEMORY 更新
+  1. 実装: finding テンプレート生成スクリプト追加
+  2. docs: loop runbook 追加と migration plan 導線更新
+  3. task: request/investigation/spec/plan/review/state を実績化
+  4. 同期: backlog/MEMORY を Wave 3 完了状態へ更新
+  5. 検証: unit/integration/regression/manual を実行
 - 検証順序:
-  1. pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-20__wave3-automate-doc-quality-metrics-report,2026-02-20__wave3-connect-kpi-to-process-findings-loop
-  2. pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop
-  3. pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop
-  4. pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check
-- ロールバック: 依存や導線に不整合が出た場合は state を blocked/planned に戻して再計画する。
+  1. `pwsh -NoProfile -File tools/doc-quality/generate-kpi-report.ps1 -OutputJsonFile .tmp/wave3-metrics-report.json -OutputMarkdownFile .tmp/wave3-metrics-report.md`
+  2. `pwsh -NoProfile -File tools/doc-quality/generate-finding-template.ps1 -SourceTaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop -ReportJsonPath .tmp/wave3-metrics-report.json`
+  3. `pwsh -NoProfile -File tools/doc-quality/generate-finding-template.ps1 -SourceTaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop -ReportJsonPath .tmp/wave3-metrics-report.json -OutputFormat json`
+  4. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop -DocQualityMode warning`
+  5. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-20__wave3-automate-doc-quality-metrics-report,2026-02-20__wave3-connect-kpi-to-process-findings-loop -DocQualityMode warning`
+  6. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop -DocQualityMode warning`
+  7. `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks -DocQualityMode warning`
+  8. `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning`
+  9. `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
+- ロールバック:
+  - template 出力が運用要件に合わない場合は runbook の手動テンプレート運用へ戻し、script を再調整する。
 
 ## 5. Execution Commands
 
-- pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-20__wave3-automate-doc-quality-metrics-report,2026-02-20__wave3-connect-kpi-to-process-findings-loop
-- pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop
-- pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop
-- pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check
+- `pwsh -NoProfile -File tools/doc-quality/generate-kpi-report.ps1 -OutputJsonFile .tmp/wave3-metrics-report.json -OutputMarkdownFile .tmp/wave3-metrics-report.md`
+- `pwsh -NoProfile -File tools/doc-quality/generate-finding-template.ps1 -SourceTaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop -ReportJsonPath .tmp/wave3-metrics-report.json`
+- `pwsh -NoProfile -File tools/doc-quality/generate-finding-template.ps1 -SourceTaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop -ReportJsonPath .tmp/wave3-metrics-report.json -OutputFormat json`
+- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -TaskIds 2026-02-20__wave3-automate-doc-quality-metrics-report,2026-02-20__wave3-connect-kpi-to-process-findings-loop -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/state-validate/validate.ps1 -TaskId 2026-02-20__wave3-connect-kpi-to-process-findings-loop -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/state-validate/validate.ps1 -AllTasks -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/consistency-check/check.ps1 -AllTasks -DocQualityMode warning`
+- `pwsh -NoProfile -File tools/docs-indexer/index.ps1 -Mode check`
 
 ## 6. 完了判定
 
-- AC-001/AC-002 の判定結果を `work/2026-02-20__wave3-connect-kpi-to-process-findings-loop/review.md` に記録する。
-- depends_on と backlog/state/plan の整合が維持される。
-
+- AC-001〜AC-003 が review で PASS。
+- `state.json` は `done`。
+- backlog の `優先タスク一覧` が空、Wave 3 実行タスクがすべて Completed へ移動している。
