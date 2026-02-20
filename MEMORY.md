@@ -5,10 +5,10 @@
 
 ## 1. 現在のタスク
 
-- Task ID: 2026-02-20__add-plan-template-and-index-link
-- タイトル: Add plan template and index link
+- Task ID: 2026-02-20__normalize-remaining-investigation-heading-terms
+- タイトル: Normalize remaining investigation heading terms
 - 状態: planned
-- 最終更新日時: 2026-02-20T13:05:21+09:00
+- 最終更新日時: 2026-02-20T13:09:46+09:00
 - 担当: codex
 
 ## 2. 今回の目的
@@ -19,6 +19,7 @@
 
 ## 3. 完了済み
 
+- `2026-02-20__add-plan-template-and-index-link` を完了。
 - `2026-02-20__fix-invalid-docs-path-in-self-improvement-spec` を完了。
 - `2026-02-20__add-sidecar-log-rule-to-visual-guide` を完了。
 - `2026-02-20__fix-improvement-create-task-dependency-placeholder` を完了。
@@ -61,15 +62,15 @@
 
 ## 6. 次アクション
 
-1. `2026-02-20__add-plan-template-and-index-link` を実装して plan テンプレート導線を整備する。
-2. `2026-02-20__normalize-remaining-investigation-heading-terms` を実装して用語併記を統一する。
-3. backlog の残タスクが 0 になるまで順次クローズする。
+1. `2026-02-20__normalize-remaining-investigation-heading-terms` を実装して用語併記を統一する。
+2. 完了後に backlog を確認して planned タスクが 0 件であることを確認する。
+3. 全体整合チェック（consistency/state/docs）を実行して最終報告する。
 
 ## 7. 参照先
 
 - `docs/operations/high-priority-backlog.md`
-- `work/2026-02-20__add-plan-template-and-index-link/spec.md`
 - `work/2026-02-20__normalize-remaining-investigation-heading-terms/spec.md`
+- `docs/templates/plan.md`
 
 ## 8. 引き継ぎ時チェック
 

@@ -1,7 +1,7 @@
 {
-  "state": "in_progress",
+  "state": "done",
   "owner": "codex",
-  "updated_at": "2026-02-20T13:08:03+09:00",
+  "updated_at": "2026-02-20T13:09:46+09:00",
   "blocking_issues": [],
   "depends_on": []
 }
