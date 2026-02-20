@@ -38,6 +38,7 @@
   2. `schema_version` が SemVer 形式（`major.minor.patch`）か
   3. `schema_version` が `supported_profile_schema_versions` に含まれているか
   4. `required_keys` / `forbidden_top_level_keys` / `schema_id` 変更、または supported versions の削除がある場合に major を増分したか
+  5. 初回 push などで `BaseSha` が空の場合は、head 単体検証のみになることを認識しているか
 - 対処:
   1. ローカルで `pwsh -NoProfile -File tools/profile-validate/check-schema-governance.ps1 -RepoRoot . -BaseSha <base-sha> -HeadSha <head-sha>` を実行
   2. 失敗した `rule_id`（R-001〜R-005）に対応する schema version 更新を実施

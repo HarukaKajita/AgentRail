@@ -365,7 +365,7 @@ if ($schemaChanged) {
   }
 
   if ([string]::IsNullOrWhiteSpace($resolvedBaseSha) -or ($resolvedBaseSha -eq "0000000000000000000000000000000000000000")) {
-    Add-Failure -RuleId "R-001" -Reason "Schema file changed but BaseSha is unavailable, cannot evaluate schema_version change."
+    Write-Output "schema-governance: BaseSha unavailable; skipping base/head schema diff checks for this run."
   } else {
     $baseSchema = Get-JsonAtRef -Root $RepoRoot -Ref $resolvedBaseSha -RelativePath $schemaRelativePath -RuleId "R-001" -Label "base"
     if ($null -ne $baseSchema -and $null -ne $headSchema) {

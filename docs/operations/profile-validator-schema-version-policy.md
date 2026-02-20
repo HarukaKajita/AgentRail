@@ -30,6 +30,7 @@
 - 実行スクリプト: `tools/profile-validate/check-schema-governance.ps1`
 - 実行タイミング: `.github/workflows/ci-framework.yml` の profile validate より前
 - 判定対象: `tools/profile-validate/profile-schema.json` の base/head 差分
+- BaseSha が取得できない実行（初回 push など）は head 単体の妥当性検証を実施し、差分必須ルールはスキップする。
 
 ### 強制ルール
 
