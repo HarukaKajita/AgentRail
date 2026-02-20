@@ -64,6 +64,7 @@
 - `docs/operations/state-history-strategy.md` - State History Strategy
 - `docs/operations/state-validator-done-docs-index-consistency.md` - State Validator Done Docs Index Consistency
 - `docs/operations/validator-enhancement-backlog.md` - Validator Enhancement Backlog
+- `docs/operations/wave0-doc-ownership-and-update-matrix.md` - Wave 0: Doc Ownership And Update Matrix
 - `docs/operations/wave0-inventory-human-centric-doc-coverage.md` - Wave 0 Inventory: Human-Centric Doc Coverage
 
 ## 7. 更新手順

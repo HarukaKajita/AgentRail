@@ -15,15 +15,6 @@
 
 ## 優先タスク一覧
 
-2. `2026-02-20__wave0-define-doc-ownership-and-update-matrix`
-- 状態: planned
-- 計画段階: plan-draft
-- ゲート状態: plan-ready
-- 依存: `2026-02-20__wave0-inventory-human-centric-doc-coverage`
-- 依存状態: 解決済み
-- 目的: task owner / implementation owner / reviewer の責務を資料単位で定義する
-- 参照: `work/2026-02-20__wave0-define-doc-ownership-and-update-matrix/spec.md`
-
 3. `2026-02-20__wave1-migrate-core-docs-to-human-centric-model`
 - 状態: planned
 - 計画段階: plan-draft
@@ -369,6 +360,13 @@
 - 依存状態: 解決済み
 - 目的: must 対象資料の棚卸しと欠落カテゴリ（目的/使い方/仕組み/実装/関連）の可視化を行う
 - 参照: `work/2026-02-20__wave0-inventory-human-centric-doc-coverage/spec.md`
+
+42. `2026-02-20__wave0-define-doc-ownership-and-update-matrix`
+- 状態: done
+- 依存: `2026-02-20__wave0-inventory-human-centric-doc-coverage`
+- 依存状態: 解決済み
+- 目的: task owner / implementation owner / reviewer の責務を資料単位で定義する
+- 参照: `work/2026-02-20__wave0-define-doc-ownership-and-update-matrix/spec.md`
 
 ## 更新ルール
 
